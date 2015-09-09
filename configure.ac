@@ -1,6 +1,5 @@
 # Process this file with autoconf to produce a configure script.
-AC_INIT(rfontmetrics, 0.1, david.gohel@ardata.fr)
-AC_CONFIG_HEADER([src/cconfig.h])
+AC_INIT(gdtools, 0.0.1, david.gohel@ardata.fr)
 
 # find R home and set CC/CFLAGS
 : ${R_HOME=`R RHOME`}
@@ -19,21 +18,6 @@ AC_SUBST(R_HOME)
 
 # Checks for programs.
 AC_PROG_CC
-
-# Checks for libraries.
-
-# Checks for header files.
-AC_HEADER_STDC
-AC_HEADER_SYS_WAIT
-AC_CHECK_HEADERS([string.h sys/time.h unistd.h])
-
-# Checks for typedefs, structures, and compiler characteristics.
-AC_C_CONST
-#AC_HEADER_TIME
-
-# Checks for library functions.
-#AC_FUNC_MALLOC
-#AC_TYPE_SIGNAL
 
 AC_PATH_PROG([PKGCONF],[pkg-config],[],[$PATH:/usr/local/bin:ext/bin:ext:/sw/bin:/opt/bin])
 
@@ -78,17 +62,7 @@ fi
 
 AC_MSG_NOTICE([CAIRO_CFLAGS=${CAIRO_CFLAGS}])
 
-# Check for Rconn patch
-AC_MSG_CHECKING([if R was compiled with the RConn patch])
-if test -f "${R_HOME}/include/R_ext/RConn.h"; then
-	AC_MSG_RESULT([yes])
-	HAVE_RCONN_H="-DHAVE_RCONN_H"
-else
-	AC_MSG_RESULT([no])
-	HAVE_RCONN_H=""
-fi
-
-CPPFLAGS="$CPPFLAGS ${CAIRO_CFLAGS} ${HAVE_RCONN_H}"
+CPPFLAGS="$CPPFLAGS ${CAIRO_CFLAGS}"
 
 AC_CHECK_HEADER(cairo.h,,AC_MSG_ERROR([Cannot find cairo.h! Please install cairo (http://www.cairographics.org/) and/or set CAIRO_CFLAGS/LIBS correspondingly.]))
 
@@ -102,26 +76,6 @@ int main(void) {
     return 0;
 }],[AC_MSG_RESULT([yes])] ,[AC_MSG_RESULT([no])
 AC_MSG_ERROR([rfontmetrics library has no PNG support.])])
-
-uses_ats=no
-AC_MSG_CHECKING([for ATS font support in rfontmetrics])
-AC_LINK_IFELSE([
-#include "cairo.h"
-int main(void) {
-#ifndef CAIRO_HAS_ATSUI_FONT
-#error no PNG support
-#endif
-    return 0;
-}],[AC_MSG_RESULT([yes])
-uses_ats=yes],[AC_MSG_RESULT([no])])
-
-if test "xx${CAIRO_LIBS}" == "xx"; then
-   if test $uses_ats == "yes"; then
-      CAIRO_LIBS="-lcairo -lpng -lz -framework ApplicationServices"
-   else
-      CAIRO_LIBs="-lcairo -lpng -lz"
-   fi
-fi
 
 AC_MSG_NOTICE([CAIRO_LIBS=${CAIRO_LIBS}])
 
@@ -235,38 +189,6 @@ int main(void) {
  ])
 fi
 
-# --- check for JPEG support ---
-AC_MSG_CHECKING([wheter libjpeg works])
-zLIBS="${LIBS}"
-LIBS="${LIBS} -ljpeg"
-AC_LINK_IFELSE([
-#include <stdio.h>
-#include <jpeglib.h>
-int main(void) {
-  struct jpeg_compress_struct cinfo;
-  jpeg_create_compress(&cinfo);
-  return 0;
-}
-],[ AC_MSG_RESULT([yes])
-    AC_DEFINE(SUPPORTS_JPEG, 1, [Define to 1 if libjpeg is present and working])],
-  [ AC_MSG_RESULT(no)
-    LIBS="${zLIBS}"])
-
-# --- check for TIFF support
-AC_MSG_CHECKING([wheter libtiff works])
-zLIBS="${LIBS}"
-LIBS="${LIBS} -ltiff"
-AC_LINK_IFELSE([
-#include <tiffio.h>
-int main(void) {
-  TIFF *out = TIFFOpen("new.tif", "w");
-  TIFFSetField (out, TIFFTAG_IMAGEWIDTH, 100);
-  return 0;
-}
-],[ AC_MSG_RESULT([yes])
-    AC_DEFINE(SUPPORTS_TIFF, 1, [Define to 1 if libtiff is present and working])],
-  [ AC_MSG_RESULT(no)
-    LIBS="${zLIBS}"])
 
 AC_CONFIG_FILES([src/Makevars])
 AC_OUTPUT

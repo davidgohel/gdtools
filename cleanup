@@ -4,3 +4,4 @@ rm -f config.* src/Makevars src/cconfig.h
 rm -f src/*.o src/*.so
 rm -f config.log config.status
 rm -f *.html *.png
+rm -rf autom4te.cache

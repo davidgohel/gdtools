@@ -6,15 +6,15 @@
 using namespace Rcpp;
 
 // get_font_metrics
-double get_font_metrics(CharacterVector str, int bold, int italic, CharacterVector fontface, int fontsize);
+NumericVector get_font_metrics(std::string str, int bold, int italic, std::string fontface, int fontsize);
 RcppExport SEXP gdtools_get_font_metrics(SEXP strSEXP, SEXP boldSEXP, SEXP italicSEXP, SEXP fontfaceSEXP, SEXP fontsizeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< CharacterVector >::type str(strSEXP);
+    Rcpp::traits::input_parameter< std::string >::type str(strSEXP);
     Rcpp::traits::input_parameter< int >::type bold(boldSEXP);
     Rcpp::traits::input_parameter< int >::type italic(italicSEXP);
-    Rcpp::traits::input_parameter< CharacterVector >::type fontface(fontfaceSEXP);
+    Rcpp::traits::input_parameter< std::string >::type fontface(fontfaceSEXP);
     Rcpp::traits::input_parameter< int >::type fontsize(fontsizeSEXP);
     __result = Rcpp::wrap(get_font_metrics(str, bold, italic, fontface, fontsize));
     return __result;
