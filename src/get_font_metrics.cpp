@@ -6,9 +6,8 @@ using namespace Rcpp;
 
 // [[Rcpp::interfaces(r, cpp)]]
 
-
 // [[Rcpp::export]]
-NumericVector get_font_metrics(std::string str, int bold, int italic, std::string fontface, int fontsize ) {
+NumericVector get_str_dim(std::string str, int bold, int italic, std::string fontname, int fontsize ) {
   cairo_surface_t *surface = cairo_image_surface_create(CAIRO_FORMAT_ARGB32, 100, 100);
   cairo_t *cr = cairo_create (surface);
 
@@ -19,7 +18,7 @@ NumericVector get_font_metrics(std::string str, int bold, int italic, std::strin
   if( italic > 0 ) slant = CAIRO_FONT_SLANT_ITALIC;
 
 
-  cairo_select_font_face (cr, fontface.c_str(), slant, wght);
+  cairo_select_font_face (cr, fontname.c_str(), slant, wght);
 
   cairo_text_extents_t te;
   cairo_text_extents (cr, str.c_str(), &te);
@@ -30,7 +29,7 @@ NumericVector get_font_metrics(std::string str, int bold, int italic, std::strin
 }
 
 // [[Rcpp::export]]
-NumericVector get_font_info(std::string str, int bold, int italic, std::string fontface, int fontsize ) {
+NumericVector get_font_info(std::string str, int bold, int italic, std::string fontname, int fontsize ) {
   cairo_surface_t *surface = cairo_image_surface_create(CAIRO_FORMAT_ARGB32, 100, 100);
   cairo_t *cr = cairo_create (surface);
 
@@ -39,7 +38,7 @@ NumericVector get_font_info(std::string str, int bold, int italic, std::string f
 
   if( bold > 0 ) wght = CAIRO_FONT_WEIGHT_BOLD;
   if( italic > 0 ) slant = CAIRO_FONT_SLANT_ITALIC;
-  cairo_select_font_face (cr, fontface.c_str(), slant, wght);
+  cairo_select_font_face (cr, fontname.c_str(), slant, wght);
 
   cairo_text_extents_t te;
   cairo_text_extents (cr, str.c_str(), &te);

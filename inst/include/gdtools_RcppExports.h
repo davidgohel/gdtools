@@ -24,17 +24,17 @@ namespace gdtools {
         }
     }
 
-    inline NumericVector get_font_metrics(std::string str, int bold, int italic, std::string fontface, int fontsize) {
-        typedef SEXP(*Ptr_get_font_metrics)(SEXP,SEXP,SEXP,SEXP,SEXP);
-        static Ptr_get_font_metrics p_get_font_metrics = NULL;
-        if (p_get_font_metrics == NULL) {
-            validateSignature("NumericVector(*get_font_metrics)(std::string,int,int,std::string,int)");
-            p_get_font_metrics = (Ptr_get_font_metrics)R_GetCCallable("gdtools", "gdtools_get_font_metrics");
+    inline NumericVector get_str_dim(std::string str, int bold, int italic, std::string fontname, int fontsize) {
+        typedef SEXP(*Ptr_get_str_dim)(SEXP,SEXP,SEXP,SEXP,SEXP);
+        static Ptr_get_str_dim p_get_str_dim = NULL;
+        if (p_get_str_dim == NULL) {
+            validateSignature("NumericVector(*get_str_dim)(std::string,int,int,std::string,int)");
+            p_get_str_dim = (Ptr_get_str_dim)R_GetCCallable("gdtools", "gdtools_get_str_dim");
         }
         RObject __result;
         {
             RNGScope __rngScope;
-            __result = p_get_font_metrics(Rcpp::wrap(str), Rcpp::wrap(bold), Rcpp::wrap(italic), Rcpp::wrap(fontface), Rcpp::wrap(fontsize));
+            __result = p_get_str_dim(Rcpp::wrap(str), Rcpp::wrap(bold), Rcpp::wrap(italic), Rcpp::wrap(fontname), Rcpp::wrap(fontsize));
         }
         if (__result.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
@@ -43,7 +43,7 @@ namespace gdtools {
         return Rcpp::as<NumericVector >(__result);
     }
 
-    inline NumericVector get_font_info(std::string str, int bold, int italic, std::string fontface, int fontsize) {
+    inline NumericVector get_font_info(std::string str, int bold, int italic, std::string fontname, int fontsize) {
         typedef SEXP(*Ptr_get_font_info)(SEXP,SEXP,SEXP,SEXP,SEXP);
         static Ptr_get_font_info p_get_font_info = NULL;
         if (p_get_font_info == NULL) {
@@ -53,7 +53,7 @@ namespace gdtools {
         RObject __result;
         {
             RNGScope __rngScope;
-            __result = p_get_font_info(Rcpp::wrap(str), Rcpp::wrap(bold), Rcpp::wrap(italic), Rcpp::wrap(fontface), Rcpp::wrap(fontsize));
+            __result = p_get_font_info(Rcpp::wrap(str), Rcpp::wrap(bold), Rcpp::wrap(italic), Rcpp::wrap(fontname), Rcpp::wrap(fontsize));
         }
         if (__result.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();

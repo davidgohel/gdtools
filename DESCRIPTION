@@ -1,14 +1,18 @@
 Package: gdtools
 Type: Package
-Title: What the Package Does (Title Case)
-Version: 0.1
+Title: Utilities for graphical rendering
+Version: 0.0.1
 Date: 2015-09-08
-Author: Who wrote it
-Maintainer: Who to complain to <yourfault@somewhere.net>
-Description: More about what it does (maybe more than one line)
-License: What license is it under?
+Authors@R: c(
+    person("David", "Gohel", role = c("aut", "cre"),
+    email = "david.gohel@ardata.fr") )
+Author: David Gohel [aut, cre]
+Maintainer: David Gohel <david.gohel@ardata.fr>
+Description: Provides functionalities to get  font metrics and
+    to generate base64 encoded string from raster matrix.
+License: GPL-3
 LazyData: TRUE
 Imports:
-    Rcpp (>= 0.12.0)
+    Rcpp (>= 0.12.0), htmltools
 LinkingTo:
     Rcpp
