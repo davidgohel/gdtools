@@ -2,15 +2,16 @@
 // Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 #include <Rcpp.h>
+#include <string>
+#include <set>
 
 using namespace Rcpp;
 
 // get_font_metrics
 NumericVector get_font_metrics(std::string str, int bold, int italic, std::string fontface, int fontsize);
-RcppExport SEXP gdtools_get_font_metrics(SEXP strSEXP, SEXP boldSEXP, SEXP italicSEXP, SEXP fontfaceSEXP, SEXP fontsizeSEXP) {
+static SEXP gdtools_get_font_metrics_try(SEXP strSEXP, SEXP boldSEXP, SEXP italicSEXP, SEXP fontfaceSEXP, SEXP fontsizeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
-    Rcpp::RNGScope __rngScope;
     Rcpp::traits::input_parameter< std::string >::type str(strSEXP);
     Rcpp::traits::input_parameter< int >::type bold(boldSEXP);
     Rcpp::traits::input_parameter< int >::type italic(italicSEXP);
@@ -18,7 +19,61 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< int >::type fontsize(fontsizeSEXP);
     __result = Rcpp::wrap(get_font_metrics(str, bold, italic, fontface, fontsize));
     return __result;
-END_RCPP
+END_RCPP_RETURN_ERROR
+}
+RcppExport SEXP gdtools_get_font_metrics(SEXP strSEXP, SEXP boldSEXP, SEXP italicSEXP, SEXP fontfaceSEXP, SEXP fontsizeSEXP) {
+    SEXP __result;
+    {
+        Rcpp::RNGScope __rngScope;
+        __result = PROTECT(gdtools_get_font_metrics_try(strSEXP, boldSEXP, italicSEXP, fontfaceSEXP, fontsizeSEXP));
+    }
+    Rboolean __isInterrupt = Rf_inherits(__result, "interrupted-error");
+    if (__isInterrupt) {
+        UNPROTECT(1);
+        Rf_onintr();
+    }
+    Rboolean __isError = Rf_inherits(__result, "try-error");
+    if (__isError) {
+        SEXP __msgSEXP = Rf_asChar(__result);
+        UNPROTECT(1);
+        Rf_error(CHAR(__msgSEXP));
+    }
+    UNPROTECT(1);
+    return __result;
+}
+// get_font_info
+NumericVector get_font_info(std::string str, int bold, int italic, std::string fontface, int fontsize);
+static SEXP gdtools_get_font_info_try(SEXP strSEXP, SEXP boldSEXP, SEXP italicSEXP, SEXP fontfaceSEXP, SEXP fontsizeSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::traits::input_parameter< std::string >::type str(strSEXP);
+    Rcpp::traits::input_parameter< int >::type bold(boldSEXP);
+    Rcpp::traits::input_parameter< int >::type italic(italicSEXP);
+    Rcpp::traits::input_parameter< std::string >::type fontface(fontfaceSEXP);
+    Rcpp::traits::input_parameter< int >::type fontsize(fontsizeSEXP);
+    __result = Rcpp::wrap(get_font_info(str, bold, italic, fontface, fontsize));
+    return __result;
+END_RCPP_RETURN_ERROR
+}
+RcppExport SEXP gdtools_get_font_info(SEXP strSEXP, SEXP boldSEXP, SEXP italicSEXP, SEXP fontfaceSEXP, SEXP fontsizeSEXP) {
+    SEXP __result;
+    {
+        Rcpp::RNGScope __rngScope;
+        __result = PROTECT(gdtools_get_font_info_try(strSEXP, boldSEXP, italicSEXP, fontfaceSEXP, fontsizeSEXP));
+    }
+    Rboolean __isInterrupt = Rf_inherits(__result, "interrupted-error");
+    if (__isInterrupt) {
+        UNPROTECT(1);
+        Rf_onintr();
+    }
+    Rboolean __isError = Rf_inherits(__result, "try-error");
+    if (__isError) {
+        SEXP __msgSEXP = Rf_asChar(__result);
+        UNPROTECT(1);
+        Rf_error(CHAR(__msgSEXP));
+    }
+    UNPROTECT(1);
+    return __result;
 }
 // png_to_base64
 String png_to_base64(std::string filename);
@@ -49,4 +104,22 @@ BEGIN_RCPP
     raster_to_png(red, green, blue, alpha, w, h, width, height, interpolate, filename);
     return R_NilValue;
 END_RCPP
+}
+
+// validate (ensure exported C++ functions exist before calling them)
+static int gdtools_RcppExport_validate(const char* sig) { 
+    static std::set<std::string> signatures;
+    if (signatures.empty()) {
+        signatures.insert("NumericVector(*get_font_metrics)(std::string,int,int,std::string,int)");
+        signatures.insert("NumericVector(*get_font_info)(std::string,int,int,std::string,int)");
+    }
+    return signatures.find(sig) != signatures.end();
+}
+
+// registerCCallable (register entry points for exported C++ functions)
+RcppExport SEXP gdtools_RcppExport_registerCCallable() { 
+    R_RegisterCCallable("gdtools", "gdtools_get_font_metrics", (DL_FUNC)gdtools_get_font_metrics_try);
+    R_RegisterCCallable("gdtools", "gdtools_get_font_info", (DL_FUNC)gdtools_get_font_info_try);
+    R_RegisterCCallable("gdtools", "gdtools_RcppExport_validate", (DL_FUNC)gdtools_RcppExport_validate);
+    return R_NilValue;
 }
