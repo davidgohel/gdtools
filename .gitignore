@@ -7,4 +7,4 @@ src/*.dll
 ^.*\.Rproj$
 ^TODO\.md$
 .Rbuildignore
-gdtools.Rproj
+config.status

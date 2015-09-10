@@ -24,36 +24,36 @@ namespace gdtools {
         }
     }
 
-    inline NumericVector get_str_dim(std::string str, int bold, int italic, std::string fontname, int fontsize) {
-        typedef SEXP(*Ptr_get_str_dim)(SEXP,SEXP,SEXP,SEXP,SEXP);
-        static Ptr_get_str_dim p_get_str_dim = NULL;
-        if (p_get_str_dim == NULL) {
-            validateSignature("NumericVector(*get_str_dim)(std::string,int,int,std::string,int)");
-            p_get_str_dim = (Ptr_get_str_dim)R_GetCCallable("gdtools", "gdtools_get_str_dim");
+    inline NumericMatrix str_extents(CharacterVector x, std::string fontname = "sans", int fontsize = 12, int bold = false, int italic = false) {
+        typedef SEXP(*Ptr_str_extents)(SEXP,SEXP,SEXP,SEXP,SEXP);
+        static Ptr_str_extents p_str_extents = NULL;
+        if (p_str_extents == NULL) {
+            validateSignature("NumericMatrix(*str_extents)(CharacterVector,std::string,int,int,int)");
+            p_str_extents = (Ptr_str_extents)R_GetCCallable("gdtools", "gdtools_str_extents");
         }
         RObject __result;
         {
             RNGScope __rngScope;
-            __result = p_get_str_dim(Rcpp::wrap(str), Rcpp::wrap(bold), Rcpp::wrap(italic), Rcpp::wrap(fontname), Rcpp::wrap(fontsize));
+            __result = p_str_extents(Rcpp::wrap(x), Rcpp::wrap(fontname), Rcpp::wrap(fontsize), Rcpp::wrap(bold), Rcpp::wrap(italic));
         }
         if (__result.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
         if (__result.inherits("try-error"))
             throw Rcpp::exception(as<std::string>(__result).c_str());
-        return Rcpp::as<NumericVector >(__result);
+        return Rcpp::as<NumericMatrix >(__result);
     }
 
-    inline NumericVector get_font_info(std::string str, int bold, int italic, std::string fontname, int fontsize) {
-        typedef SEXP(*Ptr_get_font_info)(SEXP,SEXP,SEXP,SEXP,SEXP);
-        static Ptr_get_font_info p_get_font_info = NULL;
-        if (p_get_font_info == NULL) {
-            validateSignature("NumericVector(*get_font_info)(std::string,int,int,std::string,int)");
-            p_get_font_info = (Ptr_get_font_info)R_GetCCallable("gdtools", "gdtools_get_font_info");
+    inline NumericVector str_metrics(std::string x, std::string fontname = "sans", int fontsize = 12, int bold = false, int italic = false) {
+        typedef SEXP(*Ptr_str_metrics)(SEXP,SEXP,SEXP,SEXP,SEXP);
+        static Ptr_str_metrics p_str_metrics = NULL;
+        if (p_str_metrics == NULL) {
+            validateSignature("NumericVector(*str_metrics)(std::string,std::string,int,int,int)");
+            p_str_metrics = (Ptr_str_metrics)R_GetCCallable("gdtools", "gdtools_str_metrics");
         }
         RObject __result;
         {
             RNGScope __rngScope;
-            __result = p_get_font_info(Rcpp::wrap(str), Rcpp::wrap(bold), Rcpp::wrap(italic), Rcpp::wrap(fontname), Rcpp::wrap(fontsize));
+            __result = p_str_metrics(Rcpp::wrap(x), Rcpp::wrap(fontname), Rcpp::wrap(fontsize), Rcpp::wrap(bold), Rcpp::wrap(italic));
         }
         if (__result.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
