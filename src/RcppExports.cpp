@@ -8,25 +8,59 @@
 
 using namespace Rcpp;
 
-// get_str_dim
-NumericVector get_str_dim(std::string str, int bold, int italic, std::string fontname, int fontsize);
-static SEXP gdtools_get_str_dim_try(SEXP strSEXP, SEXP boldSEXP, SEXP italicSEXP, SEXP fontnameSEXP, SEXP fontsizeSEXP) {
+// str_extent
+NumericVector str_extent(std::string str, bool bold, bool italic, std::string fontname, int fontsize);
+static SEXP gdtools_str_extent_try(SEXP strSEXP, SEXP boldSEXP, SEXP italicSEXP, SEXP fontnameSEXP, SEXP fontsizeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::traits::input_parameter< std::string >::type str(strSEXP);
-    Rcpp::traits::input_parameter< int >::type bold(boldSEXP);
-    Rcpp::traits::input_parameter< int >::type italic(italicSEXP);
+    Rcpp::traits::input_parameter< bool >::type bold(boldSEXP);
+    Rcpp::traits::input_parameter< bool >::type italic(italicSEXP);
     Rcpp::traits::input_parameter< std::string >::type fontname(fontnameSEXP);
     Rcpp::traits::input_parameter< int >::type fontsize(fontsizeSEXP);
-    __result = Rcpp::wrap(get_str_dim(str, bold, italic, fontname, fontsize));
+    __result = Rcpp::wrap(str_extent(str, bold, italic, fontname, fontsize));
     return __result;
 END_RCPP_RETURN_ERROR
 }
-RcppExport SEXP gdtools_get_str_dim(SEXP strSEXP, SEXP boldSEXP, SEXP italicSEXP, SEXP fontnameSEXP, SEXP fontsizeSEXP) {
+RcppExport SEXP gdtools_str_extent(SEXP strSEXP, SEXP boldSEXP, SEXP italicSEXP, SEXP fontnameSEXP, SEXP fontsizeSEXP) {
     SEXP __result;
     {
         Rcpp::RNGScope __rngScope;
-        __result = PROTECT(gdtools_get_str_dim_try(strSEXP, boldSEXP, italicSEXP, fontnameSEXP, fontsizeSEXP));
+        __result = PROTECT(gdtools_str_extent_try(strSEXP, boldSEXP, italicSEXP, fontnameSEXP, fontsizeSEXP));
+    }
+    Rboolean __isInterrupt = Rf_inherits(__result, "interrupted-error");
+    if (__isInterrupt) {
+        UNPROTECT(1);
+        Rf_onintr();
+    }
+    Rboolean __isError = Rf_inherits(__result, "try-error");
+    if (__isError) {
+        SEXP __msgSEXP = Rf_asChar(__result);
+        UNPROTECT(1);
+        Rf_error(CHAR(__msgSEXP));
+    }
+    UNPROTECT(1);
+    return __result;
+}
+// str_extents
+NumericMatrix str_extents(CharacterVector str, bool bold, bool italic, std::string fontname, int fontsize);
+static SEXP gdtools_str_extents_try(SEXP strSEXP, SEXP boldSEXP, SEXP italicSEXP, SEXP fontnameSEXP, SEXP fontsizeSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::traits::input_parameter< CharacterVector >::type str(strSEXP);
+    Rcpp::traits::input_parameter< bool >::type bold(boldSEXP);
+    Rcpp::traits::input_parameter< bool >::type italic(italicSEXP);
+    Rcpp::traits::input_parameter< std::string >::type fontname(fontnameSEXP);
+    Rcpp::traits::input_parameter< int >::type fontsize(fontsizeSEXP);
+    __result = Rcpp::wrap(str_extents(str, bold, italic, fontname, fontsize));
+    return __result;
+END_RCPP_RETURN_ERROR
+}
+RcppExport SEXP gdtools_str_extents(SEXP strSEXP, SEXP boldSEXP, SEXP italicSEXP, SEXP fontnameSEXP, SEXP fontsizeSEXP) {
+    SEXP __result;
+    {
+        Rcpp::RNGScope __rngScope;
+        __result = PROTECT(gdtools_str_extents_try(strSEXP, boldSEXP, italicSEXP, fontnameSEXP, fontsizeSEXP));
     }
     Rboolean __isInterrupt = Rf_inherits(__result, "interrupted-error");
     if (__isInterrupt) {
@@ -111,7 +145,8 @@ END_RCPP
 static int gdtools_RcppExport_validate(const char* sig) { 
     static std::set<std::string> signatures;
     if (signatures.empty()) {
-        signatures.insert("NumericVector(*get_str_dim)(std::string,int,int,std::string,int)");
+        signatures.insert("NumericVector(*str_extent)(std::string,bool,bool,std::string,int)");
+        signatures.insert("NumericMatrix(*str_extents)(CharacterVector,bool,bool,std::string,int)");
         signatures.insert("NumericVector(*get_font_info)(std::string,int,int,std::string,int)");
     }
     return signatures.find(sig) != signatures.end();
@@ -119,7 +154,8 @@ static int gdtools_RcppExport_validate(const char* sig) {
 
 // registerCCallable (register entry points for exported C++ functions)
 RcppExport SEXP gdtools_RcppExport_registerCCallable() { 
-    R_RegisterCCallable("gdtools", "gdtools_get_str_dim", (DL_FUNC)gdtools_get_str_dim_try);
+    R_RegisterCCallable("gdtools", "gdtools_str_extent", (DL_FUNC)gdtools_str_extent_try);
+    R_RegisterCCallable("gdtools", "gdtools_str_extents", (DL_FUNC)gdtools_str_extents_try);
     R_RegisterCCallable("gdtools", "gdtools_get_font_info", (DL_FUNC)gdtools_get_font_info_try);
     R_RegisterCCallable("gdtools", "gdtools_RcppExport_validate", (DL_FUNC)gdtools_RcppExport_validate);
     return R_NilValue;

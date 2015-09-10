@@ -24,23 +24,42 @@ namespace gdtools {
         }
     }
 
-    inline NumericVector get_str_dim(std::string str, int bold, int italic, std::string fontname, int fontsize) {
-        typedef SEXP(*Ptr_get_str_dim)(SEXP,SEXP,SEXP,SEXP,SEXP);
-        static Ptr_get_str_dim p_get_str_dim = NULL;
-        if (p_get_str_dim == NULL) {
-            validateSignature("NumericVector(*get_str_dim)(std::string,int,int,std::string,int)");
-            p_get_str_dim = (Ptr_get_str_dim)R_GetCCallable("gdtools", "gdtools_get_str_dim");
+    inline NumericVector str_extent(std::string str, bool bold = false, bool italic = false, std::string fontname = "Sans", int fontsize = 12) {
+        typedef SEXP(*Ptr_str_extent)(SEXP,SEXP,SEXP,SEXP,SEXP);
+        static Ptr_str_extent p_str_extent = NULL;
+        if (p_str_extent == NULL) {
+            validateSignature("NumericVector(*str_extent)(std::string,bool,bool,std::string,int)");
+            p_str_extent = (Ptr_str_extent)R_GetCCallable("gdtools", "gdtools_str_extent");
         }
         RObject __result;
         {
             RNGScope __rngScope;
-            __result = p_get_str_dim(Rcpp::wrap(str), Rcpp::wrap(bold), Rcpp::wrap(italic), Rcpp::wrap(fontname), Rcpp::wrap(fontsize));
+            __result = p_str_extent(Rcpp::wrap(str), Rcpp::wrap(bold), Rcpp::wrap(italic), Rcpp::wrap(fontname), Rcpp::wrap(fontsize));
         }
         if (__result.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
         if (__result.inherits("try-error"))
             throw Rcpp::exception(as<std::string>(__result).c_str());
         return Rcpp::as<NumericVector >(__result);
+    }
+
+    inline NumericMatrix str_extents(CharacterVector str, bool bold = false, bool italic = false, std::string fontname = "Sans", int fontsize = 12) {
+        typedef SEXP(*Ptr_str_extents)(SEXP,SEXP,SEXP,SEXP,SEXP);
+        static Ptr_str_extents p_str_extents = NULL;
+        if (p_str_extents == NULL) {
+            validateSignature("NumericMatrix(*str_extents)(CharacterVector,bool,bool,std::string,int)");
+            p_str_extents = (Ptr_str_extents)R_GetCCallable("gdtools", "gdtools_str_extents");
+        }
+        RObject __result;
+        {
+            RNGScope __rngScope;
+            __result = p_str_extents(Rcpp::wrap(str), Rcpp::wrap(bold), Rcpp::wrap(italic), Rcpp::wrap(fontname), Rcpp::wrap(fontsize));
+        }
+        if (__result.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (__result.inherits("try-error"))
+            throw Rcpp::exception(as<std::string>(__result).c_str());
+        return Rcpp::as<NumericMatrix >(__result);
     }
 
     inline NumericVector get_font_info(std::string str, int bold, int italic, std::string fontname, int fontsize) {
