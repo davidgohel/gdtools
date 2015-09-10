@@ -40,18 +40,6 @@ public:
 
 };
 
-// [[Rcpp::export]]
-NumericVector str_extent(std::string str, bool bold = false,
-                         bool italic = false,
-                         std::string fontname = "Sans",
-                         int fontsize = 12) {
-
-  TextExtents te(fontname, fontsize, bold, italic);
-  cairo_text_extents_t ext = te.extents(str);
-
-  return NumericVector::create(ext.x_advance, ext.height);
-}
-
 //' Compute string extents.
 //'
 //' Determines the width and height of a bounding box that's big enough
