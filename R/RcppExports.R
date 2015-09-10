@@ -19,12 +19,20 @@ str_extent <- function(str, bold = FALSE, italic = FALSE, fontname = "Sans", fon
 #' str_extents("Hello World!", bold = TRUE, italic = FALSE,
 #'   fontname = "Sans", fontsize = 12)
 #' @export
-str_extents <- function(str, bold = FALSE, italic = FALSE, fontname = "Sans", fontsize = 12L) {
-    .Call('gdtools_str_extents', PACKAGE = 'gdtools', str, bold, italic, fontname, fontsize)
+str_extents <- function(x, bold = FALSE, italic = FALSE, fontname = "Sans", fontsize = 12L) {
+    .Call('gdtools_str_extents', PACKAGE = 'gdtools', x, bold, italic, fontname, fontsize)
 }
 
-get_font_info <- function(str, bold, italic, fontname, fontsize) {
-    .Call('gdtools_get_font_info', PACKAGE = 'gdtools', str, bold, italic, fontname, fontsize)
+#' Get font metrics for a string.
+#'
+#' @return A named numeric vector
+#' @param str string of text
+#' @inheritParams str_extents
+#' @examples
+#' str_metrics("Hello World!")
+#' @export
+str_metrics <- function(str, bold = FALSE, italic = FALSE, fontname = "sans", fontsize = 12L) {
+    .Call('gdtools_str_metrics', PACKAGE = 'gdtools', str, bold, italic, fontname, fontsize)
 }
 
 png_to_base64 <- function(filename) {

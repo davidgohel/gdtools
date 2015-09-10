@@ -4,17 +4,17 @@
 \alias{str_extents}
 \title{Compute string extents.}
 \usage{
-str_extents(str, bold = FALSE, italic = FALSE, fontname = "Sans",
+str_extents(x, bold = FALSE, italic = FALSE, fontname = "Sans",
   fontsize = 12L)
 }
 \arguments{
-\item{str}{Character ector of of strings to measure}
-
 \item{bold,italic}{Is text bold/italic?}
 
 \item{fontname}{Font name}
 
 \item{fontsize}{Font size (in pixels)}
+
+\item{str}{Character ector of of strings to measure}
 }
 \description{
 Determines the width and height of a bounding box that's big enough
