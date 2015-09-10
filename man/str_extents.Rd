@@ -4,15 +4,15 @@
 \alias{str_extents}
 \title{Compute string extents.}
 \usage{
-str_extents(x, bold = FALSE, italic = FALSE, fontname = "Sans",
-  fontsize = 12L)
+str_extents(x, fontname = "sans", fontsize = 12L, bold = FALSE,
+  italic = FALSE)
 }
 \arguments{
-\item{bold,italic}{Is text bold/italic?}
-
 \item{fontname}{Font name}
 
 \item{fontsize}{Font size (in pixels)}
+
+\item{bold,italic}{Is text bold/italic?}
 
 \item{str}{Character ector of of strings to measure}
 }

@@ -4,19 +4,19 @@
 \alias{str_metrics}
 \title{Get font metrics for a string.}
 \usage{
-str_metrics(str, bold = FALSE, italic = FALSE, fontname = "sans",
-  fontsize = 12L)
+str_metrics(x, fontname = "sans", fontsize = 12L, bold = FALSE,
+  italic = FALSE)
 }
 \arguments{
-\item{str}{string of text}
+\item{fontname}{Font name}
+
+\item{fontsize}{Font size (in pixels)}
 
 \item{bold}{Is text bold/italic?}
 
 \item{italic}{Is text bold/italic?}
 
-\item{fontname}{Font name}
-
-\item{fontsize}{Font size (in pixels)}
+\item{str}{string of text}
 }
 \value{
 A named numeric vector

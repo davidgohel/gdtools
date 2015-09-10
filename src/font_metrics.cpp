@@ -55,9 +55,9 @@ public:
 //'   fontname = "Sans", fontsize = 12)
 //' @export
 // [[Rcpp::export]]
-NumericMatrix str_extents(CharacterVector x, bool bold = false,
-                          bool italic = false, std::string fontname = "Sans",
-                          int fontsize = 12) {
+NumericMatrix str_extents(CharacterVector x, std::string fontname = "sans",
+                          int fontsize = 12, int bold = false,
+                          int italic = false) {
   int n = x.size();
   TextExtents te(fontname, fontsize, bold, italic);
   NumericMatrix out(n, 2);
@@ -87,11 +87,12 @@ NumericMatrix str_extents(CharacterVector x, bool bold = false,
 //' str_metrics("Hello World!")
 //' @export
 // [[Rcpp::export]]
-NumericVector str_metrics(std::string str, int bold = false, int italic = false,
-                          std::string fontname = "sans", int fontsize = 12) {
+NumericVector str_metrics(std::string x, std::string fontname = "sans",
+                          int fontsize = 12, int bold = false,
+                          int italic = false) {
 
   TextExtents te(fontname, fontsize, bold, italic);
-  cairo_text_extents_t ext = te.extents(str);
+  cairo_text_extents_t ext = te.extents(x);
 
   return NumericVector::create(
     _["width"] = ext.x_advance,
