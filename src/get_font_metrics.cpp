@@ -19,7 +19,7 @@ NumericVector get_str_dim(std::string str, int bold, int italic, std::string fon
 
 
   cairo_select_font_face (cr, fontname.c_str(), slant, wght);
-
+  cairo_set_font_size(cr, (double)fontsize);
   cairo_text_extents_t te;
   cairo_text_extents (cr, str.c_str(), &te);
   NumericVector out(2);
@@ -39,7 +39,7 @@ NumericVector get_font_info(std::string str, int bold, int italic, std::string f
   if( bold > 0 ) wght = CAIRO_FONT_WEIGHT_BOLD;
   if( italic > 0 ) slant = CAIRO_FONT_SLANT_ITALIC;
   cairo_select_font_face (cr, fontname.c_str(), slant, wght);
-
+  cairo_set_font_size(cr, (double)fontsize);
   cairo_text_extents_t te;
   cairo_text_extents (cr, str.c_str(), &te);
   NumericVector out(3);
