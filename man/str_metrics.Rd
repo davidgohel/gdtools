@@ -8,6 +8,8 @@ str_metrics(x, fontname = "sans", fontsize = 12L, bold = FALSE,
   italic = FALSE)
 }
 \arguments{
+\item{x}{Character vector of strings to measure}
+
 \item{fontname}{Font name}
 
 \item{fontsize}{Font size (in pixels)}

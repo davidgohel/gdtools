@@ -45,7 +45,7 @@ public:
 //' Determines the width and height of a bounding box that's big enough
 //' to (just) enclose the provided text.
 //'
-//' @param str Character ector of of strings to measure
+//' @param x Character vector of strings to measure
 //' @param bold,italic Is text bold/italic?
 //' @param fontname Font name
 //' @param fontsize Font size (in pixels)

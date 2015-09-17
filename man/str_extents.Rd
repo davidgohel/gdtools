@@ -8,13 +8,13 @@ str_extents(x, fontname = "sans", fontsize = 12L, bold = FALSE,
   italic = FALSE)
 }
 \arguments{
+\item{x}{Character vector of strings to measure}
+
 \item{fontname}{Font name}
 
 \item{fontsize}{Font size (in pixels)}
 
 \item{bold,italic}{Is text bold/italic?}
-
-\item{str}{Character ector of of strings to measure}
 }
 \description{
 Determines the width and height of a bounding box that's big enough
