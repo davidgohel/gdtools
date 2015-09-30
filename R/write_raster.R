@@ -1,17 +1,15 @@
-#' @title draw a raster image to a png file
-#' @description Draw a raster image based on colors. Image data is arranged by
+#' Draw a raster image to a png file
+#'
+#' Draw a raster image based on colors. Image data is arranged by
 #' row, it's made of 4 elements giving one colour (red, green, blue and alpha).
 #' Data is scaled to width and height.
-#' @param red integer value for red coumpounds (between 0 and 255).
-#' @param green integer value for green coumpounds (between 0 and 255).
-#' @param blue integer value for blue coumpounds (between 0 and 255).
-#' @param alpha integer value for alpha coumpounds (between 0 and 255).
-#' @param w columns number of the image data.
-#' @param h rows number of the image data.
-#' @param width width of the image in pixels.
-#' @param height height of the image in pixels.
+#'
+#' @param red,green,blue,alpha Integer vector of red, green, blue, and
+#'   alpha components (values must be between 0 and 255).
+#' @param w,h Width and height of original matrix
+#' @param width,height Width and height in pixels.
 #' @param interpolate A logical value indicating whether to linearly
-#' interpolate the image.
+#'   interpolate the image.
 #' @param filename name of the file to create
 #' @examples
 #' # create a color data matrix
@@ -19,18 +17,20 @@
 #' h <- 4L
 #' red <- c(197L, 197L, 197L, 197L, 197L, 225L, 225L, 225L, 225L,
 #' 225L, 254L, 254L, 254L, 254L, 254L, 255L, 255L, 255L, 255L, 255L)
-#' green = c(78L, 78L, 78L, 78L, 78L, 106L, 106L, 106L, 106L, 106L,
+#' green <- c(78L, 78L, 78L, 78L, 78L, 106L, 106L, 106L, 106L, 106L,
 #' 134L, 134L, 134L, 134L, 134L, 162L, 162L, 162L, 162L, 162L)
-#' blue = c(109L, 109L, 109L, 109L, 109L, 134L, 134L, 134L, 134L,
+#' blue <- c(109L, 109L, 109L, 109L, 109L, 134L, 134L, 134L, 134L,
 #' 134L, 161L, 161L, 161L, 161L, 161L, 188L, 188L, 188L, 188L, 188L)
-#' alpha = rep(255L, length(blue))
+#' alpha <- rep(255L, length(blue))
 #'
 #' # generate the corresponding png
 #' write_raster(red = as.integer(red), green = as.integer(green),
-#' blue = as.integer(blue), alpha = as.integer(alpha),
-#' width = 50, height = 75, w = w, h = h, filename = "raster.png")
+#'   blue = as.integer(blue), alpha = as.integer(alpha),
+#'   width = 50, height = 75, w = w, h = h, filename = "raster.png"
+#' )
 #' @export
-write_raster <- function(red, green, blue, alpha, w, h, width, height, interpolate = FALSE, filename) {
+write_raster <- function(red, green, blue, alpha, w, h, width, height,
+                         interpolate = FALSE, filename) {
 
   if( missing( filename ) )
     stop("filename is missing")
@@ -59,4 +59,4 @@ write_raster <- function(red, green, blue, alpha, w, h, width, height, interpola
   height = as.double(height)
   raster_to_png(red, green, blue, alpha, w, h, width, height, interpolate, filename)
   invisible()
-  }
+}

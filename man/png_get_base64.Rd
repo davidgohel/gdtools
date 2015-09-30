@@ -2,7 +2,7 @@
 % Please edit documentation in R/png_get_base64.R
 \name{png_get_base64}
 \alias{png_get_base64}
-\title{Encode a png file in base 64 format}
+\title{Encode a png file into base64.}
 \usage{
 png_get_base64(filename)
 }
@@ -10,7 +10,7 @@ png_get_base64(filename)
 \item{filename}{name of the file to create}
 }
 \description{
-Encode a png file in base 64 format
+Encode a png file into base64.
 }
 \examples{
 # create a color data matrix

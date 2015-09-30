@@ -1,4 +1,5 @@
-#' @title Encode a png file in base 64 format
+#' Encode a png file into base64.
+#'
 #' @param filename name of the file to create
 #' @examples
 #' # create a color data matrix

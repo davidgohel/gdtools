@@ -2,27 +2,18 @@
 % Please edit documentation in R/write_raster.R
 \name{write_raster}
 \alias{write_raster}
-\title{draw a raster image to a png file}
+\title{Draw a raster image to a png file}
 \usage{
 write_raster(red, green, blue, alpha, w, h, width, height,
   interpolate = FALSE, filename)
 }
 \arguments{
-\item{red}{integer value for red coumpounds (between 0 and 255).}
+\item{red,green,blue,alpha}{Integer vector of red, green, blue, and
+alpha components (values must be between 0 and 255).}
 
-\item{green}{integer value for green coumpounds (between 0 and 255).}
+\item{w,h}{Width and height of original matrix}
 
-\item{blue}{integer value for blue coumpounds (between 0 and 255).}
-
-\item{alpha}{integer value for alpha coumpounds (between 0 and 255).}
-
-\item{w}{columns number of the image data.}
-
-\item{h}{rows number of the image data.}
-
-\item{width}{width of the image in pixels.}
-
-\item{height}{height of the image in pixels.}
+\item{width,height}{Width and height in pixels.}
 
 \item{interpolate}{A logical value indicating whether to linearly
 interpolate the image.}
@@ -40,15 +31,15 @@ w <- 5L
 h <- 4L
 red <- c(197L, 197L, 197L, 197L, 197L, 225L, 225L, 225L, 225L,
 225L, 254L, 254L, 254L, 254L, 254L, 255L, 255L, 255L, 255L, 255L)
-green = c(78L, 78L, 78L, 78L, 78L, 106L, 106L, 106L, 106L, 106L,
+green <- c(78L, 78L, 78L, 78L, 78L, 106L, 106L, 106L, 106L, 106L,
 134L, 134L, 134L, 134L, 134L, 162L, 162L, 162L, 162L, 162L)
-blue = c(109L, 109L, 109L, 109L, 109L, 134L, 134L, 134L, 134L,
+blue <- c(109L, 109L, 109L, 109L, 109L, 134L, 134L, 134L, 134L,
 134L, 161L, 161L, 161L, 161L, 161L, 188L, 188L, 188L, 188L, 188L)
-alpha = rep(255L, length(blue))
+alpha <- rep(255L, length(blue))
 
 # generate the corresponding png
 write_raster(red = as.integer(red), green = as.integer(green),
-blue = as.integer(blue), alpha = as.integer(alpha),
+  blue = as.integer(blue), alpha = as.integer(alpha),
 width = 50, height = 75, w = w, h = h, filename = "raster.png")
 }
 
