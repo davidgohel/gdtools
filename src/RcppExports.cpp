@@ -76,14 +76,14 @@ RcppExport SEXP gdtools_str_metrics(SEXP xSEXP, SEXP fontnameSEXP, SEXP fontsize
     UNPROTECT(1);
     return __result;
 }
-// png_to_base64
-String png_to_base64(std::string filename);
-RcppExport SEXP gdtools_png_to_base64(SEXP filenameSEXP) {
+// png_as_base64
+String png_as_base64(std::string filename);
+RcppExport SEXP gdtools_png_as_base64(SEXP filenameSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
     Rcpp::traits::input_parameter< std::string >::type filename(filenameSEXP);
-    __result = Rcpp::wrap(png_to_base64(filename));
+    __result = Rcpp::wrap(png_as_base64(filename));
     return __result;
 END_RCPP
 }
