@@ -9,7 +9,7 @@
 PKG_CONFIG_NAME="cairo"
 PKG_DEB_NAME="libcairo-dev"
 PKG_RPM_NAME="cairo-devel"
-PKG_CSW_NAME="cairo_dev"
+PKG_CSW_NAME="libcairo_dev"
 PKG_BREW_NAME="cairo"
 PKG_TEST_HEADER="<cairo.h>"
 PKG_LIBS="-lcairo"
