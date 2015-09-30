@@ -1,12 +1,11 @@
-#' @import htmltools
-#' @title Run plotting code and view raster in RStudio Viewer or web browser
-#' @description  This is useful primarily for testing.
+#' Run plotting code and view raster in RStudio Viewer or web browser.
+#'
+#' Useful primarily for testing. Requires the \code{htmltools} package
+#'
 #' @param code raster base64 encoded string.
-#' @param ... Other arguments - not used.
 #' @export
-html_raster <- function(code, ...) {
-  code = paste0("<img src=\"data:image/png;base64,", code, "\" />")
-  browsable(
-    HTML(paste0(code, collapse = "\n"))
-  )
+html_raster <- function(code) {
+  code <- paste0("<img src=\"data:image/png;base64,", code, "\" />",
+    collapse = "\n")
+  htmltools::browsable(htmltools::HTML(code))
 }

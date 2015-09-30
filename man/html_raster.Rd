@@ -2,16 +2,14 @@
 % Please edit documentation in R/html_raster.R
 \name{html_raster}
 \alias{html_raster}
-\title{Run plotting code and view raster in RStudio Viewer or web browser}
+\title{Run plotting code and view raster in RStudio Viewer or web browser.}
 \usage{
-html_raster(code, ...)
+html_raster(code)
 }
 \arguments{
 \item{code}{raster base64 encoded string.}
-
-\item{...}{Other arguments - not used.}
 }
 \description{
-This is useful primarily for testing.
+Useful primarily for testing. Requires the \code{htmltools} package
 }
 
