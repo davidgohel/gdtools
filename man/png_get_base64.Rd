@@ -13,22 +13,11 @@ png_get_base64(filename)
 Encode a png file into base64.
 }
 \examples{
-# create a color data matrix
-w <- 5L
-h <- 4L
-red <- c(197L, 197L, 197L, 197L, 197L, 225L, 225L, 225L, 225L,
-225L, 254L, 254L, 254L, 254L, 254L, 255L, 255L, 255L, 255L, 255L)
-green = c(78L, 78L, 78L, 78L, 78L, 106L, 106L, 106L, 106L, 106L,
-134L, 134L, 134L, 134L, 134L, 162L, 162L, 162L, 162L, 162L)
-blue = c(109L, 109L, 109L, 109L, 109L, 134L, 134L, 134L, 134L,
-134L, 161L, 161L, 161L, 161L, 161L, 188L, 188L, 188L, 188L, 188L)
-alpha = rep(255L, length(blue))
+r <- as.raster(matrix(hcl(50, 80, seq(50, 80, 10)),
+ nrow = 4, ncol = 5))
 
-# generate the corresponding png
-write_raster(red = as.integer(red), green = as.integer(green),
-blue = as.integer(blue), alpha = as.integer(alpha),
-width = 50, height = 75, w = w, h = h, filename = "raster.png")
-
-str_b64 = png_get_base64("raster.png")
+t <- tempfile()
+write_raster(r, t, width = 50, height = 50)
+png_get_base64(t)
 }
 
