@@ -1,6 +1,6 @@
 # gdtools
 
-[![Travis-CI Build Status](https://travis-ci.org/hadley/gdtools.svg?branch=master)](https://travis-ci.org/hadley/gdtools)
+[![Travis-CI Build Status](https://travis-ci.org/davidgohel/gdtools.svg?branch=master)](https://travis-ci.org/davidgohel/gdtools)
 
 The package `gdtools` provides functionalities to get
 font metrics and to generate base64 encoded string from 
