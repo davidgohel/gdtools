@@ -10,12 +10,5 @@
 #' png_get_base64(t)
 #' @export
 png_get_base64 <- function(filename) {
-
-  if( missing( filename ) )
-    stop("filename is missing")
-  if( !file.exists(filename) )
-    stop("file ", filename, " does not exist.")
-
-  str = png_to_base64(filename)
-  str
+  png_to_base64(filename)
 }

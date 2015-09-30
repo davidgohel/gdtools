@@ -68,6 +68,9 @@ std::string base64_encode(std::vector<char> data) {
 String png_to_base64(std::string filename) {
 
   ifstream ifs(filename.c_str(), ios::binary | ios::ate);
+  if (!ifs.good())
+    stop("Failed to open %s", filename);
+
   ifstream::pos_type pos = ifs.tellg();
 
   std::vector<char> result(pos);
