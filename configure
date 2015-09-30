@@ -32,17 +32,20 @@ elif [ "$PKGCONFIG_CFLAGS" ] || [ "$PKGCONFIG_LIBS" ]; then
 elif [[ "$OSTYPE" == "darwin"* ]]; then
   if [ $(command -v brew) ]; then
     BREWDIR=$(brew --prefix)
+    PKG_CFLAGS="-I$BREWDIR/opt/$PKG_BREW_NAME/include/cairo"
+    PKG_LIBS="-L$BREWDIR/opt/$PKG_BREW_NAME/lib $PKG_LIBS"
   else
     echo "Auto-brewing $PKG_BREW_NAME..."
     BREWDIR="/tmp/homebrew"
-    if [ ! -r "$BREWDIR/bin/brew" ]; then
-       mkdir -p $BREWDIR && curl -fsSL https://github.com/Homebrew/homebrew/tarball/master | tar xz --strip 1 -C $BREWDIR
-    fi
+    rm -Rf $BREWDIR
+    mkdir -p $BREWDIR
+    curl -fsSL https://github.com/Homebrew/homebrew/tarball/master | tar xz --strip 1 -C $BREWDIR
+    HOMEBREW_CACHE="/tmp" $BREWDIR/bin/brew install pkg-config 2>&1 | sed 's/Warning/Note/g'
     HOMEBREW_CACHE="/tmp" $BREWDIR/bin/brew install $PKG_BREW_NAME 2>&1 | sed 's/Warning/Note/g'
-    rm -f $BREWDIR/opt/$PKG_BREW_NAME/lib/*.dylib
+    PKG_CFLAGS=$($BREWDIR/opt/pkg-config/bin/pkg-config --cflags ${PKG_CONFIG_NAME})
+    PKG_LIBS=$($BREWDIR/opt/pkg-config/bin/pkg-config --libs --static ${PKG_CONFIG_NAME})
+    rm -f $BREWDIR/Cellar/*/*/lib/*.dylib
   fi
-  PKG_CFLAGS="-I$BREWDIR/opt/$PKG_BREW_NAME/include"
-  PKG_LIBS="-L$BREWDIR/opt/$PKG_BREW_NAME/lib $PKG_LIBS"
 fi
 
 # Find compiler
