@@ -6,7 +6,7 @@
 #' Determines the width and height of a bounding box that's big enough
 #' to (just) enclose the provided text.
 #'
-#' @param x Character vector of strings to measure
+#' @param x Character vector of of strings to measure
 #' @param bold,italic Is text bold/italic?
 #' @param fontname Font name
 #' @param fontsize Font size (in pixels)
@@ -22,7 +22,6 @@ str_extents <- function(x, fontname = "sans", fontsize = 12L, bold = FALSE, ital
 #' Get font metrics for a string.
 #'
 #' @return A named numeric vector
-#' @param str string of text
 #' @inheritParams str_extents
 #' @examples
 #' str_metrics("Hello World!")

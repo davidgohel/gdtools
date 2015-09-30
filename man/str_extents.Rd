@@ -8,7 +8,7 @@ str_extents(x, fontname = "sans", fontsize = 12L, bold = FALSE,
   italic = FALSE)
 }
 \arguments{
-\item{x}{Character vector of strings to measure}
+\item{x}{Character vector of of strings to measure}
 
 \item{fontname}{Font name}
 
