@@ -1,13 +1,7 @@
-ifdef DEBUG
-  XTRA_PKG_CPPFLAGS=-DJGD_DEBUG
-endif
+PKG_CPPFLAGS= -I../windows/cairo-1.14.2/include/cairo
+PKG_LIBS= -L../windows/cairo-1.14.2/lib${R_ARCH} -lcairo -lfontconfig -lfreetype -lpng -lpixman-1 -lexpat -lharfbuzz -lbz2 -lz -lgdi32
 
-ifeq "$(WIN)" "64"
-BITS=64
-else
-BITS=32
-endif
+all: winlibs
 
-PKG_CPPFLAGS=-I. -Iwin$(BITS) $(XTRA_PKG_CPPFLAGS)
-PKG_LIBS=win$(BITS)/libcairo.a win$(BITS)/libpixman-1.a win$(BITS)/libpng.a win$(BITS)/libz.a -lgdi32 -lmsimg32 $(GRAPHAPP_LIB)
-
+winlibs:
+	"${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe" "../tools/winlibs.R"
