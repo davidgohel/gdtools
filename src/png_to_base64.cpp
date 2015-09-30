@@ -72,7 +72,7 @@ std::string base64_encode(std::vector<char> data) {
 //'  nrow = 4, ncol = 5))
 //'
 //' t <- tempfile()
-//' write_raster(r, t, width = 50, height = 50)
+//' raster_write(r, t, width = 50, height = 50)
 //' png_as_base64(t)
 //' @export
 // [[Rcpp::export]]
