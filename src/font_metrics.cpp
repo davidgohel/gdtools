@@ -5,6 +5,10 @@
 // [[Rcpp::interfaces(r, cpp)]]
 using namespace Rcpp;
 
+struct FontMetric {
+  double height, width, ascent, descent;
+};
+
 class TextExtents {
   cairo_surface_t* surface_;
   cairo_t* context_;
@@ -31,11 +35,17 @@ public:
     cairo_destroy(context_);
   }
 
-  cairo_text_extents_t extents(std::string x) {
+  FontMetric extents(std::string x) {
     cairo_text_extents_t te;
     cairo_text_extents(context_, x.c_str(), &te);
 
-    return te;
+    FontMetric fm;
+    fm.height = te.height;
+    fm.width = te.x_advance;
+    fm.ascent = -te.y_bearing;
+    fm.descent = te.height + te.y_bearing;
+
+    return fm;
   }
 
 };
@@ -68,10 +78,10 @@ NumericMatrix str_extents(CharacterVector x, std::string fontname = "sans",
       out(i, 1) = NA_REAL;
     } else {
       std::string str(Rf_translateCharUTF8(x[i]));
-      cairo_text_extents_t ext = te.extents(str);
+      FontMetric fm = te.extents(str);
 
-      out(i, 0) = ext.x_advance;
-      out(i, 1) = ext.height;
+      out(i, 0) = fm.width;
+      out(i, 1) = fm.height;
     }
   }
 
@@ -91,11 +101,11 @@ NumericVector str_metrics(std::string x, std::string fontname = "sans",
                           int italic = false) {
 
   TextExtents te(fontname, fontsize, bold, italic);
-  cairo_text_extents_t ext = te.extents(x);
+  FontMetric fm = te.extents(x);
 
   return NumericVector::create(
-    _["width"] = ext.x_advance,
-    _["ascent"] = -ext.y_bearing,
-    _["descent"] = ext.height + ext.y_bearing
+    _["width"] = fm.width,
+    _["ascent"] = fm.ascent,
+    _["descent"] = fm.descent
   );
 }
