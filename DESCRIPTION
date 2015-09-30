@@ -1,19 +1,17 @@
 Package: gdtools
-Type: Package
-Title: Utilities for graphical rendering
 Version: 0.0.2
-Date: 2015-09-08
-Authors@R: c(
-    person("David", "Gohel", role = c("aut", "cre"),
-    email = "david.gohel@ardata.fr") )
-Author: David Gohel [aut, cre]
-Maintainer: David Gohel <david.gohel@ardata.fr>
-Description: Provides functionalities to get  font metrics and
-    to generate base64 encoded string from raster matrix.
 License: GPL-3
+Title: Utilities for graphical rendering
+Description: Useful tools for writing vector graphics devices.
+Authors@R: c(
+    person("David", "Gohel", , "david.gohel@ardata.fr", c("aut", "cre")),
+    person("Hadley", "Wickham", , "hadley@rstudio.com", "aut"),
+    person("RStudio", role = "cph")
+  )
 LazyData: TRUE
 Imports:
-    Rcpp (>= 0.12.0), htmltools
+    Rcpp (>= 0.12.0),
+    htmltools
 LinkingTo:
     Rcpp
 SystemRequirements: GNU make
