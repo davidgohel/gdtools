@@ -4,6 +4,7 @@
 #ifndef __gdtools_RcppExports_h__
 #define __gdtools_RcppExports_h__
 
+#include "gdtools_types.h"
 #include <Rcpp.h>
 
 namespace gdtools {
@@ -24,42 +25,61 @@ namespace gdtools {
         }
     }
 
-    inline NumericMatrix str_extents(CharacterVector x, std::string fontname = "sans", int fontsize = 12, int bold = false, int italic = false) {
-        typedef SEXP(*Ptr_str_extents)(SEXP,SEXP,SEXP,SEXP,SEXP);
-        static Ptr_str_extents p_str_extents = NULL;
-        if (p_str_extents == NULL) {
-            validateSignature("NumericMatrix(*str_extents)(CharacterVector,std::string,int,int,int)");
-            p_str_extents = (Ptr_str_extents)R_GetCCallable("gdtools", "gdtools_str_extents");
+    inline XPtrCairoContext context_create() {
+        typedef SEXP(*Ptr_context_create)();
+        static Ptr_context_create p_context_create = NULL;
+        if (p_context_create == NULL) {
+            validateSignature("XPtrCairoContext(*context_create)()");
+            p_context_create = (Ptr_context_create)R_GetCCallable("gdtools", "gdtools_context_create");
         }
         RObject __result;
         {
             RNGScope __rngScope;
-            __result = p_str_extents(Rcpp::wrap(x), Rcpp::wrap(fontname), Rcpp::wrap(fontsize), Rcpp::wrap(bold), Rcpp::wrap(italic));
+            __result = p_context_create();
         }
         if (__result.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
         if (__result.inherits("try-error"))
             throw Rcpp::exception(as<std::string>(__result).c_str());
-        return Rcpp::as<NumericMatrix >(__result);
+        return Rcpp::as<XPtrCairoContext >(__result);
     }
 
-    inline NumericVector str_metrics(std::string x, std::string fontname = "sans", int fontsize = 12, int bold = false, int italic = false) {
-        typedef SEXP(*Ptr_str_metrics)(SEXP,SEXP,SEXP,SEXP,SEXP);
-        static Ptr_str_metrics p_str_metrics = NULL;
-        if (p_str_metrics == NULL) {
-            validateSignature("NumericVector(*str_metrics)(std::string,std::string,int,int,int)");
-            p_str_metrics = (Ptr_str_metrics)R_GetCCallable("gdtools", "gdtools_str_metrics");
+    inline void context_set_font(XPtrCairoContext cc, std::string fontname, double fontsize, bool bold, bool italic) {
+        typedef SEXP(*Ptr_context_set_font)(SEXP,SEXP,SEXP,SEXP,SEXP);
+        static Ptr_context_set_font p_context_set_font = NULL;
+        if (p_context_set_font == NULL) {
+            validateSignature("void(*context_set_font)(XPtrCairoContext,std::string,double,bool,bool)");
+            p_context_set_font = (Ptr_context_set_font)R_GetCCallable("gdtools", "gdtools_context_set_font");
         }
         RObject __result;
         {
             RNGScope __rngScope;
-            __result = p_str_metrics(Rcpp::wrap(x), Rcpp::wrap(fontname), Rcpp::wrap(fontsize), Rcpp::wrap(bold), Rcpp::wrap(italic));
+            __result = p_context_set_font(Rcpp::wrap(cc), Rcpp::wrap(fontname), Rcpp::wrap(fontsize), Rcpp::wrap(bold), Rcpp::wrap(italic));
         }
         if (__result.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
         if (__result.inherits("try-error"))
             throw Rcpp::exception(as<std::string>(__result).c_str());
-        return Rcpp::as<NumericVector >(__result);
+        return Rcpp::as<void >(__result);
+    }
+
+    inline FontMetric context_extents(XPtrCairoContext cc, std::string x) {
+        typedef SEXP(*Ptr_context_extents)(SEXP,SEXP);
+        static Ptr_context_extents p_context_extents = NULL;
+        if (p_context_extents == NULL) {
+            validateSignature("FontMetric(*context_extents)(XPtrCairoContext,std::string)");
+            p_context_extents = (Ptr_context_extents)R_GetCCallable("gdtools", "gdtools_context_extents");
+        }
+        RObject __result;
+        {
+            RNGScope __rngScope;
+            __result = p_context_extents(Rcpp::wrap(cc), Rcpp::wrap(x));
+        }
+        if (__result.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (__result.inherits("try-error"))
+            throw Rcpp::exception(as<std::string>(__result).c_str());
+        return Rcpp::as<FontMetric >(__result);
     }
 
 }

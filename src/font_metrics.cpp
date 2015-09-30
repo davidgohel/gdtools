@@ -1,44 +1,7 @@
+#include "gdtools_types.h"
 #include <Rcpp.h>
-#include <cairo.h>
-#include <string.h>
 
-// [[Rcpp::interfaces(r, cpp)]]
 using namespace Rcpp;
-
-class TextExtents {
-  cairo_surface_t* surface_;
-  cairo_t* context_;
-
-public:
-
-  TextExtents(std::string fontname = "sans", double fontsize = 12,
-              bool bold = false, bool italic = false) {
-
-    surface_ = cairo_image_surface_create(CAIRO_FORMAT_ARGB32, 100, 100);
-    context_ = cairo_create(surface_);
-
-    cairo_select_font_face(context_,
-      fontname.c_str(),
-      italic ? CAIRO_FONT_SLANT_ITALIC : CAIRO_FONT_SLANT_NORMAL,
-      bold ? CAIRO_FONT_WEIGHT_BOLD : CAIRO_FONT_WEIGHT_NORMAL
-    );
-
-    cairo_set_font_size(context_, fontsize);
-  }
-
-  ~TextExtents() {
-    cairo_surface_destroy(surface_);
-    cairo_destroy(context_);
-  }
-
-  cairo_text_extents_t extents(std::string x) {
-    cairo_text_extents_t te;
-    cairo_text_extents(context_, x.c_str(), &te);
-
-    return te;
-  }
-
-};
 
 //' Compute string extents.
 //'
@@ -59,7 +22,8 @@ NumericMatrix str_extents(CharacterVector x, std::string fontname = "sans",
                           int fontsize = 12, int bold = false,
                           int italic = false) {
   int n = x.size();
-  TextExtents te(fontname, fontsize, bold, italic);
+  CairoContext cc;
+  cc.setFont(fontname, fontsize, bold, italic);
   NumericMatrix out(n, 2);
 
   for (int i = 0; i < n; ++i) {
@@ -68,10 +32,10 @@ NumericMatrix str_extents(CharacterVector x, std::string fontname = "sans",
       out(i, 1) = NA_REAL;
     } else {
       std::string str(Rf_translateCharUTF8(x[i]));
-      cairo_text_extents_t ext = te.extents(str);
+      FontMetric fm = cc.extents(str);
 
-      out(i, 0) = ext.x_advance;
-      out(i, 1) = ext.height;
+      out(i, 0) = fm.width;
+      out(i, 1) = fm.height;
     }
   }
 
@@ -90,12 +54,13 @@ NumericVector str_metrics(std::string x, std::string fontname = "sans",
                           int fontsize = 12, int bold = false,
                           int italic = false) {
 
-  TextExtents te(fontname, fontsize, bold, italic);
-  cairo_text_extents_t ext = te.extents(x);
+  CairoContext cc;
+  cc.setFont(fontname, fontsize, bold, italic);
+  FontMetric fm = cc.extents(x);
 
   return NumericVector::create(
-    _["width"] = ext.x_advance,
-    _["ascent"] = -ext.y_bearing,
-    _["descent"] = ext.height + ext.y_bearing
+    _["width"] = fm.width,
+    _["ascent"] = fm.ascent,
+    _["descent"] = fm.descent
   );
 }

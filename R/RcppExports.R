@@ -30,6 +30,18 @@ str_metrics <- function(x, fontname = "sans", fontsize = 12L, bold = FALSE, ital
     .Call('gdtools_str_metrics', PACKAGE = 'gdtools', x, fontname, fontsize, bold, italic)
 }
 
+context_create <- function() {
+    .Call('gdtools_context_create', PACKAGE = 'gdtools')
+}
+
+context_set_font <- function(cc, fontname, fontsize, bold, italic) {
+    invisible(.Call('gdtools_context_set_font', PACKAGE = 'gdtools', cc, fontname, fontsize, bold, italic))
+}
+
+context_extents <- function(cc, x) {
+    .Call('gdtools_context_extents', PACKAGE = 'gdtools', cc, x)
+}
+
 base64_encode <- function(filename) {
     .Call('gdtools_base64_encode', PACKAGE = 'gdtools', filename)
 }
