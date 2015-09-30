@@ -38,7 +38,3 @@ raster_to_png <- function(red, green, blue, alpha, w, h, width, height, interpol
     invisible(.Call('gdtools_raster_to_png', PACKAGE = 'gdtools', red, green, blue, alpha, w, h, width, height, interpolate, filename))
 }
 
-# Register entry points for exported C++ functions
-methods::setLoadAction(function(ns) {
-    .Call('gdtools_RcppExport_registerCCallable', PACKAGE = 'gdtools')
-})
