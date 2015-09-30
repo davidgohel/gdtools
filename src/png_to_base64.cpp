@@ -64,20 +64,9 @@ std::string base64_encode(std::vector<char> data) {
 }
 
 
-//' Encode a png file into base64.
-//'
-//' @param filename name of the file to create
-//' @examples
-//' r <- as.raster(matrix(hcl(50, 80, seq(50, 80, 10)),
-//'  nrow = 4, ncol = 5))
-//'
-//' t <- tempfile()
-//' raster_write(r, t, width = 50, height = 50)
-//' png_as_base64(t)
-//' @export
+// Encode a file into base64.
 // [[Rcpp::export]]
-String png_as_base64(std::string filename) {
-
+std::string base64_encode(std::string filename) {
   ifstream ifs(filename.c_str(), ios::binary | ios::ate);
   if (!ifs.good())
     stop("Failed to open %s", filename);
@@ -90,6 +79,5 @@ String png_as_base64(std::string filename) {
   ifs.read(&result[0], pos);
   ifs.close();
 
-  String str_out = base64_encode(result);
-  return str_out;
+  return base64_encode(result);
 }

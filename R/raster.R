@@ -33,7 +33,7 @@ raster_write <- function(x, path, width = 480, height = 480,
 #' @export
 #' @rdname raster_write
 raster_view <- function(path) {
-  code <- png_as_base64(path)
+  code <- base64_encode(path)
   img <- paste0("<img src=\"data:image/png;base64,", code, "\" />")
   htmltools::browsable(htmltools::HTML(img))
 }
