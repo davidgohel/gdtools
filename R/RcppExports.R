@@ -30,8 +30,8 @@ str_metrics <- function(x, fontname = "sans", fontsize = 12L, bold = FALSE, ital
     .Call('gdtools_str_metrics', PACKAGE = 'gdtools', x, fontname, fontsize, bold, italic)
 }
 
-png_to_base64 <- function(filename) {
-    .Call('gdtools_png_to_base64', PACKAGE = 'gdtools', filename)
+base64_encode <- function(filename) {
+    .Call('gdtools_base64_encode', PACKAGE = 'gdtools', filename)
 }
 
 raster_to_png <- function(red, green, blue, alpha, w, h, width, height, interpolate, filename) {

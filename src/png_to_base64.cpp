@@ -64,10 +64,13 @@ std::string base64_encode(std::vector<char> data) {
 }
 
 
+// Encode a file into base64.
 // [[Rcpp::export]]
-String png_to_base64(std::string filename) {
-
+std::string base64_encode(std::string filename) {
   ifstream ifs(filename.c_str(), ios::binary | ios::ate);
+  if (!ifs.good())
+    stop("Failed to open %s", filename);
+
   ifstream::pos_type pos = ifs.tellg();
 
   std::vector<char> result(pos);
@@ -76,6 +79,5 @@ String png_to_base64(std::string filename) {
   ifs.read(&result[0], pos);
   ifs.close();
 
-  String str_out = base64_encode(result);
-  return str_out;
+  return base64_encode(result);
 }
