@@ -1,5 +1,5 @@
+#include "gdtools_types.h"
 #include <Rcpp.h>
-#include "TextExtents.h"
 
 using namespace Rcpp;
 
@@ -22,8 +22,8 @@ NumericMatrix str_extents(CharacterVector x, std::string fontname = "sans",
                           int fontsize = 12, int bold = false,
                           int italic = false) {
   int n = x.size();
-  TextExtents te;
-  te.setFont(fontname, fontsize, bold, italic);
+  CairoContext cc;
+  cc.setFont(fontname, fontsize, bold, italic);
   NumericMatrix out(n, 2);
 
   for (int i = 0; i < n; ++i) {
@@ -32,7 +32,7 @@ NumericMatrix str_extents(CharacterVector x, std::string fontname = "sans",
       out(i, 1) = NA_REAL;
     } else {
       std::string str(Rf_translateCharUTF8(x[i]));
-      FontMetric fm = te.extents(str);
+      FontMetric fm = cc.getExtents(str);
 
       out(i, 0) = fm.width;
       out(i, 1) = fm.height;
@@ -54,9 +54,9 @@ NumericVector str_metrics(std::string x, std::string fontname = "sans",
                           int fontsize = 12, int bold = false,
                           int italic = false) {
 
-  TextExtents te;
-  te.setFont(fontname, fontsize, bold, italic);
-  FontMetric fm = te.extents(x);
+  CairoContext cc;
+  cc.setFont(fontname, fontsize, bold, italic);
+  FontMetric fm = cc.getExtents(x);
 
   return NumericVector::create(
     _["width"] = fm.width,
