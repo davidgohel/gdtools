@@ -8,3 +8,4 @@ src/*.dll
 ^TODO\.md$
 .Rbuildignore
 config.status
+windows
