@@ -14,6 +14,23 @@ public:
 
 #include <Rcpp.h>
 
+inline FontMetric::FontMetric() {}
+
+inline FontMetric::FontMetric(SEXP x_) {
+  Rcpp::IntegerVector x(x_);
+  if (x.size() != 4)
+    Rcpp::stop("Invalid size");
+
+  width = x[0];
+  height = x[1];
+  ascent = x[2];
+  descent = x[3];
+}
+
+inline FontMetric::operator SEXP() const {
+  return Rcpp::IntegerVector::create(width, height, ascent, descent);
+}
+
 class CairoContext {
   struct CairoContext_;
   CairoContext_* cairo_;
