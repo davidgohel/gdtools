@@ -24,16 +24,51 @@ raster_write <- function(x, path, width = 480, height = 480,
 
   col <- col2rgb(x, alpha = TRUE)
   raster_to_png(col["red", ], col["green", ], col["blue", ], col["alpha", ],
-    w = ncol(x), h = nrow(x), width = width, height = height,
-    interpolate = interpolate, filename = path)
+                w = ncol(x), h = nrow(x), width = width, height = height,
+                interpolate = interpolate, filename = path)
 
   invisible(path)
 }
 
+
+#' Draw/preview a raster into a string
+#'
+#' \code{raster_view} is a helper function for testing. It uses \code{htmltools}
+#' to render a png as an image with base64 encoded data image.
+#'
+#' @param x A raster object
+#' @param width,height Width and height in pixels.
+#' @param interpolate A logical value indicating whether to linearly
+#'   interpolate the image.
+#' @export
+#' @examples
+#' r <- as.raster(matrix(hcl(0, 80, seq(50, 80, 10)),
+#'  nrow = 4, ncol = 5))
+#' plot(r)
+#' code <- raster_str(r, width = 50, height = 50)
+#' if (require("htmltools")) {
+#'   raster_view(code = code)
+#' }
+raster_str <- function(x, width = 480, height = 480, interpolate = FALSE) {
+
+  stopifnot(is.raster(x))
+
+  col <- col2rgb(x, alpha = TRUE)
+  value <- raster_to_str(col["red", ], col["green", ], col["blue", ], col["alpha", ],
+                w = ncol(x), h = nrow(x), width = width, height = height,
+                interpolate = interpolate)
+  value
+}
+
+
 #' @export
 #' @rdname raster_write
-raster_view <- function(path) {
-  code <- base64_encode(path)
+raster_view <- function(path, code) {
+  if( missing(code) ){
+    code <- base64_file_encode(path)
+  }
+
   img <- paste0("<img src=\"data:image/png;base64,", code, "\" />")
   htmltools::browsable(htmltools::HTML(img))
 }
+
