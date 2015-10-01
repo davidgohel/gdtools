@@ -1,2 +1,2 @@
-PKG_CPPFLAGS=@cflags@
+PKG_CPPFLAGS=@cflags@ -I../inst/include/
 PKG_LIBS=@libs@
