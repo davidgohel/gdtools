@@ -1,4 +1,4 @@
-PKG_CPPFLAGS= -I../windows/cairo-1.14.2/include/cairo
+PKG_CPPFLAGS= -I../windows/cairo-1.14.2/include/cairo -I../inst/include/
 PKG_LIBS= -L../windows/cairo-1.14.2/lib${R_ARCH} -lcairo -lfontconfig -lfreetype -lpng -lpixman-1 -lexpat -lharfbuzz -lbz2 -lz -lgdi32
 
 all: winlibs
