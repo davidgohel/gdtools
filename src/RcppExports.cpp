@@ -133,25 +133,6 @@ RcppExport SEXP gdtools_context_extents(SEXP ccSEXP, SEXP xSEXP) {
     UNPROTECT(1);
     return __result;
 }
-// raster_to_png
-void raster_to_png(IntegerVector red, IntegerVector green, IntegerVector blue, IntegerVector alpha, int w, int h, double width, double height, int interpolate, std::string filename);
-RcppExport SEXP gdtools_raster_to_png(SEXP redSEXP, SEXP greenSEXP, SEXP blueSEXP, SEXP alphaSEXP, SEXP wSEXP, SEXP hSEXP, SEXP widthSEXP, SEXP heightSEXP, SEXP interpolateSEXP, SEXP filenameSEXP) {
-BEGIN_RCPP
-    Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< IntegerVector >::type red(redSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type green(greenSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type blue(blueSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type alpha(alphaSEXP);
-    Rcpp::traits::input_parameter< int >::type w(wSEXP);
-    Rcpp::traits::input_parameter< int >::type h(hSEXP);
-    Rcpp::traits::input_parameter< double >::type width(widthSEXP);
-    Rcpp::traits::input_parameter< double >::type height(heightSEXP);
-    Rcpp::traits::input_parameter< int >::type interpolate(interpolateSEXP);
-    Rcpp::traits::input_parameter< std::string >::type filename(filenameSEXP);
-    raster_to_png(red, green, blue, alpha, w, h, width, height, interpolate, filename);
-    return R_NilValue;
-END_RCPP
-}
 // raster_to_str
 String raster_to_str(IntegerVector red, IntegerVector green, IntegerVector blue, IntegerVector alpha, int w, int h, double width, double height, int interpolate);
 RcppExport SEXP gdtools_raster_to_str(SEXP redSEXP, SEXP greenSEXP, SEXP blueSEXP, SEXP alphaSEXP, SEXP wSEXP, SEXP hSEXP, SEXP widthSEXP, SEXP heightSEXP, SEXP interpolateSEXP) {

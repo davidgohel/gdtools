@@ -2,7 +2,6 @@
 
 export(raster_str)
 export(raster_view)
-export(raster_write)
 export(str_extents)
 export(str_metrics)
 importFrom(Rcpp,sourceCpp)

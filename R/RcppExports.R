@@ -42,10 +42,6 @@ context_extents <- function(cc, x) {
     .Call('gdtools_context_extents', PACKAGE = 'gdtools', cc, x)
 }
 
-raster_to_png <- function(red, green, blue, alpha, w, h, width, height, interpolate, filename) {
-    invisible(.Call('gdtools_raster_to_png', PACKAGE = 'gdtools', red, green, blue, alpha, w, h, width, height, interpolate, filename))
-}
-
 raster_to_str <- function(red, green, blue, alpha, w, h, width, height, interpolate) {
     .Call('gdtools_raster_to_str', PACKAGE = 'gdtools', red, green, blue, alpha, w, h, width, height, interpolate)
 }
