@@ -9,13 +9,13 @@
 #' @param x Character vector of of strings to measure
 #' @param bold,italic Is text bold/italic?
 #' @param fontname Font name
-#' @param fontsize Font size (in pixels)
+#' @param fontsize Font size
 #' @examples
 #' str_extents(letters)
 #' str_extents("Hello World!", bold = TRUE, italic = FALSE,
-#'   fontname = "Sans", fontsize = 12)
+#'   fontname = "sans", fontsize = 12)
 #' @export
-str_extents <- function(x, fontname = "sans", fontsize = 12L, bold = FALSE, italic = FALSE) {
+str_extents <- function(x, fontname = "sans", fontsize = 12, bold = FALSE, italic = FALSE) {
     .Call('gdtools_str_extents', PACKAGE = 'gdtools', x, fontname, fontsize, bold, italic)
 }
 
@@ -26,7 +26,7 @@ str_extents <- function(x, fontname = "sans", fontsize = 12L, bold = FALSE, ital
 #' @examples
 #' str_metrics("Hello World!")
 #' @export
-str_metrics <- function(x, fontname = "sans", fontsize = 12L, bold = FALSE, italic = FALSE) {
+str_metrics <- function(x, fontname = "sans", fontsize = 12, bold = FALSE, italic = FALSE) {
     .Call('gdtools_str_metrics', PACKAGE = 'gdtools', x, fontname, fontsize, bold, italic)
 }
 
