@@ -1,6 +1,7 @@
 #include "gdtools_types.h"
 #include <Rcpp.h>
 #include <cairo.h>
+#include <cairo-pdf.h>
 #include <string.h>
 
 using namespace Rcpp;
@@ -12,7 +13,7 @@ struct CairoContext::CairoContext_ {
 
 CairoContext::CairoContext() {
   cairo_ = new CairoContext_();
-  cairo_->surface = cairo_image_surface_create(CAIRO_FORMAT_ARGB32, 100, 100);
+  cairo_->surface = cairo_pdf_surface_create(NULL, 720, 720);
   cairo_->context = cairo_create(cairo_->surface);
 }
 
