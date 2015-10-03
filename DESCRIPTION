@@ -7,6 +7,7 @@ Authors@R: c(
     person("David", "Gohel", , "david.gohel@ardata.fr", c("aut", "cre")),
     person("Hadley", "Wickham", , "hadley@rstudio.com", "aut"),
     person("Jeroen", "Ooms", role = "ctb"),
+    person("Yixuan", "Qiu", role = "ctb"),
     person("RStudio", role = "cph")
   )
 LazyData: TRUE
