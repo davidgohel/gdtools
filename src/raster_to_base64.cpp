@@ -80,7 +80,6 @@ String raster_to_str(IntegerVector red, IntegerVector green, IntegerVector blue,
   int i;
   int img_width = (int) width;
   int img_height = (int) height;
-
   cairo_surface_t *basesurface = cairo_image_surface_create(
     CAIRO_FORMAT_ARGB32, img_width, img_height);
   cairo_t *cc = cairo_create(basesurface);
@@ -120,7 +119,7 @@ String raster_to_str(IntegerVector red, IntegerVector green, IntegerVector blue,
   cairo_destroy(cc);
 
   vector<char> in;
-  cairo_surface_write_to_png_stream(image, stream_data, &in);
+  cairo_surface_write_to_png_stream(basesurface, stream_data, &in);
 
   cairo_surface_destroy(image);
   cairo_surface_destroy(basesurface);
