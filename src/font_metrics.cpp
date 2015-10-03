@@ -11,15 +11,15 @@ using namespace Rcpp;
 //' @param x Character vector of of strings to measure
 //' @param bold,italic Is text bold/italic?
 //' @param fontname Font name
-//' @param fontsize Font size (in pixels)
+//' @param fontsize Font size
 //' @examples
 //' str_extents(letters)
 //' str_extents("Hello World!", bold = TRUE, italic = FALSE,
-//'   fontname = "Sans", fontsize = 12)
+//'   fontname = "sans", fontsize = 12)
 //' @export
 // [[Rcpp::export]]
 NumericMatrix str_extents(CharacterVector x, std::string fontname = "sans",
-                          int fontsize = 12, int bold = false,
+                          double fontsize = 12, int bold = false,
                           int italic = false) {
   int n = x.size();
   CairoContext cc;
@@ -51,7 +51,7 @@ NumericMatrix str_extents(CharacterVector x, std::string fontname = "sans",
 //' @export
 // [[Rcpp::export]]
 NumericVector str_metrics(std::string x, std::string fontname = "sans",
-                          int fontsize = 12, int bold = false,
+                          double fontsize = 12, int bold = false,
                           int italic = false) {
 
   CairoContext cc;

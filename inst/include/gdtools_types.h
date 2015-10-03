@@ -17,7 +17,7 @@ public:
 inline FontMetric::FontMetric() {}
 
 inline FontMetric::FontMetric(SEXP x_) {
-  Rcpp::IntegerVector x(x_);
+  Rcpp::NumericVector x(x_);
   if (x.size() != 4)
     Rcpp::stop("Invalid size");
 
@@ -28,7 +28,7 @@ inline FontMetric::FontMetric(SEXP x_) {
 }
 
 inline FontMetric::operator SEXP() const {
-  return Rcpp::IntegerVector::create(width, height, ascent, descent);
+  return Rcpp::NumericVector::create(width, height, ascent, descent);
 }
 
 class CairoContext {
