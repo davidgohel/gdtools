@@ -42,8 +42,8 @@ context_extents <- function(cc, x) {
     .Call('gdtools_context_extents', PACKAGE = 'gdtools', cc, x)
 }
 
-raster_to_str <- function(red, green, blue, alpha, w, h, width, height, interpolate) {
-    .Call('gdtools_raster_to_str', PACKAGE = 'gdtools', red, green, blue, alpha, w, h, width, height, interpolate)
+base64_raster_encode <- function(raster_, w, h, width, height, interpolate) {
+    .Call('gdtools_base64_raster_encode', PACKAGE = 'gdtools', raster_, w, h, width, height, interpolate)
 }
 
 base64_file_encode <- function(filename) {

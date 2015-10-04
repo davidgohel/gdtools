@@ -133,22 +133,19 @@ RcppExport SEXP gdtools_context_extents(SEXP ccSEXP, SEXP xSEXP) {
     UNPROTECT(1);
     return __result;
 }
-// raster_to_str
-String raster_to_str(IntegerVector red, IntegerVector green, IntegerVector blue, IntegerVector alpha, int w, int h, double width, double height, int interpolate);
-RcppExport SEXP gdtools_raster_to_str(SEXP redSEXP, SEXP greenSEXP, SEXP blueSEXP, SEXP alphaSEXP, SEXP wSEXP, SEXP hSEXP, SEXP widthSEXP, SEXP heightSEXP, SEXP interpolateSEXP) {
+// base64_raster_encode
+std::string base64_raster_encode(CharacterVector raster_, int w, int h, double width, double height, int interpolate);
+RcppExport SEXP gdtools_base64_raster_encode(SEXP raster_SEXP, SEXP wSEXP, SEXP hSEXP, SEXP widthSEXP, SEXP heightSEXP, SEXP interpolateSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< IntegerVector >::type red(redSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type green(greenSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type blue(blueSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type alpha(alphaSEXP);
+    Rcpp::traits::input_parameter< CharacterVector >::type raster_(raster_SEXP);
     Rcpp::traits::input_parameter< int >::type w(wSEXP);
     Rcpp::traits::input_parameter< int >::type h(hSEXP);
     Rcpp::traits::input_parameter< double >::type width(widthSEXP);
     Rcpp::traits::input_parameter< double >::type height(heightSEXP);
     Rcpp::traits::input_parameter< int >::type interpolate(interpolateSEXP);
-    __result = Rcpp::wrap(raster_to_str(red, green, blue, alpha, w, h, width, height, interpolate));
+    __result = Rcpp::wrap(base64_raster_encode(raster_, w, h, width, height, interpolate));
     return __result;
 END_RCPP
 }

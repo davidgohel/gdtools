@@ -4,7 +4,7 @@
 \alias{str_extents}
 \title{Compute string extents.}
 \usage{
-str_extents(x, fontname = "sans", fontsize = 12L, bold = FALSE,
+str_extents(x, fontname = "sans", fontsize = 12, bold = FALSE,
   italic = FALSE)
 }
 \arguments{
@@ -12,7 +12,7 @@ str_extents(x, fontname = "sans", fontsize = 12L, bold = FALSE,
 
 \item{fontname}{Font name}
 
-\item{fontsize}{Font size (in pixels)}
+\item{fontsize}{Font size}
 
 \item{bold,italic}{Is text bold/italic?}
 }
@@ -23,6 +23,6 @@ to (just) enclose the provided text.
 \examples{
 str_extents(letters)
 str_extents("Hello World!", bold = TRUE, italic = FALSE,
-  fontname = "Sans", fontsize = 12)
+  fontname = "sans", fontsize = 12)
 }
 

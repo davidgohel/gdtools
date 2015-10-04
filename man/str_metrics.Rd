@@ -4,7 +4,7 @@
 \alias{str_metrics}
 \title{Get font metrics for a string.}
 \usage{
-str_metrics(x, fontname = "sans", fontsize = 12L, bold = FALSE,
+str_metrics(x, fontname = "sans", fontsize = 12, bold = FALSE,
   italic = FALSE)
 }
 \arguments{
@@ -12,7 +12,7 @@ str_metrics(x, fontname = "sans", fontsize = 12L, bold = FALSE,
 
 \item{fontname}{Font name}
 
-\item{fontsize}{Font size (in pixels)}
+\item{fontsize}{Font size}
 
 \item{bold}{Is text bold/italic?}
 

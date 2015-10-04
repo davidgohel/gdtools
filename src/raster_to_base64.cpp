@@ -8,6 +8,11 @@
 using namespace Rcpp;
 using namespace std;
 
+#define R_RED(col)  (((col)    )&255)
+#define R_GREEN(col)    (((col)>> 8)&255)
+#define R_BLUE(col) (((col)>>16)&255)
+#define R_ALPHA(col)    (((col)>>24)&255)
+
 static const std::string base64_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 "abcdefghijklmnopqrstuvwxyz"
 "0123456789+/";
@@ -72,14 +77,15 @@ static cairo_status_t stream_data(void* closure, const unsigned char* data, unsi
   return CAIRO_STATUS_SUCCESS;
 }
 
-// [[Rcpp::export]]
-String raster_to_str(IntegerVector red, IntegerVector green, IntegerVector blue,
-                     IntegerVector alpha, int w, int h, double width, double height,
-                     int interpolate) {
+
+
+std::string raster_to_str(std::vector<unsigned int> raster,
+  int w, int h, double width, double height, int interpolate) {
 
   int i;
   int img_width = (int) width;
   int img_height = (int) height;
+
   cairo_surface_t *basesurface = cairo_image_surface_create(
     CAIRO_FORMAT_ARGB32, img_width, img_height);
   cairo_t *cc = cairo_create(basesurface);
@@ -89,15 +95,10 @@ String raster_to_str(IntegerVector red, IntegerVector green, IntegerVector blue,
 
   std::vector<unsigned char> imageData(4 * w * h);
   for (i = 0; i < w * h; i++) {
-    int calpha = alpha[i];
-    int cred = red[i];
-    int cgreen = green[i];
-    int cblue = blue[i];
-
-    imageData[i * 4 + 3] = calpha;
-    imageData[i * 4 + 2] = cred;
-    imageData[i * 4 + 1] = cgreen;
-    imageData[i * 4 + 0] = cblue;
+    imageData[i * 4 + 3] = R_ALPHA(raster[i]);
+    imageData[i * 4 + 2] = R_RED(raster[i]);
+    imageData[i * 4 + 1] = R_GREEN(raster[i]);
+    imageData[i * 4 + 0] = R_BLUE(raster[i]);
   }
 
   int stride;
@@ -123,9 +124,42 @@ String raster_to_str(IntegerVector red, IntegerVector green, IntegerVector blue,
 
   cairo_surface_destroy(image);
   cairo_surface_destroy(basesurface);
-  return base64_encode(in);
+  std::string out = base64_encode(in);
+  return out;
 }
 
+vector<unsigned int> convert_hex(vector<string> hcode) {
+  vector<unsigned int> bit_coded_colors(hcode.size());
+
+  for( int i = 0 ; i < hcode.size() ; i++ ){
+    std::stringstream str_abgr;
+    unsigned int bit_coded_color;
+    string in = "0x";
+
+    if(  hcode[i].size() == 9 ) {
+      in += hcode[i].substr(7, 2 );
+    } else in += "FF";
+
+    in += hcode[i].substr(5, 2 );
+    in += hcode[i].substr(3, 2 );
+    in += hcode[i].substr(1, 2 );
+
+    str_abgr << std::hex << in;
+    str_abgr >> bit_coded_color;
+
+    bit_coded_colors[i] = bit_coded_color;
+  }
+  return bit_coded_colors;
+}
+
+
+// [[Rcpp::export]]
+std::string base64_raster_encode(CharacterVector raster_, int w, int h, double width, double height,
+                            int interpolate) {
+  vector<string> raster = Rcpp::as<vector<string> >(raster_);
+  vector<unsigned int> out = convert_hex(raster);
+  return raster_to_str(out, w, h, width, height, interpolate);
+}
 
 // Encode a file into base64.
 // [[Rcpp::export]]

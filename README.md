@@ -13,4 +13,4 @@ raster matrix.
 
 License
 -------
-The ReporteRs package is licensed under the GPLv3. 
+The `gdtools` package is licensed under the GPLv3. 

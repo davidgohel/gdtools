@@ -21,8 +21,7 @@ raster_str <- function(x, width = 480, height = 480, interpolate = FALSE) {
 
   stopifnot(is.raster(x))
 
-  col <- col2rgb(x, alpha = TRUE)
-  value <- raster_to_str(col["red", ], col["green", ], col["blue", ], col["alpha", ],
+  value <- base64_raster_encode(x,
                 w = ncol(x), h = nrow(x), width = width, height = height,
                 interpolate = interpolate)
   value
