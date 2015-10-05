@@ -1,5 +1,7 @@
 #include "gdtools_types.h"
 #include <Rcpp.h>
+#include <cairo-ft.h>
+#include <fontconfig/fontconfig.h>
 
 using namespace Rcpp;
 
@@ -50,13 +52,16 @@ NumericMatrix str_extents(CharacterVector x, std::string fontname = "sans",
 //' str_metrics("Hello World!")
 //' @export
 // [[Rcpp::export]]
-NumericVector str_metrics(std::string x, std::string fontname = "sans",
+NumericVector str_metrics(CharacterVector x, std::string fontname = "sans",
                           double fontsize = 12, int bold = false,
                           int italic = false) {
 
   CairoContext cc;
   cc.setFont(fontname, fontsize, bold, italic);
-  FontMetric fm = cc.getExtents(x);
+
+  std::string str(Rf_translateCharUTF8(x[0]));
+
+  FontMetric fm = cc.getExtents(str);
 
   return NumericVector::create(
     _["width"] = fm.width,
@@ -64,3 +69,64 @@ NumericVector str_metrics(std::string x, std::string fontname = "sans",
     _["descent"] = fm.descent
   );
 }
+
+
+//' Check if font family exists.
+//'
+//' @return A logical value
+//' @param font_family font family name (case sensitive)
+//' @examples
+//' font_family_exists("sans")
+//' font_family_exists("Arial")
+//' font_family_exists("Courier")
+//' @export
+// [[Rcpp::export]]
+bool font_family_exists(std::string font_family = "sans" ) {
+
+  FcFontSet *font_set;
+  FcPattern *font_pattern;
+  FcResult font_result;
+  FcPattern *font_candidate;
+
+  if (!FcInit ()) {
+    warning ("Font config initialization failed");
+    return R_NilValue;
+  }
+
+  font_pattern = FcNameParse ((const FcChar8 *)font_family.c_str());
+
+  if (!font_pattern){
+    warning ("Unable to parse pattern string");
+    return R_NilValue;
+  }
+
+  FcConfigSubstitute (0, font_pattern, FcMatchPattern);
+  FcDefaultSubstitute (font_pattern);
+  font_set = FcFontSetCreate ();
+
+  font_candidate = FcFontMatch (0, font_pattern, &font_result);
+  if (font_candidate)
+    FcFontSetAdd (font_set, font_candidate);
+
+  FcPatternDestroy (font_pattern);
+
+  bool out = FALSE;
+  if (font_set) {
+    int	j;
+
+    for (j = 0; j < font_set->nfont; j++) {
+      FcChar8	*family;
+
+      if (FcPatternGetString (font_set->fonts[j], FC_FAMILY, 0, &family) != FcResultMatch)
+        family = (FcChar8 *) R_NilValue;
+      const char* charFamily = reinterpret_cast<char*>(family);
+      if( charFamily == font_family)
+        out = TRUE;
+      break;
+    }
+
+    FcFontSetDestroy (font_set);
+  }
+  return out;
+}
+

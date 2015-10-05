@@ -30,6 +30,19 @@ str_metrics <- function(x, fontname = "sans", fontsize = 12, bold = FALSE, itali
     .Call('gdtools_str_metrics', PACKAGE = 'gdtools', x, fontname, fontsize, bold, italic)
 }
 
+#' Check if font family exists.
+#'
+#' @return A logical value
+#' @param font_family font family name (case sensitive)
+#' @examples
+#' font_family_exists("sans")
+#' font_family_exists("Arial")
+#' font_family_exists("Courier")
+#' @export
+font_family_exists <- function(font_family = "sans") {
+    .Call('gdtools_font_family_exists', PACKAGE = 'gdtools', font_family)
+}
+
 context_create <- function() {
     .Call('gdtools_context_create', PACKAGE = 'gdtools')
 }

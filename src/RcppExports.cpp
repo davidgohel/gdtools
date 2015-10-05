@@ -25,17 +25,28 @@ BEGIN_RCPP
 END_RCPP
 }
 // str_metrics
-NumericVector str_metrics(std::string x, std::string fontname, double fontsize, int bold, int italic);
+NumericVector str_metrics(CharacterVector x, std::string fontname, double fontsize, int bold, int italic);
 RcppExport SEXP gdtools_str_metrics(SEXP xSEXP, SEXP fontnameSEXP, SEXP fontsizeSEXP, SEXP boldSEXP, SEXP italicSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< std::string >::type x(xSEXP);
+    Rcpp::traits::input_parameter< CharacterVector >::type x(xSEXP);
     Rcpp::traits::input_parameter< std::string >::type fontname(fontnameSEXP);
     Rcpp::traits::input_parameter< double >::type fontsize(fontsizeSEXP);
     Rcpp::traits::input_parameter< int >::type bold(boldSEXP);
     Rcpp::traits::input_parameter< int >::type italic(italicSEXP);
     __result = Rcpp::wrap(str_metrics(x, fontname, fontsize, bold, italic));
+    return __result;
+END_RCPP
+}
+// font_family_exists
+bool font_family_exists(std::string font_family);
+RcppExport SEXP gdtools_font_family_exists(SEXP font_familySEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< std::string >::type font_family(font_familySEXP);
+    __result = Rcpp::wrap(font_family_exists(font_family));
     return __result;
 END_RCPP
 }
