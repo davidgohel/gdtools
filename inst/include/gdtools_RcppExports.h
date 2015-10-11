@@ -82,6 +82,63 @@ namespace gdtools {
         return Rcpp::as<FontMetric >(__result);
     }
 
+    inline std::string raster_to_str(std::vector<unsigned int> raster, int w, int h, double width, double height, int interpolate) {
+        typedef SEXP(*Ptr_raster_to_str)(SEXP,SEXP,SEXP,SEXP,SEXP,SEXP);
+        static Ptr_raster_to_str p_raster_to_str = NULL;
+        if (p_raster_to_str == NULL) {
+            validateSignature("std::string(*raster_to_str)(std::vector<unsigned int>,int,int,double,double,int)");
+            p_raster_to_str = (Ptr_raster_to_str)R_GetCCallable("gdtools", "gdtools_raster_to_str");
+        }
+        RObject __result;
+        {
+            RNGScope __rngScope;
+            __result = p_raster_to_str(Rcpp::wrap(raster), Rcpp::wrap(w), Rcpp::wrap(h), Rcpp::wrap(width), Rcpp::wrap(height), Rcpp::wrap(interpolate));
+        }
+        if (__result.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (__result.inherits("try-error"))
+            throw Rcpp::exception(as<std::string>(__result).c_str());
+        return Rcpp::as<std::string >(__result);
+    }
+
+    inline std::string base64_raster_encode(CharacterVector raster_, int w, int h, double width, double height, int interpolate) {
+        typedef SEXP(*Ptr_base64_raster_encode)(SEXP,SEXP,SEXP,SEXP,SEXP,SEXP);
+        static Ptr_base64_raster_encode p_base64_raster_encode = NULL;
+        if (p_base64_raster_encode == NULL) {
+            validateSignature("std::string(*base64_raster_encode)(CharacterVector,int,int,double,double,int)");
+            p_base64_raster_encode = (Ptr_base64_raster_encode)R_GetCCallable("gdtools", "gdtools_base64_raster_encode");
+        }
+        RObject __result;
+        {
+            RNGScope __rngScope;
+            __result = p_base64_raster_encode(Rcpp::wrap(raster_), Rcpp::wrap(w), Rcpp::wrap(h), Rcpp::wrap(width), Rcpp::wrap(height), Rcpp::wrap(interpolate));
+        }
+        if (__result.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (__result.inherits("try-error"))
+            throw Rcpp::exception(as<std::string>(__result).c_str());
+        return Rcpp::as<std::string >(__result);
+    }
+
+    inline std::string base64_file_encode(std::string filename) {
+        typedef SEXP(*Ptr_base64_file_encode)(SEXP);
+        static Ptr_base64_file_encode p_base64_file_encode = NULL;
+        if (p_base64_file_encode == NULL) {
+            validateSignature("std::string(*base64_file_encode)(std::string)");
+            p_base64_file_encode = (Ptr_base64_file_encode)R_GetCCallable("gdtools", "gdtools_base64_file_encode");
+        }
+        RObject __result;
+        {
+            RNGScope __rngScope;
+            __result = p_base64_file_encode(Rcpp::wrap(filename));
+        }
+        if (__result.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (__result.inherits("try-error"))
+            throw Rcpp::exception(as<std::string>(__result).c_str());
+        return Rcpp::as<std::string >(__result);
+    }
+
 }
 
 #endif // __gdtools_RcppExports_h__

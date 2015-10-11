@@ -8,6 +8,8 @@
 using namespace Rcpp;
 using namespace std;
 
+// [[Rcpp::interfaces(r, cpp)]]
+
 #define R_RED(col)  (((col)    )&255)
 #define R_GREEN(col)    (((col)>> 8)&255)
 #define R_BLUE(col) (((col)>>16)&255)
@@ -78,7 +80,7 @@ static cairo_status_t stream_data(void* closure, const unsigned char* data, unsi
 }
 
 
-
+// [[Rcpp::export]]
 std::string raster_to_str(std::vector<unsigned int> raster,
   int w, int h, double width, double height, int interpolate) {
 
