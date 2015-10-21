@@ -1,4 +1,3 @@
-#' @importFrom grDevices is.raster
 #' Draw/preview a raster into a string
 #'
 #' \code{raster_view} is a helper function for testing. It uses \code{htmltools}
