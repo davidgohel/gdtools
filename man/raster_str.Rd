@@ -3,7 +3,6 @@
 \name{raster_str}
 \alias{raster_str}
 \alias{raster_view}
-\title{Draw/preview a raster into a string}
 \usage{
 raster_str(x, width = 480, height = 480, interpolate = FALSE)
 
@@ -18,10 +17,6 @@ raster_view(code)
 interpolate the image.}
 
 \item{code}{base64 code of a raster}
-}
-\description{
-\code{raster_view} is a helper function for testing. It uses \code{htmltools}
-to render a png as an image with base64 encoded data image.
 }
 \examples{
 r <- as.raster(matrix(hcl(0, 80, seq(50, 80, 10)),
