@@ -14,7 +14,7 @@
 #'  nrow = 4, ncol = 5))
 #' plot(r)
 #' code <- raster_str(r, width = 50, height = 50)
-#' if (require("htmltools")) {
+#' if (interactive() && require("htmltools")) {
 #'   raster_view(code = code)
 #' }
 raster_str <- function(x, width = 480, height = 480, interpolate = FALSE) {
