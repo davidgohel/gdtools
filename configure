@@ -18,6 +18,11 @@ PKG_LIBS="-lcairo"
 if [ $(command -v pkg-config) ]; then
   PKGCONFIG_CFLAGS=$(pkg-config --cflags --silence-errors ${PKG_CONFIG_NAME})
   PKGCONFIG_LIBS=$(pkg-config --libs ${PKG_CONFIG_NAME})
+
+  # Workaround because cairo.pc on solaris 10 fails to find ft headers
+  if [ $(uname) = "SunOS" ]; then
+    PKGCONFIG_CFLAGS=$(pkg-config --cflags cairo freetype2)
+  fi
 fi
 
 # Note that cflags may be empty in case of success
