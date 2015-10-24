@@ -25,6 +25,12 @@ if [ $(command -v pkg-config) ]; then
   fi
 fi
 
+# Hack because OSX CRAN server has old libcairo
+if [ -e "/Builds/CRAN-QA-Simon" ]; then
+  unset PKGCONFIG_CFLAGS
+  unset PKGCONFIG_LIBS
+fi
+
 # Note that cflags may be empty in case of success
 if [ "$INCLUDE_DIR" ] || [ "$LIB_DIR" ]; then
   echo "Found INCLUDE_DIR and/or LIB_DIR!"
