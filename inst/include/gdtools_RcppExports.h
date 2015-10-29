@@ -101,6 +101,44 @@ namespace gdtools {
         return Rcpp::as<std::string >(__result);
     }
 
+    inline int raster_to_file(std::vector<unsigned int> raster_, int w, int h, double width, double height, int interpolate, std::string filename) {
+        typedef SEXP(*Ptr_raster_to_file)(SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP);
+        static Ptr_raster_to_file p_raster_to_file = NULL;
+        if (p_raster_to_file == NULL) {
+            validateSignature("int(*raster_to_file)(std::vector<unsigned int>,int,int,double,double,int,std::string)");
+            p_raster_to_file = (Ptr_raster_to_file)R_GetCCallable("gdtools", "gdtools_raster_to_file");
+        }
+        RObject __result;
+        {
+            RNGScope __rngScope;
+            __result = p_raster_to_file(Rcpp::wrap(raster_), Rcpp::wrap(w), Rcpp::wrap(h), Rcpp::wrap(width), Rcpp::wrap(height), Rcpp::wrap(interpolate), Rcpp::wrap(filename));
+        }
+        if (__result.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (__result.inherits("try-error"))
+            throw Rcpp::exception(as<std::string>(__result).c_str());
+        return Rcpp::as<int >(__result);
+    }
+
+    inline bool raster_png_(CharacterVector raster_, int w, int h, double width, double height, int interpolate, std::string filename) {
+        typedef SEXP(*Ptr_raster_png_)(SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP);
+        static Ptr_raster_png_ p_raster_png_ = NULL;
+        if (p_raster_png_ == NULL) {
+            validateSignature("bool(*raster_png_)(CharacterVector,int,int,double,double,int,std::string)");
+            p_raster_png_ = (Ptr_raster_png_)R_GetCCallable("gdtools", "gdtools_raster_png_");
+        }
+        RObject __result;
+        {
+            RNGScope __rngScope;
+            __result = p_raster_png_(Rcpp::wrap(raster_), Rcpp::wrap(w), Rcpp::wrap(h), Rcpp::wrap(width), Rcpp::wrap(height), Rcpp::wrap(interpolate), Rcpp::wrap(filename));
+        }
+        if (__result.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (__result.inherits("try-error"))
+            throw Rcpp::exception(as<std::string>(__result).c_str());
+        return Rcpp::as<bool >(__result);
+    }
+
     inline std::string base64_raster_encode(CharacterVector raster_, int w, int h, double width, double height, int interpolate) {
         typedef SEXP(*Ptr_base64_raster_encode)(SEXP,SEXP,SEXP,SEXP,SEXP,SEXP);
         static Ptr_base64_raster_encode p_base64_raster_encode = NULL;

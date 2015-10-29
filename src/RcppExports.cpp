@@ -179,6 +179,78 @@ RcppExport SEXP gdtools_raster_to_str(SEXP rasterSEXP, SEXP wSEXP, SEXP hSEXP, S
     UNPROTECT(1);
     return __result;
 }
+// raster_to_file
+int raster_to_file(std::vector<unsigned int> raster_, int w, int h, double width, double height, int interpolate, std::string filename);
+static SEXP gdtools_raster_to_file_try(SEXP raster_SEXP, SEXP wSEXP, SEXP hSEXP, SEXP widthSEXP, SEXP heightSEXP, SEXP interpolateSEXP, SEXP filenameSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::traits::input_parameter< std::vector<unsigned int> >::type raster_(raster_SEXP);
+    Rcpp::traits::input_parameter< int >::type w(wSEXP);
+    Rcpp::traits::input_parameter< int >::type h(hSEXP);
+    Rcpp::traits::input_parameter< double >::type width(widthSEXP);
+    Rcpp::traits::input_parameter< double >::type height(heightSEXP);
+    Rcpp::traits::input_parameter< int >::type interpolate(interpolateSEXP);
+    Rcpp::traits::input_parameter< std::string >::type filename(filenameSEXP);
+    __result = Rcpp::wrap(raster_to_file(raster_, w, h, width, height, interpolate, filename));
+    return __result;
+END_RCPP_RETURN_ERROR
+}
+RcppExport SEXP gdtools_raster_to_file(SEXP raster_SEXP, SEXP wSEXP, SEXP hSEXP, SEXP widthSEXP, SEXP heightSEXP, SEXP interpolateSEXP, SEXP filenameSEXP) {
+    SEXP __result;
+    {
+        Rcpp::RNGScope __rngScope;
+        __result = PROTECT(gdtools_raster_to_file_try(raster_SEXP, wSEXP, hSEXP, widthSEXP, heightSEXP, interpolateSEXP, filenameSEXP));
+    }
+    Rboolean __isInterrupt = Rf_inherits(__result, "interrupted-error");
+    if (__isInterrupt) {
+        UNPROTECT(1);
+        Rf_onintr();
+    }
+    Rboolean __isError = Rf_inherits(__result, "try-error");
+    if (__isError) {
+        SEXP __msgSEXP = Rf_asChar(__result);
+        UNPROTECT(1);
+        Rf_error(CHAR(__msgSEXP));
+    }
+    UNPROTECT(1);
+    return __result;
+}
+// raster_png_
+bool raster_png_(CharacterVector raster_, int w, int h, double width, double height, int interpolate, std::string filename);
+static SEXP gdtools_raster_png__try(SEXP raster_SEXP, SEXP wSEXP, SEXP hSEXP, SEXP widthSEXP, SEXP heightSEXP, SEXP interpolateSEXP, SEXP filenameSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::traits::input_parameter< CharacterVector >::type raster_(raster_SEXP);
+    Rcpp::traits::input_parameter< int >::type w(wSEXP);
+    Rcpp::traits::input_parameter< int >::type h(hSEXP);
+    Rcpp::traits::input_parameter< double >::type width(widthSEXP);
+    Rcpp::traits::input_parameter< double >::type height(heightSEXP);
+    Rcpp::traits::input_parameter< int >::type interpolate(interpolateSEXP);
+    Rcpp::traits::input_parameter< std::string >::type filename(filenameSEXP);
+    __result = Rcpp::wrap(raster_png_(raster_, w, h, width, height, interpolate, filename));
+    return __result;
+END_RCPP_RETURN_ERROR
+}
+RcppExport SEXP gdtools_raster_png_(SEXP raster_SEXP, SEXP wSEXP, SEXP hSEXP, SEXP widthSEXP, SEXP heightSEXP, SEXP interpolateSEXP, SEXP filenameSEXP) {
+    SEXP __result;
+    {
+        Rcpp::RNGScope __rngScope;
+        __result = PROTECT(gdtools_raster_png__try(raster_SEXP, wSEXP, hSEXP, widthSEXP, heightSEXP, interpolateSEXP, filenameSEXP));
+    }
+    Rboolean __isInterrupt = Rf_inherits(__result, "interrupted-error");
+    if (__isInterrupt) {
+        UNPROTECT(1);
+        Rf_onintr();
+    }
+    Rboolean __isError = Rf_inherits(__result, "try-error");
+    if (__isError) {
+        SEXP __msgSEXP = Rf_asChar(__result);
+        UNPROTECT(1);
+        Rf_error(CHAR(__msgSEXP));
+    }
+    UNPROTECT(1);
+    return __result;
+}
 // base64_raster_encode
 std::string base64_raster_encode(CharacterVector raster_, int w, int h, double width, double height, int interpolate);
 static SEXP gdtools_base64_raster_encode_try(SEXP raster_SEXP, SEXP wSEXP, SEXP hSEXP, SEXP widthSEXP, SEXP heightSEXP, SEXP interpolateSEXP) {
@@ -253,6 +325,8 @@ static int gdtools_RcppExport_validate(const char* sig) {
         signatures.insert("bool(*context_set_font)(XPtrCairoContext,std::string,double,bool,bool)");
         signatures.insert("FontMetric(*context_extents)(XPtrCairoContext,std::string)");
         signatures.insert("std::string(*raster_to_str)(std::vector<unsigned int>,int,int,double,double,int)");
+        signatures.insert("int(*raster_to_file)(std::vector<unsigned int>,int,int,double,double,int,std::string)");
+        signatures.insert("bool(*raster_png_)(CharacterVector,int,int,double,double,int,std::string)");
         signatures.insert("std::string(*base64_raster_encode)(CharacterVector,int,int,double,double,int)");
         signatures.insert("std::string(*base64_file_encode)(std::string)");
     }
@@ -265,6 +339,8 @@ RcppExport SEXP gdtools_RcppExport_registerCCallable() {
     R_RegisterCCallable("gdtools", "gdtools_context_set_font", (DL_FUNC)gdtools_context_set_font_try);
     R_RegisterCCallable("gdtools", "gdtools_context_extents", (DL_FUNC)gdtools_context_extents_try);
     R_RegisterCCallable("gdtools", "gdtools_raster_to_str", (DL_FUNC)gdtools_raster_to_str_try);
+    R_RegisterCCallable("gdtools", "gdtools_raster_to_file", (DL_FUNC)gdtools_raster_to_file_try);
+    R_RegisterCCallable("gdtools", "gdtools_raster_png_", (DL_FUNC)gdtools_raster_png__try);
     R_RegisterCCallable("gdtools", "gdtools_base64_raster_encode", (DL_FUNC)gdtools_base64_raster_encode_try);
     R_RegisterCCallable("gdtools", "gdtools_base64_file_encode", (DL_FUNC)gdtools_base64_file_encode_try);
     R_RegisterCCallable("gdtools", "gdtools_RcppExport_validate", (DL_FUNC)gdtools_RcppExport_validate);
