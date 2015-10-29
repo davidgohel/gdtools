@@ -1,0 +1,9 @@
+# gdtools 0.0.5
+
+* new function raster_write to write raster object to a png file
+
+# gdtools 0.0.4
+
+* Fix for Mavericks CRAN builder (Jeroen Ooms)
+* Fix for solaris CRAN builder (Jeroen Ooms)
+
