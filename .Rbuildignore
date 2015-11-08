@@ -4,3 +4,4 @@
 ^appveyor\.yml$
 ^gdtools\.Rproj$
 ^src/Makevars$
+^todo\.md$
