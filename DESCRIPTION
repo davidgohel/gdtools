@@ -11,11 +11,12 @@ Authors@R: c(
     person("RStudio", role = "cph")
   )
 LazyData: TRUE
-Imports:
+Imports: 
     Rcpp (>= 0.12.0)
-Suggests:
-    htmltools
-LinkingTo:
+Suggests: 
+    htmltools,
+    testthat
+LinkingTo: 
     Rcpp
-SystemRequirements:	cairo
+SystemRequirements: cairo
 BugReports: https://github.com/davidgohel/gdtools/issues
