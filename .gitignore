@@ -6,6 +6,5 @@ src/*.so
 src/*.dll
 ^.*\.Rproj$
 ^TODO\.md$
-.Rbuildignore
 config.status
 windows
