@@ -182,7 +182,7 @@ int raster_to_file(std::vector<unsigned int> raster_,
 vector<unsigned int> convert_hex(vector<string> hcode) {
   vector<unsigned int> bit_coded_colors(hcode.size());
 
-  for( int i = 0 ; i < hcode.size() ; i++ ){
+  for( size_t i = 0 ; i < hcode.size() ; i++ ){
     std::stringstream str_abgr;
     unsigned int bit_coded_color;
     string in = "0x";
