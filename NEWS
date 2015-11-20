@@ -1,3 +1,7 @@
+# gdtools 0.0.6
+
+* Fix to prevent OSX CRAN builder from linking against old libs in /usr/local/lib
+
 # gdtools 0.0.5
 
 * new function raster_write to write raster object to a png file
