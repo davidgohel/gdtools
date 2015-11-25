@@ -1,5 +1,5 @@
 Package: gdtools
-Version: 0.0.5.9000
+Version: 0.0.6
 License: GPL-3
 Title: Utilities for Graphical Rendering
 Description: Useful tools for writing vector graphics devices.
