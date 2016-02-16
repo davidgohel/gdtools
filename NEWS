@@ -1,6 +1,11 @@
+# gdtools 0.0.7
+
+* Fix to let OS X Snow Leopard produce binaries (Jeroen Ooms)
+
 # gdtools 0.0.6
 
-* Fix to prevent OSX CRAN builder from linking against old libs in /usr/local/lib
+* Fix to prevent OSX CRAN builder from linking
+  against old libs in /usr/local/lib (Jeroen Ooms)
 
 # gdtools 0.0.5
 
