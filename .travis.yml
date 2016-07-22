@@ -21,7 +21,7 @@ matrix:
 
 addons:
   apt:
-    packages: libcairo-dev
+    packages: libcairo2-dev
 
 r_github_packages:
   - jimhester/covr

@@ -7,7 +7,7 @@
 
 # Library settings
 PKG_CONFIG_NAME="cairo"
-PKG_DEB_NAME="libcairo-dev"
+PKG_DEB_NAME="libcairo2-dev"
 PKG_RPM_NAME="cairo-devel"
 PKG_CSW_NAME="libcairo_dev"
 PKG_BREW_NAME="cairo"
