@@ -1,24 +1,38 @@
-# Sample .travis.yml for R projects
-
 language: r
-warnings_are_errors: false
-sudo: required
+cache: packages
+
+matrix:
+  include:
+    - os: linux
+      dist: precise
+      sudo: false
+    - os: linux
+      dist: trusty
+      sudo: required
+      env: R_CODECOV=true
+    - os: osx
+      osx_image: xcode7.2
+      brew_packages: cairo
+      latex: false
+    - os: osx
+      osx_image: beta-xcode6.1
+      disable_homebrew: true
+      latex: false
+
+addons:
+  apt:
+    packages: libcairo-dev
 
 r_github_packages:
   - jimhester/covr
-after_success:
-  - Rscript -e 'covr::codecov()'
 
-after_failure:
-  - ./pkg-build.sh dump_logs
+warnings_are_errors: true
+#r_check_revdep: true
 
 notifications:
   email:
     on_success: change
     on_failure: change
 
-env:
-  matrix:
-    - RVERSION=oldrel
-    - RVERSION=release
-    - RVERSION=devel
+after_success:
+  - if [[ "${R_CODECOV}" ]]; then R -e 'covr::codecov()'; fi
