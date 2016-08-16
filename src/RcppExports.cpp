@@ -39,17 +39,6 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
-// font_family_exists
-bool font_family_exists(std::string font_family);
-RcppExport SEXP gdtools_font_family_exists(SEXP font_familySEXP) {
-BEGIN_RCPP
-    Rcpp::RObject __result;
-    Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< std::string >::type font_family(font_familySEXP);
-    __result = Rcpp::wrap(font_family_exists(font_family));
-    return __result;
-END_RCPP
-}
 // context_create
 XPtrCairoContext context_create();
 static SEXP gdtools_context_create_try() {
@@ -315,6 +304,27 @@ RcppExport SEXP gdtools_base64_file_encode(SEXP filenameSEXP) {
     }
     UNPROTECT(1);
     return __result;
+}
+// sys_fonts
+Rcpp::DataFrame sys_fonts();
+RcppExport SEXP gdtools_sys_fonts() {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    __result = Rcpp::wrap(sys_fonts());
+    return __result;
+END_RCPP
+}
+// best_family_match
+String best_family_match(std::string font_family);
+RcppExport SEXP gdtools_best_family_match(SEXP font_familySEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< std::string >::type font_family(font_familySEXP);
+    __result = Rcpp::wrap(best_family_match(font_family));
+    return __result;
+END_RCPP
 }
 
 // validate (ensure exported C++ functions exist before calling them)

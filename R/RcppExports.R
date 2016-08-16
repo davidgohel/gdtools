@@ -30,19 +30,6 @@ str_metrics <- function(x, fontname = "sans", fontsize = 12, bold = FALSE, itali
     .Call('gdtools_str_metrics', PACKAGE = 'gdtools', x, fontname, fontsize, bold, italic)
 }
 
-#' Check if font family exists.
-#'
-#' @return A logical value
-#' @param font_family font family name (case sensitive)
-#' @examples
-#' font_family_exists("sans")
-#' font_family_exists("Arial")
-#' font_family_exists("Courier")
-#' @export
-font_family_exists <- function(font_family = "sans") {
-    .Call('gdtools_font_family_exists', PACKAGE = 'gdtools', font_family)
-}
-
 context_create <- function() {
     .Call('gdtools_context_create', PACKAGE = 'gdtools')
 }
@@ -73,6 +60,22 @@ base64_raster_encode <- function(raster_, w, h, width, height, interpolate) {
 
 base64_file_encode <- function(filename) {
     .Call('gdtools_base64_file_encode', PACKAGE = 'gdtools', filename)
+}
+
+#' @title List system fonts.
+#'
+#' @description List system fonts details into a data.frame containing columns foundry, family,
+#' file, slant and weight.
+#'
+#' @examples
+#' sys_fonts()
+#' @export
+sys_fonts <- function() {
+    .Call('gdtools_sys_fonts', PACKAGE = 'gdtools')
+}
+
+best_family_match <- function(font_family = "sans") {
+    .Call('gdtools_best_family_match', PACKAGE = 'gdtools', font_family)
 }
 
 # Register entry points for exported C++ functions
