@@ -1,3 +1,10 @@
+# gdtools 0.0.8
+
+## updates
+
+* CONFIGURE file has been updated with Homebrew new repo (Jeroen Ooms)
+* GPL-3 license file has been added
+
 # gdtools 0.0.7
 
 * Fix to let OS X Snow Leopard produce binaries (Jeroen Ooms)
