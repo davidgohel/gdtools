@@ -1,5 +1,10 @@
 # gdtools 0.0.8
 
+## new functions
+
+* sys_fonts: get system fonts details.
+* font_family_exists: test if a given font family name can be matched exactly
+
 ## updates
 
 * CONFIGURE file has been updated with Homebrew new repo (Jeroen Ooms)
