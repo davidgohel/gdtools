@@ -77,7 +77,6 @@ Rcpp::DataFrame sys_fonts() {
 // [[Rcpp::export]]
 String best_family_match(std::string font_family = "sans" ) {
 
-  String out;
   FcFontSet *font_set;
   FcPattern *font_pattern;
   FcResult font_result;
@@ -106,14 +105,12 @@ String best_family_match(std::string font_family = "sans" ) {
   FcPatternDestroy (font_pattern);
 
 
-  if (font_set) {
+  if (font_set && font_set->fonts && font_set->fonts[0]) {
     FcChar8	*family;
     if (FcPatternGetString (font_set->fonts[0], FC_FAMILY, 0, &family) == FcResultMatch){
-      out = reinterpret_cast<char *>(family);
+      return String(reinterpret_cast<char *>(family));
     }
     FcFontSetDestroy (font_set);
-  } else {
-    out = R_NilValue;
   }
-  return out;
+  return NA_STRING;
 }
