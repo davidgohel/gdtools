@@ -6,7 +6,7 @@ Description: Useful tools for writing vector graphics devices.
 Authors@R: c(
     person("David", "Gohel", , "david.gohel@ardata.fr", c("aut", "cre")),
     person("Hadley", "Wickham", , "hadley@rstudio.com", "aut"),
-    person("Jeroen", "Ooms", role = "ctb"),
+    person("Jeroen", "Ooms", , "jeroen.ooms@stat.ucla.edu", "aut"),
     person("Yixuan", "Qiu", role = "ctb"),
     person("RStudio", role = "cph")
   )
