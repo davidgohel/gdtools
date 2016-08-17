@@ -56,7 +56,7 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     HOMEBREW_CACHE="/tmp" $BREW install $BREW_DEPS $PKG_BREW_NAME --force-bottle 2>&1 | perl -pe 's/Warning/Note/gi'
     $BREW link $($BREW list) --overwrite --force 2>&1 | perl -pe 's/Warning/Note/gi'
     PKG_CFLAGS=$($BREWDIR/opt/pkg-config/bin/pkg-config --cflags ${PKG_CONFIG_NAME})
-    PKG_LIBS=$($BREWDIR/opt/pkg-config/bin/pkg-config --libs --static ${PKG_CONFIG_NAME})
+    PKG_LIBS=$($BREWDIR/opt/pkg-config/bin/pkg-config --libs-only-l --static ${PKG_CONFIG_NAME})
     rm -f $BREWDIR/Cellar/*/*/lib/*.dylib
 
     # Prevent CRAN builder from linking against old libs in /usr/local/lib
