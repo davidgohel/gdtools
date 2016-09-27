@@ -13,6 +13,7 @@ public:
 };
 
 #include <Rcpp.h>
+using namespace Rcpp;
 
 inline FontMetric::FontMetric() {}
 
@@ -46,5 +47,46 @@ public:
 };
 
 typedef Rcpp::XPtr<CairoContext> XPtrCairoContext;
+
+// FontFileContext
+class FontFileContext {
+  struct FontFileContext_;
+  FontFileContext_* cairo_;
+
+public:
+  FontFileContext(CharacterVector fontfile);
+  ~FontFileContext();
+
+  void setFont(double fontsize = 12, bool bold = false, bool italic = false);
+  void setFallBack(std::string fallback = "M");
+
+  FontMetric getExtents(std::string x);
+};
+
+
+typedef Rcpp::XPtr<FontFileContext> XPtrFontFileContext;
+
+
+// FamiliesContext
+class FamiliesContext {
+  struct FamiliesContext_;
+  FamiliesContext_* families_;
+
+public:
+  FamiliesContext(std::string fontname,
+                  CharacterVector sans_files,
+                  CharacterVector serif_files,
+                  CharacterVector mono_files);
+  ~FamiliesContext();
+
+  void setFont(std::string family,
+               double fontsize = 12, bool bold = false, bool italic = false);
+  void setFallBack(std::string fallback = "M");
+  FontMetric getExtents(std::string x);
+  std::string getFontname();
+};
+
+
+typedef Rcpp::XPtr<FamiliesContext> XPtrFamiliesContext;
 
 #endif
