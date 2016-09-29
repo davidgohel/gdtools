@@ -37,18 +37,25 @@ FontFileContext::FontFileContext(CharacterVector fontfiles) {
   if ( fontfiles(1) != NA_STRING && FT_New_Face( cairo_->library, fontfiles(1), 0, &(cairo_->face_bold) ) ){
     FT_Done_FreeType(cairo_->library);
     stop("FreeType error : unable to initialize bold face object.");
-  } else FT_New_Face( cairo_->library, fontfiles(0), 0, &(cairo_->face_bold) );
+  } else {
+    FT_New_Face( cairo_->library, fontfiles(0), 0, &(cairo_->face_bold) );
+    warning("bold font file is missing, fallback to regular");
+  }
 
   if ( fontfiles(2) != NA_STRING && FT_New_Face( cairo_->library, fontfiles(2), 0, &(cairo_->face_italic) ) ){
     FT_Done_FreeType(cairo_->library);
     stop("FreeType error : unable to initialize italic face object.");
-  } else FT_New_Face( cairo_->library, fontfiles(0), 0, &(cairo_->face_italic) );
-
-  if ( fontfiles(2) != NA_STRING && FT_New_Face( cairo_->library, fontfiles(3), 0, &(cairo_->face_bolditalic) ) ){
+  } else {
+    FT_New_Face( cairo_->library, fontfiles(0), 0, &(cairo_->face_italic) );
+    warning("italic font file is missing, fallback to regular");
+  }
+  if ( fontfiles(3) != NA_STRING && FT_New_Face( cairo_->library, fontfiles(3), 0, &(cairo_->face_bolditalic) ) ){
     FT_Done_FreeType(cairo_->library);
     stop("FreeType error : unable to initialize bold italic face object.");
-  } else FT_New_Face( cairo_->library, fontfiles(0), 0, &(cairo_->face_bolditalic) );
-
+  } else {
+    FT_New_Face( cairo_->library, fontfiles(0), 0, &(cairo_->face_bolditalic) );
+    warning("bolditalic font file is missing, fallback to regular");
+  }
 
 }
 
