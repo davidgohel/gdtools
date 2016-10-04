@@ -54,10 +54,10 @@ NumericMatrix str_extents(CharacterVector x, std::string fontname = "sans",
 // [[Rcpp::export]]
 NumericVector str_metrics(CharacterVector x, std::string fontname = "sans",
                           double fontsize = 12, int bold = false,
-                          int italic = false) {
+                          int italic = false, std::string fontfile = "") {
 
   CairoContext cc;
-  cc.setFont(fontname, fontsize, bold, italic);
+  cc.setFont(fontname, fontsize, bold, italic, fontfile);
 
   std::string str(Rf_translateCharUTF8(x[0]));
 

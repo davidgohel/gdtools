@@ -25,8 +25,8 @@ BEGIN_RCPP
 END_RCPP
 }
 // str_metrics
-NumericVector str_metrics(CharacterVector x, std::string fontname, double fontsize, int bold, int italic);
-RcppExport SEXP gdtools_str_metrics(SEXP xSEXP, SEXP fontnameSEXP, SEXP fontsizeSEXP, SEXP boldSEXP, SEXP italicSEXP) {
+NumericVector str_metrics(CharacterVector x, std::string fontname, double fontsize, int bold, int italic, std::string fontfile);
+RcppExport SEXP gdtools_str_metrics(SEXP xSEXP, SEXP fontnameSEXP, SEXP fontsizeSEXP, SEXP boldSEXP, SEXP italicSEXP, SEXP fontfileSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -35,7 +35,8 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< double >::type fontsize(fontsizeSEXP);
     Rcpp::traits::input_parameter< int >::type bold(boldSEXP);
     Rcpp::traits::input_parameter< int >::type italic(italicSEXP);
-    rcpp_result_gen = Rcpp::wrap(str_metrics(x, fontname, fontsize, bold, italic));
+    Rcpp::traits::input_parameter< std::string >::type fontfile(fontfileSEXP);
+    rcpp_result_gen = Rcpp::wrap(str_metrics(x, fontname, fontsize, bold, italic, fontfile));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -85,8 +86,8 @@ RcppExport SEXP gdtools_context_create() {
     return rcpp_result_gen;
 }
 // context_set_font
-bool context_set_font(XPtrCairoContext cc, std::string fontname, double fontsize, bool bold, bool italic);
-static SEXP gdtools_context_set_font_try(SEXP ccSEXP, SEXP fontnameSEXP, SEXP fontsizeSEXP, SEXP boldSEXP, SEXP italicSEXP) {
+bool context_set_font(XPtrCairoContext cc, std::string fontname, double fontsize, bool bold, bool italic, std::string fontfile);
+static SEXP gdtools_context_set_font_try(SEXP ccSEXP, SEXP fontnameSEXP, SEXP fontsizeSEXP, SEXP boldSEXP, SEXP italicSEXP, SEXP fontfileSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::traits::input_parameter< XPtrCairoContext >::type cc(ccSEXP);
@@ -94,15 +95,16 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< double >::type fontsize(fontsizeSEXP);
     Rcpp::traits::input_parameter< bool >::type bold(boldSEXP);
     Rcpp::traits::input_parameter< bool >::type italic(italicSEXP);
-    rcpp_result_gen = Rcpp::wrap(context_set_font(cc, fontname, fontsize, bold, italic));
+    Rcpp::traits::input_parameter< std::string >::type fontfile(fontfileSEXP);
+    rcpp_result_gen = Rcpp::wrap(context_set_font(cc, fontname, fontsize, bold, italic, fontfile));
     return rcpp_result_gen;
 END_RCPP_RETURN_ERROR
 }
-RcppExport SEXP gdtools_context_set_font(SEXP ccSEXP, SEXP fontnameSEXP, SEXP fontsizeSEXP, SEXP boldSEXP, SEXP italicSEXP) {
+RcppExport SEXP gdtools_context_set_font(SEXP ccSEXP, SEXP fontnameSEXP, SEXP fontsizeSEXP, SEXP boldSEXP, SEXP italicSEXP, SEXP fontfileSEXP) {
     SEXP rcpp_result_gen;
     {
         Rcpp::RNGScope rcpp_rngScope_gen;
-        rcpp_result_gen = PROTECT(gdtools_context_set_font_try(ccSEXP, fontnameSEXP, fontsizeSEXP, boldSEXP, italicSEXP));
+        rcpp_result_gen = PROTECT(gdtools_context_set_font_try(ccSEXP, fontnameSEXP, fontsizeSEXP, boldSEXP, italicSEXP, fontfileSEXP));
     }
     Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
     if (rcpp_isInterrupt_gen) {
@@ -571,7 +573,7 @@ static int gdtools_RcppExport_validate(const char* sig) {
     static std::set<std::string> signatures;
     if (signatures.empty()) {
         signatures.insert("XPtrCairoContext(*context_create)()");
-        signatures.insert("bool(*context_set_font)(XPtrCairoContext,std::string,double,bool,bool)");
+        signatures.insert("bool(*context_set_font)(XPtrCairoContext,std::string,double,bool,bool,std::string)");
         signatures.insert("FontMetric(*context_extents)(XPtrCairoContext,std::string)");
         signatures.insert("XPtrFontFileContext(*fontfile_context_create)(CharacterVector)");
         signatures.insert("bool(*fontfile_context_set_font)(XPtrFontFileContext,double,bool,bool,std::string)");

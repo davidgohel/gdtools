@@ -44,17 +44,17 @@ namespace gdtools {
         return Rcpp::as<XPtrCairoContext >(rcpp_result_gen);
     }
 
-    inline bool context_set_font(XPtrCairoContext cc, std::string fontname, double fontsize, bool bold, bool italic) {
-        typedef SEXP(*Ptr_context_set_font)(SEXP,SEXP,SEXP,SEXP,SEXP);
+    inline bool context_set_font(XPtrCairoContext cc, std::string fontname, double fontsize, bool bold, bool italic, std::string fontfile) {
+        typedef SEXP(*Ptr_context_set_font)(SEXP,SEXP,SEXP,SEXP,SEXP,SEXP);
         static Ptr_context_set_font p_context_set_font = NULL;
         if (p_context_set_font == NULL) {
-            validateSignature("bool(*context_set_font)(XPtrCairoContext,std::string,double,bool,bool)");
+            validateSignature("bool(*context_set_font)(XPtrCairoContext,std::string,double,bool,bool,std::string)");
             p_context_set_font = (Ptr_context_set_font)R_GetCCallable("gdtools", "gdtools_context_set_font");
         }
         RObject rcpp_result_gen;
         {
             RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_context_set_font(Rcpp::wrap(cc), Rcpp::wrap(fontname), Rcpp::wrap(fontsize), Rcpp::wrap(bold), Rcpp::wrap(italic));
+            rcpp_result_gen = p_context_set_font(Rcpp::wrap(cc), Rcpp::wrap(fontname), Rcpp::wrap(fontsize), Rcpp::wrap(bold), Rcpp::wrap(italic), Rcpp::wrap(fontfile));
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
