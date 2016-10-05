@@ -31,10 +31,6 @@ str_metrics <- function(x, fontname = "sans", fontsize = 12, bold = FALSE, itali
     .Call('gdtools_str_metrics', PACKAGE = 'gdtools', x, fontname, fontsize, bold, italic, fontfile)
 }
 
-str_metrics_from_file <- function(x, fontfiles, fontsize = 12, bold = FALSE, italic = FALSE, fallback = "M") {
-    .Call('gdtools_str_metrics_from_file', PACKAGE = 'gdtools', x, fontfiles, fontsize, bold, italic, fallback)
-}
-
 context_create <- function() {
     .Call('gdtools_context_create', PACKAGE = 'gdtools')
 }
@@ -45,34 +41,6 @@ context_set_font <- function(cc, fontname, fontsize, bold, italic, fontfile = ""
 
 context_extents <- function(cc, x) {
     .Call('gdtools_context_extents', PACKAGE = 'gdtools', cc, x)
-}
-
-fontfile_context_create <- function(fontfiles) {
-    .Call('gdtools_fontfile_context_create', PACKAGE = 'gdtools', fontfiles)
-}
-
-fontfile_context_set_font <- function(cc, fontsize, bold, italic, fallback) {
-    .Call('gdtools_fontfile_context_set_font', PACKAGE = 'gdtools', cc, fontsize, bold, italic, fallback)
-}
-
-fontfile_context_extents <- function(cc, x) {
-    .Call('gdtools_fontfile_context_extents', PACKAGE = 'gdtools', cc, x)
-}
-
-font_context_create <- function(fontname_, sans_files, serif_files, mono_files) {
-    .Call('gdtools_font_context_create', PACKAGE = 'gdtools', fontname_, sans_files, serif_files, mono_files)
-}
-
-font_context_set_font <- function(cc, family, fontsize, bold, italic) {
-    .Call('gdtools_font_context_set_font', PACKAGE = 'gdtools', cc, family, fontsize, bold, italic)
-}
-
-font_context_extents <- function(cc, x) {
-    .Call('gdtools_font_context_extents', PACKAGE = 'gdtools', cc, x)
-}
-
-font_context_fontname <- function(cc) {
-    .Call('gdtools_font_context_fontname', PACKAGE = 'gdtools', cc)
 }
 
 raster_to_str <- function(raster, w, h, width, height, interpolate) {
