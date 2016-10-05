@@ -10,13 +10,14 @@
 #' @param bold,italic Is text bold/italic?
 #' @param fontname Font name
 #' @param fontsize Font size
+#' @param fontfile Font file
 #' @examples
 #' str_extents(letters)
 #' str_extents("Hello World!", bold = TRUE, italic = FALSE,
 #'   fontname = "sans", fontsize = 12)
 #' @export
-str_extents <- function(x, fontname = "sans", fontsize = 12, bold = FALSE, italic = FALSE) {
-    .Call('gdtools_str_extents', PACKAGE = 'gdtools', x, fontname, fontsize, bold, italic)
+str_extents <- function(x, fontname = "sans", fontsize = 12, bold = FALSE, italic = FALSE, fontfile = "") {
+    .Call('gdtools_str_extents', PACKAGE = 'gdtools', x, fontname, fontsize, bold, italic, fontfile)
 }
 
 #' Get font metrics for a string.
@@ -26,8 +27,8 @@ str_extents <- function(x, fontname = "sans", fontsize = 12, bold = FALSE, itali
 #' @examples
 #' str_metrics("Hello World!")
 #' @export
-str_metrics <- function(x, fontname = "sans", fontsize = 12, bold = FALSE, italic = FALSE) {
-    .Call('gdtools_str_metrics', PACKAGE = 'gdtools', x, fontname, fontsize, bold, italic)
+str_metrics <- function(x, fontname = "sans", fontsize = 12, bold = FALSE, italic = FALSE, fontfile = "") {
+    .Call('gdtools_str_metrics', PACKAGE = 'gdtools', x, fontname, fontsize, bold, italic, fontfile)
 }
 
 str_metrics_from_file <- function(x, fontfiles, fontsize = 12, bold = FALSE, italic = FALSE, fallback = "M") {
@@ -38,8 +39,8 @@ context_create <- function() {
     .Call('gdtools_context_create', PACKAGE = 'gdtools')
 }
 
-context_set_font <- function(cc, fontname, fontsize, bold, italic) {
-    .Call('gdtools_context_set_font', PACKAGE = 'gdtools', cc, fontname, fontsize, bold, italic)
+context_set_font <- function(cc, fontname, fontsize, bold, italic, fontfile = "") {
+    .Call('gdtools_context_set_font', PACKAGE = 'gdtools', cc, fontname, fontsize, bold, italic, fontfile)
 }
 
 context_extents <- function(cc, x) {

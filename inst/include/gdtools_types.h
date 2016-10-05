@@ -41,7 +41,8 @@ public:
   ~CairoContext();
 
   void setFont(std::string fontname = "sans", double fontsize = 12,
-    bool bold = false, bool italic = false);
+               bool bold = false, bool italic = false,
+               std::string fontfile = "");
 
   FontMetric getExtents(std::string x);
 };

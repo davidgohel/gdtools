@@ -5,7 +5,7 @@
 \title{Get font metrics for a string.}
 \usage{
 str_metrics(x, fontname = "sans", fontsize = 12, bold = FALSE,
-  italic = FALSE)
+  italic = FALSE, fontfile = "")
 }
 \arguments{
 \item{x}{Character vector of of strings to measure}
@@ -17,6 +17,8 @@ str_metrics(x, fontname = "sans", fontsize = 12, bold = FALSE,
 \item{bold}{Is text bold/italic?}
 
 \item{italic}{Is text bold/italic?}
+
+\item{fontfile}{Font file}
 }
 \value{
 A named numeric vector

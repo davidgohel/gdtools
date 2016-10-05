@@ -14,6 +14,7 @@ using namespace Rcpp;
 //' @param bold,italic Is text bold/italic?
 //' @param fontname Font name
 //' @param fontsize Font size
+//' @param fontfile Font file
 //' @examples
 //' str_extents(letters)
 //' str_extents("Hello World!", bold = TRUE, italic = FALSE,
@@ -22,10 +23,10 @@ using namespace Rcpp;
 // [[Rcpp::export]]
 NumericMatrix str_extents(CharacterVector x, std::string fontname = "sans",
                           double fontsize = 12, int bold = false,
-                          int italic = false) {
+                          int italic = false, std::string fontfile = "") {
   int n = x.size();
   CairoContext cc;
-  cc.setFont(fontname, fontsize, bold, italic);
+  cc.setFont(fontname, fontsize, bold, italic, fontfile);
   NumericMatrix out(n, 2);
 
   for (int i = 0; i < n; ++i) {
@@ -54,10 +55,10 @@ NumericMatrix str_extents(CharacterVector x, std::string fontname = "sans",
 // [[Rcpp::export]]
 NumericVector str_metrics(CharacterVector x, std::string fontname = "sans",
                           double fontsize = 12, int bold = false,
-                          int italic = false) {
+                          int italic = false, std::string fontfile = "") {
 
   CairoContext cc;
-  cc.setFont(fontname, fontsize, bold, italic);
+  cc.setFont(fontname, fontsize, bold, italic, fontfile);
 
   std::string str(Rf_translateCharUTF8(x[0]));
 
