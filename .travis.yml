@@ -24,7 +24,6 @@ addons:
     packages: libcairo2-dev
 
 r_github_packages:
-  - lionel-/fontquiver
   - jimhester/covr
 
 warnings_are_errors: true
