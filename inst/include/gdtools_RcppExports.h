@@ -44,7 +44,7 @@ namespace gdtools {
         return Rcpp::as<XPtrCairoContext >(rcpp_result_gen);
     }
 
-    inline bool context_set_font(XPtrCairoContext cc, std::string fontname, double fontsize, bool bold, bool italic, std::string fontfile) {
+    inline bool context_set_font(XPtrCairoContext cc, std::string fontname, double fontsize, bool bold, bool italic, std::string fontfile = "") {
         typedef SEXP(*Ptr_context_set_font)(SEXP,SEXP,SEXP,SEXP,SEXP,SEXP);
         static Ptr_context_set_font p_context_set_font = NULL;
         if (p_context_set_font == NULL) {

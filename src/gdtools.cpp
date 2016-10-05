@@ -12,7 +12,7 @@ XPtrCairoContext context_create() {
 // [[Rcpp::export]]
 bool context_set_font(XPtrCairoContext cc, std::string fontname,
                       double fontsize, bool bold, bool italic,
-                      std::string fontfile) {
+                      std::string fontfile = "") {
   cc->setFont(fontname, fontsize, bold, italic, fontfile);
 
   // should return void, but doesn't seem to be supported for cpp

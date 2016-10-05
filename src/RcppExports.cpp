@@ -10,8 +10,8 @@
 using namespace Rcpp;
 
 // str_extents
-NumericMatrix str_extents(CharacterVector x, std::string fontname, double fontsize, int bold, int italic);
-RcppExport SEXP gdtools_str_extents(SEXP xSEXP, SEXP fontnameSEXP, SEXP fontsizeSEXP, SEXP boldSEXP, SEXP italicSEXP) {
+NumericMatrix str_extents(CharacterVector x, std::string fontname, double fontsize, int bold, int italic, std::string fontfile);
+RcppExport SEXP gdtools_str_extents(SEXP xSEXP, SEXP fontnameSEXP, SEXP fontsizeSEXP, SEXP boldSEXP, SEXP italicSEXP, SEXP fontfileSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -20,7 +20,8 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< double >::type fontsize(fontsizeSEXP);
     Rcpp::traits::input_parameter< int >::type bold(boldSEXP);
     Rcpp::traits::input_parameter< int >::type italic(italicSEXP);
-    rcpp_result_gen = Rcpp::wrap(str_extents(x, fontname, fontsize, bold, italic));
+    Rcpp::traits::input_parameter< std::string >::type fontfile(fontfileSEXP);
+    rcpp_result_gen = Rcpp::wrap(str_extents(x, fontname, fontsize, bold, italic, fontfile));
     return rcpp_result_gen;
 END_RCPP
 }
