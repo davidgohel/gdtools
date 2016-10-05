@@ -104,7 +104,7 @@ FontMetric CairoContext::getExtents(std::string x) {
         a_ = (extents.y_bearing < a_) ? extents.y_bearing : a_;
         d_ = (descent > d_) ? descent : d_;
       } else {
-        warning("CairoContext::getExtents: not match glyph in font table.");
+        warning("CairoContext::getExtents: can not match glyph in font table.");
         w_ += cairo_->fallback.width;
         h_ = (cairo_->fallback.height > h_) ? cairo_->fallback.height : h_;
         a_ = (-cairo_->fallback.ascent < a_) ? -cairo_->fallback.ascent : a_;
