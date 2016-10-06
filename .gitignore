@@ -7,3 +7,4 @@ src/*.dll
 ^.*\.Rproj$
 config.status
 windows
+inst/doc
