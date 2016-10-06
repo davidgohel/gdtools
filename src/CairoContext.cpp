@@ -96,6 +96,7 @@ FontMetric CairoContext::getExtents(std::string x) {
   double a_ = 0.0;
   double d_ = 0.0;
   double descent = 0;
+  int has_warned = 0;
 
   if (status == CAIRO_STATUS_SUCCESS) {
 
@@ -115,7 +116,10 @@ FontMetric CairoContext::getExtents(std::string x) {
         a_ = (extents.y_bearing < a_) ? extents.y_bearing : a_;
         d_ = (descent > d_) ? descent : d_;
       } else {
-        warning("CairoContext::getExtents: can not match glyph in font table.");
+        if (!has_warned) {
+          warning("Cannot compute text metrics for selected font: symbols not found");
+          has_warned = 1;
+        }
         w_ += cairo_->fallback.width;
         h_ = (cairo_->fallback.height > h_) ? cairo_->fallback.height : h_;
         a_ = (-cairo_->fallback.ascent < a_) ? -cairo_->fallback.ascent : a_;
