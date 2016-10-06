@@ -43,6 +43,10 @@ public:
   void setFont(std::string fontname = "sans", double fontsize = 12,
                bool bold = false, bool italic = false,
                std::string fontfile = "");
+  void setUserFont(std::string& fontname, double fontsize,
+                   bool bold, bool italic, std::string& fontfile);
+  void setSystemFont(std::string& fontname, double fontsize,
+                     bool bold, bool italic);
 
   FontMetric getExtents(std::string x);
 };

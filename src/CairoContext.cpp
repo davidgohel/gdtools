@@ -48,27 +48,36 @@ CairoContext::~CairoContext() {
 void CairoContext::setFont(std::string fontname, double fontsize,
                            bool bold, bool italic, std::string fontfile) {
 
-  if (fontfile.size()) {
-    if (cairo_->fonts.find(fontfile) == cairo_->fonts.end()) {
-      cairo_->ft_fonts.push_back(FT_Face());
-      FT_Face* new_face = &(cairo_->ft_fonts[cairo_->ft_fonts.size()]);
-      FT_New_Face(cairo_->library, fontfile.c_str(), 0, new_face);
-      cairo_->fonts[fontfile] = cairo_ft_font_face_create_for_ft_face(*new_face, 0);
-    }
-    cairo_set_font_face(cairo_->context, cairo_->fonts[fontfile]);
-    cairo_->currently_freetype = 1;
-  } else {
-    cairo_select_font_face(cairo_->context,
-      fontname.c_str(),
-      italic ? CAIRO_FONT_SLANT_ITALIC : CAIRO_FONT_SLANT_NORMAL,
-      bold ? CAIRO_FONT_WEIGHT_BOLD : CAIRO_FONT_WEIGHT_NORMAL
-    );
-    cairo_->currently_freetype = 0;
-  }
-  cairo_set_font_size(cairo_->context, fontsize);
+  if (fontfile.size())
+    setUserFont(fontname, fontsize, bold, italic, fontfile);
+  else
+    setSystemFont(fontname, fontsize, bold, italic);
 
+  cairo_set_font_size(cairo_->context, fontsize);
   // set fallback
   cairo_->fallback = this->getExtents("M");
+}
+
+void CairoContext::setUserFont(std::string& fontname, double fontsize,
+                               bool bold, bool italic, std::string& fontfile) {
+  if (cairo_->fonts.find(fontfile) == cairo_->fonts.end()) {
+    cairo_->ft_fonts.push_back(FT_Face());
+    FT_Face* new_face = &(cairo_->ft_fonts[cairo_->ft_fonts.size()]);
+    FT_New_Face(cairo_->library, fontfile.c_str(), 0, new_face);
+    cairo_->fonts[fontfile] = cairo_ft_font_face_create_for_ft_face(*new_face, 0);
+  }
+
+  cairo_set_font_face(cairo_->context, cairo_->fonts[fontfile]);
+  cairo_->currently_freetype = 1;
+}
+
+void CairoContext::setSystemFont(std::string& fontname, double fontsize,
+                                 bool bold, bool italic) {
+  cairo_select_font_face(cairo_->context,
+                         fontname.c_str(),
+                         italic ? CAIRO_FONT_SLANT_ITALIC : CAIRO_FONT_SLANT_NORMAL,
+                         bold ? CAIRO_FONT_WEIGHT_BOLD : CAIRO_FONT_WEIGHT_NORMAL);
+  cairo_->currently_freetype = 0;
 }
 
 FontMetric CairoContext::getExtents(std::string x) {
@@ -78,8 +87,10 @@ FontMetric CairoContext::getExtents(std::string x) {
   int cluster_count;
   cairo_text_cluster_flags_t clusterflags;
 
-  cairo_status_t status = cairo_scaled_font_text_to_glyphs(cairo_get_scaled_font(cairo_->context), 0, 0, x.c_str(), x.size(), &glyphs, &glyph_count, &clusters, &cluster_count,
-                                                           &clusterflags);
+  cairo_status_t status = cairo_scaled_font_text_to_glyphs(cairo_get_scaled_font(cairo_->context),
+                                                           0, 0, x.c_str(), x.size(),
+                                                           &glyphs, &glyph_count,
+                                                           &clusters, &cluster_count, &clusterflags);
   double w_ = 0.0;
   double h_ = 0.0;
   double a_ = 0.0;
