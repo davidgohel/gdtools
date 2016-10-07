@@ -58,8 +58,8 @@ void CairoContext::cacheFont(fontCache& cache, std::string& key, std::string& fo
   cairo_->current_key = key;
 }
 
-void CairoContext::cacheSystemFont(std::string& fontname, bool bold, bool italic,
-                                   std::string& key) {
+void CairoContext::cacheSystemFont(std::string& key, std::string& fontname,
+                                   bool bold, bool italic) {
   FcPattern* pattern;
 
   if(!(pattern = FcNameParse((FcChar8 *) fontname.c_str())))
@@ -78,7 +78,6 @@ void CairoContext::cacheSystemFont(std::string& fontname, bool bold, bool italic
 
  FcChar8 *matched_file;
  if (match && FcPatternGetString(match, FC_FILE, 0, &matched_file) == FcResultMatch) {
-   /* Need to make sure a real font matched_file exists */
    std::string fontfile = (const char*) matched_file;
    cacheFont(cairo_->fonts, key, fontfile);
  } else {
@@ -96,8 +95,7 @@ void CairoContext::setFont(std::string fontname, double fontsize,
     cairo_select_font_face(cairo_->context,
       fontname.c_str(),
       italic ? CAIRO_FONT_SLANT_ITALIC : CAIRO_FONT_SLANT_NORMAL,
-      bold ? CAIRO_FONT_WEIGHT_BOLD : CAIRO_FONT_WEIGHT_NORMAL
-    );
+      bold ? CAIRO_FONT_WEIGHT_BOLD : CAIRO_FONT_WEIGHT_NORMAL);
     return;
   }
 
@@ -112,7 +110,7 @@ void CairoContext::setFont(std::string fontname, double fontsize,
     snprintf(props, sizeof(props), " %d %d", (int) bold, (int) italic);
     key = fontname + props;
     if (cairo_->fonts.find(key) == cairo_->fonts.end())
-      cacheSystemFont(fontname, bold, italic, key);
+      cacheSystemFont(key, fontname, bold, italic);
   }
   cairo_set_font_face(cairo_->context, cairo_->fonts[key]);
 }
