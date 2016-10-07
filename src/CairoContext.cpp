@@ -15,23 +15,21 @@ using namespace Rcpp;
 struct CairoContext::CairoContext_ {
   cairo_surface_t* surface;
   cairo_t* context;
+
   FT_Library library;
   std::vector<FT_Face> ft_fonts;
   fontCache fonts;
-  std::string current_key;
-  FontMetric fallback;
 };
 
 CairoContext::CairoContext() {
-
   cairo_ = new CairoContext_();
   cairo_->surface = cairo_pdf_surface_create(NULL, 720, 720);
   cairo_->context = cairo_create(cairo_->surface);
 
   if (!FcInit())
-    stop("Fontconfig error: unable to initialize");
+    Rcpp::stop("Fontconfig error: unable to initialize");
   if (FT_Init_FreeType(&(cairo_->library)))
-    stop("FreeType error: unable to initialize FreeType library object");
+    Rcpp::stop("FreeType error: unable to initialize FreeType library object");
 }
 
 CairoContext::~CairoContext() {
@@ -51,38 +49,35 @@ CairoContext::~CairoContext() {
 void CairoContext::cacheFont(fontCache& cache, std::string& key, std::string& fontfile) {
   FT_Face face;
   if (0 != FT_New_Face(cairo_->library, fontfile.c_str(), 0, &face))
-    Rcpp::stop("Freetype error: unable to create the font %s", fontfile.c_str());
+    Rcpp::stop("FreeType error: unable to create the font %s", fontfile.c_str());
   cairo_->ft_fonts.push_back(face);
 
   cache[key] = cairo_ft_font_face_create_for_ft_face(face, 0);
-  cairo_->current_key = key;
 }
 
 void CairoContext::cacheSystemFont(std::string& key, std::string& fontname,
                                    bool bold, bool italic) {
   FcPattern* pattern;
-
   if(!(pattern = FcNameParse((FcChar8 *) fontname.c_str())))
-    stop("Fontconfig error: unable to parse font name");
+    Rcpp::stop("Fontconfig error: unable to parse font name: %s", fontname.c_str());
 
   int weight = bold ? FC_WEIGHT_BOLD : FC_WEIGHT_MEDIUM;
   int slant = italic ? FC_SLANT_ITALIC : FC_SLANT_ROMAN;
   FcPatternAddInteger(pattern, FC_WEIGHT, weight);
   FcPatternAddInteger(pattern, FC_SLANT, slant);
 
+  FcResult result;
   FcDefaultSubstitute(pattern);
   FcConfigSubstitute(0, pattern, FcMatchPattern);
-
-  FcResult result;
   FcPattern* match = FcFontMatch(0, pattern, &result);
 
- FcChar8 *matched_file;
- if (match && FcPatternGetString(match, FC_FILE, 0, &matched_file) == FcResultMatch) {
-   std::string fontfile = (const char*) matched_file;
-   cacheFont(cairo_->fonts, key, fontfile);
- } else {
-   Rcpp::stop("Fontconfig error: unable to match font pattern");
- }
+  FcChar8 *matched_file;
+  if (match && FcPatternGetString(match, FC_FILE, 0, &matched_file) == FcResultMatch) {
+    std::string fontfile = (const char*) matched_file;
+    cacheFont(cairo_->fonts, key, fontfile);
+  } else {
+    Rcpp::stop("Fontconfig error: unable to match font pattern");
+  }
 }
 
 void CairoContext::setFont(std::string fontname, double fontsize,
