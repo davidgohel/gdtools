@@ -5,6 +5,7 @@
 #include <cairo.h>
 #include <cairo-pdf.h>
 #include <cairo-ft.h>
+#include <fontconfig/fontconfig.h>
 #include <ft2build.h>
 #include FT_FREETYPE_H
 #include "gdtools_types.h"
@@ -16,60 +17,104 @@ struct CairoContext::CairoContext_ {
   cairo_t* context;
   FT_Library library;
   std::vector<FT_Face> ft_fonts;
-  std::map<std::string, cairo_font_face_t*> fonts;
+  fontCache fonts;
+  std::string current_key;
+  FontMetric fallback;
 };
 
 CairoContext::CairoContext() {
+
   cairo_ = new CairoContext_();
   cairo_->surface = cairo_pdf_surface_create(NULL, 720, 720);
   cairo_->context = cairo_create(cairo_->surface);
 
+  if (!FcInit())
+    stop("Fontconfig error: unable to initialize");
   if (FT_Init_FreeType(&(cairo_->library)))
-    stop("FreeType error : unable to initialize FreeType library object.");
+    stop("FreeType error: unable to initialize FreeType library object");
 }
 
 CairoContext::~CairoContext() {
   cairo_surface_destroy(cairo_->surface);
   cairo_destroy(cairo_->context);
 
-  std::map<std::string, cairo_font_face_t*>::iterator fonts_it = cairo_->fonts.begin();
-  while (fonts_it != cairo_->fonts.end()) {
-    cairo_font_face_destroy(fonts_it->second);
-    ++fonts_it;
+  fontCache::iterator it = cairo_->fonts.begin();
+  while (it != cairo_->fonts.end()) {
+    cairo_font_face_destroy(it->second);
+    ++it;
   }
   std::for_each(cairo_->ft_fonts.begin(), cairo_->ft_fonts.end(), &FT_Done_Face);
 
   delete cairo_;
 }
 
+void CairoContext::cacheFont(fontCache& cache, std::string& key, std::string& fontfile) {
+  FT_Face face;
+  if (0 != FT_New_Face(cairo_->library, fontfile.c_str(), 0, &face))
+    Rcpp::stop("Freetype error: unable to create the font %s", fontfile.c_str());
+  cairo_->ft_fonts.push_back(face);
+
+  cache[key] = cairo_ft_font_face_create_for_ft_face(face, 0);
+  cairo_->current_key = key;
+}
+
+void CairoContext::cacheSystemFont(std::string& fontname, bool bold, bool italic,
+                                   std::string& key) {
+  FcPattern* pattern;
+
+  if(!(pattern = FcNameParse((FcChar8 *) fontname.c_str())))
+    stop("Fontconfig error: unable to parse font name");
+
+  int weight = bold ? FC_WEIGHT_BOLD : FC_WEIGHT_MEDIUM;
+  int slant = italic ? FC_SLANT_ITALIC : FC_SLANT_ROMAN;
+  FcPatternAddInteger(pattern, FC_WEIGHT, weight);
+  FcPatternAddInteger(pattern, FC_SLANT, slant);
+
+  FcDefaultSubstitute(pattern);
+  FcConfigSubstitute(0, pattern, FcMatchPattern);
+
+  FcResult result;
+  FcPattern* match = FcFontMatch(0, pattern, &result);
+
+ FcChar8 *matched_file;
+ if (match && FcPatternGetString(match, FC_FILE, 0, &matched_file) == FcResultMatch) {
+   /* Need to make sure a real font matched_file exists */
+   std::string fontfile = (const char*) matched_file;
+   cacheFont(cairo_->fonts, key, fontfile);
+ } else {
+   Rcpp::stop("Fontconfig error: unable to match font pattern");
+ }
+}
+
 void CairoContext::setFont(std::string fontname, double fontsize,
                            bool bold, bool italic, std::string fontfile) {
   cairo_set_font_size(cairo_->context, fontsize);
 
-  if (fontfile.size())
-    setUserFont(fontname, fontsize, bold, italic, fontfile);
-  else
-    setSystemFont(fontname, fontsize, bold, italic);
-}
-
-void CairoContext::setUserFont(std::string& fontname, double fontsize,
-                               bool bold, bool italic, std::string& fontfile) {
-  if (cairo_->fonts.find(fontfile) == cairo_->fonts.end()) {
-    cairo_->ft_fonts.push_back(FT_Face());
-    FT_Face* new_face = &(cairo_->ft_fonts[cairo_->ft_fonts.size()]);
-    FT_New_Face(cairo_->library, fontfile.c_str(), 0, new_face);
-    cairo_->fonts[fontfile] = cairo_ft_font_face_create_for_ft_face(*new_face, 0);
+  // Can't make symbols font work correctly with a font selected via
+  // fontconfig so we use the toy API which somehow handles it properly.
+  if (fontname == "symbol") {
+    cairo_select_font_face(cairo_->context,
+      fontname.c_str(),
+      italic ? CAIRO_FONT_SLANT_ITALIC : CAIRO_FONT_SLANT_NORMAL,
+      bold ? CAIRO_FONT_WEIGHT_BOLD : CAIRO_FONT_WEIGHT_NORMAL
+    );
+    return;
   }
 
-  cairo_set_font_face(cairo_->context, cairo_->fonts[fontfile]);
-}
+  std::string key;
 
-void CairoContext::setSystemFont(std::string& fontname, double fontsize,
-                                 bool bold, bool italic) {
-  cairo_select_font_face(cairo_->context,
-                         fontname.c_str(),
-                         italic ? CAIRO_FONT_SLANT_ITALIC : CAIRO_FONT_SLANT_NORMAL,
-                         bold ? CAIRO_FONT_WEIGHT_BOLD : CAIRO_FONT_WEIGHT_NORMAL);
+  if (fontfile.size()) {
+    key = fontfile;
+    if (cairo_->fonts.find(key) == cairo_->fonts.end())
+      cacheFont(cairo_->fonts, key, fontfile);
+  } else {
+    char props[20];
+    snprintf(props, sizeof(props), " %d %d", (int) bold, (int) italic);
+    key = fontname + props;
+    if (cairo_->fonts.find(key) == cairo_->fonts.end())
+      cacheSystemFont(fontname, bold, italic, key);
+  }
+  cairo_set_font_face(cairo_->context, cairo_->fonts[key]);
 }
 
 FontMetric CairoContext::getExtents(std::string x) {
