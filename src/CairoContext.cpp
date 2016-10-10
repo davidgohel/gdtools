@@ -17,7 +17,6 @@ struct CairoContext::CairoContext_ {
   cairo_t* context;
 
   FT_Library library;
-  std::vector<FT_Face> ft_fonts;
   fontCache fonts;
 };
 
@@ -33,16 +32,16 @@ CairoContext::CairoContext() {
 }
 
 CairoContext::~CairoContext() {
-  cairo_surface_destroy(cairo_->surface);
-  cairo_destroy(cairo_->context);
-
   FcFini();
+
   fontCache::iterator it = cairo_->fonts.begin();
   while (it != cairo_->fonts.end()) {
     cairo_font_face_destroy(it->second);
     ++it;
   }
-  std::for_each(cairo_->ft_fonts.begin(), cairo_->ft_fonts.end(), &FT_Done_Face);
+
+  cairo_surface_destroy(cairo_->surface);
+  cairo_destroy(cairo_->context);
 
   delete cairo_;
 }
@@ -51,9 +50,15 @@ void CairoContext::cacheFont(fontCache& cache, std::string& key, std::string& fo
   FT_Face face;
   if (0 != FT_New_Face(cairo_->library, fontfile.c_str(), 0, &face))
     Rcpp::stop("FreeType error: unable to create the font %s", fontfile.c_str());
-  cairo_->ft_fonts.push_back(face);
 
-  cache[key] = cairo_ft_font_face_create_for_ft_face(face, 0);
+  cairo_font_face_t* cairo_face = cairo_ft_font_face_create_for_ft_face(face, 0);
+
+  cairo_user_data_key_t font_key;
+  cairo_status_t status = cairo_font_face_set_user_data(
+    cairo_face, &font_key, face, (cairo_destroy_func_t) FT_Done_Face
+  );
+
+  cache[key] = cairo_face;
 }
 
 // Defined in sys_fonts.cpp
@@ -77,16 +82,6 @@ std::string findFontFile(const char* fontname, int bold, int italic) {
 void CairoContext::setFont(std::string fontname, double fontsize,
                            bool bold, bool italic, std::string fontfile) {
   cairo_set_font_size(cairo_->context, fontsize);
-
-  // Can't make symbols font work correctly with a font selected via
-  // fontconfig so we use the toy API which somehow handles it properly.
-  if (fontname == "symbol") {
-    cairo_select_font_face(cairo_->context,
-      fontname.c_str(),
-      italic ? CAIRO_FONT_SLANT_ITALIC : CAIRO_FONT_SLANT_NORMAL,
-      bold ? CAIRO_FONT_WEIGHT_BOLD : CAIRO_FONT_WEIGHT_NORMAL);
-    return;
-  }
 
   std::string key;
   if (fontfile.size()) {
