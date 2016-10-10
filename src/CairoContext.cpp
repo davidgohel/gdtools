@@ -36,6 +36,7 @@ CairoContext::~CairoContext() {
   cairo_surface_destroy(cairo_->surface);
   cairo_destroy(cairo_->context);
 
+  FcFini();
   fontCache::iterator it = cairo_->fonts.begin();
   while (it != cairo_->fonts.end()) {
     cairo_font_face_destroy(it->second);
@@ -55,29 +56,22 @@ void CairoContext::cacheFont(fontCache& cache, std::string& key, std::string& fo
   cache[key] = cairo_ft_font_face_create_for_ft_face(face, 0);
 }
 
-void CairoContext::cacheSystemFont(std::string& key, std::string& fontname,
-                                   bool bold, bool italic) {
-  FcPattern* pattern;
-  if(!(pattern = FcNameParse((FcChar8 *) fontname.c_str())))
-    Rcpp::stop("Fontconfig error: unable to parse font name: %s", fontname.c_str());
+// Defined in sys_fonts.cpp
+FcPattern* findMatch(const char* fontname, int bold, int italic);
 
-  int weight = bold ? FC_WEIGHT_BOLD : FC_WEIGHT_MEDIUM;
-  int slant = italic ? FC_SLANT_ITALIC : FC_SLANT_ROMAN;
-  FcPatternAddInteger(pattern, FC_WEIGHT, weight);
-  FcPatternAddInteger(pattern, FC_SLANT, slant);
+std::string findFontFile(const char* fontname, int bold, int italic) {
+  FcPattern* match = findMatch(fontname, bold, italic);
 
-  FcResult result;
-  FcDefaultSubstitute(pattern);
-  FcConfigSubstitute(0, pattern, FcMatchPattern);
-  FcPattern* match = FcFontMatch(0, pattern, &result);
-
+  std::string output;
   FcChar8 *matched_file;
-  if (match && FcPatternGetString(match, FC_FILE, 0, &matched_file) == FcResultMatch) {
-    std::string fontfile = (const char*) matched_file;
-    cacheFont(cairo_->fonts, key, fontfile);
-  } else {
+  if (match && FcPatternGetString(match, FC_FILE, 0, &matched_file) == FcResultMatch)
+    output = (const char*) matched_file;
+  FcPatternDestroy(match);
+
+  if (output.size())
+    return output;
+  else
     Rcpp::stop("Fontconfig error: unable to match font pattern");
-  }
 }
 
 void CairoContext::setFont(std::string fontname, double fontsize,
@@ -104,8 +98,10 @@ void CairoContext::setFont(std::string fontname, double fontsize,
     char props[20];
     snprintf(props, sizeof(props), " %d %d", (int) bold, (int) italic);
     key = fontname + props;
-    if (cairo_->fonts.find(key) == cairo_->fonts.end())
-      cacheSystemFont(key, fontname, bold, italic);
+    if (cairo_->fonts.find(key) == cairo_->fonts.end()) {
+      std::string fontfile = findFontFile(fontname.c_str(), bold, italic);
+      cacheFont(cairo_->fonts, key, fontfile);
+    }
   }
   cairo_set_font_face(cairo_->context, cairo_->fonts[key]);
 }
