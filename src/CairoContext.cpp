@@ -89,20 +89,23 @@ void CairoContext::setFont(std::string fontname, double fontsize,
   }
 
   std::string key;
-
   if (fontfile.size()) {
+    // Use file path as key to cached elements
     key = fontfile;
     if (cairo_->fonts.find(key) == cairo_->fonts.end())
       cacheFont(cairo_->fonts, key, fontfile);
   } else {
+    // Use font name and bold/italic properties as key
     char props[20];
     snprintf(props, sizeof(props), " %d %d", (int) bold, (int) italic);
     key = fontname + props;
     if (cairo_->fonts.find(key) == cairo_->fonts.end()) {
+      // Add font to cache
       std::string fontfile = findFontFile(fontname.c_str(), bold, italic);
       cacheFont(cairo_->fonts, key, fontfile);
     }
   }
+
   cairo_set_font_face(cairo_->context, cairo_->fonts[key]);
 }
 
