@@ -75,8 +75,24 @@ sys_fonts <- function() {
     .Call('gdtools_sys_fonts', PACKAGE = 'gdtools')
 }
 
-best_family_match <- function(font_family = "sans") {
-    .Call('gdtools_best_family_match', PACKAGE = 'gdtools', font_family)
+#' Find best family match with fontconfig
+#'
+#' This returns the best font family match for the pattern
+#' constructed with \code{bold} and \code{italic}. The default
+#' pattern is bold italic to make sure the matched font has enough
+#' features to be used in R graphics (plain, bold, italic, bold
+#' italic).
+#'
+#' @param family Family to match.
+#' @param bold Wheter to match a font featuring a \code{bold} face.
+#' @param italic Wheter to match a font featuring an \code{italic} face.
+#'
+#' @export
+#' @examples
+#' match_family("sans")
+#' match_family("serif", bold = FALSE, italic = TRUE)
+match_family <- function(family = "sans", bold = 1L, italic = 1L) {
+    .Call('gdtools_match_family', PACKAGE = 'gdtools', family, bold, italic)
 }
 
 # Register entry points for exported C++ functions

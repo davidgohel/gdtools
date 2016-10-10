@@ -71,46 +71,58 @@ Rcpp::DataFrame sys_fonts() {
   );
 }
 
+FcPattern* findMatch(const char* fontname, int bold, int italic) {
+  FcPattern* pattern;
+  if(!(pattern = FcNameParse((FcChar8 *) fontname)))
+    Rcpp::stop("Fontconfig error: unable to parse font name: %s", fontname);
 
+  int weight = bold ? FC_WEIGHT_BOLD : FC_WEIGHT_MEDIUM;
+  int slant = italic ? FC_SLANT_ITALIC : FC_SLANT_ROMAN;
+  FcPatternAddInteger(pattern, FC_WEIGHT, weight);
+  FcPatternAddInteger(pattern, FC_SLANT, slant);
 
+  FcDefaultSubstitute(pattern);
+  FcConfigSubstitute(0, pattern, FcMatchPattern);
 
+  FcResult result;
+  FcPattern* match = FcFontMatch(0, pattern, &result);
+  FcPatternDestroy(pattern);
+
+  if (match && result == FcResultMatch)
+    return match;
+  else
+    Rcpp::stop("Fontconfig error: unable to match font pattern");
+}
+
+//' Find best family match with fontconfig
+//'
+//' This returns the best font family match for the pattern
+//' constructed with \code{bold} and \code{italic}. The default
+//' pattern is bold italic to make sure the matched font has enough
+//' features to be used in R graphics (plain, bold, italic, bold
+//' italic).
+//'
+//' @param family Family to match.
+//' @param bold Wheter to match a font featuring a \code{bold} face.
+//' @param italic Wheter to match a font featuring an \code{italic} face.
+//'
+//' @export
+//' @examples
+//' match_family("sans")
+//' match_family("serif", bold = FALSE, italic = TRUE)
 // [[Rcpp::export]]
-String best_family_match(std::string font_family = "sans" ) {
+String match_family(std::string family = "sans",
+                    bool bold = 1, bool italic = 1) {
+  FcPattern* match = findMatch(family.c_str(), bold, italic);
 
-  FcFontSet *font_set;
-  FcPattern *font_pattern;
-  FcResult font_result;
-  FcPattern *font_candidate;
+  std::string output;
+  FcChar8* matched_family;
+  if (match && FcPatternGetString(match, FC_FAMILY, 0, &matched_family) == FcResultMatch)
+    output = (const char*) matched_family;
+  FcPatternDestroy(match);
 
-  if (!FcInit ()) {
-    warning ("Font config initialization failed");
-    return R_NilValue;
-  }
-
-  font_pattern = FcNameParse ((const FcChar8 *)font_family.c_str());
-
-  if (!font_pattern){
-    warning ("Unable to parse pattern string");
-    return R_NilValue;
-  }
-
-  FcConfigSubstitute (0, font_pattern, FcMatchPattern);
-  FcDefaultSubstitute (font_pattern);
-  font_set = FcFontSetCreate ();
-
-  font_candidate = FcFontMatch (0, font_pattern, &font_result);
-  if (font_candidate)
-    FcFontSetAdd (font_set, font_candidate);
-
-  FcPatternDestroy (font_pattern);
-
-
-  if (font_set && font_set->fonts && font_set->fonts[0]) {
-    FcChar8	*family;
-    if (FcPatternGetString (font_set->fonts[0], FC_FAMILY, 0, &family) == FcResultMatch){
-      return String(reinterpret_cast<char *>(family));
-    }
-    FcFontSetDestroy (font_set);
-  }
-  return NA_STRING;
+  if (output.size())
+    return output;
+  else
+    Rcpp::stop("Fontconfig error: unable to match font pattern");
 }

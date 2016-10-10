@@ -318,14 +318,16 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// best_family_match
-String best_family_match(std::string font_family);
-RcppExport SEXP gdtools_best_family_match(SEXP font_familySEXP) {
+// match_family
+String match_family(std::string family, bool bold, bool italic);
+RcppExport SEXP gdtools_match_family(SEXP familySEXP, SEXP boldSEXP, SEXP italicSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< std::string >::type font_family(font_familySEXP);
-    rcpp_result_gen = Rcpp::wrap(best_family_match(font_family));
+    Rcpp::traits::input_parameter< std::string >::type family(familySEXP);
+    Rcpp::traits::input_parameter< bool >::type bold(boldSEXP);
+    Rcpp::traits::input_parameter< bool >::type italic(italicSEXP);
+    rcpp_result_gen = Rcpp::wrap(match_family(family, bold, italic));
     return rcpp_result_gen;
 END_RCPP
 }
