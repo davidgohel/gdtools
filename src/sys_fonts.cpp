@@ -84,7 +84,9 @@ FcPattern* findMatch(const char* fontname, int bold, int italic) {
   FcDefaultSubstitute(pattern);
   FcConfigSubstitute(0, pattern, FcMatchPattern);
 
-  FcResult result;
+  // Need to initialise result for fontconfig versions prior to 2.10
+  // (e.g. old Linux distributions)
+  FcResult result = FcResultMatch;
   FcPattern* match = FcFontMatch(0, pattern, &result);
   FcPatternDestroy(pattern);
 
