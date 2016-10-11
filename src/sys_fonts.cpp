@@ -113,6 +113,8 @@ FcPattern* findMatch(const char* fontname, int bold, int italic) {
 // [[Rcpp::export]]
 String match_family(std::string family = "sans",
                     bool bold = 1, bool italic = 1) {
+  if (!FcInit())
+    Rcpp::stop("Fontconfig error: unable to initialize");
   FcPattern* match = findMatch(family.c_str(), bold, italic);
 
   std::string output;
