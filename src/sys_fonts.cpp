@@ -71,7 +71,7 @@ Rcpp::DataFrame sys_fonts() {
   );
 }
 
-FcPattern* findMatch(const char* fontname, int bold, int italic) {
+FcPattern* fcFindMatch(const char* fontname, int bold, int italic) {
   FcPattern* pattern;
   if(!(pattern = FcNameParse((FcChar8 *) fontname)))
     Rcpp::stop("Fontconfig error: unable to parse font name: %s", fontname);
@@ -96,15 +96,31 @@ FcPattern* findMatch(const char* fontname, int bold, int italic) {
     Rcpp::stop("Fontconfig error: unable to match font pattern");
 }
 
+std::string fcFindFontFile(FcPattern* match) {
+  std::string output;
+  FcChar8 *matched_file;
+  if (match && FcPatternGetString(match, FC_FILE, 0, &matched_file) == FcResultMatch)
+    output = (const char*) matched_file;
+  return output;
+}
+
 //' Find best family match with fontconfig
 //'
-//' This returns the best font family match for the pattern
-//' constructed with \code{bold} and \code{italic}. The default
-//' pattern is bold italic to make sure the matched font has enough
-//' features to be used in R graphics (plain, bold, italic, bold
-//' italic).
+//' \code{match_family()} returns the best font family match for the
+//' fontconfig pattern constructed from the \code{bold} and
+//' \code{italic} arguments. The default pattern is bold italic to make
+//' sure the matched font has enough features to be used in R graphics
+//' (plain, bold, italic, bold italic). \code{match_font()} returns the
+//' font file from the best family match, along with some metada in the
+//' attributes.
 //'
-//' @param family Family to match.
+//' Fontconfig matching is controlled via the \code{fonts.conf}
+//' file. Call \code{Sys.setenv(FC_DEBUG = 1024)} before calling
+//' \code{match_family()} to make fontconfig reveal what configuration
+//' file it is currently using (there can be several installations on
+//' one system, especially on Macs).
+//'
+//' @param font family or face to match.
 //' @param bold Wheter to match a font featuring a \code{bold} face.
 //' @param italic Wheter to match a font featuring an \code{italic} face.
 //'
@@ -112,12 +128,14 @@ FcPattern* findMatch(const char* fontname, int bold, int italic) {
 //' @examples
 //' match_family("sans")
 //' match_family("serif", bold = FALSE, italic = TRUE)
+//'
+//' match_font("Helvetica", bold = FALSE, italic = TRUE)
 // [[Rcpp::export]]
-String match_family(std::string family = "sans",
-                    bool bold = 1, bool italic = 1) {
+std::string match_family(std::string font = "sans",
+                         bool bold = 1, bool italic = 1) {
   if (!FcInit())
     Rcpp::stop("Fontconfig error: unable to initialize");
-  FcPattern* match = findMatch(family.c_str(), bold, italic);
+  FcPattern* match = fcFindMatch(font.c_str(), bold, italic);
 
   std::string output;
   FcChar8* matched_family;
@@ -127,6 +145,44 @@ String match_family(std::string family = "sans",
 
   if (output.size())
     return output;
-  else
+ else
     Rcpp::stop("Fontconfig error: unable to match font pattern");
+}
+
+//' @rdname match_family
+//' @export
+// [[Rcpp::export]]
+Rcpp::CharacterVector match_font(std::string font = "sans",
+                                 bool bold = 0, bool italic = 0) {
+  if (!FcInit())
+    Rcpp::stop("Fontconfig error: unable to initialize");
+  FcPattern* match = fcFindMatch(font.c_str(), bold, italic);
+
+  std::string file, attr_family, attr_fullname;
+  int weight, slant = 0;
+  FcChar8* buffer;
+  if (match) {
+    file = fcFindFontFile(match);
+    if (FcPatternGetString(match, FC_FAMILY, 0, &buffer) == FcResultMatch)
+      attr_family = (const char*) buffer;
+    if (FcPatternGetString(match, FC_FULLNAME, 0, &buffer) == FcResultMatch)
+      attr_fullname = (const char*) buffer;
+    FcPatternGetInteger(match, FC_SLANT, 0, &slant);
+    FcPatternGetInteger(match, FC_WEIGHT, 0, &weight);
+  }
+  FcPatternDestroy(match);
+
+  // Reloading pattern to get actual weight and slant
+  FcPattern* pat = 0;
+
+  if (file.size()) {
+    Rcpp::CharacterVector output(file);
+    output.attr("font") = Rcpp::CharacterVector(attr_family);
+    output.attr("fullname") = Rcpp::CharacterVector(attr_fullname);
+    output.attr("weight") = Rcpp::wrap(weight);
+    output.attr("slant") = Rcpp::wrap(slant);
+    return output;
+  } else {
+    Rcpp::stop("Fontconfig error: unable to match font pattern");
+  }
 }

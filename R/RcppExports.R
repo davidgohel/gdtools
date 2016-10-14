@@ -77,13 +77,21 @@ sys_fonts <- function() {
 
 #' Find best family match with fontconfig
 #'
-#' This returns the best font family match for the pattern
-#' constructed with \code{bold} and \code{italic}. The default
-#' pattern is bold italic to make sure the matched font has enough
-#' features to be used in R graphics (plain, bold, italic, bold
-#' italic).
+#' \code{match_family()} returns the best font family match for the
+#' fontconfig pattern constructed from the \code{bold} and
+#' \code{italic} arguments. The default pattern is bold italic to make
+#' sure the matched font has enough features to be used in R graphics
+#' (plain, bold, italic, bold italic). \code{match_font()} returns the
+#' font file from the best family match, along with some metada in the
+#' attributes.
 #'
-#' @param family Family to match.
+#' Fontconfig matching is controlled via the \code{fonts.conf}
+#' file. Call \code{Sys.setenv(FC_DEBUG = 1024)} before calling
+#' \code{match_family()} to make fontconfig reveal what configuration
+#' file it is currently using (there can be several installations on
+#' one system, especially on Macs).
+#'
+#' @param font family or face to match.
 #' @param bold Wheter to match a font featuring a \code{bold} face.
 #' @param italic Wheter to match a font featuring an \code{italic} face.
 #'
@@ -91,8 +99,16 @@ sys_fonts <- function() {
 #' @examples
 #' match_family("sans")
 #' match_family("serif", bold = FALSE, italic = TRUE)
-match_family <- function(family = "sans", bold = 1L, italic = 1L) {
-    .Call('gdtools_match_family', PACKAGE = 'gdtools', family, bold, italic)
+#'
+#' match_font("Helvetica", bold = FALSE, italic = TRUE)
+match_family <- function(font = "sans", bold = 1L, italic = 1L) {
+    .Call('gdtools_match_family', PACKAGE = 'gdtools', font, bold, italic)
+}
+
+#' @rdname match_family
+#' @export
+match_font <- function(font = "sans", bold = 0L, italic = 0L) {
+    .Call('gdtools_match_font', PACKAGE = 'gdtools', font, bold, italic)
 }
 
 # Register entry points for exported C++ functions

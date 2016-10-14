@@ -2,26 +2,40 @@
 % Please edit documentation in R/RcppExports.R
 \name{match_family}
 \alias{match_family}
+\alias{match_font}
 \title{Find best family match with fontconfig}
 \usage{
-match_family(family = "sans", bold = 1L, italic = 1L)
+match_family(font = "sans", bold = 1L, italic = 1L)
+
+match_font(font = "sans", bold = 0L, italic = 0L)
 }
 \arguments{
-\item{family}{Family to match.}
+\item{font}{family or face to match.}
 
 \item{bold}{Wheter to match a font featuring a \code{bold} face.}
 
 \item{italic}{Wheter to match a font featuring an \code{italic} face.}
 }
 \description{
-This returns the best font family match for the pattern
-constructed with \code{bold} and \code{italic}. The default
-pattern is bold italic to make sure the matched font has enough
-features to be used in R graphics (plain, bold, italic, bold
-italic).
+\code{match_family()} returns the best font family match for the
+fontconfig pattern constructed from the \code{bold} and
+\code{italic} arguments. The default pattern is bold italic to make
+sure the matched font has enough features to be used in R graphics
+(plain, bold, italic, bold italic). \code{match_font()} returns the
+font file from the best family match, along with some metada in the
+attributes.
+}
+\details{
+Fontconfig matching is controlled via the \code{fonts.conf}
+file. Call \code{Sys.setenv(FC_DEBUG = 1024)} before calling
+\code{match_family()} to make fontconfig reveal what configuration
+file it is currently using (there can be several installations on
+one system, especially on Macs).
 }
 \examples{
 match_family("sans")
 match_family("serif", bold = FALSE, italic = TRUE)
+
+match_font("Helvetica", bold = FALSE, italic = TRUE)
 }
 

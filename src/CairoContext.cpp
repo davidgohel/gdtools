@@ -67,10 +67,11 @@ void CairoContext::cacheFont(fontCache& cache, std::string& key, std::string& fo
 }
 
 // Defined in sys_fonts.cpp
-FcPattern* findMatch(const char* fontname, int bold, int italic);
+FcPattern* fcFindMatch(const char* fontname, int bold, int italic);
+std::string fcFindFontFile(FcPattern* match);
 
 std::string findFontFile(const char* fontname, int bold, int italic) {
-  FcPattern* match = findMatch(fontname, bold, italic);
+  FcPattern* match = fcFindMatch(fontname, bold, italic);
 
   std::string output;
   FcChar8 *matched_file;
@@ -86,8 +87,6 @@ std::string findFontFile(const char* fontname, int bold, int italic) {
 
 void CairoContext::setFont(std::string fontname, double fontsize,
                            bool bold, bool italic, std::string fontfile) {
-  cairo_set_font_size(cairo_->context, fontsize);
-
   std::string key;
   if (fontfile.size()) {
     // Use file path as key to cached elements
@@ -106,6 +105,7 @@ void CairoContext::setFont(std::string fontname, double fontsize,
     }
   }
 
+  cairo_set_font_size(cairo_->context, fontsize);
   cairo_set_font_face(cairo_->context, cairo_->fonts[key]);
 }
 
