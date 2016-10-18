@@ -12,7 +12,8 @@ Authors@R: c(
   )
 LazyData: TRUE
 Imports:
-    Rcpp (>= 0.12.0)
+    Rcpp (>= 0.12.0),
+    withr
 Suggests:
     htmltools,
     testthat,

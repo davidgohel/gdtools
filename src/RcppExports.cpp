@@ -318,29 +318,29 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// match_family
-std::string match_family(std::string font, bool bold, bool italic);
-RcppExport SEXP gdtools_match_family(SEXP fontSEXP, SEXP boldSEXP, SEXP italicSEXP) {
+// match_family_
+std::string match_family_(std::string font, bool bold, bool italic);
+RcppExport SEXP gdtools_match_family_(SEXP fontSEXP, SEXP boldSEXP, SEXP italicSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< std::string >::type font(fontSEXP);
     Rcpp::traits::input_parameter< bool >::type bold(boldSEXP);
     Rcpp::traits::input_parameter< bool >::type italic(italicSEXP);
-    rcpp_result_gen = Rcpp::wrap(match_family(font, bold, italic));
+    rcpp_result_gen = Rcpp::wrap(match_family_(font, bold, italic));
     return rcpp_result_gen;
 END_RCPP
 }
-// match_font
-Rcpp::CharacterVector match_font(std::string font, bool bold, bool italic);
-RcppExport SEXP gdtools_match_font(SEXP fontSEXP, SEXP boldSEXP, SEXP italicSEXP) {
+// match_font_
+Rcpp::CharacterVector match_font_(std::string font, bool bold, bool italic);
+RcppExport SEXP gdtools_match_font_(SEXP fontSEXP, SEXP boldSEXP, SEXP italicSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< std::string >::type font(fontSEXP);
     Rcpp::traits::input_parameter< bool >::type bold(boldSEXP);
     Rcpp::traits::input_parameter< bool >::type italic(italicSEXP);
-    rcpp_result_gen = Rcpp::wrap(match_font(font, bold, italic));
+    rcpp_result_gen = Rcpp::wrap(match_font_(font, bold, italic));
     return rcpp_result_gen;
 END_RCPP
 }

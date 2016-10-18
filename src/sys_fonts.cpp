@@ -104,35 +104,9 @@ std::string fcFindFontFile(FcPattern* match) {
   return output;
 }
 
-//' Find best family match with fontconfig
-//'
-//' \code{match_family()} returns the best font family match for the
-//' fontconfig pattern constructed from the \code{bold} and
-//' \code{italic} arguments. The default pattern is bold italic to make
-//' sure the matched font has enough features to be used in R graphics
-//' (plain, bold, italic, bold italic). \code{match_font()} returns the
-//' font file from the best family match, along with some metada in the
-//' attributes.
-//'
-//' Fontconfig matching is controlled via the \code{fonts.conf}
-//' file. Call \code{Sys.setenv(FC_DEBUG = 1024)} before calling
-//' \code{match_family()} to make fontconfig reveal what configuration
-//' file it is currently using (there can be several installations on
-//' one system, especially on Macs).
-//'
-//' @param font family or face to match.
-//' @param bold Wheter to match a font featuring a \code{bold} face.
-//' @param italic Wheter to match a font featuring an \code{italic} face.
-//'
-//' @export
-//' @examples
-//' match_family("sans")
-//' match_family("serif", bold = FALSE, italic = TRUE)
-//'
-//' match_font("Helvetica", bold = FALSE, italic = TRUE)
 // [[Rcpp::export]]
-std::string match_family(std::string font = "sans",
-                         bool bold = true, bool italic = true) {
+std::string match_family_(std::string font = "sans",
+                          bool bold = true, bool italic = true) {
   if (!FcInit())
     Rcpp::stop("Fontconfig error: unable to initialize");
   FcPattern* match = fcFindMatch(font.c_str(), bold, italic);
@@ -150,11 +124,9 @@ std::string match_family(std::string font = "sans",
     Rcpp::stop("Fontconfig error: unable to match font pattern");
 }
 
-//' @rdname match_family
-//' @export
 // [[Rcpp::export]]
-Rcpp::CharacterVector match_font(std::string font = "sans",
-                                 bool bold = false, bool italic = false) {
+Rcpp::CharacterVector match_font_(std::string font = "sans",
+                                  bool bold = false, bool italic = false) {
   if (!FcInit())
     Rcpp::stop("Fontconfig error: unable to initialize");
   FcPattern* match = fcFindMatch(font.c_str(), bold, italic);

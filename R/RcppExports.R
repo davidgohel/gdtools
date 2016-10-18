@@ -75,40 +75,12 @@ sys_fonts <- function() {
     .Call('gdtools_sys_fonts', PACKAGE = 'gdtools')
 }
 
-#' Find best family match with fontconfig
-#'
-#' \code{match_family()} returns the best font family match for the
-#' fontconfig pattern constructed from the \code{bold} and
-#' \code{italic} arguments. The default pattern is bold italic to make
-#' sure the matched font has enough features to be used in R graphics
-#' (plain, bold, italic, bold italic). \code{match_font()} returns the
-#' font file from the best family match, along with some metada in the
-#' attributes.
-#'
-#' Fontconfig matching is controlled via the \code{fonts.conf}
-#' file. Call \code{Sys.setenv(FC_DEBUG = 1024)} before calling
-#' \code{match_family()} to make fontconfig reveal what configuration
-#' file it is currently using (there can be several installations on
-#' one system, especially on Macs).
-#'
-#' @param font family or face to match.
-#' @param bold Wheter to match a font featuring a \code{bold} face.
-#' @param italic Wheter to match a font featuring an \code{italic} face.
-#'
-#' @export
-#' @examples
-#' match_family("sans")
-#' match_family("serif", bold = FALSE, italic = TRUE)
-#'
-#' match_font("Helvetica", bold = FALSE, italic = TRUE)
-match_family <- function(font = "sans", bold = TRUE, italic = TRUE) {
-    .Call('gdtools_match_family', PACKAGE = 'gdtools', font, bold, italic)
+match_family_ <- function(font = "sans", bold = TRUE, italic = TRUE) {
+    .Call('gdtools_match_family_', PACKAGE = 'gdtools', font, bold, italic)
 }
 
-#' @rdname match_family
-#' @export
-match_font <- function(font = "sans", bold = FALSE, italic = FALSE) {
-    .Call('gdtools_match_font', PACKAGE = 'gdtools', font, bold, italic)
+match_font_ <- function(font = "sans", bold = FALSE, italic = FALSE) {
+    .Call('gdtools_match_font_', PACKAGE = 'gdtools', font, bold, italic)
 }
 
 # Register entry points for exported C++ functions
