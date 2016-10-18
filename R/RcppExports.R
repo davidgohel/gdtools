@@ -101,13 +101,13 @@ sys_fonts <- function() {
 #' match_family("serif", bold = FALSE, italic = TRUE)
 #'
 #' match_font("Helvetica", bold = FALSE, italic = TRUE)
-match_family <- function(font = "sans", bold = 1L, italic = 1L) {
+match_family <- function(font = "sans", bold = TRUE, italic = TRUE) {
     .Call('gdtools_match_family', PACKAGE = 'gdtools', font, bold, italic)
 }
 
 #' @rdname match_family
 #' @export
-match_font <- function(font = "sans", bold = 0L, italic = 0L) {
+match_font <- function(font = "sans", bold = FALSE, italic = FALSE) {
     .Call('gdtools_match_font', PACKAGE = 'gdtools', font, bold, italic)
 }
 

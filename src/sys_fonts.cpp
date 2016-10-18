@@ -132,7 +132,7 @@ std::string fcFindFontFile(FcPattern* match) {
 //' match_font("Helvetica", bold = FALSE, italic = TRUE)
 // [[Rcpp::export]]
 std::string match_family(std::string font = "sans",
-                         bool bold = 1, bool italic = 1) {
+                         bool bold = true, bool italic = true) {
   if (!FcInit())
     Rcpp::stop("Fontconfig error: unable to initialize");
   FcPattern* match = fcFindMatch(font.c_str(), bold, italic);
@@ -153,7 +153,7 @@ std::string match_family(std::string font = "sans",
 //' @export
 // [[Rcpp::export]]
 Rcpp::CharacterVector match_font(std::string font = "sans",
-                                 bool bold = 0, bool italic = 0) {
+                                 bool bold = false, bool italic = false) {
   if (!FcInit())
     Rcpp::stop("Fontconfig error: unable to initialize");
   FcPattern* match = fcFindMatch(font.c_str(), bold, italic);

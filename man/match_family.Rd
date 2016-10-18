@@ -5,9 +5,9 @@
 \alias{match_font}
 \title{Find best family match with fontconfig}
 \usage{
-match_family(font = "sans", bold = 1L, italic = 1L)
+match_family(font = "sans", bold = TRUE, italic = TRUE)
 
-match_font(font = "sans", bold = 0L, italic = 0L)
+match_font(font = "sans", bold = FALSE, italic = FALSE)
 }
 \arguments{
 \item{font}{family or face to match.}
