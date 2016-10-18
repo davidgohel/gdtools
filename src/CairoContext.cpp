@@ -61,7 +61,7 @@ void CairoContext::cacheFont(fontCache& cache, std::string& key, std::string& fo
     cairo_font_face_destroy(cairo_face);
     FT_Done_Face(face);
     Rcpp::stop("Cairo error: unable to handle %s", fontfile.c_str());
-	}
+  }
 
   cache[key] = cairo_face;
 }
