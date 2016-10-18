@@ -142,6 +142,7 @@ std::string match_family(std::string font = "sans",
   if (match && FcPatternGetString(match, FC_FAMILY, 0, &matched_family) == FcResultMatch)
     output = (const char*) matched_family;
   FcPatternDestroy(match);
+  FcFini();
 
   if (output.size())
     return output;
@@ -171,9 +172,7 @@ Rcpp::CharacterVector match_font(std::string font = "sans",
     FcPatternGetInteger(match, FC_WEIGHT, 0, &weight);
   }
   FcPatternDestroy(match);
-
-  // Reloading pattern to get actual weight and slant
-  FcPattern* pat = 0;
+  FcFini();
 
   if (file.size()) {
     Rcpp::CharacterVector output(file);
