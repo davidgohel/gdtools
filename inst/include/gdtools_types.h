@@ -43,7 +43,7 @@ public:
   CairoContext();
   ~CairoContext();
 
-  void cacheFont(fontCache& cache, std::string& key, std::string& fontfile);
+  void cacheFont(fontCache& cache, std::string& key, std::string fontfile, int fontindex);
   void cacheSystemFont(std::string& key, std::string& fontname, bool bold, bool italic);
   void setFont(std::string fontname = "sans", double fontsize = 12,
                bool bold = false, bool italic = false,
