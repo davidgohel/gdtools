@@ -1,5 +1,5 @@
 Package: gdtools
-Version: 0.0.7.9000
+Version: 0.0.7.9001
 License: GPL-3 | file LICENSE
 Title: Utilities for Graphical Rendering
 Description: Useful tools for writing vector graphics devices.
@@ -16,7 +16,7 @@ Imports:
 Suggests:
     htmltools,
     testthat,
-    fontquiver,
+    fontquiver (>= 0.1.0.9001),
     knitr,
     rmarkdown
 Remotes:
