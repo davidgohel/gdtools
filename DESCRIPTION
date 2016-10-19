@@ -21,7 +21,7 @@ Suggests:
     knitr,
     rmarkdown
 Remotes:
-    lionel-/fontquiver#6
+    lionel-/fontquiver
 LinkingTo: Rcpp
 SystemRequirements: cairo
 BugReports: https://github.com/davidgohel/gdtools/issues
