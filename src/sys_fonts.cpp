@@ -132,7 +132,7 @@ Rcpp::CharacterVector match_font_(std::string font = "sans",
   FcPattern* match = fcFindMatch(font.c_str(), bold, italic);
 
   std::string file, attr_family, attr_fullname;
-  int weight, slant = 0;
+  int index, weight, slant = 0;
   FcChar8* buffer;
   if (match) {
     file = fcFindFontFile(match);
@@ -142,6 +142,7 @@ Rcpp::CharacterVector match_font_(std::string font = "sans",
       attr_fullname = (const char*) buffer;
     FcPatternGetInteger(match, FC_SLANT, 0, &slant);
     FcPatternGetInteger(match, FC_WEIGHT, 0, &weight);
+    FcPatternGetInteger(match, FC_INDEX, 0, &index);
   }
   FcPatternDestroy(match);
   FcFini();
@@ -152,6 +153,7 @@ Rcpp::CharacterVector match_font_(std::string font = "sans",
     output.attr("fullname") = Rcpp::CharacterVector(attr_fullname);
     output.attr("weight") = Rcpp::wrap(weight);
     output.attr("slant") = Rcpp::wrap(slant);
+    output.attr("index") = Rcpp::wrap(index);
     return output;
   } else {
     Rcpp::stop("Fontconfig error: unable to match font pattern");
