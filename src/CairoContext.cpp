@@ -50,7 +50,7 @@ void CairoContext::cacheFont(fontCache& cache, std::string& key,
                              std::string fontfile, int fontindex)  {
   FT_Face face;
   if (0 != FT_New_Face(cairo_->library, fontfile.c_str(), fontindex, &face))
-    Rcpp::stop("FreeType error: unable to create the font %s", fontfile.c_str());
+    Rcpp::stop("FreeType error: unable to open %s", fontfile.c_str());
 
   cairo_font_face_t* cairo_face = cairo_ft_font_face_create_for_ft_face(face, 0);
 
@@ -70,6 +70,7 @@ void CairoContext::cacheFont(fontCache& cache, std::string& key,
 // Defined in sys_fonts.cpp
 FcPattern* fcFindMatch(const char* fontname, int bold, int italic);
 std::string fcFindFontFile(FcPattern* match);
+int fcFindFontIndex(const char* fontfile, int bold, int italic);
 
 struct font_file_t {
   std::string file;
@@ -99,8 +100,10 @@ void CairoContext::setFont(std::string fontname, double fontsize,
   if (fontfile.size()) {
     // Use file path as key to cached elements
     key = fontfile;
-    if (cairo_->fonts.find(key) == cairo_->fonts.end())
-      cacheFont(cairo_->fonts, key, fontfile, 0);
+    if (cairo_->fonts.find(key) == cairo_->fonts.end()) {
+      int index = fcFindFontIndex(fontfile.c_str(), bold, italic);
+      cacheFont(cairo_->fonts, key, fontfile, index);
+    }
   } else {
     // Use font name and bold/italic properties as key
     char props[20];

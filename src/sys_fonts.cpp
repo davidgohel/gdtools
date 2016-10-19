@@ -71,11 +71,7 @@ Rcpp::DataFrame sys_fonts() {
   );
 }
 
-FcPattern* fcFindMatch(const char* fontname, int bold, int italic) {
-  FcPattern* pattern;
-  if(!(pattern = FcNameParse((FcChar8 *) fontname)))
-    Rcpp::stop("Fontconfig error: unable to parse font name: %s", fontname);
-
+FcPattern* fcMakePattern(FcPattern* pattern, int bold, int italic) {
   int weight = bold ? FC_WEIGHT_BOLD : FC_WEIGHT_MEDIUM;
   int slant = italic ? FC_SLANT_ITALIC : FC_SLANT_ROMAN;
   FcPatternAddInteger(pattern, FC_WEIGHT, weight);
@@ -83,6 +79,15 @@ FcPattern* fcFindMatch(const char* fontname, int bold, int italic) {
 
   FcDefaultSubstitute(pattern);
   FcConfigSubstitute(0, pattern, FcMatchPattern);
+
+  return pattern;
+}
+
+FcPattern* fcFindMatch(const char* fontname, int bold, int italic) {
+  FcPattern* pattern;
+  if(!(pattern = FcNameParse((FcChar8 *) fontname)))
+    Rcpp::stop("Fontconfig error: unable to parse font name: %s", fontname);
+  pattern = fcMakePattern(pattern, bold, italic);
 
   // Need to initialise result for fontconfig versions prior to 2.10
   // (e.g. old Linux distributions)
@@ -102,6 +107,31 @@ std::string fcFindFontFile(FcPattern* match) {
   if (match && FcPatternGetString(match, FC_FILE, 0, &matched_file) == FcResultMatch)
     output = (const char*) matched_file;
   return output;
+}
+
+int fcFindFontIndex(const char* fontfile, int bold, int italic) {
+  FcFontSet* set = FcFontSetCreate();
+  if (!FcFileScan(set, NULL, NULL, NULL, (const FcChar8*) fontfile, FcFalse)) {
+    FcFontSetDestroy(set);
+    Rcpp::stop("Fontconfig error: unable to allocate font");
+  }
+
+  FcPattern* pattern = FcPatternCreate();
+  pattern = fcMakePattern(pattern, bold, italic);
+
+  FcResult result;
+  FcPattern* match = FcFontSetMatch(NULL, &set, 1, pattern, &result);
+  FcPatternDestroy(pattern);
+
+  int index;
+  result = FcPatternGetInteger(match, FC_INDEX, 0, &index);
+  FcFontSetDestroy(set);
+  FcPatternDestroy(match);
+
+  if (match && result == FcResultMatch)
+    return index;
+  else
+    return 0;
 }
 
 // [[Rcpp::export]]
