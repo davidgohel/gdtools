@@ -34,6 +34,7 @@ match_family <- function(font = "sans", bold = TRUE, italic = TRUE, debug = NULL
   if (is.null(debug)) {
     match_family_(font, bold, italic)
   } else {
+    on.exit(reload_dll())
     debug <- fc_match_debug(debug)
     withr::with_envvar(debug, match_family_(font, bold, italic))
   }
@@ -45,6 +46,7 @@ match_font <- function(font = "sans", bold = FALSE, italic = FALSE, debug = NULL
   if (is.null(debug)) {
     match_font_(font, bold, italic)
   } else {
+    on.exit(reload_dll())
     debug <- fc_match_debug(debug)
     withr::with_envvar(debug, match_font_(font, bold, italic))
   }
@@ -63,4 +65,13 @@ fc_match_debug <- function(debug) {
   }
   names(debug) <- "FC_DEBUG"
   debug
+}
+
+# Hack to force Fontconfig to reload debug flag
+reload_dll <- function() {
+  ns_env <- asNamespace("gdtools")
+  ns_info <- ns_env[[".__NAMESPACE__."]]
+  dll <- ns_info$DLLs$gdtools
+  dll_path <- .subset2(dll, "path")
+  dyn.load(dll_path)
 }
