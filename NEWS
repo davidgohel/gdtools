@@ -6,6 +6,7 @@
 * font_family_exists: test if a given font family name can be matched exactly
 * match_family: find best family match for a given Fontconfig pattern
 * match_font: returns font information for a given Fontconfig pattern
+* base64_string_export: encode a string in base64
 
 ## updates
 

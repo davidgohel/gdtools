@@ -177,6 +177,25 @@ namespace gdtools {
         return Rcpp::as<std::string >(rcpp_result_gen);
     }
 
+    inline std::string base64_string_encode(std::string string) {
+        typedef SEXP(*Ptr_base64_string_encode)(SEXP);
+        static Ptr_base64_string_encode p_base64_string_encode = NULL;
+        if (p_base64_string_encode == NULL) {
+            validateSignature("std::string(*base64_string_encode)(std::string)");
+            p_base64_string_encode = (Ptr_base64_string_encode)R_GetCCallable("gdtools", "gdtools_base64_string_encode");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_base64_string_encode(Rcpp::wrap(string));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<std::string >(rcpp_result_gen);
+    }
+
 }
 
 #endif // RCPP_gdtools_RCPPEXPORTS_H_GEN_

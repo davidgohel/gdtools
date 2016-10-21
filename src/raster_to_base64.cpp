@@ -214,7 +214,7 @@ bool raster_png_(CharacterVector raster_, int w, int h, double width, double hei
 
 // [[Rcpp::export]]
 std::string base64_raster_encode(CharacterVector raster_, int w, int h, double width, double height,
-                            int interpolate) {
+                                 int interpolate) {
   vector<string> raster = Rcpp::as<vector<string> >(raster_);
   vector<unsigned int> out = convert_hex(raster);
   return raster_to_str(out, w, h, width, height, interpolate);
@@ -236,4 +236,10 @@ std::string base64_file_encode(std::string filename) {
   ifs.close();
 
   return base64_encode(result);
+}
+
+// [[Rcpp::export]]
+std::string base64_string_encode(std::string string) {
+  std::vector<char> chars(string.begin(), string.end());
+  return base64_encode(chars);
 }

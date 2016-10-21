@@ -63,6 +63,10 @@ base64_file_encode <- function(filename) {
     .Call('gdtools_base64_file_encode', PACKAGE = 'gdtools', filename)
 }
 
+base64_string_encode <- function(string) {
+    .Call('gdtools_base64_string_encode', PACKAGE = 'gdtools', string)
+}
+
 #' @title List system fonts.
 #'
 #' @description List system fonts details into a data.frame containing columns foundry, family,

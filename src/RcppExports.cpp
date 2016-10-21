@@ -308,6 +308,36 @@ RcppExport SEXP gdtools_base64_file_encode(SEXP filenameSEXP) {
     UNPROTECT(1);
     return rcpp_result_gen;
 }
+// base64_string_encode
+std::string base64_string_encode(std::string string);
+static SEXP gdtools_base64_string_encode_try(SEXP stringSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::traits::input_parameter< std::string >::type string(stringSEXP);
+    rcpp_result_gen = Rcpp::wrap(base64_string_encode(string));
+    return rcpp_result_gen;
+END_RCPP_RETURN_ERROR
+}
+RcppExport SEXP gdtools_base64_string_encode(SEXP stringSEXP) {
+    SEXP rcpp_result_gen;
+    {
+        Rcpp::RNGScope rcpp_rngScope_gen;
+        rcpp_result_gen = PROTECT(gdtools_base64_string_encode_try(stringSEXP));
+    }
+    Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
+    if (rcpp_isInterrupt_gen) {
+        UNPROTECT(1);
+        Rf_onintr();
+    }
+    Rboolean rcpp_isError_gen = Rf_inherits(rcpp_result_gen, "try-error");
+    if (rcpp_isError_gen) {
+        SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
+        UNPROTECT(1);
+        Rf_error(CHAR(rcpp_msgSEXP_gen));
+    }
+    UNPROTECT(1);
+    return rcpp_result_gen;
+}
 // sys_fonts
 Rcpp::DataFrame sys_fonts();
 RcppExport SEXP gdtools_sys_fonts() {
@@ -357,6 +387,7 @@ static int gdtools_RcppExport_validate(const char* sig) {
         signatures.insert("bool(*raster_png_)(CharacterVector,int,int,double,double,int,std::string)");
         signatures.insert("std::string(*base64_raster_encode)(CharacterVector,int,int,double,double,int)");
         signatures.insert("std::string(*base64_file_encode)(std::string)");
+        signatures.insert("std::string(*base64_string_encode)(std::string)");
     }
     return signatures.find(sig) != signatures.end();
 }
@@ -371,6 +402,7 @@ RcppExport SEXP gdtools_RcppExport_registerCCallable() {
     R_RegisterCCallable("gdtools", "gdtools_raster_png_", (DL_FUNC)gdtools_raster_png__try);
     R_RegisterCCallable("gdtools", "gdtools_base64_raster_encode", (DL_FUNC)gdtools_base64_raster_encode_try);
     R_RegisterCCallable("gdtools", "gdtools_base64_file_encode", (DL_FUNC)gdtools_base64_file_encode_try);
+    R_RegisterCCallable("gdtools", "gdtools_base64_string_encode", (DL_FUNC)gdtools_base64_string_encode_try);
     R_RegisterCCallable("gdtools", "gdtools_RcppExport_validate", (DL_FUNC)gdtools_RcppExport_validate);
     return R_NilValue;
 }
