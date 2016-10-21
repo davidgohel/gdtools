@@ -101,7 +101,7 @@ namespace gdtools {
         return Rcpp::as<std::string >(rcpp_result_gen);
     }
 
-    inline int raster_to_file(std::vector<unsigned int> raster_, int w, int h, double width, double height, int interpolate, std::string filename) {
+    inline int raster_to_file(std::vector<unsigned int> raster, int w, int h, double width, double height, int interpolate, std::string filename) {
         typedef SEXP(*Ptr_raster_to_file)(SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP);
         static Ptr_raster_to_file p_raster_to_file = NULL;
         if (p_raster_to_file == NULL) {
@@ -111,7 +111,7 @@ namespace gdtools {
         RObject rcpp_result_gen;
         {
             RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_raster_to_file(Rcpp::wrap(raster_), Rcpp::wrap(w), Rcpp::wrap(h), Rcpp::wrap(width), Rcpp::wrap(height), Rcpp::wrap(interpolate), Rcpp::wrap(filename));
+            rcpp_result_gen = p_raster_to_file(Rcpp::wrap(raster), Rcpp::wrap(w), Rcpp::wrap(h), Rcpp::wrap(width), Rcpp::wrap(height), Rcpp::wrap(interpolate), Rcpp::wrap(filename));
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();

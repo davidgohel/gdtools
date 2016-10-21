@@ -47,8 +47,8 @@ raster_to_str <- function(raster, w, h, width, height, interpolate) {
     .Call('gdtools_raster_to_str', PACKAGE = 'gdtools', raster, w, h, width, height, interpolate)
 }
 
-raster_to_file <- function(raster_, w, h, width, height, interpolate, filename) {
-    .Call('gdtools_raster_to_file', PACKAGE = 'gdtools', raster_, w, h, width, height, interpolate, filename)
+raster_to_file <- function(raster, w, h, width, height, interpolate, filename) {
+    .Call('gdtools_raster_to_file', PACKAGE = 'gdtools', raster, w, h, width, height, interpolate, filename)
 }
 
 raster_png_ <- function(raster_, w, h, width, height, interpolate, filename) {

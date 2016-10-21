@@ -172,26 +172,26 @@ RcppExport SEXP gdtools_raster_to_str(SEXP rasterSEXP, SEXP wSEXP, SEXP hSEXP, S
     return rcpp_result_gen;
 }
 // raster_to_file
-int raster_to_file(std::vector<unsigned int> raster_, int w, int h, double width, double height, int interpolate, std::string filename);
-static SEXP gdtools_raster_to_file_try(SEXP raster_SEXP, SEXP wSEXP, SEXP hSEXP, SEXP widthSEXP, SEXP heightSEXP, SEXP interpolateSEXP, SEXP filenameSEXP) {
+int raster_to_file(std::vector<unsigned int> raster, int w, int h, double width, double height, int interpolate, std::string filename);
+static SEXP gdtools_raster_to_file_try(SEXP rasterSEXP, SEXP wSEXP, SEXP hSEXP, SEXP widthSEXP, SEXP heightSEXP, SEXP interpolateSEXP, SEXP filenameSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
-    Rcpp::traits::input_parameter< std::vector<unsigned int> >::type raster_(raster_SEXP);
+    Rcpp::traits::input_parameter< std::vector<unsigned int> >::type raster(rasterSEXP);
     Rcpp::traits::input_parameter< int >::type w(wSEXP);
     Rcpp::traits::input_parameter< int >::type h(hSEXP);
     Rcpp::traits::input_parameter< double >::type width(widthSEXP);
     Rcpp::traits::input_parameter< double >::type height(heightSEXP);
     Rcpp::traits::input_parameter< int >::type interpolate(interpolateSEXP);
     Rcpp::traits::input_parameter< std::string >::type filename(filenameSEXP);
-    rcpp_result_gen = Rcpp::wrap(raster_to_file(raster_, w, h, width, height, interpolate, filename));
+    rcpp_result_gen = Rcpp::wrap(raster_to_file(raster, w, h, width, height, interpolate, filename));
     return rcpp_result_gen;
 END_RCPP_RETURN_ERROR
 }
-RcppExport SEXP gdtools_raster_to_file(SEXP raster_SEXP, SEXP wSEXP, SEXP hSEXP, SEXP widthSEXP, SEXP heightSEXP, SEXP interpolateSEXP, SEXP filenameSEXP) {
+RcppExport SEXP gdtools_raster_to_file(SEXP rasterSEXP, SEXP wSEXP, SEXP hSEXP, SEXP widthSEXP, SEXP heightSEXP, SEXP interpolateSEXP, SEXP filenameSEXP) {
     SEXP rcpp_result_gen;
     {
         Rcpp::RNGScope rcpp_rngScope_gen;
-        rcpp_result_gen = PROTECT(gdtools_raster_to_file_try(raster_SEXP, wSEXP, hSEXP, widthSEXP, heightSEXP, interpolateSEXP, filenameSEXP));
+        rcpp_result_gen = PROTECT(gdtools_raster_to_file_try(rasterSEXP, wSEXP, hSEXP, widthSEXP, heightSEXP, interpolateSEXP, filenameSEXP));
     }
     Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
     if (rcpp_isInterrupt_gen) {

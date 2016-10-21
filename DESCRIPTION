@@ -8,6 +8,7 @@ Authors@R: c(
     person("Hadley", "Wickham", , "hadley@rstudio.com", "aut"),
     person("Jeroen", "Ooms", , "jeroen.ooms@stat.ucla.edu", "aut"),
     person("Yixuan", "Qiu", role = "ctb"),
+    person("R Core Team", role = "cph", comment = "Cairo code from X11 device"),
     person("RStudio", role = "cph")
   )
 LazyData: TRUE
