@@ -1,8 +1,8 @@
+#include <Rcpp.h>
 #include <ft2build.h>
-#include <freetype/freetype.h>
+#include FT_FREETYPE_H
 #include <fontconfig/fontconfig.h>
 #include <cairo.h>
-#include <Rcpp.h>
 
 Rcpp::List version_make(int major, int minor, int patch) {
   Rcpp::IntegerVector version;
