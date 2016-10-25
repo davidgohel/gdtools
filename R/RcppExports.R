@@ -87,6 +87,22 @@ match_font_ <- function(font = "sans", bold = FALSE, italic = FALSE) {
     .Call('gdtools_match_font_', PACKAGE = 'gdtools', font, bold, italic)
 }
 
+#' @rdname version_cairo
+#' @export
+version_freetype <- function() {
+    .Call('gdtools_version_freetype', PACKAGE = 'gdtools')
+}
+
+#' @rdname version_cairo
+#' @export
+version_fontconfig <- function() {
+    .Call('gdtools_version_fontconfig', PACKAGE = 'gdtools')
+}
+
+version_cairo_ <- function() {
+    .Call('gdtools_version_cairo_', PACKAGE = 'gdtools')
+}
+
 # Register entry points for exported C++ functions
 methods::setLoadAction(function(ns) {
     .Call('gdtools_RcppExport_registerCCallable', PACKAGE = 'gdtools')

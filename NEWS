@@ -7,6 +7,9 @@
 * match_family: find best family match for a given Fontconfig pattern
 * match_font: returns font information for a given Fontconfig pattern
 * base64_string_export: encode a string in base64
+* version_cairo: runtime version of the Cairo library
+* version_freetype: runtime version of the FreeType library
+* version_fontconfig: compile-time version of the Fontconfig library
 
 ## updates
 

@@ -374,6 +374,36 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// version_freetype
+Rcpp::List version_freetype();
+RcppExport SEXP gdtools_version_freetype() {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    rcpp_result_gen = Rcpp::wrap(version_freetype());
+    return rcpp_result_gen;
+END_RCPP
+}
+// version_fontconfig
+Rcpp::List version_fontconfig();
+RcppExport SEXP gdtools_version_fontconfig() {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    rcpp_result_gen = Rcpp::wrap(version_fontconfig());
+    return rcpp_result_gen;
+END_RCPP
+}
+// version_cairo_
+Rcpp::CharacterVector version_cairo_();
+RcppExport SEXP gdtools_version_cairo_() {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    rcpp_result_gen = Rcpp::wrap(version_cairo_());
+    return rcpp_result_gen;
+END_RCPP
+}
 
 // validate (ensure exported C++ functions exist before calling them)
 static int gdtools_RcppExport_validate(const char* sig) { 
