@@ -181,8 +181,10 @@ Rcpp::CharacterVector match_font_(std::string font = "sans",
     Rcpp::CharacterVector output(file);
     output.attr("font") = Rcpp::CharacterVector(attr_family);
     output.attr("fullname") = Rcpp::CharacterVector(attr_fullname);
-    output.attr("weight") = Rcpp::wrap(weight);
-    output.attr("slant") = Rcpp::wrap(slant);
+    /* The following are the weight and slant from the ideal pattern,
+       not the matched one. */
+    // output.attr("weight") = Rcpp::wrap(weight);
+    // output.attr("slant") = Rcpp::wrap(slant);
     output.attr("index") = Rcpp::wrap(index);
     return output;
   } else {
