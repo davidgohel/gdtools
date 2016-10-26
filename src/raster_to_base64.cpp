@@ -1,9 +1,10 @@
 #include <Rcpp.h>
 
+#include <cmath>
+#include <fstream>
 #include <stdio.h>
 #include <stdlib.h>
 #include "cairo.h"
-#include <fstream>
 
 using namespace Rcpp;
 using namespace std;
@@ -70,112 +71,96 @@ std::string base64_encode(std::vector<char> data) {
 
 }
 
-
-static cairo_status_t stream_data(void* closure, const unsigned char* data, unsigned int length)
-{
+static cairo_status_t stream_data(void* closure, const unsigned char* data, unsigned int length) {
   vector<char>* in = reinterpret_cast<vector<char>*>(closure);
   for (unsigned int i = 0; i < length; ++i)
     in->push_back(data[i]);
   return CAIRO_STATUS_SUCCESS;
 }
 
+/* The Cairo raster code is adapted from R's X11 device
+   (c) 2010 R Development Core Team, GPL 2+ */
+cairo_surface_t* raster_paint_surface(std::vector<unsigned int>& raster,
+                                      int w, int h, double width, double height,
+                                      int interpolate) {
+  int img_width = static_cast<int> (std::ceil(width));
+  int img_height = static_cast<int> (std::ceil(height));
+
+  cairo_surface_t* base_surface = cairo_image_surface_create(
+    CAIRO_FORMAT_ARGB32, img_width, img_height
+  );
+  cairo_t* cc = cairo_create(base_surface);
+
+  double w_factor = width / w;
+  double h_factor = height / h;
+  if (std::isnan(w_factor)) w_factor = 1;
+  if (std::isnan(h_factor)) h_factor = 1;
+  cairo_scale(cc, w_factor, h_factor);
+
+  std::vector<unsigned char> imageData(4 * w * h);
+  for (int i = 0; i < w * h; i++) {
+    int alpha = R_ALPHA(raster[i]);
+    imageData[i*4 + 3] = alpha;
+    if (alpha < 255) {
+      imageData[i*4 + 2] = R_RED(raster[i]) * alpha / 255;
+      imageData[i*4 + 1] = R_GREEN(raster[i]) * alpha / 255;
+      imageData[i*4 + 0] = R_BLUE(raster[i]) * alpha / 255;
+    } else {
+      imageData[i*4 + 2] = R_RED(raster[i]);
+      imageData[i*4 + 1] = R_GREEN(raster[i]);
+      imageData[i*4 + 0] = R_BLUE(raster[i]);
+    }
+  }
+
+  int stride = cairo_format_stride_for_width(CAIRO_FORMAT_ARGB32, w);
+  cairo_surface_t* image = cairo_image_surface_create_for_data(
+    &imageData[0], CAIRO_FORMAT_ARGB32, w, h, stride
+  );
+
+  cairo_set_source_surface(cc, image, 0, 0);
+  if (interpolate > 0) {
+    cairo_pattern_set_filter(cairo_get_source(cc), CAIRO_FILTER_BILINEAR);
+    cairo_pattern_set_extend(cairo_get_source(cc), CAIRO_EXTEND_PAD);
+  } else
+    cairo_pattern_set_filter(cairo_get_source(cc), CAIRO_FILTER_NEAREST);
+
+  cairo_new_path(cc);
+  cairo_rectangle(cc, 0, 0, w, h);
+  cairo_clip(cc);
+  cairo_paint(cc);
+
+  cairo_destroy(cc);
+  cairo_surface_destroy(image);
+
+  return base_surface;
+}
 
 // [[Rcpp::export]]
 std::string raster_to_str(std::vector<unsigned int> raster,
-  int w, int h, double width, double height, int interpolate) {
+                          int w, int h, double width, double height,
+                          int interpolate) {
+  cairo_surface_t* surface = raster_paint_surface(
+    raster, w, h, width, height, interpolate
+  );
 
-  int i;
-  int img_width = (int) width;
-  int img_height = (int) height;
+  std::vector<char> in;
+  cairo_surface_write_to_png_stream(surface, stream_data, &in);
+  cairo_surface_destroy(surface);
 
-  cairo_surface_t *basesurface = cairo_image_surface_create(
-    CAIRO_FORMAT_ARGB32, img_width, img_height);
-  cairo_t *cc = cairo_create(basesurface);
-
-  if (w != img_width || h != img_height)
-    cairo_scale(cc, width / w, height / h);
-
-  std::vector<unsigned char> imageData(4 * w * h);
-  for (i = 0; i < w * h; i++) {
-    imageData[i * 4 + 3] = R_ALPHA(raster[i]);
-    imageData[i * 4 + 2] = R_RED(raster[i]);
-    imageData[i * 4 + 1] = R_GREEN(raster[i]);
-    imageData[i * 4 + 0] = R_BLUE(raster[i]);
-  }
-
-  int stride;
-  stride = cairo_format_stride_for_width(CAIRO_FORMAT_ARGB32, w);
-  cairo_surface_t *image = cairo_image_surface_create_for_data(&imageData[0],
-                                                               CAIRO_FORMAT_ARGB32, w, h, stride);
-
-  cairo_set_source_surface(cc, image, 0, 0);
-  if (interpolate > 0) {
-    cairo_pattern_set_filter(cairo_get_source(cc), CAIRO_FILTER_BILINEAR);
-    cairo_pattern_set_extend(cairo_get_source(cc), CAIRO_EXTEND_PAD);
-  } else
-    cairo_pattern_set_filter(cairo_get_source(cc), CAIRO_FILTER_NEAREST);
-
-  cairo_new_path(cc);
-  cairo_rectangle(cc, 0, 0, img_width, img_height);
-  cairo_clip(cc);
-  cairo_paint(cc);
-  cairo_destroy(cc);
-
-  vector<char> in;
-  cairo_surface_write_to_png_stream(basesurface, stream_data, &in);
-
-  cairo_surface_destroy(image);
-  cairo_surface_destroy(basesurface);
-  std::string out = base64_encode(in);
-  return out;
+  return base64_encode(in);
 }
 
-
 // [[Rcpp::export]]
-int raster_to_file(std::vector<unsigned int> raster_,
-                          int w, int h, double width, double height,
-                          int interpolate, std::string filename) {
+int raster_to_file(std::vector<unsigned int> raster,
+                   int w, int h, double width, double height,
+                   int interpolate, std::string filename) {
+  cairo_surface_t* surface = raster_paint_surface(
+    raster, w, h, width, height, interpolate
+  );
 
-  int i;
-  int img_width = (int) width;
-  int img_height = (int) height;
+  cairo_surface_write_to_png(surface, filename.c_str());
+  cairo_surface_destroy(surface);
 
-  cairo_surface_t *basesurface = cairo_image_surface_create(
-    CAIRO_FORMAT_ARGB32, img_width, img_height);
-  cairo_t *cc = cairo_create(basesurface);
-
-  if (w != img_width || h != img_height)
-    cairo_scale(cc, width / w, height / h);
-
-  std::vector<unsigned char> imageData(4 * w * h);
-  for (i = 0; i < w * h; i++) {
-    imageData[i * 4 + 3] = R_ALPHA(raster_[i]);
-    imageData[i * 4 + 2] = R_RED(raster_[i]);
-    imageData[i * 4 + 1] = R_GREEN(raster_[i]);
-    imageData[i * 4 + 0] = R_BLUE(raster_[i]);
-  }
-
-  int stride;
-  stride = cairo_format_stride_for_width(CAIRO_FORMAT_ARGB32, w);
-  cairo_surface_t *image = cairo_image_surface_create_for_data(&imageData[0],
-    CAIRO_FORMAT_ARGB32, w, h, stride);
-
-  cairo_set_source_surface(cc, image, 0, 0);
-  if (interpolate > 0) {
-    cairo_pattern_set_filter(cairo_get_source(cc), CAIRO_FILTER_BILINEAR);
-    cairo_pattern_set_extend(cairo_get_source(cc), CAIRO_EXTEND_PAD);
-  } else
-    cairo_pattern_set_filter(cairo_get_source(cc), CAIRO_FILTER_NEAREST);
-
-  cairo_new_path(cc);
-  cairo_rectangle(cc, 0, 0, img_width, img_height);
-  cairo_clip(cc);
-  cairo_paint(cc);
-  cairo_destroy(cc);
-
-  cairo_surface_write_to_png(basesurface, filename.c_str());
-  cairo_surface_destroy(image);
-  cairo_surface_destroy(basesurface);
   return 1;
 }
 
@@ -214,7 +199,7 @@ bool raster_png_(CharacterVector raster_, int w, int h, double width, double hei
 
 // [[Rcpp::export]]
 std::string base64_raster_encode(CharacterVector raster_, int w, int h, double width, double height,
-                            int interpolate) {
+                                 int interpolate) {
   vector<string> raster = Rcpp::as<vector<string> >(raster_);
   vector<unsigned int> out = convert_hex(raster);
   return raster_to_str(out, w, h, width, height, interpolate);
@@ -236,4 +221,10 @@ std::string base64_file_encode(std::string filename) {
   ifs.close();
 
   return base64_encode(result);
+}
+
+// [[Rcpp::export]]
+std::string base64_string_encode(std::string string) {
+  std::vector<char> chars(string.begin(), string.end());
+  return base64_encode(chars);
 }

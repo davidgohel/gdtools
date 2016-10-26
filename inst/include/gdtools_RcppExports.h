@@ -101,7 +101,7 @@ namespace gdtools {
         return Rcpp::as<std::string >(rcpp_result_gen);
     }
 
-    inline int raster_to_file(std::vector<unsigned int> raster_, int w, int h, double width, double height, int interpolate, std::string filename) {
+    inline int raster_to_file(std::vector<unsigned int> raster, int w, int h, double width, double height, int interpolate, std::string filename) {
         typedef SEXP(*Ptr_raster_to_file)(SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP);
         static Ptr_raster_to_file p_raster_to_file = NULL;
         if (p_raster_to_file == NULL) {
@@ -111,7 +111,7 @@ namespace gdtools {
         RObject rcpp_result_gen;
         {
             RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_raster_to_file(Rcpp::wrap(raster_), Rcpp::wrap(w), Rcpp::wrap(h), Rcpp::wrap(width), Rcpp::wrap(height), Rcpp::wrap(interpolate), Rcpp::wrap(filename));
+            rcpp_result_gen = p_raster_to_file(Rcpp::wrap(raster), Rcpp::wrap(w), Rcpp::wrap(h), Rcpp::wrap(width), Rcpp::wrap(height), Rcpp::wrap(interpolate), Rcpp::wrap(filename));
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
@@ -169,6 +169,25 @@ namespace gdtools {
         {
             RNGScope RCPP_rngScope_gen;
             rcpp_result_gen = p_base64_file_encode(Rcpp::wrap(filename));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<std::string >(rcpp_result_gen);
+    }
+
+    inline std::string base64_string_encode(std::string string) {
+        typedef SEXP(*Ptr_base64_string_encode)(SEXP);
+        static Ptr_base64_string_encode p_base64_string_encode = NULL;
+        if (p_base64_string_encode == NULL) {
+            validateSignature("std::string(*base64_string_encode)(std::string)");
+            p_base64_string_encode = (Ptr_base64_string_encode)R_GetCCallable("gdtools", "gdtools_base64_string_encode");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_base64_string_encode(Rcpp::wrap(string));
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();

@@ -1,5 +1,5 @@
 Package: gdtools
-Version: 0.0.7.9000
+Version: 0.0.7.9001
 License: GPL-3 | file LICENSE
 Title: Utilities for Graphical Rendering
 Description: Useful tools for writing vector graphics devices.
@@ -8,17 +8,21 @@ Authors@R: c(
     person("Hadley", "Wickham", , "hadley@rstudio.com", "aut"),
     person("Jeroen", "Ooms", , "jeroen.ooms@stat.ucla.edu", "aut"),
     person("Yixuan", "Qiu", role = "ctb"),
+    person("R Core Team", role = "cph", comment = "Cairo code from X11 device"),
     person("RStudio", role = "cph")
   )
 LazyData: TRUE
 Imports:
-    Rcpp (>= 0.12.0)
+    Rcpp (>= 0.12.0),
+    withr
 Suggests:
     htmltools,
     testthat,
-    fontquiver,
+    fontquiver (>= 0.1.0.9001),
     knitr,
     rmarkdown
+Remotes:
+    lionel-/fontquiver
 LinkingTo: Rcpp
 SystemRequirements: cairo
 BugReports: https://github.com/davidgohel/gdtools/issues

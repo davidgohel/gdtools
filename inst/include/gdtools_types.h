@@ -32,17 +32,26 @@ inline FontMetric::operator SEXP() const {
   return Rcpp::NumericVector::create(width, height, ascent, descent);
 }
 
+typedef struct _cairo_font_face cairo_font_face_t;
+
 class CairoContext {
   struct CairoContext_;
   CairoContext_* cairo_;
+  typedef std::map<std::string, cairo_font_face_t*> fontCache;
 
 public:
   CairoContext();
   ~CairoContext();
 
+  void cacheFont(fontCache& cache, std::string& key, std::string fontfile, int fontindex);
+  void cacheSystemFont(std::string& key, std::string& fontname, bool bold, bool italic);
   void setFont(std::string fontname = "sans", double fontsize = 12,
                bool bold = false, bool italic = false,
                std::string fontfile = "");
+  void setUserFont(std::string& fontname, double fontsize,
+                   bool bold, bool italic, std::string& fontfile);
+  void setSystemFont(std::string& fontname, double fontsize,
+                     bool bold, bool italic);
 
   FontMetric getExtents(std::string x);
 };

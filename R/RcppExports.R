@@ -47,8 +47,8 @@ raster_to_str <- function(raster, w, h, width, height, interpolate) {
     .Call('gdtools_raster_to_str', PACKAGE = 'gdtools', raster, w, h, width, height, interpolate)
 }
 
-raster_to_file <- function(raster_, w, h, width, height, interpolate, filename) {
-    .Call('gdtools_raster_to_file', PACKAGE = 'gdtools', raster_, w, h, width, height, interpolate, filename)
+raster_to_file <- function(raster, w, h, width, height, interpolate, filename) {
+    .Call('gdtools_raster_to_file', PACKAGE = 'gdtools', raster, w, h, width, height, interpolate, filename)
 }
 
 raster_png_ <- function(raster_, w, h, width, height, interpolate, filename) {
@@ -63,6 +63,10 @@ base64_file_encode <- function(filename) {
     .Call('gdtools_base64_file_encode', PACKAGE = 'gdtools', filename)
 }
 
+base64_string_encode <- function(string) {
+    .Call('gdtools_base64_string_encode', PACKAGE = 'gdtools', string)
+}
+
 #' @title List system fonts.
 #'
 #' @description List system fonts details into a data.frame containing columns foundry, family,
@@ -75,8 +79,28 @@ sys_fonts <- function() {
     .Call('gdtools_sys_fonts', PACKAGE = 'gdtools')
 }
 
-best_family_match <- function(font_family = "sans") {
-    .Call('gdtools_best_family_match', PACKAGE = 'gdtools', font_family)
+match_family_ <- function(font = "sans", bold = TRUE, italic = TRUE) {
+    .Call('gdtools_match_family_', PACKAGE = 'gdtools', font, bold, italic)
+}
+
+match_font_ <- function(font = "sans", bold = FALSE, italic = FALSE) {
+    .Call('gdtools_match_font_', PACKAGE = 'gdtools', font, bold, italic)
+}
+
+#' @rdname version_cairo
+#' @export
+version_freetype <- function() {
+    .Call('gdtools_version_freetype', PACKAGE = 'gdtools')
+}
+
+#' @rdname version_cairo
+#' @export
+version_fontconfig <- function() {
+    .Call('gdtools_version_fontconfig', PACKAGE = 'gdtools')
+}
+
+version_cairo_ <- function() {
+    .Call('gdtools_version_cairo_', PACKAGE = 'gdtools')
 }
 
 # Register entry points for exported C++ functions

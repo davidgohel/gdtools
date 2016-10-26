@@ -10,6 +10,6 @@
 #' font_family_exists("Courier")
 #' @export
 font_family_exists <- function( font_family = "sans" ){
-  match_ <- best_family_match(font_family)
+  match_ <- match_family(font_family, FALSE, FALSE)
   ( match_ == font_family )
 }

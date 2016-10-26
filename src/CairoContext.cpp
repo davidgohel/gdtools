@@ -5,6 +5,7 @@
 #include <cairo.h>
 #include <cairo-pdf.h>
 #include <cairo-ft.h>
+#include <fontconfig/fontconfig.h>
 #include <ft2build.h>
 #include FT_FREETYPE_H
 #include "gdtools_types.h"
@@ -14,116 +15,120 @@ using namespace Rcpp;
 struct CairoContext::CairoContext_ {
   cairo_surface_t* surface;
   cairo_t* context;
-  bool currently_freetype; // FIXME: needed?
+
   FT_Library library;
-  std::vector<FT_Face> ft_fonts;
-  std::map<std::string, cairo_font_face_t*> fonts;
-  FontMetric fallback;
+  fontCache fonts;
 };
 
 CairoContext::CairoContext() {
   cairo_ = new CairoContext_();
   cairo_->surface = cairo_pdf_surface_create(NULL, 720, 720);
   cairo_->context = cairo_create(cairo_->surface);
-  cairo_->currently_freetype = 0;
 
+  if (!FcInit())
+    Rcpp::stop("Fontconfig error: unable to initialize");
   if (FT_Init_FreeType(&(cairo_->library)))
-    stop("FreeType error : unable to initialize FreeType library object.");
+    Rcpp::stop("FreeType error: unable to initialize FreeType library object");
 }
 
 CairoContext::~CairoContext() {
+  FcFini();
+
+  fontCache::iterator it = cairo_->fonts.begin();
+  while (it != cairo_->fonts.end()) {
+    cairo_font_face_destroy(it->second);
+    ++it;
+  }
+
   cairo_surface_destroy(cairo_->surface);
   cairo_destroy(cairo_->context);
-
-  std::map<std::string, cairo_font_face_t*>::iterator fonts_it = cairo_->fonts.begin();
-  while (fonts_it != cairo_->fonts.end()) {
-    cairo_font_face_destroy(fonts_it->second);
-    ++fonts_it;
-  }
-  std::for_each(cairo_->ft_fonts.begin(), cairo_->ft_fonts.end(), &FT_Done_Face);
 
   delete cairo_;
 }
 
+void CairoContext::cacheFont(fontCache& cache, std::string& key,
+                             std::string fontfile, int fontindex)  {
+  FT_Face face;
+  if (0 != FT_New_Face(cairo_->library, fontfile.c_str(), fontindex, &face))
+    Rcpp::stop("FreeType error: unable to open %s", fontfile.c_str());
+
+  cairo_font_face_t* cairo_face = cairo_ft_font_face_create_for_ft_face(face, 0);
+
+  cairo_user_data_key_t font_key;
+  cairo_status_t status = cairo_font_face_set_user_data(
+    cairo_face, &font_key, face, (cairo_destroy_func_t) FT_Done_Face
+  );
+  if (status) {
+    cairo_font_face_destroy(cairo_face);
+    FT_Done_Face(face);
+    Rcpp::stop("Cairo error: unable to handle %s", fontfile.c_str());
+  }
+
+  cache[key] = cairo_face;
+}
+
+// Defined in sys_fonts.cpp
+FcPattern* fcFindMatch(const char* fontname, int bold, int italic);
+std::string fcFindFontFile(FcPattern* match);
+int fcFindFontIndex(const char* fontfile, int bold, int italic);
+
+struct font_file_t {
+  std::string file;
+  int index;
+};
+
+font_file_t findFontFile(const char* fontname, int bold, int italic) {
+  FcPattern* match = fcFindMatch(fontname, bold, italic);
+
+  font_file_t output;
+  FcChar8 *matched_file;
+  if (match && FcPatternGetString(match, FC_FILE, 0, &matched_file) == FcResultMatch) {
+    output.file = (const char*) matched_file;
+    FcPatternGetInteger(match, FC_INDEX, 0, &(output.index));
+  }
+  FcPatternDestroy(match);
+
+  if (output.file.size())
+    return output;
+  else
+    Rcpp::stop("Fontconfig error: unable to match font pattern");
+}
+
 void CairoContext::setFont(std::string fontname, double fontsize,
                            bool bold, bool italic, std::string fontfile) {
-
+  std::string key;
   if (fontfile.size()) {
-    if (cairo_->fonts.find(fontfile) == cairo_->fonts.end()) {
-      cairo_->ft_fonts.push_back(FT_Face());
-      FT_Face* new_face = &(cairo_->ft_fonts[cairo_->ft_fonts.size()]);
-      FT_New_Face(cairo_->library, fontfile.c_str(), 0, new_face);
-      cairo_->fonts[fontfile] = cairo_ft_font_face_create_for_ft_face(*new_face, 0);
+    // Use file path as key to cached elements
+    key = fontfile;
+    if (cairo_->fonts.find(key) == cairo_->fonts.end()) {
+      int index = fcFindFontIndex(fontfile.c_str(), bold, italic);
+      cacheFont(cairo_->fonts, key, fontfile, index);
     }
-    cairo_set_font_face(cairo_->context, cairo_->fonts[fontfile]);
-    cairo_->currently_freetype = 1;
   } else {
-    cairo_select_font_face(cairo_->context,
-      fontname.c_str(),
-      italic ? CAIRO_FONT_SLANT_ITALIC : CAIRO_FONT_SLANT_NORMAL,
-      bold ? CAIRO_FONT_WEIGHT_BOLD : CAIRO_FONT_WEIGHT_NORMAL
-    );
-    cairo_->currently_freetype = 0;
+    // Use font name and bold/italic properties as key
+    char props[20];
+    snprintf(props, sizeof(props), " %d %d", (int) bold, (int) italic);
+    key = fontname + props;
+    if (cairo_->fonts.find(key) == cairo_->fonts.end()) {
+      // Add font to cache
+      font_file_t fontfile = findFontFile(fontname.c_str(), bold, italic);
+      cacheFont(cairo_->fonts, key, fontfile.file, fontfile.index);
+    }
   }
-  cairo_set_font_size(cairo_->context, fontsize);
 
-  // set fallback
-  cairo_->fallback = this->getExtents("M");
+  cairo_set_font_size(cairo_->context, fontsize);
+  cairo_set_font_face(cairo_->context, cairo_->fonts[key]);
 }
 
 FontMetric CairoContext::getExtents(std::string x) {
-  cairo_glyph_t* glyphs = NULL;
-  int glyph_count;
-  cairo_text_cluster_t* clusters = NULL;
-  int cluster_count;
-  cairo_text_cluster_flags_t clusterflags;
-
-  cairo_status_t status = cairo_scaled_font_text_to_glyphs(cairo_get_scaled_font(cairo_->context), 0, 0, x.c_str(), x.size(), &glyphs, &glyph_count, &clusters, &cluster_count,
-                                                           &clusterflags);
-  double w_ = 0.0;
-  double h_ = 0.0;
-  double a_ = 0.0;
-  double d_ = 0.0;
-  double descent = 0;
-
-  if (status == CAIRO_STATUS_SUCCESS) {
-
-    // for each cluster
-    int glyph_index = 0;
-    for (int i = 0; i < cluster_count; i++) {
-      cairo_text_cluster_t* cluster = &clusters[i];
-
-      cairo_glyph_t* clusterglyphs = &glyphs[glyph_index];
-      if( clusterglyphs[0].index > 0 ){
-        cairo_text_extents_t extents;
-        cairo_scaled_font_glyph_extents(cairo_get_scaled_font(cairo_->context), clusterglyphs, cluster->num_glyphs, &extents);
-        descent = extents.height + extents.y_bearing;
-
-        w_ += extents.x_advance;
-        h_ = (extents.height > h_) ? extents.height : h_;
-        a_ = (extents.y_bearing < a_) ? extents.y_bearing : a_;
-        d_ = (descent > d_) ? descent : d_;
-      } else {
-        warning("CairoContext::getExtents: can not match glyph in font table.");
-        w_ += cairo_->fallback.width;
-        h_ = (cairo_->fallback.height > h_) ? cairo_->fallback.height : h_;
-        a_ = (-cairo_->fallback.ascent < a_) ? -cairo_->fallback.ascent : a_;
-        d_ = (cairo_->fallback.descent > d_) ? cairo_->fallback.descent : d_;
-      }
-
-      glyph_index += cluster->num_glyphs;
-    }
-  } else stop("Could not get table of glyphs");
-
+  cairo_text_extents_t te;
+  cairo_text_extents(cairo_->context, x.c_str(), &te);
 
   FontMetric fm;
-  fm.height = h_;
-  fm.width = w_;
-  fm.ascent = -a_;
-  fm.descent = d_ ;
-
-  cairo_glyph_free(glyphs);
-  cairo_text_cluster_free(clusters);
+  fm.height = te.height;
+  fm.width = te.x_advance;
+  fm.ascent = -te.y_bearing;
+  fm.descent = te.height + te.y_bearing;
 
   return fm;
 }

@@ -71,46 +71,123 @@ Rcpp::DataFrame sys_fonts() {
   );
 }
 
+FcPattern* fcMakePattern(FcPattern* pattern, int bold, int italic) {
+  int weight = bold ? FC_WEIGHT_BOLD : FC_WEIGHT_MEDIUM;
+  int slant = italic ? FC_SLANT_ITALIC : FC_SLANT_ROMAN;
+  FcPatternAddInteger(pattern, FC_WEIGHT, weight);
+  FcPatternAddInteger(pattern, FC_SLANT, slant);
 
+  FcDefaultSubstitute(pattern);
+  FcConfigSubstitute(0, pattern, FcMatchPattern);
 
+  return pattern;
+}
+
+FcPattern* fcFindMatch(const char* fontname, int bold, int italic) {
+  FcPattern* pattern;
+  if(!(pattern = FcNameParse((FcChar8 *) fontname)))
+    Rcpp::stop("Fontconfig error: unable to parse font name: %s", fontname);
+  pattern = fcMakePattern(pattern, bold, italic);
+
+  // Need to initialise result for fontconfig versions prior to 2.10
+  // (e.g. old Linux distributions)
+  FcResult result = FcResultMatch;
+  FcPattern* match = FcFontMatch(0, pattern, &result);
+  FcPatternDestroy(pattern);
+
+  if (match && result == FcResultMatch)
+    return match;
+  else
+    Rcpp::stop("Fontconfig error: unable to match font pattern");
+}
+
+std::string fcFindFontFile(FcPattern* match) {
+  std::string output;
+  FcChar8 *matched_file;
+  if (match && FcPatternGetString(match, FC_FILE, 0, &matched_file) == FcResultMatch)
+    output = (const char*) matched_file;
+  return output;
+}
+
+int fcFindFontIndex(const char* fontfile, int bold, int italic) {
+  FcFontSet* set = FcFontSetCreate();
+  if (!FcFileScan(set, NULL, NULL, NULL, (const FcChar8*) fontfile, FcFalse)) {
+    FcFontSetDestroy(set);
+    Rcpp::stop("Fontconfig error: unable to allocate font");
+  }
+
+  FcPattern* pattern = FcPatternCreate();
+  pattern = fcMakePattern(pattern, bold, italic);
+
+  FcResult result;
+  FcPattern* match = FcFontSetMatch(NULL, &set, 1, pattern, &result);
+  FcPatternDestroy(pattern);
+
+  int index;
+  result = FcPatternGetInteger(match, FC_INDEX, 0, &index);
+  FcFontSetDestroy(set);
+  FcPatternDestroy(match);
+
+  if (match && result == FcResultMatch)
+    return index;
+  else
+    return 0;
+}
 
 // [[Rcpp::export]]
-String best_family_match(std::string font_family = "sans" ) {
+std::string match_family_(std::string font = "sans",
+                          bool bold = true, bool italic = true) {
+  if (!FcInit())
+    Rcpp::stop("Fontconfig error: unable to initialize");
+  FcPattern* match = fcFindMatch(font.c_str(), bold, italic);
 
-  FcFontSet *font_set;
-  FcPattern *font_pattern;
-  FcResult font_result;
-  FcPattern *font_candidate;
+  std::string output;
+  FcChar8* matched_family;
+  if (match && FcPatternGetString(match, FC_FAMILY, 0, &matched_family) == FcResultMatch)
+    output = (const char*) matched_family;
+  FcPatternDestroy(match);
+  FcFini();
 
-  if (!FcInit ()) {
-    warning ("Font config initialization failed");
-    return R_NilValue;
+  if (output.size())
+    return output;
+ else
+    Rcpp::stop("Fontconfig error: unable to match font pattern");
+}
+
+// [[Rcpp::export]]
+Rcpp::CharacterVector match_font_(std::string font = "sans",
+                                  bool bold = false, bool italic = false) {
+  if (!FcInit())
+    Rcpp::stop("Fontconfig error: unable to initialize");
+  FcPattern* match = fcFindMatch(font.c_str(), bold, italic);
+
+  std::string file, attr_family, attr_fullname;
+  int index, weight, slant = 0;
+  FcChar8* buffer;
+  if (match) {
+    file = fcFindFontFile(match);
+    if (FcPatternGetString(match, FC_FAMILY, 0, &buffer) == FcResultMatch)
+      attr_family = (const char*) buffer;
+    if (FcPatternGetString(match, FC_FULLNAME, 0, &buffer) == FcResultMatch)
+      attr_fullname = (const char*) buffer;
+    FcPatternGetInteger(match, FC_SLANT, 0, &slant);
+    FcPatternGetInteger(match, FC_WEIGHT, 0, &weight);
+    FcPatternGetInteger(match, FC_INDEX, 0, &index);
   }
+  FcPatternDestroy(match);
+  FcFini();
 
-  font_pattern = FcNameParse ((const FcChar8 *)font_family.c_str());
-
-  if (!font_pattern){
-    warning ("Unable to parse pattern string");
-    return R_NilValue;
+  if (file.size()) {
+    Rcpp::CharacterVector output(file);
+    output.attr("font") = Rcpp::CharacterVector(attr_family);
+    output.attr("fullname") = Rcpp::CharacterVector(attr_fullname);
+    /* The following are the weight and slant from the ideal pattern,
+       not the matched one. */
+    // output.attr("weight") = Rcpp::wrap(weight);
+    // output.attr("slant") = Rcpp::wrap(slant);
+    output.attr("index") = Rcpp::wrap(index);
+    return output;
+  } else {
+    Rcpp::stop("Fontconfig error: unable to match font pattern");
   }
-
-  FcConfigSubstitute (0, font_pattern, FcMatchPattern);
-  FcDefaultSubstitute (font_pattern);
-  font_set = FcFontSetCreate ();
-
-  font_candidate = FcFontMatch (0, font_pattern, &font_result);
-  if (font_candidate)
-    FcFontSetAdd (font_set, font_candidate);
-
-  FcPatternDestroy (font_pattern);
-
-
-  if (font_set && font_set->fonts && font_set->fonts[0]) {
-    FcChar8	*family;
-    if (FcPatternGetString (font_set->fonts[0], FC_FAMILY, 0, &family) == FcResultMatch){
-      return String(reinterpret_cast<char *>(family));
-    }
-    FcFontSetDestroy (font_set);
-  }
-  return NA_STRING;
 }

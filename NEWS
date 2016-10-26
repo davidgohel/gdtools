@@ -4,11 +4,19 @@
 
 * sys_fonts: get system fonts details.
 * font_family_exists: test if a given font family name can be matched exactly
+* match_family: find best family match for a given Fontconfig pattern
+* match_font: returns font information for a given Fontconfig pattern
+* base64_string_export: encode a string in base64
+* version_cairo: runtime version of the Cairo library
+* version_freetype: runtime version of the FreeType library
+* version_fontconfig: compile-time version of the Fontconfig library
 
 ## updates
 
 * CONFIGURE file has been updated with Homebrew new repo (Jeroen Ooms)
 * GPL-3 license file has been added
+* CairoContext now uses Fontconfig to find system fonts
+* CairoContext now supports user-defined font files
 
 # gdtools 0.0.7
 
