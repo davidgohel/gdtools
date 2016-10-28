@@ -5,5 +5,3 @@
 ^gdtools\.Rproj$
 ^src/Makevars$
 ^README\.md$
-^vignettes$
-^vignettes/sys_font\.Rmd$
