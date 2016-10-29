@@ -16,9 +16,13 @@ using namespace Rcpp;
 //' @param fontsize Font size
 //' @param fontfile Font file
 //' @examples
+//' \donttest{
+//' # The first run can be slow when font caches are missing
+//' # as font files are then being scanned to build those font caches.
 //' str_extents(letters)
 //' str_extents("Hello World!", bold = TRUE, italic = FALSE,
 //'   fontname = "sans", fontsize = 12)
+//' }
 //' @export
 // [[Rcpp::export]]
 NumericMatrix str_extents(CharacterVector x, std::string fontname = "sans",
@@ -50,7 +54,11 @@ NumericMatrix str_extents(CharacterVector x, std::string fontname = "sans",
 //' @return A named numeric vector
 //' @inheritParams str_extents
 //' @examples
+//' \donttest{
+//' # The first run can be slow when font caches are missing
+//' # as font files are then being scanned to build those font caches.
 //' str_metrics("Hello World!")
+//' }
 //' @export
 // [[Rcpp::export]]
 NumericVector str_metrics(CharacterVector x, std::string fontname = "sans",
