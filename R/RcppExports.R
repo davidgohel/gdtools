@@ -73,7 +73,11 @@ base64_string_encode <- function(string) {
 #' file, slant and weight.
 #'
 #' @examples
+#' \donttest{
+#' # The first run can be slow when font caches are missing
+#' # as font files are then being scanned to build those font caches.
 #' sys_fonts()
+#' }
 #' @export
 sys_fonts <- function() {
     .Call('gdtools_sys_fonts', PACKAGE = 'gdtools')

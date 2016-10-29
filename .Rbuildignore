@@ -5,3 +5,4 @@
 ^gdtools\.Rproj$
 ^src/Makevars$
 ^README\.md$
+^cran-comments\.md$

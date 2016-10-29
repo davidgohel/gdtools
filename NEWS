@@ -1,3 +1,10 @@
+# gdtools 0.1.1
+
+## updates
+
+* examples from sys_fonts and match_family are marked as donttest as their first run
+  can be slow if no font caches are existing.
+
 # gdtools 0.1.0
 
 ## new functions

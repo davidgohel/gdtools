@@ -25,11 +25,15 @@
 #'
 #' @export
 #' @examples
+#' \dontrun{
+#' # The first run can be slow when font caches are missing
+#' # as font files are then being scanned to build those font caches.
 #' match_family("sans")
 #' match_family("serif", bold = FALSE, italic = TRUE)
 #'
 #' match_font("Helvetica", bold = FALSE, italic = TRUE)
 #' match_font("Helvetica", debug = "config")
+#' }
 match_family <- function(font = "sans", bold = TRUE, italic = TRUE, debug = NULL) {
   if (is.null(debug)) {
     match_family_(font, bold, italic)
