@@ -12,9 +12,13 @@
 #' @param fontsize Font size
 #' @param fontfile Font file
 #' @examples
+#' \donttest{
+#' # The first run can be slow when font caches are missing
+#' # as font files are then being scanned to build those font caches.
 #' str_extents(letters)
 #' str_extents("Hello World!", bold = TRUE, italic = FALSE,
 #'   fontname = "sans", fontsize = 12)
+#' }
 #' @export
 str_extents <- function(x, fontname = "sans", fontsize = 12, bold = FALSE, italic = FALSE, fontfile = "") {
     .Call('gdtools_str_extents', PACKAGE = 'gdtools', x, fontname, fontsize, bold, italic, fontfile)
@@ -25,7 +29,11 @@ str_extents <- function(x, fontname = "sans", fontsize = 12, bold = FALSE, itali
 #' @return A named numeric vector
 #' @inheritParams str_extents
 #' @examples
+#' \donttest{
+#' # The first run can be slow when font caches are missing
+#' # as font files are then being scanned to build those font caches.
 #' str_metrics("Hello World!")
+#' }
 #' @export
 str_metrics <- function(x, fontname = "sans", fontsize = 12, bold = FALSE, italic = FALSE, fontfile = "") {
     .Call('gdtools_str_metrics', PACKAGE = 'gdtools', x, fontname, fontsize, bold, italic, fontfile)
