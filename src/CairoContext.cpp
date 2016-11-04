@@ -32,8 +32,6 @@ CairoContext::CairoContext() {
 }
 
 CairoContext::~CairoContext() {
-  FcFini();
-
   fontCache::iterator it = cairo_->fonts.begin();
   while (it != cairo_->fonts.end()) {
     cairo_font_face_destroy(it->second);
