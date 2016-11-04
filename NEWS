@@ -1,3 +1,7 @@
+# gdtools 0.1.2
+
+* Fix a crash on some Linux platforms (hadley/svglite#80)
+
 # gdtools 0.1.1
 
 ## updates
