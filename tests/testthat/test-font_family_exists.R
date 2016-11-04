@@ -13,3 +13,10 @@ test_that("an valid fontname does has a match", {
   }
 })
 
+test_that("no crash after loading Fontconfig via Cairo devices", {
+  grDevices::svg(tempfile())
+  graphics::plot(1:10)
+  grDevices::dev.off()
+
+  expect_error(match_family("sans"), NA)
+})
