@@ -150,7 +150,6 @@ std::string match_family_(std::string font = "sans",
   if (match && FcPatternGetString(match, FC_FAMILY, 0, &matched_family) == FcResultMatch)
     output = (const char*) matched_family;
   FcPatternDestroy(match);
-  FcFini();
 
   if (output.size())
     return output;
@@ -179,7 +178,6 @@ Rcpp::CharacterVector match_font_(std::string font = "sans",
     FcPatternGetInteger(match, FC_INDEX, 0, &index);
   }
   FcPatternDestroy(match);
-  FcFini();
 
   if (file.size()) {
     Rcpp::CharacterVector output(file);
