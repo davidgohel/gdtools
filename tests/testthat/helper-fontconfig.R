@@ -5,5 +5,6 @@ local <- function() {
 
 # Use minimal fonts.conf to speed up fc-cache
 if (!local()) {
-  set_dummy_conf()
+  if( require("fontquiver") )
+    set_dummy_conf()
 }
