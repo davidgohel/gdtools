@@ -5,6 +5,7 @@ test_that("an invalid fontname does not match any family", {
 })
 
 test_that("an valid fontname does has a match", {
+  skip_on_os("solaris")
   sys_fonts_ <- sys_fonts()
   if( nrow(sys_fonts_) > 0 ) {
     sys_fonts_ <- head(sys_fonts_, n = 1 )
