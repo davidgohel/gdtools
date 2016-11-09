@@ -90,6 +90,7 @@ reload_dll <- function() {
 #' Appveyor or on CRAN's win-builder service).
 #' @export
 #' @examples
+#' if( require("fontquiver") ){
 #' on_appveyor <- function() {
 #'   identical(Sys.getenv("APPVEYOR"), "True")
 #' }
@@ -100,6 +101,7 @@ reload_dll <- function() {
 #' }
 #'
 #' unset_dummy_conf()
+#' }
 set_dummy_conf <- function() {
   if (!requireNamespace("fontquiver")) {
     stop("The fontquiver package must be installed", call. = FALSE)

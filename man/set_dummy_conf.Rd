@@ -18,6 +18,7 @@ cache-building time on testing platforms running Windows (e.g. on
 Appveyor or on CRAN's win-builder service).
 }
 \examples{
+if( require("fontquiver") ){
 on_appveyor <- function() {
   identical(Sys.getenv("APPVEYOR"), "True")
 }
@@ -28,5 +29,6 @@ if (on_appveyor()) {
 }
 
 unset_dummy_conf()
+}
 }
 
