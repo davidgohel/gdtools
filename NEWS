@@ -1,8 +1,10 @@
-# gdtools 0.1.2.9000
+# gdtools 0.1.3
 
 * Add set_dummy_conf() and unset_dummy_conf() to set a minimalistic
   Fontconfig configuration. Useful to speed up cache building on
   Appveyor or CRAN.
+* fix tests in R/test-str_metrics.R and R/test-str_extents.R
+  (skip tests that need fontquiver when not installed).
 
 # gdtools 0.1.2
 
