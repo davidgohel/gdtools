@@ -6,8 +6,6 @@
       Sys.setenv(FONTCONFIG_PATH = file.path(lib, pkg, "fontconfig") )
     } else if(file.exists("/opt/X11/lib/X11/fontconfig")){
         Sys.setenv(FONTCONFIG_PATH="/opt/X11/lib/X11/fontconfig")
-    } else if(file.exists( file.path( Sys.getenv("R_HOME"), "fontconfig" ) )){
-      Sys.setenv(FONTCONFIG_PATH=file.path( Sys.getenv("R_HOME"), "fontconfig" ))
     }
   }
 }
