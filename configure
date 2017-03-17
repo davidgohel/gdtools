@@ -46,7 +46,7 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     PKG_CFLAGS="-I$BREWDIR/opt/$PKG_BREW_NAME/include/cairo"
     PKG_LIBS="-L$BREWDIR/opt/$PKG_BREW_NAME/lib $PKG_LIBS"
   else
-    curl -OL https://jeroen.github.io/autobrew/cairo
+    curl -sOL https://jeroen.github.io/autobrew/cairo
     source cairo
   fi
 fi
