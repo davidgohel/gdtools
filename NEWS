@@ -1,3 +1,8 @@
+# gdtools 0.1.4
+
+* New file src/registerDynamicSymbol.c to correctly register provided routines
+* a cleanup file to delete src/Makevars when package has been built
+
 # gdtools 0.1.3
 
 * Add set_dummy_conf() and unset_dummy_conf() to set a minimalistic
