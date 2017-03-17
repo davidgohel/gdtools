@@ -11,11 +11,11 @@ matrix:
       sudo: required
       env: R_CODECOV=true
     - os: osx
-      osx_image: xcode7.2
+      osx_image: xcode8.1
       brew_packages: cairo
       latex: false
     - os: osx
-      osx_image: beta-xcode6.1
+      osx_image: beta-xcode6.4
       disable_homebrew: true
       latex: false
 
