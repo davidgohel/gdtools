@@ -31,4 +31,3 @@ if (on_appveyor()) {
 unset_dummy_conf()
 }
 }
-

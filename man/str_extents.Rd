@@ -31,4 +31,3 @@ str_extents("Hello World!", bold = TRUE, italic = FALSE,
   fontname = "sans", fontsize = 12)
 }
 }
-

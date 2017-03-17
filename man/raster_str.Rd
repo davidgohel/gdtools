@@ -31,4 +31,3 @@ if (interactive() && require("htmltools")) {
   raster_view(code = code)
 }
 }
-

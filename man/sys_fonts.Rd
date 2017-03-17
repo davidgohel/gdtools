@@ -17,4 +17,3 @@ file, slant and weight.
 sys_fonts()
 }
 }
-

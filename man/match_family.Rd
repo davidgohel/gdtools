@@ -49,4 +49,3 @@ match_font("Helvetica", bold = FALSE, italic = TRUE)
 match_font("Helvetica", debug = "config")
 }
 }
-

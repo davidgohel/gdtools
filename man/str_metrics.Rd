@@ -33,4 +33,3 @@ Get font metrics for a string.
 str_metrics("Hello World!")
 }
 }
-

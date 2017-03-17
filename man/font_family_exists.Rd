@@ -22,4 +22,3 @@ font_family_exists("Arial")
 font_family_exists("Courier")
 }
 }
-

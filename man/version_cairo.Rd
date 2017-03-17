@@ -18,4 +18,3 @@ runtime version and \code{version_fontconfig()} returns the
 compile-time version. These helpers return version objects as with
 \code{\link[utils]{packageVersion}()}.
 }
-
