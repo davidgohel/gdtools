@@ -17,7 +17,7 @@ namespace gdtools {
             require("gdtools", Rcpp::Named("quietly") = true);
             typedef int(*Ptr_validate)(const char*);
             static Ptr_validate p_validate = (Ptr_validate)
-                R_GetCCallable("gdtools", "gdtools_RcppExport_validate");
+                R_GetCCallable("gdtools", "_gdtools_RcppExport_validate");
             if (!p_validate(sig)) {
                 throw Rcpp::function_not_exported(
                     "C++ function with signature '" + std::string(sig) + "' not found in gdtools");
@@ -30,7 +30,7 @@ namespace gdtools {
         static Ptr_context_create p_context_create = NULL;
         if (p_context_create == NULL) {
             validateSignature("XPtrCairoContext(*context_create)()");
-            p_context_create = (Ptr_context_create)R_GetCCallable("gdtools", "gdtools_context_create");
+            p_context_create = (Ptr_context_create)R_GetCCallable("gdtools", "_gdtools_context_create");
         }
         RObject rcpp_result_gen;
         {
@@ -49,12 +49,12 @@ namespace gdtools {
         static Ptr_context_set_font p_context_set_font = NULL;
         if (p_context_set_font == NULL) {
             validateSignature("bool(*context_set_font)(XPtrCairoContext,std::string,double,bool,bool,std::string)");
-            p_context_set_font = (Ptr_context_set_font)R_GetCCallable("gdtools", "gdtools_context_set_font");
+            p_context_set_font = (Ptr_context_set_font)R_GetCCallable("gdtools", "_gdtools_context_set_font");
         }
         RObject rcpp_result_gen;
         {
             RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_context_set_font(Rcpp::wrap(cc), Rcpp::wrap(fontname), Rcpp::wrap(fontsize), Rcpp::wrap(bold), Rcpp::wrap(italic), Rcpp::wrap(fontfile));
+            rcpp_result_gen = p_context_set_font(Shield<SEXP>(Rcpp::wrap(cc)), Shield<SEXP>(Rcpp::wrap(fontname)), Shield<SEXP>(Rcpp::wrap(fontsize)), Shield<SEXP>(Rcpp::wrap(bold)), Shield<SEXP>(Rcpp::wrap(italic)), Shield<SEXP>(Rcpp::wrap(fontfile)));
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
@@ -68,12 +68,12 @@ namespace gdtools {
         static Ptr_context_extents p_context_extents = NULL;
         if (p_context_extents == NULL) {
             validateSignature("FontMetric(*context_extents)(XPtrCairoContext,std::string)");
-            p_context_extents = (Ptr_context_extents)R_GetCCallable("gdtools", "gdtools_context_extents");
+            p_context_extents = (Ptr_context_extents)R_GetCCallable("gdtools", "_gdtools_context_extents");
         }
         RObject rcpp_result_gen;
         {
             RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_context_extents(Rcpp::wrap(cc), Rcpp::wrap(x));
+            rcpp_result_gen = p_context_extents(Shield<SEXP>(Rcpp::wrap(cc)), Shield<SEXP>(Rcpp::wrap(x)));
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
@@ -87,12 +87,12 @@ namespace gdtools {
         static Ptr_raster_to_str p_raster_to_str = NULL;
         if (p_raster_to_str == NULL) {
             validateSignature("std::string(*raster_to_str)(std::vector<unsigned int>,int,int,double,double,int)");
-            p_raster_to_str = (Ptr_raster_to_str)R_GetCCallable("gdtools", "gdtools_raster_to_str");
+            p_raster_to_str = (Ptr_raster_to_str)R_GetCCallable("gdtools", "_gdtools_raster_to_str");
         }
         RObject rcpp_result_gen;
         {
             RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_raster_to_str(Rcpp::wrap(raster), Rcpp::wrap(w), Rcpp::wrap(h), Rcpp::wrap(width), Rcpp::wrap(height), Rcpp::wrap(interpolate));
+            rcpp_result_gen = p_raster_to_str(Shield<SEXP>(Rcpp::wrap(raster)), Shield<SEXP>(Rcpp::wrap(w)), Shield<SEXP>(Rcpp::wrap(h)), Shield<SEXP>(Rcpp::wrap(width)), Shield<SEXP>(Rcpp::wrap(height)), Shield<SEXP>(Rcpp::wrap(interpolate)));
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
@@ -106,12 +106,12 @@ namespace gdtools {
         static Ptr_raster_to_file p_raster_to_file = NULL;
         if (p_raster_to_file == NULL) {
             validateSignature("int(*raster_to_file)(std::vector<unsigned int>,int,int,double,double,int,std::string)");
-            p_raster_to_file = (Ptr_raster_to_file)R_GetCCallable("gdtools", "gdtools_raster_to_file");
+            p_raster_to_file = (Ptr_raster_to_file)R_GetCCallable("gdtools", "_gdtools_raster_to_file");
         }
         RObject rcpp_result_gen;
         {
             RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_raster_to_file(Rcpp::wrap(raster), Rcpp::wrap(w), Rcpp::wrap(h), Rcpp::wrap(width), Rcpp::wrap(height), Rcpp::wrap(interpolate), Rcpp::wrap(filename));
+            rcpp_result_gen = p_raster_to_file(Shield<SEXP>(Rcpp::wrap(raster)), Shield<SEXP>(Rcpp::wrap(w)), Shield<SEXP>(Rcpp::wrap(h)), Shield<SEXP>(Rcpp::wrap(width)), Shield<SEXP>(Rcpp::wrap(height)), Shield<SEXP>(Rcpp::wrap(interpolate)), Shield<SEXP>(Rcpp::wrap(filename)));
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
@@ -125,12 +125,12 @@ namespace gdtools {
         static Ptr_raster_png_ p_raster_png_ = NULL;
         if (p_raster_png_ == NULL) {
             validateSignature("bool(*raster_png_)(CharacterVector,int,int,double,double,int,std::string)");
-            p_raster_png_ = (Ptr_raster_png_)R_GetCCallable("gdtools", "gdtools_raster_png_");
+            p_raster_png_ = (Ptr_raster_png_)R_GetCCallable("gdtools", "_gdtools_raster_png_");
         }
         RObject rcpp_result_gen;
         {
             RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_raster_png_(Rcpp::wrap(raster_), Rcpp::wrap(w), Rcpp::wrap(h), Rcpp::wrap(width), Rcpp::wrap(height), Rcpp::wrap(interpolate), Rcpp::wrap(filename));
+            rcpp_result_gen = p_raster_png_(Shield<SEXP>(Rcpp::wrap(raster_)), Shield<SEXP>(Rcpp::wrap(w)), Shield<SEXP>(Rcpp::wrap(h)), Shield<SEXP>(Rcpp::wrap(width)), Shield<SEXP>(Rcpp::wrap(height)), Shield<SEXP>(Rcpp::wrap(interpolate)), Shield<SEXP>(Rcpp::wrap(filename)));
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
@@ -144,12 +144,12 @@ namespace gdtools {
         static Ptr_base64_raster_encode p_base64_raster_encode = NULL;
         if (p_base64_raster_encode == NULL) {
             validateSignature("std::string(*base64_raster_encode)(CharacterVector,int,int,double,double,int)");
-            p_base64_raster_encode = (Ptr_base64_raster_encode)R_GetCCallable("gdtools", "gdtools_base64_raster_encode");
+            p_base64_raster_encode = (Ptr_base64_raster_encode)R_GetCCallable("gdtools", "_gdtools_base64_raster_encode");
         }
         RObject rcpp_result_gen;
         {
             RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_base64_raster_encode(Rcpp::wrap(raster_), Rcpp::wrap(w), Rcpp::wrap(h), Rcpp::wrap(width), Rcpp::wrap(height), Rcpp::wrap(interpolate));
+            rcpp_result_gen = p_base64_raster_encode(Shield<SEXP>(Rcpp::wrap(raster_)), Shield<SEXP>(Rcpp::wrap(w)), Shield<SEXP>(Rcpp::wrap(h)), Shield<SEXP>(Rcpp::wrap(width)), Shield<SEXP>(Rcpp::wrap(height)), Shield<SEXP>(Rcpp::wrap(interpolate)));
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
@@ -163,12 +163,12 @@ namespace gdtools {
         static Ptr_base64_file_encode p_base64_file_encode = NULL;
         if (p_base64_file_encode == NULL) {
             validateSignature("std::string(*base64_file_encode)(std::string)");
-            p_base64_file_encode = (Ptr_base64_file_encode)R_GetCCallable("gdtools", "gdtools_base64_file_encode");
+            p_base64_file_encode = (Ptr_base64_file_encode)R_GetCCallable("gdtools", "_gdtools_base64_file_encode");
         }
         RObject rcpp_result_gen;
         {
             RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_base64_file_encode(Rcpp::wrap(filename));
+            rcpp_result_gen = p_base64_file_encode(Shield<SEXP>(Rcpp::wrap(filename)));
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
@@ -182,12 +182,12 @@ namespace gdtools {
         static Ptr_base64_string_encode p_base64_string_encode = NULL;
         if (p_base64_string_encode == NULL) {
             validateSignature("std::string(*base64_string_encode)(std::string)");
-            p_base64_string_encode = (Ptr_base64_string_encode)R_GetCCallable("gdtools", "gdtools_base64_string_encode");
+            p_base64_string_encode = (Ptr_base64_string_encode)R_GetCCallable("gdtools", "_gdtools_base64_string_encode");
         }
         RObject rcpp_result_gen;
         {
             RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_base64_string_encode(Rcpp::wrap(string));
+            rcpp_result_gen = p_base64_string_encode(Shield<SEXP>(Rcpp::wrap(string)));
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
