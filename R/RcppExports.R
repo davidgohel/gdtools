@@ -21,7 +21,7 @@
 #' }
 #' @export
 str_extents <- function(x, fontname = "sans", fontsize = 12, bold = FALSE, italic = FALSE, fontfile = "") {
-    .Call('_gdtools_str_extents', PACKAGE = 'gdtools', x, fontname, fontsize, bold, italic, fontfile)
+    .Call('gdtools_str_extents', PACKAGE = 'gdtools', x, fontname, fontsize, bold, italic, fontfile)
 }
 
 #' Get font metrics for a string.
@@ -36,43 +36,43 @@ str_extents <- function(x, fontname = "sans", fontsize = 12, bold = FALSE, itali
 #' }
 #' @export
 str_metrics <- function(x, fontname = "sans", fontsize = 12, bold = FALSE, italic = FALSE, fontfile = "") {
-    .Call('_gdtools_str_metrics', PACKAGE = 'gdtools', x, fontname, fontsize, bold, italic, fontfile)
+    .Call('gdtools_str_metrics', PACKAGE = 'gdtools', x, fontname, fontsize, bold, italic, fontfile)
 }
 
 context_create <- function() {
-    .Call('_gdtools_context_create', PACKAGE = 'gdtools')
+    .Call('gdtools_context_create', PACKAGE = 'gdtools')
 }
 
 context_set_font <- function(cc, fontname, fontsize, bold, italic, fontfile = "") {
-    .Call('_gdtools_context_set_font', PACKAGE = 'gdtools', cc, fontname, fontsize, bold, italic, fontfile)
+    .Call('gdtools_context_set_font', PACKAGE = 'gdtools', cc, fontname, fontsize, bold, italic, fontfile)
 }
 
 context_extents <- function(cc, x) {
-    .Call('_gdtools_context_extents', PACKAGE = 'gdtools', cc, x)
+    .Call('gdtools_context_extents', PACKAGE = 'gdtools', cc, x)
 }
 
 raster_to_str <- function(raster, w, h, width, height, interpolate) {
-    .Call('_gdtools_raster_to_str', PACKAGE = 'gdtools', raster, w, h, width, height, interpolate)
+    .Call('gdtools_raster_to_str', PACKAGE = 'gdtools', raster, w, h, width, height, interpolate)
 }
 
 raster_to_file <- function(raster, w, h, width, height, interpolate, filename) {
-    .Call('_gdtools_raster_to_file', PACKAGE = 'gdtools', raster, w, h, width, height, interpolate, filename)
+    .Call('gdtools_raster_to_file', PACKAGE = 'gdtools', raster, w, h, width, height, interpolate, filename)
 }
 
 raster_png_ <- function(raster_, w, h, width, height, interpolate, filename) {
-    .Call('_gdtools_raster_png_', PACKAGE = 'gdtools', raster_, w, h, width, height, interpolate, filename)
+    .Call('gdtools_raster_png_', PACKAGE = 'gdtools', raster_, w, h, width, height, interpolate, filename)
 }
 
 base64_raster_encode <- function(raster_, w, h, width, height, interpolate) {
-    .Call('_gdtools_base64_raster_encode', PACKAGE = 'gdtools', raster_, w, h, width, height, interpolate)
+    .Call('gdtools_base64_raster_encode', PACKAGE = 'gdtools', raster_, w, h, width, height, interpolate)
 }
 
 base64_file_encode <- function(filename) {
-    .Call('_gdtools_base64_file_encode', PACKAGE = 'gdtools', filename)
+    .Call('gdtools_base64_file_encode', PACKAGE = 'gdtools', filename)
 }
 
 base64_string_encode <- function(string) {
-    .Call('_gdtools_base64_string_encode', PACKAGE = 'gdtools', string)
+    .Call('gdtools_base64_string_encode', PACKAGE = 'gdtools', string)
 }
 
 #' @title List system fonts.
@@ -88,34 +88,34 @@ base64_string_encode <- function(string) {
 #' }
 #' @export
 sys_fonts <- function() {
-    .Call('_gdtools_sys_fonts', PACKAGE = 'gdtools')
+    .Call('gdtools_sys_fonts', PACKAGE = 'gdtools')
 }
 
 match_family_ <- function(font = "sans", bold = TRUE, italic = TRUE) {
-    .Call('_gdtools_match_family_', PACKAGE = 'gdtools', font, bold, italic)
+    .Call('gdtools_match_family_', PACKAGE = 'gdtools', font, bold, italic)
 }
 
 match_font_ <- function(font = "sans", bold = FALSE, italic = FALSE) {
-    .Call('_gdtools_match_font_', PACKAGE = 'gdtools', font, bold, italic)
+    .Call('gdtools_match_font_', PACKAGE = 'gdtools', font, bold, italic)
 }
 
 #' @rdname version_cairo
 #' @export
 version_freetype <- function() {
-    .Call('_gdtools_version_freetype', PACKAGE = 'gdtools')
+    .Call('gdtools_version_freetype', PACKAGE = 'gdtools')
 }
 
 #' @rdname version_cairo
 #' @export
 version_fontconfig <- function() {
-    .Call('_gdtools_version_fontconfig', PACKAGE = 'gdtools')
+    .Call('gdtools_version_fontconfig', PACKAGE = 'gdtools')
 }
 
 version_cairo_ <- function() {
-    .Call('_gdtools_version_cairo_', PACKAGE = 'gdtools')
+    .Call('gdtools_version_cairo_', PACKAGE = 'gdtools')
 }
 
 # Register entry points for exported C++ functions
 methods::setLoadAction(function(ns) {
-    .Call('_gdtools_RcppExport_registerCCallable', PACKAGE = 'gdtools')
+    .Call('gdtools_RcppExport_registerCCallable', PACKAGE = 'gdtools')
 })
