@@ -1,5 +1,6 @@
 language: r
 cache: packages
+latex: false
 
 matrix:
   include:
@@ -8,16 +9,16 @@ matrix:
       sudo: false
     - os: linux
       dist: trusty
-      sudo: required
       env: R_CODECOV=true
     - os: osx
-      osx_image: xcode8.1
+      osx_image: xcode8.3
       brew_packages: cairo
-      latex: false
     - os: osx
-      osx_image: beta-xcode6.4
+      osx_image: xcode8.3
       disable_homebrew: true
-      latex: false
+    - os: osx
+      osx_image: xcode7.3
+      disable_homebrew: true
 
 addons:
   apt:
