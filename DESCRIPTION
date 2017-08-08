@@ -1,5 +1,5 @@
 Package: gdtools
-Version: 0.1.5
+Version: 0.1.5.9000
 License: GPL-3 | file LICENSE
 Title: Utilities for Graphical Rendering
 Description: Useful tools for writing vector graphics devices.
@@ -14,7 +14,7 @@ Authors@R: c(
   )
 LazyData: TRUE
 Imports:
-    Rcpp (>= 0.12.0),
+    Rcpp (>= 0.12.12),
     withr
 Suggests:
     htmltools,

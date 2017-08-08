@@ -1,2 +1,3 @@
 PKG_CPPFLAGS=@cflags@ -I../inst/include/
+PKG_CXXFLAGS=$(C_VISIBILITY)
 PKG_LIBS=@libs@
