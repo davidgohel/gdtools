@@ -79,6 +79,33 @@ NumericVector str_metrics(CharacterVector x, std::string fontname = "sans",
   );
 }
 
+// [[Rcpp::export]]
+NumericMatrix m_str_extents_(CharacterVector x,
+                            std::vector<std::string> fontname,
+                            std::vector<double> fontsize,
+                            std::vector<int> bold,
+                            std::vector<int> italic,
+                            std::vector<std::string> fontfile) {
+  int n = x.size();
+  CairoContext cc;
+  NumericMatrix out(n, 2);
+
+  for (int i = 0; i < n; ++i) {
+    cc.setFont(fontname[i], fontsize[i], bold[i], italic[i], fontfile[i]);
+    if (x[i] == NA_STRING) {
+      out(i, 0) = NA_REAL;
+      out(i, 1) = NA_REAL;
+    } else {
+      std::string str(Rf_translateCharUTF8(x[i]));
+      FontMetric fm = cc.getExtents(str);
+
+      out(i, 0) = fm.width;
+      out(i, 1) = fm.height;
+    }
+  }
+
+  return out;
+}
 
 //' Validate glyph entries
 //'

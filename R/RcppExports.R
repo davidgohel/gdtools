@@ -39,6 +39,10 @@ str_metrics <- function(x, fontname = "sans", fontsize = 12, bold = FALSE, itali
     .Call('_gdtools_str_metrics', PACKAGE = 'gdtools', x, fontname, fontsize, bold, italic, fontfile)
 }
 
+m_str_extents_ <- function(x, fontname, fontsize, bold, italic, fontfile) {
+    .Call('_gdtools_m_str_extents_', PACKAGE = 'gdtools', x, fontname, fontsize, bold, italic, fontfile)
+}
+
 #' Validate glyph entries
 #'
 #' Determines if strings contain glyphs not part of a font.
