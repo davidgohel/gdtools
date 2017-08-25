@@ -8,7 +8,7 @@ str_metrics(x, fontname = "sans", fontsize = 12, bold = FALSE,
   italic = FALSE, fontfile = "")
 }
 \arguments{
-\item{x}{Character vector of of strings to measure}
+\item{x}{Character vector of strings to measure}
 
 \item{fontname}{Font name}
 

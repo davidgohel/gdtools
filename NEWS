@@ -1,7 +1,12 @@
+# gdtools 0.1.6
+
+* update with Rcpp 0.12.12
+* new function `glyphs_match` to test whether glyphs in strings are all existing in a font table or not.
+
 # gdtools 0.1.5
 
-* increase tolerance in font metrics unit-tests as new versions of fontconfig/freetype
-  are slightly changing returned extents.
+* increase tolerance in font metrics unit-tests as new version of freetype
+  is slightly changing returned extents.
 
 # gdtools 0.1.4
 

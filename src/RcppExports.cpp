@@ -41,6 +41,21 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// glyphs_match
+LogicalVector glyphs_match(CharacterVector x, std::string fontname, int bold, int italic, std::string fontfile);
+RcppExport SEXP _gdtools_glyphs_match(SEXP xSEXP, SEXP fontnameSEXP, SEXP boldSEXP, SEXP italicSEXP, SEXP fontfileSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< CharacterVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< std::string >::type fontname(fontnameSEXP);
+    Rcpp::traits::input_parameter< int >::type bold(boldSEXP);
+    Rcpp::traits::input_parameter< int >::type italic(italicSEXP);
+    Rcpp::traits::input_parameter< std::string >::type fontfile(fontfileSEXP);
+    rcpp_result_gen = Rcpp::wrap(glyphs_match(x, fontname, bold, italic, fontfile));
+    return rcpp_result_gen;
+END_RCPP
+}
 // context_create
 XPtrCairoContext context_create();
 static SEXP _gdtools_context_create_try() {
@@ -440,6 +455,7 @@ RcppExport SEXP _gdtools_RcppExport_registerCCallable() {
 static const R_CallMethodDef CallEntries[] = {
     {"_gdtools_str_extents", (DL_FUNC) &_gdtools_str_extents, 6},
     {"_gdtools_str_metrics", (DL_FUNC) &_gdtools_str_metrics, 6},
+    {"_gdtools_glyphs_match", (DL_FUNC) &_gdtools_glyphs_match, 5},
     {"_gdtools_context_create", (DL_FUNC) &_gdtools_context_create, 0},
     {"_gdtools_context_set_font", (DL_FUNC) &_gdtools_context_set_font, 6},
     {"_gdtools_context_extents", (DL_FUNC) &_gdtools_context_extents, 2},

@@ -130,3 +130,39 @@ FontMetric CairoContext::getExtents(std::string x) {
 
   return fm;
 }
+
+
+bool CairoContext::validateGlyphs(std::string x) {
+
+  cairo_glyph_t* glyphs = NULL;
+  int glyph_count;
+  cairo_text_cluster_t* clusters = NULL;
+  int cluster_count;
+  cairo_text_cluster_flags_t clusterflags;
+  bool out = true;
+
+  cairo_status_t status = cairo_scaled_font_text_to_glyphs(cairo_get_scaled_font(cairo_->context), 0, 0, x.c_str(), x.size(), &glyphs, &glyph_count, &clusters, &cluster_count,
+                                                           &clusterflags);
+
+  if (status == CAIRO_STATUS_SUCCESS) {
+
+    // for each cluster
+    int glyph_index = 0;
+    for (int i = 0; i < cluster_count; i++) {
+      cairo_text_cluster_t* cluster = &clusters[i];
+
+      cairo_glyph_t* clusterglyphs = &glyphs[glyph_index];
+      if( clusterglyphs[0].index < 1 ){
+        out = false;
+        break;
+      }
+
+      glyph_index += cluster->num_glyphs;
+    }
+  } else stop("Could not get table of glyphs");
+
+  cairo_glyph_free(glyphs);
+  cairo_text_cluster_free(clusters);
+
+  return out;
+}

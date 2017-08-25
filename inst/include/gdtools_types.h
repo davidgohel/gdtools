@@ -54,6 +54,8 @@ public:
                      bool bold, bool italic);
 
   FontMetric getExtents(std::string x);
+  bool validateGlyphs(std::string x);
+
 };
 
 typedef Rcpp::XPtr<CairoContext> XPtrCairoContext;
