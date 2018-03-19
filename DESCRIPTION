@@ -1,5 +1,5 @@
 Package: gdtools
-Version: 0.1.7
+Version: 0.1.7.9000
 License: GPL-3 | file LICENSE
 Title: Utilities for Graphical Rendering
 Description: Useful tools for writing vector graphics devices.
@@ -7,7 +7,8 @@ Authors@R: c(
     person("David", "Gohel", , "david.gohel@ardata.fr", c("aut", "cre")),
     person("Hadley", "Wickham", , "hadley@rstudio.com", "aut"),
     person("Lionel", "Henry", , "lionel@rstudio.com", "aut"),
-    person("Jeroen", "Ooms", , "jeroen@berkeley.edu", "aut"),
+    person("Jeroen", "Ooms", role = "aut", email = "jeroen@berkeley.edu",
+      comment = c(ORCID = "0000-0002-4035-0289")),
     person("Yixuan", "Qiu", role = "ctb"),
     person("R Core Team", role = "cph", comment = "Cairo code from X11 device"),
     person("RStudio", role = "cph")

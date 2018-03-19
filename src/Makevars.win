@@ -1,7 +1,13 @@
-PKG_CPPFLAGS= -I../windows/cairo-1.14.2/include/cairo -I../windows/cairo-1.14.2/include/fontconfig -I../windows/cairo-1.14.2/include/freetype2 -I../windows/cairo-1.14.2/include -I../inst/include/
-PKG_LIBS= -L../windows/cairo-1.14.2/lib${R_ARCH} -lcairo -lfontconfig -lfreetype -lpng -lpixman-1 -lexpat -lharfbuzz -lbz2 -lz -lgdi32
+VERSION = 1.15.10
+RWINLIB = ../windows/cairo-${VERSION}
+
+PKG_CPPFLAGS = -I${RWINLIB}/include/cairo -I${RWINLIB}/include \
+	-I${RWINLIB}/include/freetype2 -I../inst/include
+
+PKG_LIBS = -L${RWINLIB}/lib${R_ARCH} -lcairo -lfontconfig -lfreetype -lpng -lpixman-1 \
+	-lexpat -lharfbuzz -lbz2 -lintl -lz -lgdi32
 
 all: winlibs
 
 winlibs:
-	"${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe" "../tools/winlibs.R"
+	"${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe" "../tools/winlibs.R" ${VERSION}
