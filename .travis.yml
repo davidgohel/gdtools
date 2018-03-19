@@ -1,6 +1,8 @@
 language: r
 cache: packages
 latex: false
+fortran: false
+pandoc: false
 
 matrix:
   include:
@@ -12,7 +14,7 @@ matrix:
       brew_packages: cairo
     - os: osx
       osx_image: xcode7.3
-      brew_packages: cairo
+      disable_homebrew: true # Simulates CRAN builder, don't remove
 
 addons:
   apt:
