@@ -405,6 +405,16 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// reinit_
+Rcpp::LogicalVector reinit_();
+RcppExport SEXP _gdtools_reinit_() {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    rcpp_result_gen = Rcpp::wrap(reinit_());
+    return rcpp_result_gen;
+END_RCPP
+}
 // version_freetype
 Rcpp::List version_freetype();
 RcppExport SEXP _gdtools_version_freetype() {
@@ -485,6 +495,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_gdtools_sys_fonts", (DL_FUNC) &_gdtools_sys_fonts, 0},
     {"_gdtools_match_family_", (DL_FUNC) &_gdtools_match_family_, 3},
     {"_gdtools_match_font_", (DL_FUNC) &_gdtools_match_font_, 3},
+    {"_gdtools_reinit_", (DL_FUNC) &_gdtools_reinit_, 0},
     {"_gdtools_version_freetype", (DL_FUNC) &_gdtools_version_freetype, 0},
     {"_gdtools_version_fontconfig", (DL_FUNC) &_gdtools_version_fontconfig, 0},
     {"_gdtools_version_cairo_", (DL_FUNC) &_gdtools_version_cairo_, 0},

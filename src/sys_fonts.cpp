@@ -193,3 +193,8 @@ Rcpp::CharacterVector match_font_(std::string font = "sans",
     Rcpp::stop("Fontconfig error: unable to match font pattern");
   }
 }
+
+// [[Rcpp::export]]
+Rcpp::LogicalVector reinit_() {
+  return FcInitReinitialize();
+}
