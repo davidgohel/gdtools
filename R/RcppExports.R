@@ -122,6 +122,10 @@ match_font_ <- function(font = "sans", bold = FALSE, italic = FALSE) {
     .Call('_gdtools_match_font_', PACKAGE = 'gdtools', font, bold, italic)
 }
 
+reinit_ <- function() {
+    .Call('_gdtools_reinit_', PACKAGE = 'gdtools')
+}
+
 #' @rdname version_cairo
 #' @export
 version_freetype <- function() {

@@ -135,3 +135,8 @@ unset_dummy_conf <- function() {
   Sys.unsetenv("FONTCONFIG_FILE")
   reload_dll()
 }
+
+#' @export
+fontconfig_reinit <- function() {
+  reinit_()
+}

@@ -1,18 +1,19 @@
 Package: gdtools
-Version: 0.1.7.9000
+Version: 0.1.7.9001
 License: GPL-3 | file LICENSE
 Title: Utilities for Graphical Rendering
-Description: Useful tools for writing vector graphics devices.
-Authors@R: c(
-    person("David", "Gohel", , "david.gohel@ardata.fr", c("aut", "cre")),
-    person("Hadley", "Wickham", , "hadley@rstudio.com", "aut"),
-    person("Lionel", "Henry", , "lionel@rstudio.com", "aut"),
-    person("Jeroen", "Ooms", role = "aut", email = "jeroen@berkeley.edu",
-      comment = c(ORCID = "0000-0002-4035-0289")),
-    person("Yixuan", "Qiu", role = "ctb"),
-    person("R Core Team", role = "cph", comment = "Cairo code from X11 device"),
-    person("RStudio", role = "cph")
-  )
+Description: Useful tools for writing vector graphics devices.  
+  This is a fork by Paul Murrell to support experiments with the 'dvir' package.
+  (Author and Maintainer hand edited so I can run checks on the package
+   without disturbing the real authors and maintainers)
+Author: David Gohel [aut, cre],
+  Hadley Wickham [aut],
+  Lionel Henry [aut],
+  Jeroen Ooms [aut] (0000-0002-4035-0289),
+  Yixuan Qiu [ctb],
+  R Core Team [cph] (Cairo code from X11 device),
+  RStudio [cph]
+Maintainer: Paul Murrell <paul@stat.auckland.ac.nz>
 LazyData: TRUE
 Imports:
     Rcpp (>= 0.12.12),
