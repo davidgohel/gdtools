@@ -8,3 +8,4 @@ src/*.dll
 config.status
 windows
 inst/doc
+revdep
