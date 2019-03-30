@@ -137,6 +137,10 @@ unset_dummy_conf <- function() {
 }
 
 #' @export
+#' @title reload Fontconfig configuration
+#' @description This function can be used to make fontconfig
+#' reload font configuration files.
+#' @author Paul Murrell
 fontconfig_reinit <- function() {
   reinit_()
 }
