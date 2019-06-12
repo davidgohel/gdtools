@@ -35,6 +35,10 @@
 #' match_font("Helvetica", debug = "config")
 #' }
 match_family <- function(font = "sans", bold = TRUE, italic = TRUE, debug = NULL) {
+  # keep locale intact
+  old_locale <- get_locale()
+  on.exit(set_locale(old_locale))
+
   if (is.null(debug)) {
     match_family_(font, bold, italic)
   } else {
@@ -47,6 +51,10 @@ match_family <- function(font = "sans", bold = TRUE, italic = TRUE, debug = NULL
 #' @rdname match_family
 #' @export
 match_font <- function(font = "sans", bold = FALSE, italic = FALSE, debug = NULL) {
+  # keep locale intact
+  old_locale <- get_locale()
+  on.exit(set_locale(old_locale))
+
   if (is.null(debug)) {
     match_font_(font, bold, italic)
   } else {
@@ -103,6 +111,10 @@ reload_dll <- function() {
 #' unset_dummy_conf()
 #' }
 set_dummy_conf <- function() {
+  # keep locale intact
+  old_locale <- get_locale()
+  on.exit(set_locale(old_locale))
+
   if (!requireNamespace("fontquiver")) {
     stop("The fontquiver package must be installed", call. = FALSE)
   }

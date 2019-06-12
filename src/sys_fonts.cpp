@@ -2,21 +2,8 @@
 #include <fontconfig/fontconfig.h>
 using namespace Rcpp;
 
-
-//' @title List system fonts.
-//'
-//' @description List system fonts details into a data.frame containing columns foundry, family,
-//' file, slant and weight.
-//'
-//' @examples
-//' \donttest{
-//' # The first run can be slow when font caches are missing
-//' # as font files are then being scanned to build those font caches.
-//' sys_fonts()
-//' }
-//' @export
 // [[Rcpp::export]]
-Rcpp::DataFrame sys_fonts() {
+Rcpp::DataFrame sys_fonts_() {
   FcConfig *config;
   FcBool result;
   int i;
