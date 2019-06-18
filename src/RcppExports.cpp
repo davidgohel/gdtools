@@ -9,9 +9,9 @@
 
 using namespace Rcpp;
 
-// str_extents
-NumericMatrix str_extents(CharacterVector x, std::string fontname, double fontsize, int bold, int italic, std::string fontfile);
-RcppExport SEXP _gdtools_str_extents(SEXP xSEXP, SEXP fontnameSEXP, SEXP fontsizeSEXP, SEXP boldSEXP, SEXP italicSEXP, SEXP fontfileSEXP) {
+// str_extents_
+NumericMatrix str_extents_(CharacterVector x, std::string fontname, double fontsize, int bold, int italic, std::string fontfile);
+RcppExport SEXP _gdtools_str_extents_(SEXP xSEXP, SEXP fontnameSEXP, SEXP fontsizeSEXP, SEXP boldSEXP, SEXP italicSEXP, SEXP fontfileSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -21,13 +21,13 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< int >::type bold(boldSEXP);
     Rcpp::traits::input_parameter< int >::type italic(italicSEXP);
     Rcpp::traits::input_parameter< std::string >::type fontfile(fontfileSEXP);
-    rcpp_result_gen = Rcpp::wrap(str_extents(x, fontname, fontsize, bold, italic, fontfile));
+    rcpp_result_gen = Rcpp::wrap(str_extents_(x, fontname, fontsize, bold, italic, fontfile));
     return rcpp_result_gen;
 END_RCPP
 }
-// str_metrics
-NumericVector str_metrics(CharacterVector x, std::string fontname, double fontsize, int bold, int italic, std::string fontfile);
-RcppExport SEXP _gdtools_str_metrics(SEXP xSEXP, SEXP fontnameSEXP, SEXP fontsizeSEXP, SEXP boldSEXP, SEXP italicSEXP, SEXP fontfileSEXP) {
+// str_metrics_
+NumericVector str_metrics_(CharacterVector x, std::string fontname, double fontsize, int bold, int italic, std::string fontfile);
+RcppExport SEXP _gdtools_str_metrics_(SEXP xSEXP, SEXP fontnameSEXP, SEXP fontsizeSEXP, SEXP boldSEXP, SEXP italicSEXP, SEXP fontfileSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -37,7 +37,7 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< int >::type bold(boldSEXP);
     Rcpp::traits::input_parameter< int >::type italic(italicSEXP);
     Rcpp::traits::input_parameter< std::string >::type fontfile(fontfileSEXP);
-    rcpp_result_gen = Rcpp::wrap(str_metrics(x, fontname, fontsize, bold, italic, fontfile));
+    rcpp_result_gen = Rcpp::wrap(str_metrics_(x, fontname, fontsize, bold, italic, fontfile));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -57,9 +57,9 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// glyphs_match
-LogicalVector glyphs_match(CharacterVector x, std::string fontname, int bold, int italic, std::string fontfile);
-RcppExport SEXP _gdtools_glyphs_match(SEXP xSEXP, SEXP fontnameSEXP, SEXP boldSEXP, SEXP italicSEXP, SEXP fontfileSEXP) {
+// glyphs_match_
+LogicalVector glyphs_match_(CharacterVector x, std::string fontname, int bold, int italic, std::string fontfile);
+RcppExport SEXP _gdtools_glyphs_match_(SEXP xSEXP, SEXP fontnameSEXP, SEXP boldSEXP, SEXP italicSEXP, SEXP fontfileSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -68,7 +68,7 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< int >::type bold(boldSEXP);
     Rcpp::traits::input_parameter< int >::type italic(italicSEXP);
     Rcpp::traits::input_parameter< std::string >::type fontfile(fontfileSEXP);
-    rcpp_result_gen = Rcpp::wrap(glyphs_match(x, fontname, bold, italic, fontfile));
+    rcpp_result_gen = Rcpp::wrap(glyphs_match_(x, fontname, bold, italic, fontfile));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -405,13 +405,13 @@ RcppExport SEXP _gdtools_base64_string_encode(SEXP stringSEXP) {
     UNPROTECT(1);
     return rcpp_result_gen;
 }
-// sys_fonts
-Rcpp::DataFrame sys_fonts();
-RcppExport SEXP _gdtools_sys_fonts() {
+// sys_fonts_
+Rcpp::DataFrame sys_fonts_();
+RcppExport SEXP _gdtools_sys_fonts_() {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    rcpp_result_gen = Rcpp::wrap(sys_fonts());
+    rcpp_result_gen = Rcpp::wrap(sys_fonts_());
     return rcpp_result_gen;
 END_RCPP
 }
@@ -515,10 +515,10 @@ RcppExport SEXP _gdtools_RcppExport_registerCCallable() {
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_gdtools_str_extents", (DL_FUNC) &_gdtools_str_extents, 6},
-    {"_gdtools_str_metrics", (DL_FUNC) &_gdtools_str_metrics, 6},
+    {"_gdtools_str_extents_", (DL_FUNC) &_gdtools_str_extents_, 6},
+    {"_gdtools_str_metrics_", (DL_FUNC) &_gdtools_str_metrics_, 6},
     {"_gdtools_m_str_extents_", (DL_FUNC) &_gdtools_m_str_extents_, 6},
-    {"_gdtools_glyphs_match", (DL_FUNC) &_gdtools_glyphs_match, 5},
+    {"_gdtools_glyphs_match_", (DL_FUNC) &_gdtools_glyphs_match_, 5},
     {"_gdtools_context_create", (DL_FUNC) &_gdtools_context_create, 0},
     {"_gdtools_context_set_font", (DL_FUNC) &_gdtools_context_set_font, 6},
     {"_gdtools_context_extents", (DL_FUNC) &_gdtools_context_extents, 2},
@@ -528,7 +528,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_gdtools_base64_raster_encode", (DL_FUNC) &_gdtools_base64_raster_encode, 6},
     {"_gdtools_base64_file_encode", (DL_FUNC) &_gdtools_base64_file_encode, 1},
     {"_gdtools_base64_string_encode", (DL_FUNC) &_gdtools_base64_string_encode, 1},
-    {"_gdtools_sys_fonts", (DL_FUNC) &_gdtools_sys_fonts, 0},
+    {"_gdtools_sys_fonts_", (DL_FUNC) &_gdtools_sys_fonts_, 0},
     {"_gdtools_match_family_", (DL_FUNC) &_gdtools_match_family_, 3},
     {"_gdtools_match_font_", (DL_FUNC) &_gdtools_match_font_, 3},
     {"_gdtools_reinit_", (DL_FUNC) &_gdtools_reinit_, 0},

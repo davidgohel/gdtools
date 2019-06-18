@@ -5,27 +5,8 @@
 
 using namespace Rcpp;
 
-//' Compute string extents.
-//'
-//' Determines the width and height of a bounding box that's big enough
-//' to (just) enclose the provided text.
-//'
-//' @param x Character vector of strings to measure
-//' @param bold,italic Is text bold/italic?
-//' @param fontname Font name
-//' @param fontsize Font size
-//' @param fontfile Font file
-//' @examples
-//' \donttest{
-//' # The first run can be slow when font caches are missing
-//' # as font files are then being scanned to build those font caches.
-//' str_extents(letters)
-//' str_extents("Hello World!", bold = TRUE, italic = FALSE,
-//'   fontname = "sans", fontsize = 12)
-//' }
-//' @export
 // [[Rcpp::export]]
-NumericMatrix str_extents(CharacterVector x, std::string fontname = "sans",
+NumericMatrix str_extents_(CharacterVector x, std::string fontname = "sans",
                           double fontsize = 12, int bold = false,
                           int italic = false, std::string fontfile = "") {
   int n = x.size();
@@ -49,19 +30,8 @@ NumericMatrix str_extents(CharacterVector x, std::string fontname = "sans",
   return out;
 }
 
-//' Get font metrics for a string.
-//'
-//' @return A named numeric vector
-//' @inheritParams str_extents
-//' @examples
-//' \donttest{
-//' # The first run can be slow when font caches are missing
-//' # as font files are then being scanned to build those font caches.
-//' str_metrics("Hello World!")
-//' }
-//' @export
 // [[Rcpp::export]]
-NumericVector str_metrics(CharacterVector x, std::string fontname = "sans",
+NumericVector str_metrics_(CharacterVector x, std::string fontname = "sans",
                           double fontsize = 12, int bold = false,
                           int italic = false, std::string fontfile = "") {
 
@@ -107,23 +77,8 @@ NumericMatrix m_str_extents_(CharacterVector x,
   return out;
 }
 
-//' Validate glyph entries
-//'
-//' Determines if strings contain glyphs not part of a font.
-//'
-//' @param x Character vector of strings
-//' @param bold,italic Is text bold/italic?
-//' @param fontname Font name
-//' @param fontfile Font file
-//' @return a logical vector, if a character element is containing at least
-//' a glyph that can not be matched in the font table, FALSE is returned.
-//'
-//' @examples
-//' glyphs_match(letters)
-//' glyphs_match("\u265E", bold = TRUE)
-//' @export
 // [[Rcpp::export]]
-LogicalVector glyphs_match(CharacterVector x, std::string fontname = "sans",
+LogicalVector glyphs_match_(CharacterVector x, std::string fontname = "sans",
                           int bold = false, int italic = false,
                           std::string fontfile = "") {
   int n = x.size();
@@ -142,6 +97,3 @@ LogicalVector glyphs_match(CharacterVector x, std::string fontname = "sans",
 
   return out;
 }
-
-
-
