@@ -1,7 +1,6 @@
 #include <Rcpp.h>
 #include <ft2build.h>
 #include FT_FREETYPE_H
-#include <fontconfig/fontconfig.h>
 #include <cairo.h>
 
 Rcpp::List version_make(int major, int minor, int patch) {
@@ -28,17 +27,6 @@ Rcpp::List version_freetype() {
   int major, minor, patch = 0;
   FT_Library_Version(library, &major, &minor, &patch);
   FT_Done_FreeType(library);
-
-  return version_make(major, minor, patch);
-}
-
-//' @rdname version_cairo
-//' @export
-// [[Rcpp::export]]
-Rcpp::List version_fontconfig() {
-  int major = FC_MAJOR;
-  int minor = FC_MINOR;
-  int patch = FC_REVISION;
 
   return version_make(major, minor, patch);
 }

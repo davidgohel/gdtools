@@ -405,52 +405,6 @@ RcppExport SEXP _gdtools_base64_string_encode(SEXP stringSEXP) {
     UNPROTECT(1);
     return rcpp_result_gen;
 }
-// sys_fonts_
-Rcpp::DataFrame sys_fonts_();
-RcppExport SEXP _gdtools_sys_fonts_() {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    rcpp_result_gen = Rcpp::wrap(sys_fonts_());
-    return rcpp_result_gen;
-END_RCPP
-}
-// match_family_
-std::string match_family_(std::string font, bool bold, bool italic);
-RcppExport SEXP _gdtools_match_family_(SEXP fontSEXP, SEXP boldSEXP, SEXP italicSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< std::string >::type font(fontSEXP);
-    Rcpp::traits::input_parameter< bool >::type bold(boldSEXP);
-    Rcpp::traits::input_parameter< bool >::type italic(italicSEXP);
-    rcpp_result_gen = Rcpp::wrap(match_family_(font, bold, italic));
-    return rcpp_result_gen;
-END_RCPP
-}
-// match_font_
-Rcpp::CharacterVector match_font_(std::string font, bool bold, bool italic);
-RcppExport SEXP _gdtools_match_font_(SEXP fontSEXP, SEXP boldSEXP, SEXP italicSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< std::string >::type font(fontSEXP);
-    Rcpp::traits::input_parameter< bool >::type bold(boldSEXP);
-    Rcpp::traits::input_parameter< bool >::type italic(italicSEXP);
-    rcpp_result_gen = Rcpp::wrap(match_font_(font, bold, italic));
-    return rcpp_result_gen;
-END_RCPP
-}
-// reinit_
-Rcpp::LogicalVector reinit_();
-RcppExport SEXP _gdtools_reinit_() {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    rcpp_result_gen = Rcpp::wrap(reinit_());
-    return rcpp_result_gen;
-END_RCPP
-}
 // version_freetype
 Rcpp::List version_freetype();
 RcppExport SEXP _gdtools_version_freetype() {
@@ -458,16 +412,6 @@ BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     rcpp_result_gen = Rcpp::wrap(version_freetype());
-    return rcpp_result_gen;
-END_RCPP
-}
-// version_fontconfig
-Rcpp::List version_fontconfig();
-RcppExport SEXP _gdtools_version_fontconfig() {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    rcpp_result_gen = Rcpp::wrap(version_fontconfig());
     return rcpp_result_gen;
 END_RCPP
 }
@@ -528,12 +472,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_gdtools_base64_raster_encode", (DL_FUNC) &_gdtools_base64_raster_encode, 6},
     {"_gdtools_base64_file_encode", (DL_FUNC) &_gdtools_base64_file_encode, 1},
     {"_gdtools_base64_string_encode", (DL_FUNC) &_gdtools_base64_string_encode, 1},
-    {"_gdtools_sys_fonts_", (DL_FUNC) &_gdtools_sys_fonts_, 0},
-    {"_gdtools_match_family_", (DL_FUNC) &_gdtools_match_family_, 3},
-    {"_gdtools_match_font_", (DL_FUNC) &_gdtools_match_font_, 3},
-    {"_gdtools_reinit_", (DL_FUNC) &_gdtools_reinit_, 0},
     {"_gdtools_version_freetype", (DL_FUNC) &_gdtools_version_freetype, 0},
-    {"_gdtools_version_fontconfig", (DL_FUNC) &_gdtools_version_fontconfig, 0},
     {"_gdtools_version_cairo_", (DL_FUNC) &_gdtools_version_cairo_, 0},
     {"_gdtools_RcppExport_registerCCallable", (DL_FUNC) &_gdtools_RcppExport_registerCCallable, 0},
     {NULL, NULL, 0}

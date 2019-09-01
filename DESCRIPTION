@@ -1,5 +1,5 @@
 Package: gdtools
-Version: 0.1.9.9000
+Version: 0.1.9.9001
 License: GPL-3 | file LICENSE
 Title: Utilities for Graphical Rendering
 Description: Useful tools for writing vector graphics devices.
@@ -16,12 +16,13 @@ Authors@R: c(
 LazyData: TRUE
 Imports:
     Rcpp (>= 0.12.12),
-    withr
+    systemfonts
 Suggests:
     htmltools,
     testthat,
     fontquiver (>= 0.2.0),
     curl
+Encoding: UTF-8
 LinkingTo: Rcpp
 SystemRequirements: cairo
 BugReports: https://github.com/davidgohel/gdtools/issues

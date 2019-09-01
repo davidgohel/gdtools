@@ -10,12 +10,7 @@ set_dummy_conf()
 unset_dummy_conf()
 }
 \description{
-\code{set_dummy_conf()} sets the \code{FONTCONFIG_FILE} environment
-variable with a minimalistic configuration file. This configuration
-uses a folder with only one font (Bitstream Vera Sans) to which
-every font patterns are matched. This is mostly useful to reduce
-cache-building time on testing platforms running Windows (e.g. on
-Appveyor or on CRAN's win-builder service).
+Set and unset a minimalistic Fontconfig configuration
 }
 \examples{
 if( require("fontquiver") ){

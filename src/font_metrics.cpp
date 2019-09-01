@@ -1,7 +1,6 @@
 #include "gdtools_types.h"
 #include <Rcpp.h>
 #include <cairo-ft.h>
-#include <fontconfig/fontconfig.h>
 
 using namespace Rcpp;
 

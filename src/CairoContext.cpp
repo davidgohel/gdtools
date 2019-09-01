@@ -5,7 +5,6 @@
 #include <cairo.h>
 #include <cairo-pdf.h>
 #include <cairo-ft.h>
-#include <fontconfig/fontconfig.h>
 #include <ft2build.h>
 #include FT_FREETYPE_H
 #include "gdtools_types.h"
@@ -25,8 +24,6 @@ CairoContext::CairoContext() {
   cairo_->surface = cairo_pdf_surface_create(NULL, 720, 720);
   cairo_->context = cairo_create(cairo_->surface);
 
-  if (!FcInit())
-    Rcpp::stop("Fontconfig error: unable to initialize");
   if (FT_Init_FreeType(&(cairo_->library)))
     Rcpp::stop("FreeType error: unable to initialize FreeType library object");
 }
@@ -65,31 +62,45 @@ void CairoContext::cacheFont(fontCache& cache, std::string& key,
   cache[key] = cairo_face;
 }
 
-// Defined in sys_fonts.cpp
-FcPattern* fcFindMatch(const char* fontname, int bold, int italic);
-std::string fcFindFontFile(FcPattern* match);
-int fcFindFontIndex(const char* fontfile, int bold, int italic);
-
 struct font_file_t {
   std::string file;
   int index;
 };
 
+static int locate_font(const char *family, int italic, int bold, char *path, int max_path_length) {
+  static int (*p_locate_font)(const char *family, int italic, int bold, char *path, int max_path_length) = NULL;
+  if (p_locate_font == NULL) {
+    p_locate_font = (int(*)(const char *, int, int, char *, int)) R_GetCCallable("systemfonts", "locate_font");
+  }
+  return p_locate_font(family, italic, bold, path, max_path_length);
+}
+
+
 font_file_t findFontFile(const char* fontname, int bold, int italic) {
-  FcPattern* match = fcFindMatch(fontname, bold, italic);
+
+  char *path = new char[PATH_MAX+1];
+  path[PATH_MAX] = '\0';
 
   font_file_t output;
-  FcChar8 *matched_file;
-  if (match && FcPatternGetString(match, FC_FILE, 0, &matched_file) == FcResultMatch) {
-    output.file = (const char*) matched_file;
-    FcPatternGetInteger(match, FC_INDEX, 0, &(output.index));
-  }
-  FcPatternDestroy(match);
+  output.index = locate_font(fontname, italic, bold, path, PATH_MAX);
+  output.file = path;
 
   if (output.file.size())
     return output;
   else
-    Rcpp::stop("Fontconfig error: unable to match font pattern");
+    Rcpp::stop("error: unable to match font pattern");
+}
+
+std::string getFileName(std::string filePath, bool withExtension = true, char seperator = '/')
+{
+  // Get last dot position
+  std::size_t dotPos = filePath.rfind('.');
+  std::size_t sepPos = filePath.rfind(seperator);
+  if(sepPos != std::string::npos)
+  {
+    return filePath.substr(sepPos + 1, filePath.size() - (withExtension || dotPos != std::string::npos ? 1 : dotPos) );
+  }
+  return "";
 }
 
 void CairoContext::setFont(std::string fontname, double fontsize,
@@ -99,8 +110,7 @@ void CairoContext::setFont(std::string fontname, double fontsize,
     // Use file path as key to cached elements
     key = fontfile;
     if (cairo_->fonts.find(key) == cairo_->fonts.end()) {
-      int index = fcFindFontIndex(fontfile.c_str(), bold, italic);
-      cacheFont(cairo_->fonts, key, fontfile, index);
+      cacheFont(cairo_->fonts, key, fontfile, 0);
     }
   } else {
     // Use font name and bold/italic properties as key

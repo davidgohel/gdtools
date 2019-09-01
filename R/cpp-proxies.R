@@ -1,23 +1,3 @@
-#' @title List system fonts.
-#'
-#' @description List system fonts details into a data.frame containing columns foundry, family,
-#' file, slant and weight.
-#'
-#' @examples
-#' \donttest{
-#' # The first run can be slow when font caches are missing
-#' # as font files are then being scanned to build those font caches.
-#' sys_fonts()
-#' }
-#' @export
-sys_fonts <- function() {
-  # keep locale intact
-  old_locale <- get_locale()
-  on.exit(set_locale(old_locale))
-
-  sys_fonts_()
-}
-
 #' Compute string extents.
 #'
 #' Determines the width and height of a bounding box that's big enough
@@ -38,10 +18,6 @@ sys_fonts <- function() {
 #' }
 #' @export
 str_extents <- function(x, fontname = "sans", fontsize = 12, bold = FALSE, italic = FALSE, fontfile = "") {
-  # keep locale intact
-  old_locale <- get_locale()
-  on.exit(set_locale(old_locale))
-
   str_extents_(x = x, fontname = fontname, fontsize = fontsize, bold = bold, italic = italic, fontfile = fontfile)
 }
 
@@ -50,17 +26,9 @@ str_extents <- function(x, fontname = "sans", fontsize = 12, bold = FALSE, itali
 #' @return A named numeric vector
 #' @inheritParams str_extents
 #' @examples
-#' \donttest{
-#' # The first run can be slow when font caches are missing
-#' # as font files are then being scanned to build those font caches.
 #' str_metrics("Hello World!")
-#' }
 #' @export
 str_metrics <- function(x, fontname = "sans", fontsize = 12, bold = FALSE, italic = FALSE, fontfile = "") {
-  # keep locale intact
-  old_locale <- get_locale()
-  on.exit(set_locale(old_locale))
-
   str_metrics_(x = x, fontname = fontname, fontsize = fontsize, bold = bold, italic = italic, fontfile = fontfile)
 }
 
@@ -80,9 +48,5 @@ str_metrics <- function(x, fontname = "sans", fontsize = 12, bold = FALSE, itali
 #' glyphs_match("\u265E", bold = TRUE)
 #' @export
 glyphs_match <- function(x, fontname = "sans", bold = FALSE, italic = FALSE, fontfile = "") {
-  # keep locale intact
-  old_locale <- get_locale()
-  on.exit(set_locale(old_locale))
-
   glyphs_match_(x = x, fontname = fontname, bold = bold, italic = italic, fontfile = fontfile)
 }

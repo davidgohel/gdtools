@@ -24,10 +24,6 @@ m_str_extents <- function(x, fontname = "sans", fontsize=10, bold = FALSE, itali
             is.numeric(fontsize), is.logical(bold),
             is.logical(italic), is.character(fontfile) || is.null(fontfile))
 
-  # keep locale intact
-  old_locale <- get_locale()
-  on.exit(set_locale(old_locale))
-
   max_length <- length(x)
   fontname <- rep(fontname, length.out = max_length)
   fontsize <- rep(fontsize, length.out = max_length)

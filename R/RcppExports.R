@@ -53,32 +53,10 @@ base64_string_encode <- function(string) {
     .Call('_gdtools_base64_string_encode', PACKAGE = 'gdtools', string)
 }
 
-sys_fonts_ <- function() {
-    .Call('_gdtools_sys_fonts_', PACKAGE = 'gdtools')
-}
-
-match_family_ <- function(font = "sans", bold = TRUE, italic = TRUE) {
-    .Call('_gdtools_match_family_', PACKAGE = 'gdtools', font, bold, italic)
-}
-
-match_font_ <- function(font = "sans", bold = FALSE, italic = FALSE) {
-    .Call('_gdtools_match_font_', PACKAGE = 'gdtools', font, bold, italic)
-}
-
-reinit_ <- function() {
-    .Call('_gdtools_reinit_', PACKAGE = 'gdtools')
-}
-
 #' @rdname version_cairo
 #' @export
 version_freetype <- function() {
     .Call('_gdtools_version_freetype', PACKAGE = 'gdtools')
-}
-
-#' @rdname version_cairo
-#' @export
-version_fontconfig <- function() {
-    .Call('_gdtools_version_fontconfig', PACKAGE = 'gdtools')
 }
 
 version_cairo_ <- function() {

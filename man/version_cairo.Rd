@@ -2,19 +2,15 @@
 % Please edit documentation in R/RcppExports.R, R/gdtools.R
 \name{version_freetype}
 \alias{version_freetype}
-\alias{version_fontconfig}
 \alias{version_cairo}
 \title{Version numbers of C libraries}
 \usage{
 version_freetype()
 
-version_fontconfig()
-
 version_cairo()
 }
 \description{
 \code{version_cairo()} and \code{version_freetype()} return the
-runtime version and \code{version_fontconfig()} returns the
-compile-time version. These helpers return version objects as with
+runtime version. These helpers return version objects as with
 \code{\link[utils]{packageVersion}()}.
 }

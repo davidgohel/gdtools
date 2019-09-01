@@ -16,9 +16,7 @@ A logical value
 Check if a font family exists in system fonts.
 }
 \examples{
-\dontrun{
 font_family_exists("sans")
 font_family_exists("Arial")
 font_family_exists("Courier")
-}
 }
