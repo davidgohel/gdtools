@@ -6,13 +6,13 @@
 # R CMD INSTALL --configure-vars='INCLUDE_DIR=/.../include LIB_DIR=/.../lib'
 
 # Library settings
-PKG_CONFIG_NAME="cairo"
+PKG_CONFIG_NAME="cairo freetype2"
 PKG_DEB_NAME="libcairo2-dev"
 PKG_RPM_NAME="cairo-devel"
 PKG_CSW_NAME="libcairo_dev"
 PKG_BREW_NAME="cairo"
 PKG_TEST_HEADER="<cairo.h>"
-PKG_LIBS="-lcairo"
+PKG_LIBS="-lcairo -lfreetype"
 
 # Use pkg-config if available
 if [ $(command -v pkg-config) ]; then
