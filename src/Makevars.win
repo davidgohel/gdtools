@@ -1,11 +1,11 @@
-VERSION = 1.15.10
+VERSION = 1.16.0
 RWINLIB = ../windows/cairo-${VERSION}
 
 PKG_CPPFLAGS = -I${RWINLIB}/include/cairo -I${RWINLIB}/include \
 	-I${RWINLIB}/include/freetype2 -I../inst/include
 
-PKG_LIBS = -L${RWINLIB}/lib${R_ARCH} -lcairo -lfreetype -lfontconfig -lfreetype -lpng -lpixman-1 \
-	-lexpat -lharfbuzz -lbz2 -lintl -lz -liconv -lgdi32
+PKG_LIBS = -L${RWINLIB}/lib${R_ARCH} -lcairo -lfreetype -lpng -lpixman-1 \
+  -lharfbuzz -lbz2 -lz -liconv -lgdi32
 
 all: winlibs
 
