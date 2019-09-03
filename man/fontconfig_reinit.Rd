@@ -10,6 +10,10 @@ fontconfig_reinit()
 This function can be used to make fontconfig
 reload font configuration files.
 }
+\note{
+Fontconfig is not used anymore and that function will be deprecated
+in the next release.
+}
 \author{
 Paul Murrell
 }

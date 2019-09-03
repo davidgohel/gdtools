@@ -23,11 +23,7 @@ Determines the width and height of a bounding box that's big enough
 to (just) enclose the provided text.
 }
 \examples{
-\donttest{
-# The first run can be slow when font caches are missing
-# as font files are then being scanned to build those font caches.
 str_extents(letters)
 str_extents("Hello World!", bold = TRUE, italic = FALSE,
   fontname = "sans", fontsize = 12)
-}
 }

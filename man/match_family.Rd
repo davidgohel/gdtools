@@ -10,7 +10,11 @@ match_family(font = "sans", bold = TRUE, italic = TRUE,
 \arguments{
 \item{font}{family or face to match.}
 
-\item{bold, italic, debug}{deprecated}
+\item{bold}{Wheter to match a font featuring a \code{bold} face.}
+
+\item{italic}{Wheter to match a font featuring an \code{italic} face.}
+
+\item{debug}{deprecated}
 }
 \description{
 \code{match_family()} returns the best font family match.
