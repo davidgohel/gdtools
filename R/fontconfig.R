@@ -10,11 +10,12 @@
 #' @examples
 #' match_family("sans")
 #' match_family("serif")
-#' @importFrom systemfonts match_font
+#' @importFrom systemfonts match_font system_fonts
 match_family <- function(font = "sans", bold = TRUE, italic = TRUE, debug = NULL) {
-  # keep locale intact
   font <- match_font(font, bold = bold, italic = italic)
-  gsub( "\\.[A-Za-z]{3,}$", "", basename(font$path) )
+  sysfonts <- system_fonts()
+  match <- which( sysfonts$path %in% font$path )
+  sysfonts$family[match[1]]
 }
 
 
