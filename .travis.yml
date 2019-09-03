@@ -13,8 +13,6 @@ matrix:
       brew_packages: cairo
     - os: osx
       disable_homebrew: true # Simulates CRAN builder, don't remove
-      brew_packages:
-      - freetype
 
 addons:
   apt:
