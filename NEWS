@@ -1,3 +1,7 @@
+# gdtools 0.2.0
+
+* refactor - package is now using package systemfonts instead of using fontconfig to locate fonts file
+
 # gdtools 0.1.9
 
 * keep locale intact when using various gdtools functions (fix #51)
