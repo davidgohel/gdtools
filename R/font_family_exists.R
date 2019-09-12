@@ -9,9 +9,8 @@
 #' font_family_exists("Arial")
 #' font_family_exists("Courier")
 #' @export
-#' @importFrom systemfonts match_font
+#' @importFrom systemfonts match_font system_fonts
 font_family_exists <- function( font_family = "sans" ){
-  match_ <- match_font(font_family)
-  match_ <- gsub("([^.]+)\\.[[:alnum:]]+$", "\\1", basename(match_$path) )
-  identical(tolower(match_), tolower(font_family) )
+  datafonts <- system_fonts()
+  tolower(font_family) %in% tolower(datafonts$family)
 }

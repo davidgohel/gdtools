@@ -1,3 +1,8 @@
+# gdtools 0.2.1
+
+* Change font_family_exists so that it only check a family exists in
+  family column returned by systemfonts::system_fonts()
+
 # gdtools 0.2.0
 
 * refactor - package is now using package systemfonts instead of using fontconfig to locate fonts file
