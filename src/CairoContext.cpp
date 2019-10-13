@@ -84,7 +84,7 @@ font_file_t findFontFile(const char* fontname, int bold, int italic) {
   font_file_t output;
   output.index = locate_font(fontname, italic, bold, path, PATH_MAX);
   output.file = path;
-
+  delete[] path;
   if (output.file.size())
     return output;
   else
