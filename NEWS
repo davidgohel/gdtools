@@ -1,7 +1,10 @@
 # gdtools 0.2.1
 
+## issues
+
 * Change font_family_exists so that it only check a family exists in
   family column returned by systemfonts::system_fonts()
+* fix a memory leak
 
 # gdtools 0.2.0
 
