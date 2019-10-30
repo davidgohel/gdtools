@@ -8,3 +8,4 @@
 ^cran-comments\.md$
 ^windows
 ^revdep$
+^README\.Rmd$
