@@ -9,3 +9,4 @@ config.status
 windows
 inst/doc
 revdep
+configure.log

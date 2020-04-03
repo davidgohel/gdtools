@@ -9,3 +9,4 @@
 ^windows
 ^revdep$
 ^README\.Rmd$
+^configure.log$
