@@ -4,8 +4,14 @@
 \alias{str_metrics}
 \title{Get font metrics for a string.}
 \usage{
-str_metrics(x, fontname = "sans", fontsize = 12, bold = FALSE,
-  italic = FALSE, fontfile = "")
+str_metrics(
+  x,
+  fontname = "sans",
+  fontsize = 12,
+  bold = FALSE,
+  italic = FALSE,
+  fontfile = ""
+)
 }
 \arguments{
 \item{x}{Character vector of strings to measure}

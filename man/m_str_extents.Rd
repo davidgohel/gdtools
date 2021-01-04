@@ -4,8 +4,14 @@
 \alias{m_str_extents}
 \title{Compute string extents for a vector of string.}
 \usage{
-m_str_extents(x, fontname = "sans", fontsize = 10, bold = FALSE,
-  italic = FALSE, fontfile = NULL)
+m_str_extents(
+  x,
+  fontname = "sans",
+  fontsize = 10,
+  bold = FALSE,
+  italic = FALSE,
+  fontfile = NULL
+)
 }
 \arguments{
 \item{x}{Character vector of strings to measure}

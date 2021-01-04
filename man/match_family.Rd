@@ -4,8 +4,7 @@
 \alias{match_family}
 \title{Find best family match with systemfonts}
 \usage{
-match_family(font = "sans", bold = TRUE, italic = TRUE,
-  debug = NULL)
+match_family(font = "sans", bold = TRUE, italic = TRUE, debug = NULL)
 }
 \arguments{
 \item{font}{family or face to match.}

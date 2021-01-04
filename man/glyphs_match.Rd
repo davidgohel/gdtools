@@ -4,8 +4,7 @@
 \alias{glyphs_match}
 \title{Validate glyph entries}
 \usage{
-glyphs_match(x, fontname = "sans", bold = FALSE, italic = FALSE,
-  fontfile = "")
+glyphs_match(x, fontname = "sans", bold = FALSE, italic = FALSE, fontfile = "")
 }
 \arguments{
 \item{x}{Character vector of strings}
@@ -25,5 +24,5 @@ Determines if strings contain glyphs not part of a font.
 }
 \examples{
 glyphs_match(letters)
-glyphs_match("\\u265E", bold = TRUE)
+glyphs_match("\u265E", bold = TRUE)
 }
