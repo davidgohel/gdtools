@@ -1,5 +1,5 @@
 Package: gdtools
-Version: 0.2.2
+Version: 0.2.3.001
 License: GPL-3 | file LICENSE
 Title: Utilities for Graphical Rendering
 Description: Useful tools for writing vector graphics devices.
@@ -24,6 +24,6 @@ Suggests:
     curl
 Encoding: UTF-8
 LinkingTo: Rcpp
-SystemRequirements: cairo, freetype2
+SystemRequirements: cairo, freetype2, fontconfig
 BugReports: https://github.com/davidgohel/gdtools/issues
 RoxygenNote: 7.1.1
