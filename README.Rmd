@@ -17,8 +17,7 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/gdtools)](https://CRAN.R-project.org/package=gdtools)
-[![Travis-CI Build Status](https://travis-ci.org/davidgohel/gdtools.svg?branch=master)](https://travis-ci.org/davidgohel/gdtools)
-[![Appveyor-CI Build status](https://ci.appveyor.com/api/projects/status/github/davidgohel/gdtools?branch=master)](https://ci.appveyor.com/project/davidgohel/gdtools/branch/master)
+[![R build status](https://github.com/davidgohel/gdtools/workflows/R-CMD-check/badge.svg)](https://github.com/davidgohel/gdtools/actions)
 [![Coverage Status](https://img.shields.io/codecov/c/github/davidgohel/gdtools/master.svg)](https://codecov.io/github/davidgohel/gdtools?branch=master)
 <!-- badges: end -->
 
