@@ -1,4 +1,3 @@
-#!/usr/bin/env bash
 # Anticonf script by Jeroen Ooms (2020)
 # The script will try 'pkg-config' to find required cflags and ldflags.
 # Make sure this executable is in PATH when installing the package.
@@ -6,24 +5,26 @@
 # R CMD INSTALL --configure-vars='INCLUDE_DIR=/.../include LIB_DIR=/.../lib'
 
 # Library settings
-PKG_CONFIG_NAME="fontconfig cairo freetype2"
+PKG_CONFIG_NAME="cairo freetype2"
 PKG_DEB_NAME="libcairo2-dev"
-PKG_RPM_NAME="fontconfig cairo-devel freetype"
+PKG_RPM_NAME="cairo-devel"
 PKG_CSW_NAME="libcairo_dev"
-PKG_BREW_NAME="fontconfig cairo freetype"
-PKG_LIBS="-lfontconfig -lcairo -lfreetype"
+PKG_BREW_NAME="cairo"
+PKG_LIBS="-lcairo -lfreetype"
 PKG_TEST_FILE="src/tests/sysdeps.c"
 
-# Use pkg-config if available
-if [ $(command -v pkg-config) ]; then
-  export PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig:$PKG_CONFIG_PATH:"
-  PKGCONFIG_CFLAGS=$(pkg-config --cflags ${PKG_CONFIG_NAME})
-  PKGCONFIG_LIBS=$(pkg-config --libs ${PKG_CONFIG_NAME})
-
-  # Workaround because cairo.pc on solaris 10 fails to find ft headers
-  if [ $(uname) = "SunOS" ]; then
-    PKGCONFIG_CFLAGS=$(pkg-config --cflags cairo freetype2)
+# Prefer static linking on MacOS
+if [ `uname` = "Darwin" ]; then
+PKG_CONFIG_NAME="--static $PKG_CONFIG_NAME"
+  if [ `arch` = "i386" ]; then
+    export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:/usr/local/opt/libffi/lib/pkgconfig"
   fi
+fi
+
+# Use pkg-config if available
+if [ `command -v pkg-config` ]; then
+  PKGCONFIG_CFLAGS=`pkg-config --cflags ${PKG_CONFIG_NAME}`
+  PKGCONFIG_LIBS=`pkg-config --libs ${PKG_CONFIG_NAME}`
 fi
 
 # Hack: we really want our own cairo, not the CRAN one (which depends on XQuartz)
@@ -41,21 +42,22 @@ elif [ "$PKGCONFIG_CFLAGS" ] || [ "$PKGCONFIG_LIBS" ]; then
   echo "Found pkg-config cflags and libs!"
   PKG_CFLAGS=${PKGCONFIG_CFLAGS}
   PKG_LIBS=${PKGCONFIG_LIBS}
-elif [[ "$OSTYPE" == "darwin"* ]]; then
-  if [ $(command -v brew) ]; then
-    BREWDIR=$(brew --prefix)
-    PKG_CFLAGS="-I$BREWDIR/opt/$PKG_BREW_NAME/include/cairo -I/usr/local/opt/fontconfig/include/fontconfig -I/usr/local/opt/freetype/include/freetype2"
-    PKG_LIBS="-L$BREWDIR/opt/$PKG_BREW_NAME/lib $PKG_LIBS"
+elif [ `uname` = "Darwin" ]; then
+  brew --version 2>/dev/null
+  if [ $? -eq 0 ]; then
+    BREWDIR=`brew --prefix`
+    PKG_CFLAGS="-I$BREWDIR/include/cairo -I$BREWDIR/include/fontconfig -I$BREWDIR/include/freetype2"
+    PKG_LIBS="-L$BREWDIR/lib $PKG_LIBS"
   else
     curl -sfL "https://autobrew.github.io/scripts/cairo" > autobrew
-    source autobrew
+    . autobrew
   fi
 fi
 
 # Find compiler
-CC=$(${R_HOME}/bin/R CMD config CC)
-CFLAGS=$(${R_HOME}/bin/R CMD config CFLAGS)
-CPPFLAGS=$(${R_HOME}/bin/R CMD config CPPFLAGS)
+CC=`${R_HOME}/bin/R CMD config CC`
+CFLAGS=`${R_HOME}/bin/R CMD config CFLAGS`
+CPPFLAGS=`${R_HOME}/bin/R CMD config CPPFLAGS`
 
 # For debugging
 echo "Using PKG_CFLAGS=$PKG_CFLAGS"
