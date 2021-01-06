@@ -27,8 +27,8 @@ if [ `command -v pkg-config` ]; then
   PKGCONFIG_LIBS=`pkg-config --libs ${PKG_CONFIG_NAME}`
 fi
 
-# Hack: we really want our own cairo, not the CRAN one (which depends on XQuartz)
-if [ -e "/Builds/CRAN-QA-Simon" ] || [ -e "/Volumes/Builds" ]; then
+# On CRAN do not use pkgconfig cairo (which depends on XQuartz)
+if [ -d "/Builds/CRAN-QA-Simon" ] || [ -d "/Volumes/Builds" ]; then
   unset PKGCONFIG_CFLAGS
   unset PKGCONFIG_LIBS
 fi
