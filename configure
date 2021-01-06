@@ -14,13 +14,6 @@ PKG_BREW_NAME="fontconfig cairo freetype"
 PKG_LIBS="-lfontconfig -lcairo -lfreetype"
 PKG_TEST_FILE="src/tests/sysdeps.c"
 
-# FROM systemfonts/configure
-# Alternative config on MacOS for native APIs
-# Freetype is not actually used on MacOS right now, but will be in the future
-if [[ "$OSTYPE" == "darwin"* ]]; then
-PKG_CONFIG_NAME="--static fontconfig cairo freetype2"
-fi
-
 # Use pkg-config if available
 if [ $(command -v pkg-config) ]; then
   export PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig:$PKG_CONFIG_PATH:"
@@ -51,7 +44,7 @@ elif [ "$PKGCONFIG_CFLAGS" ] || [ "$PKGCONFIG_LIBS" ]; then
 elif [[ "$OSTYPE" == "darwin"* ]]; then
   if [ $(command -v brew) ]; then
     BREWDIR=$(brew --prefix)
-    PKG_CFLAGS="-I$BREWDIR/opt/$PKG_BREW_NAME/include/cairo -I/usr/local/opt/freetype/include/freetype2"
+    PKG_CFLAGS="-I$BREWDIR/opt/$PKG_BREW_NAME/include/cairo -I/usr/local/opt/fontconfig/include/fontconfig -I/usr/local/opt/freetype/include/freetype2"
     PKG_LIBS="-L$BREWDIR/opt/$PKG_BREW_NAME/lib $PKG_LIBS"
   else
     curl -sfL "https://jeroen.github.io/autobrew/$PKG_BREW_NAME" > autobrew
