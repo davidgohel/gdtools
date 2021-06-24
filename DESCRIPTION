@@ -13,7 +13,6 @@ Authors@R: c(
     person("R Core Team", role = "cph", comment = "Cairo code from X11 device"),
     person("RStudio", role = "cph")
   )
-LazyData: TRUE
 Imports:
     Rcpp (>= 0.12.12),
     systemfonts (>= 0.1.1)
