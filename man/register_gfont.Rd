@@ -4,10 +4,10 @@
 \alias{register_gfont}
 \title{Register a 'Google Fonts'}
 \usage{
-register_gfont(font = "Open Sans", subset = c("latin", "latin-ext"))
+register_gfont(family = "Open Sans", subset = c("latin", "latin-ext"))
 }
 \arguments{
-\item{font}{familly name of a 'Google Fonts', for example, "Open Sans", "Roboto",
+\item{family}{family name of a 'Google Fonts', for example, "Open Sans", "Roboto",
 "Fira Code" or "Fira Sans Condensed". Complete list is available with the
 following command:
 
@@ -49,7 +49,7 @@ must be a number of seconds.
 \examples{
 if (require("curl") && curl::has_internet()) {
   dummy_setup()
-  register_gfont(font = "Roboto")
+  register_gfont(family = "Roboto")
 }
 }
 \seealso{

@@ -4,10 +4,10 @@
 \alias{addGFontHtmlDependency}
 \title{Use a font in Shiny or Markdown}
 \usage{
-addGFontHtmlDependency(font = "Open Sans", subset = c("latin", "latin-ext"))
+addGFontHtmlDependency(family = "Open Sans", subset = c("latin", "latin-ext"))
 }
 \arguments{
-\item{font}{familly name of a 'Google Fonts', for example, "Open Sans", "Roboto",
+\item{family}{family name of a 'Google Fonts', for example, "Open Sans", "Roboto",
 "Fira Code" or "Fira Sans Condensed". Complete list is available with the
 following command:
 
@@ -51,7 +51,7 @@ must be a number of seconds.
 \examples{
 if (require("curl") && curl::has_internet()) {
   dummy_setup()
-  addGFontHtmlDependency(font = "Open Sans")
+  addGFontHtmlDependency(family = "Open Sans")
 }
 }
 \seealso{

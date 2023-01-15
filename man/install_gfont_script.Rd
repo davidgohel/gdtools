@@ -5,13 +5,13 @@
 \title{Shell command to install a font from 'Google Fonts'}
 \usage{
 install_gfont_script(
-  font = "Open Sans",
+  family = "Open Sans",
   subset = c("latin", "latin-ext"),
   platform = c("debian", "windows", "macos")
 )
 }
 \arguments{
-\item{font}{familly name of a 'Google Fonts', for example, "Open Sans", "Roboto",
+\item{family}{family name of a 'Google Fonts', for example, "Open Sans", "Roboto",
 "Fira Code" or "Fira Sans Condensed". Complete list is available with the
 following command:
 
@@ -54,7 +54,7 @@ must be a number of seconds.
 \examples{
 if (require("curl") && curl::has_internet()) {
   dummy_setup()
-  install_gfont_script(font = "Roboto", platform = "macos")
+  install_gfont_script(family = "Roboto", platform = "macos")
 }
 }
 \seealso{

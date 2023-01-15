@@ -15,7 +15,7 @@
 #' why a one second pause is added after each download to respect the server's
 #' limits. This time can be set with the option `GFONTS_DOWNLOAD_SLEEPTIME` which
 #' must be a number of seconds.
-#' @param font familly name of a 'Google Fonts', for example, "Open Sans", "Roboto",
+#' @param family family name of a 'Google Fonts', for example, "Open Sans", "Roboto",
 #' "Fira Code" or "Fira Sans Condensed". Complete list is available with the
 #' following command:
 #'
@@ -38,15 +38,15 @@
 #' @examples
 #' if (require("curl") && curl::has_internet()) {
 #'   dummy_setup()
-#'   gfontHtmlDependency(font = "Open Sans")
+#'   gfontHtmlDependency(family = "Open Sans")
 #' }
-gfontHtmlDependency <- function(font = "Open Sans", subset = c("latin", "latin-ext")) {
+gfontHtmlDependency <- function(family = "Open Sans", subset = c("latin", "latin-ext")) {
   pkg_version <- packageVersion("gdtools")
   pkg_version_str <- format(pkg_version)
 
-  register_gfont(font = font, subset = subset)
+  register_gfont(family = family, subset = subset)
   x <- gfonts_summary()
-  font_id <- x[x$family %in% font, ]$id
+  font_id <- x[x$family %in% family, ]$id
 
   htmlDependency(
     all_files = TRUE,
@@ -72,12 +72,12 @@ gfontHtmlDependency <- function(font = "Open Sans", subset = c("latin", "latin-e
 #' @examples
 #' if (require("curl") && curl::has_internet()) {
 #'   dummy_setup()
-#'   addGFontHtmlDependency(font = "Open Sans")
+#'   addGFontHtmlDependency(family = "Open Sans")
 #' }
-addGFontHtmlDependency <- function(font = "Open Sans", subset = c("latin", "latin-ext")) {
+addGFontHtmlDependency <- function(family = "Open Sans", subset = c("latin", "latin-ext")) {
   attachDependencies(
     x = tags$style(""),
-    gfontHtmlDependency(font = font, subset = subset)
+    gfontHtmlDependency(family = family, subset = subset)
   )
 }
 
@@ -94,15 +94,15 @@ addGFontHtmlDependency <- function(font = "Open Sans", subset = c("latin", "lati
 #' @examples
 #' if (require("curl") && curl::has_internet()) {
 #'   dummy_setup()
-#'   register_gfont(font = "Roboto")
+#'   register_gfont(family = "Roboto")
 #' }
-register_gfont <- function(font = "Open Sans", subset = c("latin", "latin-ext")) {
+register_gfont <- function(family = "Open Sans", subset = c("latin", "latin-ext")) {
   x <- gfonts_summary()
 
-  font_id <- x[x$family %in% font, ]$id
+  font_id <- x[x$family %in% family, ]$id
   faces <- reduce_faces(x[x$id %in% font_id, ]$variants[[1]])
 
-  font_to_cache(font = font, faces = faces, subset = subset)
+  font_to_cache(family = family, faces = faces, subset = subset)
 
   files <- lapply(faces, function(face) {
     list.files(
@@ -112,12 +112,12 @@ register_gfont <- function(font = "Open Sans", subset = c("latin", "latin-ext"))
     )
   })
 
-  if (!font_family_exists(font)) {
-    files[["name"]] <- font
+  if (!font_family_exists(family)) {
+    files[["name"]] <- family
     do.call(register_font, files)
   }
 
-  font_family_exists(font)
+  font_family_exists(family)
 }
 
 #' @export
@@ -132,17 +132,17 @@ register_gfont <- function(font = "Open Sans", subset = c("latin", "latin-ext"))
 #' @examples
 #' if (require("curl") && curl::has_internet()) {
 #'   dummy_setup()
-#'   install_gfont_script(font = "Roboto", platform = "macos")
+#'   install_gfont_script(family = "Roboto", platform = "macos")
 #' }
-install_gfont_script <- function(font = "Open Sans",
+install_gfont_script <- function(family = "Open Sans",
                                  subset = c("latin", "latin-ext"),
                                  platform = c("debian", "windows", "macos")) {
   platform <- match.arg(platform)
   x <- gfonts_summary()
-  font_id <- x[x$family %in% font, ]$id
+  font_id <- x[x$family %in% family, ]$id
   faces <- reduce_faces(x[x$id %in% font_id, ]$variants[[1]])
 
-  font_to_cache(font = font, faces = faces, subset = subset)
+  font_to_cache(family = family, faces = faces, subset = subset)
 
   if ("debian" %in% platform) {
     str <- debian_sysinstall_command(font_id, dir = "custom-fonts")

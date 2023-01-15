@@ -101,15 +101,15 @@ reduce_faces <- function(variants) {
 }
 
 #' @importFrom gfonts download_font generate_css
-font_to_cache <- function(font, faces = NULL, subset = c("latin", "latin-ext")) {
+font_to_cache <- function(family, faces = NULL, subset = c("latin", "latin-ext")) {
 
   x <- gfonts_summary()
 
-  if(!font %in% x$family) {
-    stop("font ", shQuote(font), " is not in the fonts provided by 'google fonts'.")
+  if(!family %in% x$family) {
+    stop("family ", shQuote(family), " is not in the fonts provided by 'google fonts'.")
   }
 
-  font_id <- x[x$family %in% font,]$id
+  font_id <- x[x$family %in% family,]$id
 
   css_file <- css_filepath(id = font_id)
   if(file.exists(css_file)) return(TRUE)

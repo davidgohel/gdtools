@@ -4,10 +4,10 @@
 \alias{gfontHtmlDependency}
 \title{Google Font HTML dependency}
 \usage{
-gfontHtmlDependency(font = "Open Sans", subset = c("latin", "latin-ext"))
+gfontHtmlDependency(family = "Open Sans", subset = c("latin", "latin-ext"))
 }
 \arguments{
-\item{font}{familly name of a 'Google Fonts', for example, "Open Sans", "Roboto",
+\item{family}{family name of a 'Google Fonts', for example, "Open Sans", "Roboto",
 "Fira Code" or "Fira Sans Condensed". Complete list is available with the
 following command:
 
@@ -47,7 +47,7 @@ must be a number of seconds.
 \examples{
 if (require("curl") && curl::has_internet()) {
   dummy_setup()
-  gfontHtmlDependency(font = "Open Sans")
+  gfontHtmlDependency(family = "Open Sans")
 }
 }
 \seealso{
