@@ -32,7 +32,7 @@ an HTML object
 Add an empty HTML element attached
 to an 'HTML Dependency' containing
 the css and the font files so that the font is available
-in the HTML page.
+in the HTML page. Multiple families are supported.
 
 The htmlDependency is defined with function \code{\link[=gfontHtmlDependency]{gfontHtmlDependency()}}.
 }

@@ -63,7 +63,7 @@ gfontHtmlDependency <- function(family = "Open Sans", subset = c("latin", "latin
 #' @description Add an empty HTML element attached
 #' to an 'HTML Dependency' containing
 #' the css and the font files so that the font is available
-#' in the HTML page.
+#' in the HTML page. Multiple families are supported.
 #'
 #' The htmlDependency is defined with function [gfontHtmlDependency()].
 #' @inherit gfontHtmlDependency params details
@@ -77,7 +77,7 @@ gfontHtmlDependency <- function(family = "Open Sans", subset = c("latin", "latin
 addGFontHtmlDependency <- function(family = "Open Sans", subset = c("latin", "latin-ext")) {
   attachDependencies(
     x = tags$style(""),
-    gfontHtmlDependency(family = family, subset = subset)
+    lapply(family, gfontHtmlDependency, subset = subset)
   )
 }
 
