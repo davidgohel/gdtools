@@ -180,7 +180,7 @@ debian_sysinstall_command <- function(font_id, dir = "custom-fonts") {
     id_dir, dir
   )
 
-  paste(create_dir, install_cmd, "fc-cache -f", sep = "\n")
+  paste(create_dir, install_cmd, "fc-cache -f", sep = ";")
 }
 
 
