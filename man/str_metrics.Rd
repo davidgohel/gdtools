@@ -20,9 +20,7 @@ str_metrics(
 
 \item{fontsize}{Font size}
 
-\item{bold}{Is text bold/italic?}
-
-\item{italic}{Is text bold/italic?}
+\item{bold, italic}{Is text bold/italic?}
 
 \item{fontfile}{Font file}
 }
