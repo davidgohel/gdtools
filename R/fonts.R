@@ -177,7 +177,7 @@ debian_sysinstall_command <- function(font_id, dir = "custom-fonts") {
   id_dir <- font_dir(font_id)
   install_cmd <- sprintf(
     "find %s -name \"*.ttf\" -exec install -m644 {} /usr/share/fonts/truetype/%s/ \\; || return 1",
-    id_dir, dir
+    gsub(" ", "\\ ", id_dir, fixed = TRUE), dir
   )
 
   paste(create_dir, install_cmd, "fc-cache -f", sep = ";")
@@ -186,7 +186,7 @@ debian_sysinstall_command <- function(font_id, dir = "custom-fonts") {
 
 macos_sysinstall_command <- function(font_id, dir = "~/Library/Fonts") {
   id_dir <- font_dir(font_id)
-  sprintf("cp %s/* %s", id_dir, dir)
+  sprintf("cp %s/* %s", gsub(" ", "\\ ", id_dir, fixed = TRUE), dir)
 }
 
 
