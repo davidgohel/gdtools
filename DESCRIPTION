@@ -1,5 +1,5 @@
 Package: gdtools
-Version: 0.3.1.001
+Version: 0.3.1
 License: GPL-3 | file LICENSE
 Title: Utilities for Graphical Rendering and Fonts Management
 Description: Tools are provided to compute metrics of 
@@ -33,6 +33,7 @@ Suggests:
 Encoding: UTF-8
 LinkingTo: Rcpp
 SystemRequirements: cairo, freetype2, fontconfig
+URL: https://davidgohel.github.io/gdtools/
 BugReports: https://github.com/davidgohel/gdtools/issues
 RoxygenNote: 7.2.3
 Roxygen: list(markdown = TRUE)

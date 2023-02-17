@@ -1,0 +1,32 @@
+url: https://davidgohel.github.io/gdtools/
+
+title: gdtools
+
+development:
+  mode: auto
+
+template:
+  bootstrap: 5
+  theme: breeze-light
+  bootswatch: simplex
+  bslib:
+    pkgdown-nav-height: 100px
+    base_font:
+      google: "Open Sans"
+
+home:
+  links:
+  - text: 'Visit <a href="https://www.ardata.fr"><img alt="ardata" src="https://www.ardata.fr/img/ardata-logo.svg" width="70"></a> website'
+    href: https://www.ardata.fr
+
+
+footer:
+  structure:
+    left: legal
+  components:
+    legal: proudly brought to you by <a href="https://www.ardata.fr"><img alt="ardata" src="https://www.ardata.fr/img/ardata-logo.svg" width="70"></a>
+
+
+authors:
+  David Gohel:
+    href: https://www.ardata.fr
