@@ -22,7 +22,7 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::rcmdcheck, any::pkgdown
+          extra-packages: any::pkgdown
           needs: check
 
       - name: Install package
