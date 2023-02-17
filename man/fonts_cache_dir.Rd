@@ -45,10 +45,12 @@ rm_fonts_cache()
 dir.exists(fonts_cache_dir())
 }
 \seealso{
-Other using 'Google Fonts': 
+Other functions for font management: 
 \code{\link{addGFontHtmlDependency}()},
 \code{\link{gfontHtmlDependency}()},
 \code{\link{install_gfont_script}()},
-\code{\link{register_gfont}()}
+\code{\link{liberationsansHtmlDependency}()},
+\code{\link{register_gfont}()},
+\code{\link{register_liberationsans}()}
 }
-\concept{using 'Google Fonts'}
+\concept{functions for font management}

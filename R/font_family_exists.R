@@ -11,12 +11,19 @@
 #' @export
 #' @importFrom systemfonts match_font system_fonts
 font_family_exists <- function( font_family = "sans" ){
-  datafonts <- fortify_font_db()
+  datafonts <- sys_fonts()
   tolower(font_family) %in% tolower(datafonts$family)
 }
 
+#' @title List fonts for 'systemfonts'.
+#'
+#' @description List system and registryfonts details into a data.frame
+#' containing columns foundry, family, file, slant and weight.
+#' @examples
+#' sys_fonts()
+#' @export
 #' @importFrom systemfonts system_fonts registry_fonts
-fortify_font_db <- function(){
+sys_fonts <- function() {
   db_sys <- system_fonts()
   db_reg <- registry_fonts()
   nam <- intersect(colnames(db_sys), colnames(db_reg))

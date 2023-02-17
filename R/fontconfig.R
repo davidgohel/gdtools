@@ -1,15 +1,3 @@
-#' @title List system fonts.
-#'
-#' @description List system fonts details into a data.frame containing columns foundry, family,
-#' file, slant and weight.
-#'
-#' @examples
-#' sys_fonts()
-#' @export
-sys_fonts <- function() {
-  system_fonts()
-}
-
 #' Find best family match with systemfonts
 #'
 #' \code{match_family()} returns the best font family match.

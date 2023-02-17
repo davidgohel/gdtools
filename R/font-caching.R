@@ -12,7 +12,7 @@
 #'
 #' The directory can be deleted with `rm_fonts_cache()` and
 #' created with `init_fonts_cache()`.
-#' @family using 'Google Fonts'
+#' @family functions for font management
 #' @examples
 #' fonts_cache_dir()
 #'
@@ -76,6 +76,7 @@ rm_fonts_cache <- function(){
 init_fonts_cache <- function(){
   rm_fonts_cache()
   dir.create(fonts_cache_dir(), showWarnings = FALSE, recursive = TRUE)
+  liberationsans_to_cache()
   fonts_cache_dir()
 }
 
@@ -100,6 +101,16 @@ reduce_faces <- function(variants) {
   faces
 }
 
+#' @importFrom curl has_internet
+#' @export
+#' @title Test for internet connectivity
+#' @description The function is a copy of
+#' [curl::has_internet()].
+#' @examples
+#' has_internet()
+#' @keywords internal
+has_internet <- curl::has_internet
+
 #' @importFrom gfonts download_font generate_css
 font_to_cache <- function(family, faces = NULL, subset = c("latin", "latin-ext")) {
 
@@ -114,8 +125,8 @@ font_to_cache <- function(family, faces = NULL, subset = c("latin", "latin-ext")
   css_file <- css_filepath(id = font_id)
   if(file.exists(css_file)) return(TRUE)
 
-  if (requireNamespace("curl")) {
-    stopifnot(curl::has_internet())
+  if (!has_internet()) {
+    stop("an internet connection is required to download the font files.")
   }
 
   if (is.null(faces)) {
@@ -152,6 +163,52 @@ font_to_cache <- function(family, faces = NULL, subset = c("latin", "latin-ext")
   TRUE
 
 }
+
+liberationsans_to_cache <- function() {
+  font_id <- "liberation-sans"
+
+  font_dir_ <- font_dir(id = font_id)
+  font_css_ <- css_dir(id = font_id)
+
+  if (!dir.exists(font_dir_) || !dir.exists(font_css_)) {
+    dir.create(font_dir_, showWarnings = FALSE, recursive = TRUE)
+    file.copy(
+      from = list.files(
+        system.file(package = "fontLiberation", "fonts/liberation-fonts"),
+        full.names = TRUE),
+      to = font_dir_, overwrite = TRUE)
+
+    dir.create(font_css_, showWarnings = FALSE, recursive = TRUE)
+    file.copy(
+      from = system.file(package = "gdtools", "css/liberation-sans.css"),
+      to = font_css_, overwrite = TRUE)
+  }
+
+}
+
+#' @importFrom fontquiver font_faces
+#' @export
+#' @title Register font 'Liberation Sans'
+#' @description Register font 'Liberation Sans' so that it can be used
+#' with devices using the 'systemfonts' package, i.e. the 'flextable'
+#' package and graphic outputs generated with the 'ragg', 'svglite'
+#' and 'ggiraph' packages.
+#' @return TRUE if the operation went ok.
+#' @family functions for font management
+register_liberationsans <- function() {
+    if (!font_family_exists("Liberation Sans")) {
+      liberation_lst <- font_faces("Liberation", family = "sans")
+      register_font(
+        name = "Liberation Sans",
+        plain = liberation_lst$plain$ttf,
+        bold = liberation_lst$bold$ttf,
+        italic = liberation_lst$italic$ttf,
+        bolditalic = liberation_lst$bolditalic$ttf
+      )
+    }
+  font_family_exists("Liberation Sans")
+}
+
 
 ## gfonts_summary -----
 #' @importFrom memoise memoise

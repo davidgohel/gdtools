@@ -1,7 +1,7 @@
 #' @importFrom htmltools htmlDependency
 #' @importFrom utils packageVersion
 #' @export
-#' @title Google Font HTML dependency
+#' @title 'Google Font' HTML dependency
 #' @description Create an HTML dependency ready
 #' to be used in 'Shiny' or 'R Markdown'.
 #' @details
@@ -33,10 +33,10 @@
 #' gfonts::get_all_fonts()$subsets |> unlist() |> unique() |> sort()
 #' ```
 #'
-#' @family using 'Google Fonts'
+#' @family functions for font management
 #' @return an object defined with [htmlDependency()].
 #' @examples
-#' if (require("curl") && curl::has_internet()) {
+#' if (has_internet()) {
 #'   dummy_setup()
 #'   gfontHtmlDependency(family = "Open Sans")
 #' }
@@ -58,6 +58,28 @@ gfontHtmlDependency <- function(family = "Open Sans", subset = c("latin", "latin
 }
 
 #' @export
+#' @title 'Liberation Sans' Font HTML dependency
+#' @description Create an HTML dependency ready
+#' to be used in 'Shiny' or 'R Markdown' with
+#' 'Liberation Sans' Font.
+#' @seealso [gfontHtmlDependency()]
+#' @family functions for font management
+liberationsansHtmlDependency <- function() {
+  pkg_version <- packageVersion("gdtools")
+  pkg_version_str <- format(pkg_version)
+
+  font_id <- "liberation-sans"
+
+  htmlDependency(
+    all_files = TRUE,
+    name = font_id,
+    version = pkg_version_str,
+    src = file.path(fonts_cache_dir(), font_id),
+    stylesheet = paste0("css/", font_id, ".css")
+  )
+}
+
+#' @export
 #' @importFrom htmltools tags attachDependencies
 #' @title Use a font in Shiny or Markdown
 #' @description Add an empty HTML element attached
@@ -68,7 +90,7 @@ gfontHtmlDependency <- function(family = "Open Sans", subset = c("latin", "latin
 #' The htmlDependency is defined with function [gfontHtmlDependency()].
 #' @inherit gfontHtmlDependency params details
 #' @return an HTML object
-#' @family using 'Google Fonts'
+#' @family functions for font management
 #' @examples
 #' if (require("curl") && curl::has_internet()) {
 #'   dummy_setup()
@@ -90,7 +112,7 @@ addGFontHtmlDependency <- function(family = "Open Sans", subset = c("latin", "la
 #' and 'ggiraph' packages.
 #' @inherit gfontHtmlDependency params details
 #' @return TRUE if the operation went ok.
-#' @family using 'Google Fonts'
+#' @family functions for font management
 #' @examples
 #' if (require("curl") && curl::has_internet()) {
 #'   dummy_setup()
@@ -128,7 +150,7 @@ register_gfont <- function(family = "Open Sans", subset = c("latin", "latin-ext"
 #' @inherit gfontHtmlDependency params details
 #' @param platform "debian" and "windows" and "macos" are supported.
 #' @return the 'shell' or 'PowerShell' command as a string
-#' @family using 'Google Fonts'
+#' @family functions for font management
 #' @examples
 #' if (require("curl") && curl::has_internet()) {
 #'   dummy_setup()

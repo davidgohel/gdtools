@@ -2,7 +2,7 @@
 % Please edit documentation in R/fonts.R
 \name{gfontHtmlDependency}
 \alias{gfontHtmlDependency}
-\title{Google Font HTML dependency}
+\title{'Google Font' HTML dependency}
 \usage{
 gfontHtmlDependency(family = "Open Sans", subset = c("latin", "latin-ext"))
 }
@@ -45,16 +45,18 @@ limits. This time can be set with the option \code{GFONTS_DOWNLOAD_SLEEPTIME} wh
 must be a number of seconds.
 }
 \examples{
-if (require("curl") && curl::has_internet()) {
+if (has_internet()) {
   dummy_setup()
   gfontHtmlDependency(family = "Open Sans")
 }
 }
 \seealso{
-Other using 'Google Fonts': 
+Other functions for font management: 
 \code{\link{addGFontHtmlDependency}()},
 \code{\link{fonts_cache_dir}()},
 \code{\link{install_gfont_script}()},
-\code{\link{register_gfont}()}
+\code{\link{liberationsansHtmlDependency}()},
+\code{\link{register_gfont}()},
+\code{\link{register_liberationsans}()}
 }
-\concept{using 'Google Fonts'}
+\concept{functions for font management}
