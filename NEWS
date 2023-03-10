@@ -1,3 +1,15 @@
+# gdtools 0.3.2
+
+## New features
+
+- new function `installed_gfonts()` to list installed font from 'Google'
+
+# gdtools 0.3.1
+
+## New features
+
+- add 'liberation-sans' for having a fallback when off-line
+
 # gdtools 0.3.0
 
 ## New features

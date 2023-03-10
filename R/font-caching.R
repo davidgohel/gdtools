@@ -114,6 +114,8 @@ has_internet <- curl::has_internet
 #' @importFrom gfonts download_font generate_css
 font_to_cache <- function(family, faces = NULL, subset = c("latin", "latin-ext")) {
 
+  stopifnot(`'family' is expected to be a character value` = is.character(family), `family is expected to be a single value` = length(family) == 1L)
+
   x <- gfonts_summary()
 
   if(!family %in% x$family) {

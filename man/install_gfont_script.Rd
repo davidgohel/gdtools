@@ -62,6 +62,7 @@ Other functions for font management:
 \code{\link{addGFontHtmlDependency}()},
 \code{\link{fonts_cache_dir}()},
 \code{\link{gfontHtmlDependency}()},
+\code{\link{installed_gfonts}()},
 \code{\link{liberationsansHtmlDependency}()},
 \code{\link{register_gfont}()},
 \code{\link{register_liberationsans}()}

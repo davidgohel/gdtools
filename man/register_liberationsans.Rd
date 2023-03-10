@@ -21,6 +21,7 @@ Other functions for font management:
 \code{\link{fonts_cache_dir}()},
 \code{\link{gfontHtmlDependency}()},
 \code{\link{install_gfont_script}()},
+\code{\link{installed_gfonts}()},
 \code{\link{liberationsansHtmlDependency}()},
 \code{\link{register_gfont}()}
 }

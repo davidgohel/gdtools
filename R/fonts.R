@@ -176,6 +176,25 @@ install_gfont_script <- function(family = "Open Sans",
   str
 }
 
+#' @export
+#' @title List installed 'Google Fonts'
+#' @description List installed 'Google Fonts' that can be
+#' found in the user cache directory.
+#' @return families names as a character vector
+#' @family functions for font management
+#' @examples
+#' if (require("curl") && curl::has_internet()) {
+#'   dummy_setup()
+#'   register_gfont(family = "Roboto")
+#'   installed_gfonts()
+#' }
+installed_gfonts <- function() {
+  x <- gfonts_summary()
+  fonts_ids <- basename(list.dirs(fonts_cache_dir(), recursive = FALSE))
+  x$family[x$id %in% fonts_ids]
+}
+
+# utils ----
 windows_sysinstall_command <- function(font_id) {
   #https://www.jordanmalcolm.com/deploying-windows-10-fonts-at-scale/
   id_dir <- font_dir(font_id)
