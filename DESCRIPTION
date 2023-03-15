@@ -24,12 +24,13 @@ Depends: R (>= 4.0.0)
 Imports:
     Rcpp (>= 0.12.12),
     systemfonts (>= 0.1.1),
-    htmltools, memoise, methods,
+    htmltools, memoise,
     gfonts, tools,
     curl,
     fontquiver (>= 0.2.0)
 Suggests:
-    testthat
+    testthat,
+    methods
 Encoding: UTF-8
 LinkingTo: Rcpp
 SystemRequirements: cairo, freetype2, fontconfig
