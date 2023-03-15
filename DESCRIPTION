@@ -29,7 +29,8 @@ Imports:
     curl,
     fontquiver (>= 0.2.0)
 Suggests:
-    testthat
+    testthat,
+    methods
 Encoding: UTF-8
 LinkingTo: Rcpp
 SystemRequirements: cairo, freetype2, fontconfig
