@@ -213,7 +213,8 @@ register_liberationsans <- function() {
 
 
 ## gfonts_summary -----
-#' @importFrom memoise memoise
 #' @importFrom gfonts get_all_fonts
-gfonts_summary <- memoise::memoise(gfonts::get_all_fonts)
+gfonts_summary <- function() {
+  all_gfonts
+}
 

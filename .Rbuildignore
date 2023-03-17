@@ -9,3 +9,4 @@
 ^configure.log$
 ^\.github$
 ^_pkgdown\.yml$
+^data-src$

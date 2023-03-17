@@ -1,3 +1,10 @@
+# gdtools 0.3.3
+
+## Issues
+
+- no more calls to `gfonts::get_all_fonts()`. This should enable usage
+for those with no access to website used by 'gfonts'.
+
 # gdtools 0.3.2
 
 ## New features

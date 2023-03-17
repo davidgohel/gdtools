@@ -1,5 +1,5 @@
 Package: gdtools
-Version: 0.3.2
+Version: 0.3.3.001
 License: GPL-3 | file LICENSE
 Title: Utilities for Graphical Rendering and Fonts Management
 Description: Tools are provided to compute metrics of 
@@ -24,7 +24,7 @@ Depends: R (>= 4.0.0)
 Imports:
     Rcpp (>= 0.12.12),
     systemfonts (>= 0.1.1),
-    htmltools, memoise,
+    htmltools,
     gfonts, tools,
     curl,
     fontquiver (>= 0.2.0)
