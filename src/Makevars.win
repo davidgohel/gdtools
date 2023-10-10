@@ -1,13 +1,15 @@
-VERSION = 1.16.0
-RWINLIB = ../windows/cairo-${VERSION}
+RWINLIB = ../windows/cairo
 
-PKG_CPPFLAGS = -I${RWINLIB}/include/cairo -I${RWINLIB}/include \
-	-I${RWINLIB}/include/freetype2 -I../inst/include
+PKG_CPPFLAGS = -I$(RWINLIB)/include/cairo -I$(RWINLIB)/include \
+	-I$(RWINLIB)/include/freetype2 -I../inst/include -DCAIRO_WIN32_STATIC_BUILD
 
-PKG_LIBS = -L${RWINLIB}/lib${R_ARCH}${CRT} -lcairo -lfreetype -lpng -lpixman-1 \
-  -lharfbuzz -lbz2 -lz -liconv -lgdi32
+PKG_LIBS = -L$(RWINLIB)/lib$(R_ARCH) -L$(RWINLIB)/lib -lcairo -lfreetype -lpng -lpixman-1 \
+  -lharfbuzz -lbz2 -lz -liconv -lgdi32 -lrpcrt4
 
-all: winlibs
+all: clean winlibs
 
 winlibs:
-	"${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe" "../tools/winlibs.R" ${VERSION}
+	"${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe" "../tools/winlibs.R"
+
+clean:
+	rm -f $(SHLIB) $(OBJECTS)
