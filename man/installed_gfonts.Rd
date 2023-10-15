@@ -14,10 +14,12 @@ List installed 'Google Fonts' that can be
 found in the user cache directory.
 }
 \examples{
-if (require("curl") && curl::has_internet()) {
+\dontrun{
+if (curl::has_internet()) {
   dummy_setup()
   register_gfont(family = "Roboto")
   installed_gfonts()
+}
 }
 }
 \seealso{

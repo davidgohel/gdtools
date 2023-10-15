@@ -1,3 +1,10 @@
+# gdtools 0.3.4
+
+## Changes
+
+- update to libcairo 1.18
+- use dontrun macro to avoid CRAN errors
+
 # gdtools 0.3.3
 
 ## Issues

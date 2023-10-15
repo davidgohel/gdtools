@@ -49,9 +49,11 @@ limits. This time can be set with the option \code{GFONTS_DOWNLOAD_SLEEPTIME} wh
 must be a number of seconds.
 }
 \examples{
-if (require("curl") && curl::has_internet()) {
+\dontrun{
+if (curl::has_internet()) {
   dummy_setup()
   addGFontHtmlDependency(family = "Open Sans")
+}
 }
 }
 \seealso{

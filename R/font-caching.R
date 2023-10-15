@@ -102,15 +102,6 @@ reduce_faces <- function(variants) {
 }
 
 #' @importFrom curl has_internet
-#' @export
-#' @title Test for internet connectivity
-#' @description The function is a copy of
-#' [curl::has_internet()].
-#' @examples
-#' has_internet()
-#' @keywords internal
-has_internet <- curl::has_internet
-
 #' @importFrom gfonts download_font generate_css
 font_to_cache <- function(family, faces = NULL, subset = c("latin", "latin-ext")) {
 

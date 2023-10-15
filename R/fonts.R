@@ -36,9 +36,11 @@
 #' @family functions for font management
 #' @return an object defined with [htmlDependency()].
 #' @examples
-#' if (has_internet()) {
+#' \dontrun{
+#' if (curl::has_internet()) {
 #'   dummy_setup()
 #'   gfontHtmlDependency(family = "Open Sans")
+#' }
 #' }
 gfontHtmlDependency <- function(family = "Open Sans", subset = c("latin", "latin-ext")) {
   pkg_version <- packageVersion("gdtools")
@@ -92,9 +94,11 @@ liberationsansHtmlDependency <- function() {
 #' @return an HTML object
 #' @family functions for font management
 #' @examples
-#' if (require("curl") && curl::has_internet()) {
+#' \dontrun{
+#' if (curl::has_internet()) {
 #'   dummy_setup()
 #'   addGFontHtmlDependency(family = "Open Sans")
+#' }
 #' }
 addGFontHtmlDependency <- function(family = "Open Sans", subset = c("latin", "latin-ext")) {
   attachDependencies(
@@ -114,9 +118,11 @@ addGFontHtmlDependency <- function(family = "Open Sans", subset = c("latin", "la
 #' @return TRUE if the operation went ok.
 #' @family functions for font management
 #' @examples
-#' if (require("curl") && curl::has_internet()) {
+#' \dontrun{
+#' if (curl::has_internet()) {
 #'   dummy_setup()
 #'   register_gfont(family = "Roboto")
+#' }
 #' }
 register_gfont <- function(family = "Open Sans", subset = c("latin", "latin-ext")) {
   x <- gfonts_summary()
@@ -152,9 +158,11 @@ register_gfont <- function(family = "Open Sans", subset = c("latin", "latin-ext"
 #' @return the 'shell' or 'PowerShell' command as a string
 #' @family functions for font management
 #' @examples
-#' if (require("curl") && curl::has_internet()) {
+#' \dontrun{
+#' if (curl::has_internet()) {
 #'   dummy_setup()
 #'   install_gfont_script(family = "Roboto", platform = "macos")
+#' }
 #' }
 install_gfont_script <- function(family = "Open Sans",
                                  subset = c("latin", "latin-ext"),
@@ -183,10 +191,12 @@ install_gfont_script <- function(family = "Open Sans",
 #' @return families names as a character vector
 #' @family functions for font management
 #' @examples
-#' if (require("curl") && curl::has_internet()) {
+#' \dontrun{
+#' if (curl::has_internet()) {
 #'   dummy_setup()
 #'   register_gfont(family = "Roboto")
 #'   installed_gfonts()
+#' }
 #' }
 installed_gfonts <- function() {
   x <- gfonts_summary()
