@@ -50,7 +50,7 @@ elif [ `uname` = "Darwin" ]; then
     PKG_LIBS="-L$BREWDIR/lib $PKG_LIBS"
   else
     curl -sfL "https://autobrew.github.io/scripts/cairo" > autobrew
-    . autobrew
+    . ./autobrew
   fi
 fi
 
