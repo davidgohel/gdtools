@@ -155,6 +155,10 @@ register_gfont <- function(family = "Open Sans", subset = c("latin", "latin-ext"
 #' Its execution may require root permissions, in dockerfile for example.
 #' @inherit gfontHtmlDependency params details
 #' @param platform "debian" and "windows" and "macos" are supported.
+#' @param file script file to generate, optional. If the parameter is
+#' specified, a file will be generated ready for execution. If the
+#' platform is Windows, administration rights are required to run
+#' the script.
 #' @return the 'shell' or 'PowerShell' command as a string
 #' @family functions for font management
 #' @examples
@@ -166,7 +170,8 @@ register_gfont <- function(family = "Open Sans", subset = c("latin", "latin-ext"
 #' }
 install_gfont_script <- function(family = "Open Sans",
                                  subset = c("latin", "latin-ext"),
-                                 platform = c("debian", "windows", "macos")) {
+                                 platform = c("debian", "windows", "macos"),
+                                 file = NULL) {
   platform <- match.arg(platform)
   x <- gfonts_summary()
   font_id <- x[x$family %in% family, ]$id
@@ -181,7 +186,13 @@ install_gfont_script <- function(family = "Open Sans",
   } else {
     str <- macos_sysinstall_command(font_id, dir = if (user_cache_exists()) "~/Library/Fonts" else "/Library/Fonts")
   }
-  str
+
+  if (!is.null(file)) {
+    writeLines(str, file, useBytes = TRUE)
+    Sys.chmod(file, mode = "755")
+  }
+
+  invisible(str)
 }
 
 #' @export

@@ -43,8 +43,18 @@ or with tabular productions from the 'flextable' package.
 
 
 ```{r results='hide'}
+# Download to a user cache and register the font with systemfonts
 register_gfont(family = "Open Sans")
 ```
+
+If you need a 'Google Font' to be installed on your machine, you can use
+`install_gfont_script()`.
+
+```{r eval=FALSE}
+install_gfont_script("Fira Sans", file = "firafont.sh")
+```
+
+You then have to run `./firafont.sh`.
 
 
 ## Installation

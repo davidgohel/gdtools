@@ -7,7 +7,8 @@
 install_gfont_script(
   family = "Open Sans",
   subset = c("latin", "latin-ext"),
-  platform = c("debian", "windows", "macos")
+  platform = c("debian", "windows", "macos"),
+  file = NULL
 )
 }
 \arguments{
@@ -30,6 +31,11 @@ Run the following code to get a complete list:
 }\if{html}{\out{</div>}}}
 
 \item{platform}{"debian" and "windows" and "macos" are supported.}
+
+\item{file}{script file to generate, optional. If the parameter is
+specified, a file will be generated ready for execution. If the
+platform is Windows, administration rights are required to run
+the script.}
 }
 \value{
 the 'shell' or 'PowerShell' command as a string

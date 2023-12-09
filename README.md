@@ -35,10 +35,18 @@ generated with the ‘ggiraph’, ‘ragg’ and ‘svglite’ packages or with
 tabular productions from the ‘flextable’ package.
 
 ``` r
-library(gdtools)
+# Download to a user cache and register the font with systemfonts
 register_gfont(family = "Open Sans")
-#> [1] TRUE
 ```
+
+If you need a ‘Google Font’ to be installed on your machine, you can use
+`install_gfont_script()`.
+
+``` r
+install_gfont_script("Fira Sans", file = "firafont.sh")
+```
+
+You then have to run `./firafont.sh`.
 
 ## Installation
 

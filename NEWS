@@ -4,6 +4,12 @@
 
 - fix -Wformat-security issue under r-devel
 
+## New features
+
+- `install_gfont_script()` can now directly generate a script
+file ready to be executed to install a 'Google Font', use
+argument `file`.
+
 # gdtools 0.3.4
 
 ## Changes
