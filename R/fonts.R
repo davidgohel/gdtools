@@ -46,9 +46,8 @@ gfontHtmlDependency <- function(family = "Open Sans", subset = c("latin", "latin
   pkg_version <- packageVersion("gdtools")
   pkg_version_str <- format(pkg_version)
 
+  font_id <- get_font_id(family)
   register_gfont(family = family, subset = subset)
-  x <- gfonts_summary()
-  font_id <- x[x$family %in% family, ]$id
 
   htmlDependency(
     all_files = TRUE,
@@ -107,6 +106,16 @@ addGFontHtmlDependency <- function(family = "Open Sans", subset = c("latin", "la
   )
 }
 
+get_font_id <- function(family) {
+  x <- gfonts_summary()
+
+  if (!family %in% x$family) {
+    stop("Font family ", shQuote(family), " has not been found.",
+         call. = FALSE)
+  }
+  x[x$family %in% family, ]$id
+}
+
 #' @importFrom systemfonts register_font
 #' @export
 #' @title Register a 'Google Fonts'
@@ -125,9 +134,8 @@ addGFontHtmlDependency <- function(family = "Open Sans", subset = c("latin", "la
 #' }
 #' }
 register_gfont <- function(family = "Open Sans", subset = c("latin", "latin-ext")) {
+  font_id <- get_font_id(family)
   x <- gfonts_summary()
-
-  font_id <- x[x$family %in% family, ]$id
   faces <- reduce_faces(x[x$id %in% font_id, ]$variants[[1]])
 
   font_to_cache(family = family, faces = faces, subset = subset)
@@ -173,8 +181,8 @@ install_gfont_script <- function(family = "Open Sans",
                                  platform = c("debian", "windows", "macos"),
                                  file = NULL) {
   platform <- match.arg(platform)
+  font_id <- get_font_id(family)
   x <- gfonts_summary()
-  font_id <- x[x$family %in% family, ]$id
   faces <- reduce_faces(x[x$id %in% font_id, ]$variants[[1]])
 
   font_to_cache(family = family, faces = faces, subset = subset)
