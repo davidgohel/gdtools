@@ -59,28 +59,6 @@ gfontHtmlDependency <- function(family = "Open Sans", subset = c("latin", "latin
 }
 
 #' @export
-#' @title 'Liberation Sans' Font HTML dependency
-#' @description Create an HTML dependency ready
-#' to be used in 'Shiny' or 'R Markdown' with
-#' 'Liberation Sans' Font.
-#' @seealso [gfontHtmlDependency()]
-#' @family functions for font management
-liberationsansHtmlDependency <- function() {
-  pkg_version <- packageVersion("gdtools")
-  pkg_version_str <- format(pkg_version)
-
-  font_id <- "liberation-sans"
-
-  htmlDependency(
-    all_files = TRUE,
-    name = font_id,
-    version = pkg_version_str,
-    src = file.path(fonts_cache_dir(), font_id),
-    stylesheet = paste0("css/", font_id, ".css")
-  )
-}
-
-#' @export
 #' @importFrom htmltools tags attachDependencies
 #' @title Use a font in Shiny or Markdown
 #' @description Add an empty HTML element attached

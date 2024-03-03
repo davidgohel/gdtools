@@ -16,4 +16,3 @@ version_cairo <- function() {
 
   structure(list(ver), class = c("package_version", "numeric_version"))
 }
-#' @importFrom systemfonts match_font
