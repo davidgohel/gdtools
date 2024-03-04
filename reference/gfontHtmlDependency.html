@@ -12,7 +12,7 @@ to be used in 'Shiny' or 'R Markdown'."><!-- mathjax --><script src="https://cdn
     
     <a class="navbar-brand me-2" href="../index.html">gdtools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.3.6</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.3.7</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -60,17 +60,17 @@ to be used in 'Shiny' or 'R Markdown'.</p>
 <dd><p>family name of a 'Google Fonts', for example, "Open Sans", "Roboto",
 "Fira Code" or "Fira Sans Condensed". Complete list is available with the
 following command:</p>
-<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>gfonts<span class="sc">::</span><span class="fu">get_all_fonts</span>()<span class="sc">$</span>family <span class="sc">|&gt;</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unlist</span>() <span class="sc">|&gt;</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unique</span>() <span class="sc">|&gt;</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sort</span>()</span></code></pre><p></p></div></dd>
+<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>gfonts<span class="sc">::</span><span class="fu">get_all_fonts</span>()<span class="sc">$</span>family <span class="sc">|&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>  <span class="fu">unlist</span>() <span class="sc">|&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>  <span class="fu">unique</span>() <span class="sc">|&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>  <span class="fu">sort</span>()</span></code></pre><p></p></div></dd>
 
 
 <dt>subset</dt>
 <dd><p>font subset, a character vector, it defaults to only "latin" and
 "latin-ext" and can contains values such as "greek", "emoji", "chinese-traditional",</p>
 <p>Run the following code to get a complete list:</p>
-<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>gfonts<span class="sc">::</span><span class="fu">get_all_fonts</span>()<span class="sc">$</span>subsets <span class="sc">|&gt;</span> <span class="fu">unlist</span>() <span class="sc">|&gt;</span> <span class="fu">unique</span>() <span class="sc">|&gt;</span> <span class="fu">sort</span>()</span></code></pre><p></p></div></dd>
+<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>gfonts<span class="sc">::</span><span class="fu">get_all_fonts</span>()<span class="sc">$</span>subsets <span class="sc">|&gt;</span> <span class="fu">unlist</span>() <span class="sc">|&gt;</span> <span class="fu">unique</span>() <span class="sc">|&gt;</span> <span class="fu">sort</span>()</span></code></pre><p></p></div></dd>
 
 </dl></div>
     <div class="section level2">
