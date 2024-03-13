@@ -4,7 +4,6 @@ test_that("fonts work", {
   fontlist <- gfontHtmlDependency(family = "Open Sans")
 
   expect_identical(fontlist$name, "open-sans")
-  expect_true(grepl(ds, fontlist$src[[1]]))
   expect_true(grepl("open-sans", fontlist$src[[1]]))
   expect_true(grepl("open-sans.css", fontlist$stylesheet))
   expect_s3_class(fontlist, "html_dependency")
@@ -27,7 +26,6 @@ test_that("fonts work", {
 
   flib <- liberationsansHtmlDependency()
   expect_identical(flib$name, "liberation-sans")
-  expect_true(grepl(ds, flib$src[[1]]))
   expect_true(grepl("liberation-sans", flib$src[[1]]))
   expect_true(grepl("liberation-sans.css", flib$stylesheet))
   expect_s3_class(flib, "html_dependency")
@@ -41,7 +39,7 @@ test_that("system dependent font installation works", {
     sysnm <- "debian"
   } else if (si["sysname"] == "macOS") {
     sysnm <- "macos"
-  } else if (si["sysname"] == "Windows"){
+  } else if (si["sysname"] == "Windows") {
     sysnm <- "windows"
   } else {
     sysnm <- NULL

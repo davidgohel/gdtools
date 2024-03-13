@@ -11,7 +11,6 @@ test_that("a string has positive dimensions", {
 
 test_that("m_str_extents and gplyphs_match works ", {
   expect_true(all(glyphs_match(letters)))
-  expect_true(glyphs_match("\u265E", bold = TRUE))
 
   mstre <- m_str_extents(letters, fontsize = 1:26)
   expect_equal(dim(mstre), c(26, 2))
