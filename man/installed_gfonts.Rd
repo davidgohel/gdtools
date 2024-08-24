@@ -15,7 +15,7 @@ found in the user cache directory.
 }
 \examples{
 \dontrun{
-if (curl::has_internet()) {
+if (check_gfonts()) {
   dummy_setup()
   register_gfont(family = "Roboto")
   installed_gfonts()

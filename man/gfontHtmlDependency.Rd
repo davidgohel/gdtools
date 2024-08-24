@@ -46,7 +46,7 @@ must be a number of seconds.
 }
 \examples{
 \dontrun{
-if (curl::has_internet()) {
+if (check_gfonts()) {
   dummy_setup()
   gfontHtmlDependency(family = "Open Sans")
 }

@@ -9,7 +9,6 @@
 #' font_family_exists("Arial")
 #' font_family_exists("Courier")
 #' @export
-#' @importFrom systemfonts match_font system_fonts
 font_family_exists <- function( font_family = "sans" ){
   datafonts <- sys_fonts()
   tolower(font_family) %in% tolower(datafonts$family)

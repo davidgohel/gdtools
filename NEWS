@@ -1,3 +1,10 @@
+# gdtools 0.4.0
+
+## Changes
+
+- Move 'gfonts' and 'curl' in 'Suggests' dependencies so that it can
+be used with 'webR'.
+
 # gdtools 0.3.7
 
 ## Issues

@@ -32,9 +32,9 @@ options(GDTOOLS_CACHE_DIR = tempdir())
 fonts_cache_dir()
 options(GDTOOLS_CACHE_DIR = NULL)
 
-Sys.setenv(GDTOOLS_CACHE_DIR=tempdir())
+Sys.setenv(GDTOOLS_CACHE_DIR = tempdir())
 fonts_cache_dir()
-Sys.setenv(GDTOOLS_CACHE_DIR="")
+Sys.setenv(GDTOOLS_CACHE_DIR = "")
 
 
 

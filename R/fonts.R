@@ -37,7 +37,7 @@
 #' @return an object defined with [htmlDependency()].
 #' @examples
 #' \dontrun{
-#' if (curl::has_internet()) {
+#' if (check_gfonts()) {
 #'   dummy_setup()
 #'   gfontHtmlDependency(family = "Open Sans")
 #' }
@@ -72,7 +72,7 @@ gfontHtmlDependency <- function(family = "Open Sans", subset = c("latin", "latin
 #' @family functions for font management
 #' @examples
 #' \dontrun{
-#' if (curl::has_internet()) {
+#' if (check_gfonts()) {
 #'   dummy_setup()
 #'   addGFontHtmlDependency(family = "Open Sans")
 #' }
@@ -89,7 +89,8 @@ get_font_id <- function(family) {
 
   if (!family %in% x$family) {
     stop("Font family ", shQuote(family), " has not been found.",
-         call. = FALSE)
+      call. = FALSE
+    )
   }
   x[x$family %in% family, ]$id
 }
@@ -106,7 +107,7 @@ get_font_id <- function(family) {
 #' @family functions for font management
 #' @examples
 #' \dontrun{
-#' if (curl::has_internet()) {
+#' if (check_gfonts()) {
 #'   dummy_setup()
 #'   register_gfont(family = "Roboto")
 #' }
@@ -149,7 +150,7 @@ register_gfont <- function(family = "Open Sans", subset = c("latin", "latin-ext"
 #' @family functions for font management
 #' @examples
 #' \dontrun{
-#' if (curl::has_internet()) {
+#' if (check_gfonts()) {
 #'   dummy_setup()
 #'   install_gfont_script(family = "Roboto", platform = "macos")
 #' }
@@ -189,7 +190,7 @@ install_gfont_script <- function(family = "Open Sans",
 #' @family functions for font management
 #' @examples
 #' \dontrun{
-#' if (curl::has_internet()) {
+#' if (check_gfonts()) {
 #'   dummy_setup()
 #'   register_gfont(family = "Roboto")
 #'   installed_gfonts()
@@ -201,9 +202,48 @@ installed_gfonts <- function() {
   x$family[x$id %in% fonts_ids]
 }
 
+#' @export
+#' @title Checks the operability of 'gfonts'
+#' @description Checks that 'gfonts' is installed and can be used.
+#' Packages 'curl' and 'gfonts' must be installed and internet
+#' connectivity must be active.
+#' @param errors if TRUE, function is triggering errors if a condition
+#' is not satisfied.
+#' @return TRUE or FALSE
+#' @keywords internal
+check_gfonts <- function(errors = FALSE) {
+  has_curl <- requireNamespace("curl", quietly = TRUE)
+  has_gfonts <- requireNamespace("gfonts", quietly = TRUE)
+
+  if (!has_curl && errors) {
+    stop("package 'curl' is required to download fonts from 'fonts.google'.")
+  }
+  if (!has_curl) {
+    return(FALSE)
+  }
+
+  if (!has_gfonts && errors) {
+    stop("package 'gfonts' is required to download fonts from 'fonts.google'.")
+  }
+  if (!has_gfonts) {
+    return(FALSE)
+  }
+
+  has_connectivity <- curl::has_internet()
+  if (!has_connectivity && errors) {
+    stop("an internet connection is required to download the font files.")
+  }
+  if (!has_connectivity) {
+    return(FALSE)
+  }
+
+  TRUE
+}
+
+
 # utils ----
 windows_sysinstall_command <- function(font_id) {
-  #https://www.jordanmalcolm.com/deploying-windows-10-fonts-at-scale/
+  # https://www.jordanmalcolm.com/deploying-windows-10-fonts-at-scale/
   id_dir <- font_dir(font_id)
   install_cmd <- c(
     sprintf("$FontFolder = \"%s\"", id_dir),
@@ -213,7 +253,8 @@ windows_sysinstall_command <- function(font_id) {
     "foreach ($Font in $FontList) {",
     "  Copy-Item $Font \"C:\\Windows\\Fonts\"",
     "  New-ItemProperty -Name $Font.BaseName -Path \"HKLM:\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Fonts\" -PropertyType string -Value $Font.name",
-    "}", "")
+    "}", ""
+  )
   install_cmd <- paste0(install_cmd, collapse = "\n")
   install_cmd
 }
@@ -236,5 +277,3 @@ macos_sysinstall_command <- function(font_id, dir = "~/Library/Fonts") {
   id_dir <- font_dir(font_id)
   sprintf("cp %s/* %s", gsub(" ", "\\ ", id_dir, fixed = TRUE), dir)
 }
-
-

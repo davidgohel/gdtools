@@ -1,40 +1,44 @@
 Package: gdtools
-Version: 0.3.7
-License: GPL-3 | file LICENSE
 Title: Utilities for Graphical Rendering and Fonts Management
-Description: Tools are provided to compute metrics of 
-  formatted strings and to check the availability of a font. 
-  Another set of functions is provided to support the collection 
-  of fonts from 'Google Fonts' in a cache. Their use is simple within 
-  'R Markdown' documents and 'shiny' applications but also with graphic 
-  productions generated with the 'ggiraph', 'ragg' and 'svglite' packages 
-  or with tabular productions from the 'flextable' package.
+Version: 0.4.0.001
 Authors@R: c(
-    person("David", "Gohel", , "david.gohel@ardata.fr", c("aut", "cre")),
-    person("Hadley", "Wickham", , "hadley@rstudio.com", "aut"),
-    person("Lionel", "Henry", , "lionel@rstudio.com", "aut"),
-    person("Jeroen", "Ooms", role = "aut", email = "jeroen@berkeley.edu",
-      comment = c(ORCID = "0000-0002-4035-0289")),
+    person("David", "Gohel", , "david.gohel@ardata.fr", role = c("aut", "cre")),
+    person("Hadley", "Wickham", , "hadley@rstudio.com", role = "aut"),
+    person("Lionel", "Henry", , "lionel@rstudio.com", role = "aut"),
+    person("Jeroen", "Ooms", , "jeroen@berkeley.edu", role = "aut",
+           comment = c(ORCID = "0000-0002-4035-0289")),
     person("Yixuan", "Qiu", role = "ctb"),
-    person("R Core Team", role = "cph", comment = "Cairo code from X11 device"),
-    person(given = "ArData", role = "cph"),
+    person("R Core Team", role = "cph",
+           comment = "Cairo code from X11 device"),
+    person("ArData", role = "cph"),
     person("RStudio", role = "cph")
   )
-Depends: R (>= 4.0.0)
-Imports:
-    Rcpp (>= 0.12.12),
-    systemfonts (>= 0.1.1),
-    htmltools,
-    gfonts, tools,
-    curl,
-    fontquiver (>= 0.2.0)
-Suggests:
-    testthat,
-    methods
-Encoding: UTF-8
-LinkingTo: Rcpp
-SystemRequirements: cairo, freetype2, fontconfig
+Description: Tools are provided to compute metrics of formatted strings
+    and to check the availability of a font.  Another set of functions is
+    provided to support the collection of fonts from 'Google Fonts' in a
+    cache. Their use is simple within 'R Markdown' documents and 'shiny'
+    applications but also with graphic productions generated with the
+    'ggiraph', 'ragg' and 'svglite' packages or with tabular productions
+    from the 'flextable' package.
+License: GPL-3 | file LICENSE
 URL: https://davidgohel.github.io/gdtools/
 BugReports: https://github.com/davidgohel/gdtools/issues
-RoxygenNote: 7.3.1
+Depends: 
+    R (>= 4.0.0)
+Imports:
+    fontquiver (>= 0.2.0),
+    htmltools,
+    Rcpp (>= 0.12.12),
+    systemfonts (>= 0.1.1),
+    tools
+Suggests:
+    curl,
+    gfonts,
+    methods,
+    testthat
+LinkingTo: 
+    Rcpp
+Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+SystemRequirements: cairo, freetype2, fontconfig
