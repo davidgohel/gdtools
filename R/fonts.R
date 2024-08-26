@@ -34,7 +34,7 @@
 #' ```
 #'
 #' @family functions for font management
-#' @return an object defined with [htmlDependency()].
+#' @return an object defined with [htmltools::htmlDependency()].
 #' @examples
 #' \dontrun{
 #' if (check_gfonts()) {
