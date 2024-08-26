@@ -12,7 +12,6 @@
 #' match_family("serif")
 #' @importFrom systemfonts match_fonts system_fonts
 match_family <- function(font = "sans", bold = TRUE, italic = TRUE, debug = NULL) {
-
   if (bold) {
     weight <- "bold"
   } else {
@@ -20,8 +19,8 @@ match_family <- function(font = "sans", bold = TRUE, italic = TRUE, debug = NULL
   }
   font <- match_fonts(font, weight = weight, italic = italic)
 
-  sysfonts <- system_fonts()
-  match <- which( sysfonts$path %in% font$path )
+  sysfonts <- sys_fonts()
+  match <- which(sysfonts$path %in% font$path)
   sysfonts$family[match[1]]
 }
 

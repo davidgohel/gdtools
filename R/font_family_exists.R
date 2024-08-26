@@ -28,7 +28,22 @@ sys_fonts <- function() {
   nam <- intersect(colnames(db_sys), colnames(db_reg))
   db_sys <- db_sys[,nam]
   db_reg <- db_reg[,nam]
-  font_db <- rbind(db_sys, db_reg)
+  font_db <- rbind(db_sys, db_reg, default_sys_fonts())
   font_db
 }
 
+default_sys_fonts <- function() {
+  dat <- data.frame(
+    path = rep(NA_character_, 16),
+    index = rep(NA_integer_, 16),
+    family = rep(c("sans", "serif", "mono", "symbol"), each = 4),
+    style = rep(c("Regular", "Bold", "Italic", "Bold Italic"), 4),
+    weight = rep(c("normal", "bold", "normal", "bold"), 4),
+    italic = rep(c(FALSE, FALSE, TRUE, TRUE), 4),
+    stringsAsFactors = FALSE
+  )
+  res <- match_fonts(family = dat$family, weight = dat$weight, italic = dat$italic)
+  dat$path <- res$path
+  dat$index <- res$index
+  dat
+}
