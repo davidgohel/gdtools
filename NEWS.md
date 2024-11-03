@@ -1,3 +1,7 @@
+# gdtools 0.4.1
+
+- specify systemfonts version shoud be 1.1.0 (#71)
+
 # gdtools 0.4.0
 
 ## Changes
