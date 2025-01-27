@@ -1,14 +1,23 @@
-RWINLIB = ../windows/cairo
+PKG_CONFIG_NAME = cairo
+PKG_CONFIG ?= $(BINPREF)pkg-config
+PKG_LIBS := $(shell $(PKG_CONFIG) --libs $(PKG_CONFIG_NAME))
 
+ifneq ($(PKG_LIBS),)
+$(info using $(PKG_CONFIG_NAME) from Rtools)
+PKG_CPPFLAGS := $(shell $(PKG_CONFIG) --cflags $(PKG_CONFIG_NAME)) -I../inst/include
+else
+RWINLIB = ../windows/cairo
 PKG_CPPFLAGS = -I$(RWINLIB)/include/cairo -I$(RWINLIB)/include \
 	-I$(RWINLIB)/include/freetype2 -I../inst/include -DCAIRO_WIN32_STATIC_BUILD
-
 PKG_LIBS = -L$(RWINLIB)/lib$(R_ARCH) -L$(RWINLIB)/lib -lcairo -lfreetype -lpng -lpixman-1 \
   -lharfbuzz -lbz2 -lz -liconv -lgdi32 -lrpcrt4
+endif
 
-all: clean winlibs
+all: $(SHLIB)
 
-winlibs:
+$(OBJECTS): $(RWINLIB)
+
+$(RWINLIB):
 	"${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe" "../tools/winlibs.R"
 
 clean:
