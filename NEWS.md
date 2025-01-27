@@ -1,3 +1,7 @@
+# gdtools 0.4.2
+
+- Windows: use cairo from Rtools if available on recent R versions
+
 # gdtools 0.4.1
 
 - specify systemfonts version shoud be 1.1.0 (#71)
