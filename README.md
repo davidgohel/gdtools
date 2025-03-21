@@ -13,6 +13,8 @@ status](https://github.com/davidgohel/gdtools/workflows/R-CMD-check/badge.svg)](
 coverage](https://codecov.io/gh/davidgohel/gdtools/branch/master/graph/badge.svg)](https://app.codecov.io/gh/davidgohel/gdtools)
 <!-- badges: end -->
 
+## Font metrics calculation
+
 The package `gdtools` provides functionalities to get font metrics and
 to generate base64 encoded string from raster matrix. It is used by
 package ‘flextable’ and ‘rvg’ to allow font metric calculation but can
@@ -28,25 +30,47 @@ str_extents(c("a string", "a longer string"),
 #> [2,] 166.68750 22.60547
 ```
 
+## Font management
+
 Another set of functions is provided to support the collection of fonts
 from ‘Google Fonts’ in a cache. Their use is simple within ‘R Markdown’
 documents and ‘shiny’ applications but also with graphic productions
 generated with the ‘ggiraph’, ‘ragg’ and ‘svglite’ packages or with
 tabular productions from the ‘flextable’ package.
 
+Function `register_gfont()` is used to register a font with the system.
+
 ``` r
 # Download to a user cache and register the font with systemfonts
+# no need to download the font again
 register_gfont(family = "Open Sans")
 ```
 
+Function `addGFontHtmlDependency()` is used to add a font to a ‘html’
+document.
+
+### Utility to install a font
+
 If you need a ‘Google Font’ to be installed on your machine, you can use
-`install_gfont_script()`.
+`install_gfont_script()`. This is a rare use case but can be useful in
+some specific situations, e.g. when you need to install a font on a
+server and make it available to all users. It can also be useful when
+you are working with a docker image and want to install a font when the
+image is built.
 
 ``` r
 install_gfont_script("Fira Sans", file = "firafont.sh")
 ```
 
 You then have to run `./firafont.sh`.
+
+### Font ‘Liberation Sans’
+
+If you don’t have web access, you can use font ‘Liberation Sans’ that is
+available when using this package. That can be useful when you are
+working with visual tests and don’t want to rely on an internet
+connection or when you need a font for a ‘shiny’ application and or
+graphics produced with packages ‘ggiraph’, ‘ragg’ or ‘svglite’.
 
 ## Installation
 
