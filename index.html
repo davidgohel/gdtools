@@ -9,8 +9,8 @@
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/Open_Sans-0.4.9/font.css" rel="stylesheet">
-<link href="deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Utilities for Graphical Rendering and Fonts Management">
 <meta name="description" content="Tools are provided to compute metrics of formatted strings and to check the availability of a font. Another set of functions is provided to support the collection of fonts from Google Fonts in a cache. Their use is simple within R Markdown documents and shiny applications but also with graphic productions generated with the ggiraph, ragg and svglite packages or with tabular productions from the flextable package.">
 <meta property="og:description" content="Tools are provided to compute metrics of formatted strings and to check the availability of a font. Another set of functions is provided to support the collection of fonts from Google Fonts in a cache. Their use is simple within R Markdown documents and shiny applications but also with graphic productions generated with the ggiraph, ragg and svglite packages or with tabular productions from the flextable package.">
@@ -23,7 +23,7 @@
 
     <a class="navbar-brand me-2" href="index.html">gdtools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.4.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.4.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,6 +52,9 @@
 </h1></div>
 <!-- badges: start -->
 
+<div class="section level2">
+<h2 id="font-metrics-calculation">Font metrics calculation<a class="anchor" aria-label="anchor" href="#font-metrics-calculation"></a>
+</h2>
 <p>The package <code>gdtools</code> provides functionalities to get font metrics and to generate base64 encoded string from raster matrix. It is used by package ‘flextable’ and ‘rvg’ to allow font metric calculation but can also be used to compute the exact size a text would have with specific font options (size, bold, italic).</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://davidgohel.github.io/gdtools/">gdtools</a></span><span class="op">)</span></span>
@@ -60,14 +63,31 @@
 <span><span class="co">#&gt;           [,1]     [,2]</span></span>
 <span><span class="co">#&gt; [1,]  86.68359 22.60547</span></span>
 <span><span class="co">#&gt; [2,] 166.68750 22.60547</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="font-management">Font management<a class="anchor" aria-label="anchor" href="#font-management"></a>
+</h2>
 <p>Another set of functions is provided to support the collection of fonts from ‘Google Fonts’ in a cache. Their use is simple within ‘R Markdown’ documents and ‘shiny’ applications but also with graphic productions generated with the ‘ggiraph’, ‘ragg’ and ‘svglite’ packages or with tabular productions from the ‘flextable’ package.</p>
+<p>Function <code><a href="reference/register_gfont.html">register_gfont()</a></code> is used to register a font with the system.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Download to a user cache and register the font with systemfonts</span></span>
+<span><span class="co"># no need to download the font again</span></span>
 <span><span class="fu"><a href="reference/register_gfont.html">register_gfont</a></span><span class="op">(</span>family <span class="op">=</span> <span class="st">"Open Sans"</span><span class="op">)</span></span></code></pre></div>
-<p>If you need a ‘Google Font’ to be installed on your machine, you can use <code><a href="reference/install_gfont_script.html">install_gfont_script()</a></code>.</p>
+<p>Function <code><a href="reference/addGFontHtmlDependency.html">addGFontHtmlDependency()</a></code> is used to add a font to a ‘html’ document.</p>
+<div class="section level3">
+<h3 id="utility-to-install-a-font">Utility to install a font<a class="anchor" aria-label="anchor" href="#utility-to-install-a-font"></a>
+</h3>
+<p>If you need a ‘Google Font’ to be installed on your machine, you can use <code><a href="reference/install_gfont_script.html">install_gfont_script()</a></code>. This is a rare use case but can be useful in some specific situations, e.g. when you need to install a font on a server and make it available to all users. It can also be useful when you are working with a docker image and want to install a font when the image is built.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/install_gfont_script.html">install_gfont_script</a></span><span class="op">(</span><span class="st">"Fira Sans"</span>, file <span class="op">=</span> <span class="st">"firafont.sh"</span><span class="op">)</span></span></code></pre></div>
 <p>You then have to run <code>./firafont.sh</code>.</p>
+</div>
+<div class="section level3">
+<h3 id="font-liberation-sans">Font ‘Liberation Sans’<a class="anchor" aria-label="anchor" href="#font-liberation-sans"></a>
+</h3>
+<p>If you don’t have web access, you can use font ‘Liberation Sans’ that is available when using this package. That can be useful when you are working with visual tests and don’t want to rely on an internet connection or when you need a font for a ‘shiny’ application and or graphics produced with packages ‘ggiraph’, ‘ragg’ or ‘svglite’.</p>
+</div>
+</div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
