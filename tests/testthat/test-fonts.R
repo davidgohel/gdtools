@@ -19,11 +19,12 @@ test_that("fonts work", {
   expect_error(addGFontHtmlDependency("notafont"))
   expect_identical(attr(out, which = "html_dependencies")[[1]], fontlist)
 
-  expect_true(register_gfont(family = gfonts::get_all_fonts()$family[4]))
+  random_font <- gfonts::get_all_fonts()$family[4]
+  expect_true(register_gfont(family = random_font))
 
   expect_identical(
     installed_gfonts(),
-    c("Roboto", "Open Sans", "Montserrat")
+    c("Roboto", "Open Sans", random_font)
   )
 
   flib <- liberationsansHtmlDependency()
