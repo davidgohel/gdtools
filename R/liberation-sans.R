@@ -20,7 +20,6 @@ liberationsans_to_cache <- function() {
 
 }
 
-#' @import fontLiberation
 #' @importFrom fontquiver font_faces
 #' @export
 #' @title Register font 'Liberation Sans'
