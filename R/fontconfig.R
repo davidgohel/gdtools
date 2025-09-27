@@ -31,21 +31,9 @@ match_family <- function(font = "sans", bold = TRUE, italic = TRUE, debug = NULL
 #' Fontconfig is not used anymore and these functions will be deprecated
 #' in the next release.
 #' @export
+#' @keywords internal
 set_dummy_conf <- function() {
+  .Deprecated(msg = "The function has no effect and should not be used.")
+  invisible(FALSE)
 }
 
-#' @rdname set_dummy_conf
-#' @export
-unset_dummy_conf <- function() {
-}
-
-#' @export
-#' @title reload Fontconfig configuration
-#' @description This function can be used to make fontconfig
-#' reload font configuration files.
-#' @note
-#' Fontconfig is not used anymore and that function will be deprecated
-#' in the next release.
-#' @author Paul Murrell
-fontconfig_reinit <- function() {
-}

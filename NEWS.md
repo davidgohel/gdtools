@@ -1,6 +1,8 @@
 # gdtools 0.4.4
 
 - add tools to use fonts 'Liberation Serif' and 'Liberation Mono'.
+- deprecate `set_dummy_conf()` that should be removed from the package in a 
+later version.
 
 # gdtools 0.4.2
 
