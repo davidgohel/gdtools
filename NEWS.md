@@ -1,3 +1,7 @@
+# gdtools 0.4.4
+
+- add tools to use fonts 'Liberation Serif' and 'Liberation Mono'.
+
 # gdtools 0.4.2
 
 - Windows: use cairo from Rtools if available on recent R versions
