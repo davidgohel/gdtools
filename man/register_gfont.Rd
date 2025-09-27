@@ -61,7 +61,11 @@ Other functions for font management:
 \code{\link{gfontHtmlDependency}()},
 \code{\link{install_gfont_script}()},
 \code{\link{installed_gfonts}()},
+\code{\link{liberationmonoHtmlDependency}()},
 \code{\link{liberationsansHtmlDependency}()},
-\code{\link{register_liberationsans}()}
+\code{\link{liberationserifHtmlDependency}()},
+\code{\link{register_liberationmono}()},
+\code{\link{register_liberationsans}()},
+\code{\link{register_liberationserif}()}
 }
 \concept{functions for font management}

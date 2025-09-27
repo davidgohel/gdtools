@@ -71,8 +71,12 @@ Other functions for font management:
 \code{\link{fonts_cache_dir}()},
 \code{\link{gfontHtmlDependency}()},
 \code{\link{installed_gfonts}()},
+\code{\link{liberationmonoHtmlDependency}()},
 \code{\link{liberationsansHtmlDependency}()},
+\code{\link{liberationserifHtmlDependency}()},
 \code{\link{register_gfont}()},
-\code{\link{register_liberationsans}()}
+\code{\link{register_liberationmono}()},
+\code{\link{register_liberationsans}()},
+\code{\link{register_liberationserif}()}
 }
 \concept{functions for font management}
