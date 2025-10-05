@@ -87,3 +87,60 @@ m_str_extents <- function(x, fontname = "sans", fontsize=10, bold = FALSE, itali
 
   m_str_extents_(x, fontname, fontsize, bold, italic, fontfile)
 }
+
+
+#' @importFrom systemfonts string_metrics_dev
+#' @title Compute strings sizes
+#' @description
+#' This function is a simple wrapper around [systemfonts::string_metrics_dev()].
+#' It determines widths, ascent and descent in inches.
+#'
+#' This function will replace the following functions defined in this file:
+#' [str_extents()], [str_metrics()] and [m_str_extents()].
+#'
+#' @param x A character vector of strings to measure. All arguments are vectorized
+#'   and recycled to match the length of \code{x}.
+#' @param fontname A character vector specifying the font family name (e.g., "sans", "serif", "mono").
+#'   Default is "sans". This argument is vectorized.
+#' @param fontsize A numeric vector specifying the font size in points.
+#'   Default is 10. This argument is vectorized.
+#' @param bold A logical vector indicating whether the text should be bold.
+#'   Default is FALSE. This argument is vectorized.
+#' @param italic A logical vector indicating whether the text should be italic.
+#'   Default is FALSE. This argument is vectorized.
+#' @examples
+#' strings_sizes(letters)
+#' strings_sizes("Hello World!", bold = TRUE, italic = FALSE,
+#'   fontname = "sans", fontsize = 12)
+#' @export
+strings_sizes <- function(x, fontname = "sans", fontsize=10, bold = FALSE, italic = FALSE) {
+
+  stopifnot(is.character(x), is.character(fontname),
+            is.numeric(fontsize), is.logical(bold),
+            is.logical(italic))
+
+  max_length <- length(x)
+  fontname <- rep(fontname, length.out = max_length)
+  fontsize <- rep(fontsize, length.out = max_length)
+  bold <- rep(bold, length.out = max_length)
+  italic <- rep(italic, length.out = max_length)
+
+  face <- ifelse(
+    !bold & !italic, 1,
+    ifelse(
+      bold & !italic, 2,
+      ifelse(
+        bold & !italic, 3,
+        4
+      )
+    )
+  )
+  z <- string_metrics_dev(
+    strings = x,
+    family = fontname,
+    size = fontsize,
+    face = face,
+    unit = "inches"
+  )
+  z
+}
