@@ -2,12 +2,9 @@
 % Please edit documentation in R/fontconfig.R
 \name{set_dummy_conf}
 \alias{set_dummy_conf}
-\alias{unset_dummy_conf}
 \title{Set and unset a minimalistic Fontconfig configuration}
 \usage{
 set_dummy_conf()
-
-unset_dummy_conf()
 }
 \description{
 Set and unset a minimalistic Fontconfig configuration
@@ -16,3 +13,4 @@ Set and unset a minimalistic Fontconfig configuration
 Fontconfig is not used anymore and these functions will be deprecated
 in the next release.
 }
+\keyword{internal}
