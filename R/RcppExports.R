@@ -29,30 +29,6 @@ context_extents <- function(cc, x) {
     .Call('_gdtools_context_extents', PACKAGE = 'gdtools', cc, x)
 }
 
-raster_to_str <- function(raster, w, h, width, height, interpolate) {
-    .Call('_gdtools_raster_to_str', PACKAGE = 'gdtools', raster, w, h, width, height, interpolate)
-}
-
-raster_to_file <- function(raster, w, h, width, height, interpolate, filename) {
-    .Call('_gdtools_raster_to_file', PACKAGE = 'gdtools', raster, w, h, width, height, interpolate, filename)
-}
-
-raster_png_ <- function(raster_, w, h, width, height, interpolate, filename) {
-    .Call('_gdtools_raster_png_', PACKAGE = 'gdtools', raster_, w, h, width, height, interpolate, filename)
-}
-
-base64_raster_encode <- function(raster_, w, h, width, height, interpolate) {
-    .Call('_gdtools_base64_raster_encode', PACKAGE = 'gdtools', raster_, w, h, width, height, interpolate)
-}
-
-base64_file_encode <- function(filename) {
-    .Call('_gdtools_base64_file_encode', PACKAGE = 'gdtools', filename)
-}
-
-base64_string_encode <- function(string) {
-    .Call('_gdtools_base64_string_encode', PACKAGE = 'gdtools', string)
-}
-
 #' @rdname version_cairo
 #' @export
 version_freetype <- function() {

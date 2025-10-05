@@ -3,6 +3,7 @@
 - add tools to use fonts 'Liberation Serif' and 'Liberation Mono'.
 - deprecate `set_dummy_conf()` that should be removed from the package in a 
 later version.
+- remove `raster_*` functions not used anymore
 
 # gdtools 0.4.2
 
