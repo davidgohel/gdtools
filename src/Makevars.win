@@ -1,6 +1,6 @@
 PKG_CONFIG_NAME = cairo
 PKG_CONFIG ?= $(BINPREF)pkg-config
-PKG_LIBS := $(shell $(PKG_CONFIG) --libs $(PKG_CONFIG_NAME))
+PKG_LIBS := $(shell $(PKG_CONFIG) --libs $(PKG_CONFIG_NAME)) -lz
 
 ifneq ($(PKG_LIBS),)
 $(info using $(PKG_CONFIG_NAME) from Rtools)
