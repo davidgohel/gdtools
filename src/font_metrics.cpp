@@ -75,24 +75,3 @@ NumericMatrix m_str_extents_(CharacterVector x,
 
   return out;
 }
-
-// [[Rcpp::export]]
-LogicalVector glyphs_match_(CharacterVector x, std::string fontname = "sans",
-                          int bold = false, int italic = false,
-                          std::string fontfile = "") {
-  int n = x.size();
-  CairoContext cc;
-  cc.setFont(fontname, 10.0, bold, italic, fontfile);
-  LogicalVector out(n);
-
-  for (int i = 0; i < n; ++i) {
-    if (x[i] == NA_STRING) {
-      out(i) = NA_LOGICAL;
-    } else {
-      std::string str(Rf_translateCharUTF8(x[i]));
-      out(i) = cc.validateGlyphs(str);
-    }
-  }
-
-  return out;
-}

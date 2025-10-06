@@ -9,8 +9,7 @@ test_that("a string has positive dimensions", {
   expect_false(value["descent"] < 0)
 })
 
-test_that("m_str_extents and gplyphs_match works ", {
-  expect_true(all(glyphs_match(letters)))
+test_that("m_str_extents works ", {
 
   mstre <- m_str_extents(letters, fontsize = 1:26)
   expect_equal(dim(mstre), c(26, 2))

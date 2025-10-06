@@ -13,10 +13,6 @@ m_str_extents_ <- function(x, fontname, fontsize, bold, italic, fontfile) {
     .Call('_gdtools_m_str_extents_', PACKAGE = 'gdtools', x, fontname, fontsize, bold, italic, fontfile)
 }
 
-glyphs_match_ <- function(x, fontname = "sans", bold = FALSE, italic = FALSE, fontfile = "") {
-    .Call('_gdtools_glyphs_match_', PACKAGE = 'gdtools', x, fontname, bold, italic, fontfile)
-}
-
 context_create <- function() {
     .Call('_gdtools_context_create', PACKAGE = 'gdtools')
 }
