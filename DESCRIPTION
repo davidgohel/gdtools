@@ -29,7 +29,7 @@ Imports:
     fontquiver (>= 0.2.0),
     htmltools,
     Rcpp (>= 0.12.12),
-    systemfonts (>= 1.1.0),
+    systemfonts (>= 1.3.1),
     tools
 Suggests:
     curl,
