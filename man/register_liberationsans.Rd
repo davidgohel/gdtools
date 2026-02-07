@@ -4,7 +4,13 @@
 \alias{register_liberationsans}
 \title{Register font 'Liberation Sans'}
 \usage{
-register_liberationsans()
+register_liberationsans(name = "Liberation Sans")
+}
+\arguments{
+\item{name}{the name to use for the font family when
+registering with 'systemfonts'. Using a custom name
+(e.g. \code{"sans"}, \code{"serif"}, \code{"mono"}) allows devices like
+'ragg' to resolve generic family names to this font.}
 }
 \value{
 TRUE if the operation went ok.
@@ -14,6 +20,10 @@ Register font 'Liberation Sans' so that it can be used
 with devices using the 'systemfonts' package, i.e. the 'flextable'
 package and graphic outputs generated with the 'ragg', 'svglite'
 and 'ggiraph' packages.
+}
+\examples{
+register_liberationsans()
+register_liberationsans(name = "sans")
 }
 \seealso{
 Other functions for font management: 

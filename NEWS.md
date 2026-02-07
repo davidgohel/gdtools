@@ -1,3 +1,12 @@
+# gdtools 0.4.5.006
+
+## changes
+
+- `register_liberationsans()`, `register_liberationserif()` and
+`register_liberationmono()` gain a `name` parameter to register
+Liberation fonts under a custom family name (e.g. `"sans"`, `"serif"`,
+`"mono"`). Default values are unchanged.
+
 # gdtools 0.4.5
 
 ## issues

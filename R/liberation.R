@@ -28,20 +28,27 @@ liberationsans_to_cache <- function() {
 #' with devices using the 'systemfonts' package, i.e. the 'flextable'
 #' package and graphic outputs generated with the 'ragg', 'svglite'
 #' and 'ggiraph' packages.
+#' @param name the name to use for the font family when
+#' registering with 'systemfonts'. Using a custom name
+#' (e.g. `"sans"`, `"serif"`, `"mono"`) allows devices like
+#' 'ragg' to resolve generic family names to this font.
 #' @return TRUE if the operation went ok.
 #' @family functions for font management
-register_liberationsans <- function() {
-  if (!font_family_exists("Liberation Sans")) {
+#' @examples
+#' register_liberationsans()
+#' register_liberationsans(name = "sans")
+register_liberationsans <- function(name = "Liberation Sans") {
+  if (!font_family_exists(name)) {
     liberation_lst <- font_faces("Liberation", family = "sans")
     register_font(
-      name = "Liberation Sans",
+      name = name,
       plain = liberation_lst$plain$ttf,
       bold = liberation_lst$bold$ttf,
       italic = liberation_lst$italic$ttf,
       bolditalic = liberation_lst$bolditalic$ttf
     )
   }
-  font_family_exists("Liberation Sans")
+  font_family_exists(name)
 }
 
 #' @export
@@ -97,20 +104,24 @@ liberationserif_to_cache <- function() {
 #' with devices using the 'systemfonts' package, i.e. the 'flextable'
 #' package and graphic outputs generated with the 'ragg', 'svglite'
 #' and 'ggiraph' packages.
+#' @inheritParams register_liberationsans
 #' @return TRUE if the operation went ok.
 #' @family functions for font management
-register_liberationserif <- function() {
-  if (!font_family_exists("Liberation Serif")) {
+#' @examples
+#' register_liberationserif()
+#' register_liberationserif(name = "serif")
+register_liberationserif <- function(name = "Liberation Serif") {
+  if (!font_family_exists(name)) {
     liberation_lst <- font_faces("Liberation", family = "serif")
     register_font(
-      name = "Liberation Serif",
+      name = name,
       plain = liberation_lst$plain$ttf,
       bold = liberation_lst$bold$ttf,
       italic = liberation_lst$italic$ttf,
       bolditalic = liberation_lst$bolditalic$ttf
     )
   }
-  font_family_exists("Liberation Serif")
+  font_family_exists(name)
 }
 
 #' @export
@@ -165,20 +176,24 @@ liberationmono_to_cache <- function() {
 #' with devices using the 'systemfonts' package, i.e. the 'flextable'
 #' package and graphic outputs generated with the 'ragg', 'svglite'
 #' and 'ggiraph' packages.
+#' @inheritParams register_liberationsans
 #' @return TRUE if the operation went ok.
 #' @family functions for font management
-register_liberationmono <- function() {
-  if (!font_family_exists("Liberation Mono")) {
+#' @examples
+#' register_liberationmono()
+#' register_liberationmono(name = "mono")
+register_liberationmono <- function(name = "Liberation Mono") {
+  if (!font_family_exists(name)) {
     liberation_lst <- font_faces("Liberation", family = "mono")
     register_font(
-      name = "Liberation Mono",
+      name = name,
       plain = liberation_lst$plain$ttf,
       bold = liberation_lst$bold$ttf,
       italic = liberation_lst$italic$ttf,
       bolditalic = liberation_lst$bolditalic$ttf
     )
   }
-  font_family_exists("Liberation Mono")
+  font_family_exists(name)
 }
 
 #' @export
