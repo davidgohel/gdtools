@@ -37,3 +37,9 @@ strings_sizes(letters)
 strings_sizes("Hello World!", bold = TRUE, italic = FALSE,
   fontname = "sans", fontsize = 12)
 }
+\seealso{
+Other functions for font metrics: 
+\code{\link{m_str_extents}()},
+\code{\link{str_metrics}()}
+}
+\concept{functions for font metrics}

@@ -3,6 +3,9 @@
 #' @description Compute the width, ascent and descent of a single
 #' string in points using Cairo text measurement.
 #'
+#' @note This function will be deprecated in a future release.
+#' Use [strings_sizes()] instead.
+#'
 #' @return A named numeric vector with elements \code{width},
 #' \code{ascent} and \code{descent} (unit is points).
 #' @param x Character vector of strings to measure (only the first element is used).
@@ -11,6 +14,7 @@
 #' @param fontsize Font size in points.
 #' @param fontfile Path to a font file. If empty, the font is
 #' resolved by name via \code{systemfonts}.
+#' @family functions for font metrics
 #' @examples
 #' str_metrics("Hello World!")
 #' @export
@@ -18,10 +22,13 @@ str_metrics <- function(x, fontname = "sans", fontsize = 12, bold = FALSE, itali
   str_metrics_(x = x, fontname = fontname, fontsize = fontsize, bold = bold, italic = italic, fontfile = fontfile)
 }
 
-#' Compute string extents for a vector of string.
+#' Compute string extents for a vector of strings.
 #'
 #' For each \code{x} element, determines the width and height of a bounding box that's big enough
-#' to (just) enclose the provided text. Unit is pixel.
+#' to (just) enclose the provided text. Unit is points.
+#'
+#' @note This function will be deprecated in a future release.
+#' Use [strings_sizes()] instead.
 #' @param x Character vector of strings to measure
 #' @param bold,italic Is text bold/italic? A logical vector, recycled to match \code{x}.
 #' @param fontname Font name. A character vector, recycled to match \code{x}.
@@ -37,6 +44,7 @@ str_metrics <- function(x, fontname = "sans", fontsize = 12, bold = FALSE, itali
 #'   italic = c(FALSE, TRUE, TRUE),
 #'   fontname = c("sans", "sans", "sans") )
 #' }
+#' @family functions for font metrics
 #' @export
 m_str_extents <- function(x, fontname = "sans", fontsize=10, bold = FALSE, italic = FALSE, fontfile = NULL) {
 
@@ -78,6 +86,7 @@ m_str_extents <- function(x, fontname = "sans", fontsize=10, bold = FALSE, itali
 #' strings_sizes(letters)
 #' strings_sizes("Hello World!", bold = TRUE, italic = FALSE,
 #'   fontname = "sans", fontsize = 12)
+#' @family functions for font metrics
 #' @export
 strings_sizes <- function(x, fontname = "sans", fontsize=10, bold = FALSE, italic = FALSE) {
 

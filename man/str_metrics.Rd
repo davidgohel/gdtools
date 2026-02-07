@@ -33,6 +33,16 @@ A named numeric vector with elements \code{width},
 Compute the width, ascent and descent of a single
 string in points using Cairo text measurement.
 }
+\note{
+This function will be deprecated in a future release.
+Use \code{\link[=strings_sizes]{strings_sizes()}} instead.
+}
 \examples{
 str_metrics("Hello World!")
 }
+\seealso{
+Other functions for font metrics: 
+\code{\link{m_str_extents}()},
+\code{\link{strings_sizes}()}
+}
+\concept{functions for font metrics}

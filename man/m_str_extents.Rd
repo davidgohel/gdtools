@@ -2,7 +2,7 @@
 % Please edit documentation in R/str-metrics.R
 \name{m_str_extents}
 \alias{m_str_extents}
-\title{Compute string extents for a vector of string.}
+\title{Compute string extents for a vector of strings.}
 \usage{
 m_str_extents(
   x,
@@ -26,7 +26,11 @@ m_str_extents(
 }
 \description{
 For each \code{x} element, determines the width and height of a bounding box that's big enough
-to (just) enclose the provided text. Unit is pixel.
+to (just) enclose the provided text. Unit is points.
+}
+\note{
+This function will be deprecated in a future release.
+Use \code{\link[=strings_sizes]{strings_sizes()}} instead.
 }
 \examples{
 \donttest{
@@ -39,3 +43,9 @@ m_str_extents(letters[1:3],
   fontname = c("sans", "sans", "sans") )
 }
 }
+\seealso{
+Other functions for font metrics: 
+\code{\link{str_metrics}()},
+\code{\link{strings_sizes}()}
+}
+\concept{functions for font metrics}
