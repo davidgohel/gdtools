@@ -1,4 +1,4 @@
-# manage font working directory
+# Manage Font Working Directory
 
 Initialize or remove font directory used to store downloaded font files.
 
@@ -44,12 +44,12 @@ fonts_cache_dir()
 
 options(GDTOOLS_CACHE_DIR = tempdir())
 fonts_cache_dir()
-#> [1] "/tmp/Rtmpia6SdH"
+#> [1] "/tmp/RtmpojFSi4"
 options(GDTOOLS_CACHE_DIR = NULL)
 
 Sys.setenv(GDTOOLS_CACHE_DIR = tempdir())
 fonts_cache_dir()
-#> [1] "/tmp/Rtmpia6SdH"
+#> [1] "/tmp/RtmpojFSi4"
 Sys.setenv(GDTOOLS_CACHE_DIR = "")
 
 

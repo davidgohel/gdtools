@@ -24,7 +24,7 @@
 
     <a class="navbar-brand me-2" href="index.html">gdtools</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.4.5.003</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.4.5.004</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,52 +53,78 @@
 </h1></div>
 <!-- badges: start -->
 
+<p>The package <code>gdtools</code> provides font metric calculation and font management tools for R packages that produce graphical or tabular outputs. It is used by packages ‘flextable’, ‘ggiraph’, ‘rvg’.</p>
 <div class="section level2">
-<h2 id="font-metrics-calculation">Font metrics calculation<a class="anchor" aria-label="anchor" href="#font-metrics-calculation"></a>
+<h2 id="background">Background<a class="anchor" aria-label="anchor" href="#background"></a>
 </h2>
-<p>The package <code>gdtools</code> provides functionalities to get font metrics and to generate base64 encoded string from raster matrix. It is used by package ‘flextable’ and ‘rvg’ to allow font metric calculation but can also be used to compute the exact size a text would have with specific font options (size, bold, italic).</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://davidgohel.github.io/gdtools/">gdtools</a></span><span class="op">)</span></span>
-<span><span class="fu">str_extents</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a string"</span>, <span class="st">"a longer string"</span><span class="op">)</span>, </span>
-<span>  fontsize <span class="op">=</span> <span class="fl">24</span>, bold <span class="op">=</span> <span class="cn">TRUE</span>, italic <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="co">#&gt;           [,1]     [,2]</span></span>
-<span><span class="co">#&gt; [1,]  86.68359 22.60547</span></span>
-<span><span class="co">#&gt; [2,] 166.68750 22.60547</span></span></code></pre></div>
-</div>
-<div class="section level2">
-<h2 id="font-management">Font management<a class="anchor" aria-label="anchor" href="#font-management"></a>
-</h2>
-<p>Another set of functions is provided to support the collection of fonts from ‘Google Fonts’ in a cache. Their use is simple within ‘R Markdown’ documents and ‘shiny’ applications but also with graphic productions generated with the ‘ggiraph’, ‘ragg’ and ‘svglite’ packages or with tabular productions from the ‘flextable’ package.</p>
-<p>Function <code><a href="reference/register_gfont.html">register_gfont()</a></code> is used to register a font with the system.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Download to a user cache and register the font with systemfonts</span></span>
-<span><span class="co"># no need to download the font again</span></span>
-<span><span class="fu"><a href="reference/register_gfont.html">register_gfont</a></span><span class="op">(</span>family <span class="op">=</span> <span class="st">"Open Sans"</span><span class="op">)</span></span></code></pre></div>
-<p>Function <code><a href="reference/addGFontHtmlDependency.html">addGFontHtmlDependency()</a></code> is used to add a font to a ‘html’ document.</p>
-<div class="section level3">
-<h3 id="utility-to-install-a-font">Utility to install a font<a class="anchor" aria-label="anchor" href="#utility-to-install-a-font"></a>
-</h3>
-<p>If you need a ‘Google Font’ to be installed on your machine, you can use <code><a href="reference/install_gfont_script.html">install_gfont_script()</a></code>. This is a rare use case but can be useful in some specific situations, e.g. when you need to install a font on a server and make it available to all users. It can also be useful when you are working with a docker image and want to install a font when the image is built.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/install_gfont_script.html">install_gfont_script</a></span><span class="op">(</span><span class="st">"Fira Sans"</span>, file <span class="op">=</span> <span class="st">"firafont.sh"</span><span class="op">)</span></span></code></pre></div>
-<p>You then have to run <code>./firafont.sh</code>.</p>
-</div>
-<div class="section level3">
-<h3 id="font-liberation-sans">Font ‘Liberation Sans’<a class="anchor" aria-label="anchor" href="#font-liberation-sans"></a>
-</h3>
-<p>If you don’t have web access, you can use font ‘Liberation Sans’ that is available when using this package. That can be useful when you are working with visual tests and don’t want to rely on an internet connection or when you need a font for a ‘shiny’ application and or graphics produced with packages ‘ggiraph’, ‘ragg’ or ‘svglite’.</p>
-</div>
+<p><code>gdtools</code> was originally designed to compute font metrics for R graphic devices via C-level interfaces (Cairo and FreeType). With the arrival of the ‘systemfonts’ package, font discovery and matching became much simpler and the C interface was no longer needed by other packages.</p>
+<p>The package has since been refocused: it still relies on Cairo for device-independent text measurement, but delegates font resolution to ‘systemfonts’. Its role is now entirely at the R level – providing accurate text metrics and making it easy to work with additional fonts (Google Fonts, Liberation fonts) so that outputs look the same across platforms.</p>
 </div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>You can install the released version of gdtools from <a href="https://CRAN.R-project.org" class="external-link">CRAN</a> with:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<p>You can install the released version of gdtools from CRAN with:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"gdtools"</span><span class="op">)</span></span></code></pre></div>
-<p>And the development version from <a href="https://github.com/davidgohel/gdtools" class="external-link">GitHub</a> with:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<p>And the development version from GitHub with:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("remotes")</span></span>
 <span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"davidgohel/gdtools"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="font-metrics">Font metrics<a class="anchor" aria-label="anchor" href="#font-metrics"></a>
+</h2>
+<p>The main function for text measurement is <code><a href="reference/strings_sizes.html">strings_sizes()</a></code>. It returns width, ascent and descent in inches using Cairo text measurement directly.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://davidgohel.github.io/gdtools/">gdtools</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/strings_sizes.html">strings_sizes</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a string"</span>, <span class="st">"a longer string"</span><span class="op">)</span>,</span>
+<span>  fontsize <span class="op">=</span> <span class="fl">24</span>, </span>
+<span>  bold <span class="op">=</span> <span class="cn">TRUE</span>, </span>
+<span>  italic <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt;      width    ascent    descent</span></span>
+<span><span class="co">#&gt; 1 1.203939 0.2413737 0.07259115</span></span>
+<span><span class="co">#&gt; 2 2.315104 0.2413737 0.07259115</span></span></code></pre></div>
+<p>All arguments are vectorized:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/strings_sizes.html">strings_sizes</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"normal"</span>, <span class="st">"bold"</span>, <span class="st">"italic"</span>, <span class="st">"bold-italic"</span><span class="op">)</span>,</span>
+<span>  fontsize <span class="op">=</span> <span class="fl">12</span>,</span>
+<span>  bold <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>  italic <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt;       width    ascent     descent</span></span>
+<span><span class="co">#&gt; 1 0.5094401 0.1195475 0.003173828</span></span>
+<span><span class="co">#&gt; 2 0.3517253 0.1199544 0.003092448</span></span>
+<span><span class="co">#&gt; 3 0.3334147 0.1195475 0.002929688</span></span>
+<span><span class="co">#&gt; 4 0.7870280 0.1206868 0.003092448</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="font-management">Font management<a class="anchor" aria-label="anchor" href="#font-management"></a>
+</h2>
+<div class="section level3">
+<h3 id="google-fonts">Google Fonts<a class="anchor" aria-label="anchor" href="#google-fonts"></a>
+</h3>
+<p>A set of functions is provided to download and cache fonts from ‘Google Fonts’. They can be used in ‘R Markdown’ documents and ‘Shiny’ applications, as well as with graphic outputs generated by ‘ggiraph’, ‘ragg’ and ‘svglite’, or tabular outputs from ‘flextable’.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Download and register with systemfonts (cached for future use)</span></span>
+<span><span class="fu"><a href="reference/register_gfont.html">register_gfont</a></span><span class="op">(</span>family <span class="op">=</span> <span class="st">"Open Sans"</span><span class="op">)</span></span></code></pre></div>
+<p>Use <code><a href="reference/addGFontHtmlDependency.html">addGFontHtmlDependency()</a></code> to embed a Google Font in an HTML document, and <code><a href="reference/gfontHtmlDependency.html">gfontHtmlDependency()</a></code> to create an <code>htmltools</code> dependency object.</p>
+<p>To install a Google Font at the system level (e.g. in a Dockerfile), use <code><a href="reference/install_gfont_script.html">install_gfont_script()</a></code>:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/install_gfont_script.html">install_gfont_script</a></span><span class="op">(</span><span class="st">"Fira Sans"</span>, platform <span class="op">=</span> <span class="st">"debian"</span>, file <span class="op">=</span> <span class="st">"install-font.sh"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="liberation-fonts">Liberation fonts<a class="anchor" aria-label="anchor" href="#liberation-fonts"></a>
+</h3>
+<p>The package bundles ‘Liberation Sans’, ‘Liberation Serif’ and ‘Liberation Mono’ fonts. They are useful as cross-platform fallback fonts, for visual tests, or when no internet connection is available.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/register_liberationsans.html">register_liberationsans</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/register_liberationserif.html">register_liberationserif</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/register_liberationmono.html">register_liberationmono</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p>The corresponding <code><a href="reference/liberationsansHtmlDependency.html">liberationsansHtmlDependency()</a></code>, <code><a href="reference/liberationserifHtmlDependency.html">liberationserifHtmlDependency()</a></code> and <code><a href="reference/liberationmonoHtmlDependency.html">liberationmonoHtmlDependency()</a></code> functions provide HTML dependencies for use in Shiny or R Markdown.</p>
+</div>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">

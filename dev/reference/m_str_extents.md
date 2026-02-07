@@ -1,7 +1,7 @@
-# Compute string extents for a vector of string.
+# Compute string extents for a vector of strings.
 
 For each `x` element, determines the width and height of a bounding box
-that's big enough to (just) enclose the provided text. Unit is pixel.
+that's big enough to (just) enclose the provided text. Unit is points.
 
 ## Usage
 
@@ -24,19 +24,31 @@ m_str_extents(
 
 - fontname:
 
-  Font name. A vector of character to match with x.
+  Font name. A character vector, recycled to match `x`.
 
 - fontsize:
 
-  Font size. A vector of numeric to match with x.
+  Font size. A numeric vector, recycled to match `x`.
 
 - bold, italic:
 
-  Is text bold/italic?. A vector of logical to match with x.
+  Is text bold/italic? A logical vector, recycled to match `x`.
 
 - fontfile:
 
-  Font file. A vector of character to match with x.
+  Font file. A character vector, recycled to match `x`.
+
+## Note
+
+This function will be deprecated in a future release. Use
+[`strings_sizes()`](https://davidgohel.github.io/gdtools/dev/reference/strings_sizes.md)
+instead.
+
+## See also
+
+Other functions for font metrics:
+[`str_metrics()`](https://davidgohel.github.io/gdtools/dev/reference/str_metrics.md),
+[`strings_sizes()`](https://davidgohel.github.io/gdtools/dev/reference/strings_sizes.md)
 
 ## Examples
 

@@ -1,6 +1,7 @@
 # Get font metrics for a string.
 
-Get font metrics for a string.
+Compute the width, ascent and descent of a single string in points using
+Cairo text measurement.
 
 ## Usage
 
@@ -19,15 +20,16 @@ str_metrics(
 
 - x:
 
-  Character vector of strings to measure
+  Character vector of strings to measure (only the first element is
+  used).
 
 - fontname:
 
-  Font name
+  Font name.
 
 - fontsize:
 
-  Font size
+  Font size in points.
 
 - bold, italic:
 
@@ -35,11 +37,25 @@ str_metrics(
 
 - fontfile:
 
-  Font file
+  Path to a font file. If empty, the font is resolved by name via
+  `systemfonts`.
 
 ## Value
 
-A named numeric vector
+A named numeric vector with elements `width`, `ascent` and `descent`
+(unit is points).
+
+## Note
+
+This function will be deprecated in a future release. Use
+[`strings_sizes()`](https://davidgohel.github.io/gdtools/dev/reference/strings_sizes.md)
+instead.
+
+## See also
+
+Other functions for font metrics:
+[`m_str_extents()`](https://davidgohel.github.io/gdtools/dev/reference/m_str_extents.md),
+[`strings_sizes()`](https://davidgohel.github.io/gdtools/dev/reference/strings_sizes.md)
 
 ## Examples
 

@@ -42,6 +42,12 @@ strings_sizes(
   A logical vector indicating whether the text should be italic. Default
   is FALSE. This argument is vectorized.
 
+## See also
+
+Other functions for font metrics:
+[`m_str_extents()`](https://davidgohel.github.io/gdtools/dev/reference/m_str_extents.md),
+[`str_metrics()`](https://davidgohel.github.io/gdtools/dev/reference/str_metrics.md)
+
 ## Examples
 
 ``` r

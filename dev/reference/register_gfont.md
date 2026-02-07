@@ -1,4 +1,4 @@
-# Register a 'Google Fonts'
+# Register a 'Google Font'
 
 Register a font from 'Google Fonts' so that it can be used with devices
 using the 'systemfonts' package, i.e. the 'flextable' package and

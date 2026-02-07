@@ -1,9 +1,14 @@
-# dummy 'Google Fonts' cache
+# Set up a temporary font cache
 
-dummy 'Google Fonts' cache used for examples.
+Create a temporary directory used as the 'Google Fonts' cache. This is
+intended for examples and tests.
 
 ## Usage
 
 ``` r
 dummy_setup()
 ```
+
+## Value
+
+The path to the temporary cache directory (invisibly).

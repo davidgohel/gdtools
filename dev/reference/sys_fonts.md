@@ -1,13 +1,17 @@
 # List fonts for 'systemfonts'.
 
-List system and registryfonts details into a data.frame containing
-columns foundry, family, file, slant and weight.
+List system and registry fonts into a data.frame containing columns such
+as path, family, style, weight and italic.
 
 ## Usage
 
 ``` r
 sys_fonts()
 ```
+
+## Value
+
+A data.frame of font information.
 
 ## Examples
 

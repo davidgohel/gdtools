@@ -1,4 +1,4 @@
-# Use a font in Shiny or Markdown
+# Use a Font in Shiny or Markdown
 
 Add an empty HTML element attached to an 'HTML Dependency' containing
 the css and the font files so that the font is available in the HTML

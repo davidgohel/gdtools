@@ -1,8 +1,7 @@
 # Version numbers of C libraries
 
-`version_cairo()` and `version_freetype()` return the runtime version.
-These helpers return version objects as with
-[`packageVersion()`](https://rdrr.io/r/utils/packageDescription.html).
+Return the runtime version of the Cairo and FreeType libraries linked to
+the package.
 
 ## Usage
 
@@ -10,4 +9,17 @@ These helpers return version objects as with
 version_freetype()
 
 version_cairo()
+```
+
+## Value
+
+An object of class `"numeric_version"`.
+
+## Examples
+
+``` r
+version_cairo()
+#> [1] ‘1.18.0’
+version_freetype()
+#> [1] ‘2.13.2’
 ```
