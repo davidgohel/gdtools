@@ -32,9 +32,9 @@
     </div>
 
     <div class="section level2">
-      <h2 id="all-functions">All functions<a class="anchor" aria-label="anchor" href="#all-functions"></a></h2>
+      <h2 id="text-measurement">Text measurement<a class="anchor" aria-label="anchor" href="#text-measurement"></a></h2>
 
-
+      <div class="section-desc"><p>Compute text width, ascent and descent using Cairo, independently of any graphic device. strings_sizes() is the recommended entry point.</p></div>
 
       <dl></dl></div><div class="section level2">
 
@@ -43,24 +43,26 @@
 
       <dl><dt>
 
-          <code><a href="addGFontHtmlDependency.html">addGFontHtmlDependency()</a></code>
+          <code><a href="strings_sizes.html">strings_sizes()</a></code>
 
         </dt>
-        <dd>Use a Font in Shiny or Markdown</dd>
+        <dd>Compute strings sizes</dd>
+      </dl></div><div class="section level2">
+      <h2 id="google-fonts">Google Fonts<a class="anchor" aria-label="anchor" href="#google-fonts"></a></h2>
 
-        <dt>
+      <div class="section-desc"><p>Download, cache and register fonts from Google Fonts. Use register_gfont() to make a font available to R packages that rely on systemfonts (flextable, ggiraph, ragg, svglite). Use gfontHtmlDependency() or addGFontHtmlDependency() to embed the font in an HTML output (Shiny, R Markdown, Quarto).</p></div>
 
-          <code><a href="font_family_exists.html">font_family_exists()</a></code>
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="register_gfont.html">register_gfont()</a></code>
 
         </dt>
-        <dd>Check if font family exists.</dd>
-
-        <dt>
-
-          <code><a href="fonts_cache_dir.html">fonts_cache_dir()</a></code> <code><a href="fonts_cache_dir.html">rm_fonts_cache()</a></code> <code><a href="fonts_cache_dir.html">init_fonts_cache()</a></code>
-
-        </dt>
-        <dd>Manage Font Working Directory</dd>
+        <dd>Register a 'Google Font'</dd>
 
         <dt>
 
@@ -71,10 +73,10 @@
 
         <dt>
 
-          <code><a href="install_gfont_script.html">install_gfont_script()</a></code>
+          <code><a href="addGFontHtmlDependency.html">addGFontHtmlDependency()</a></code>
 
         </dt>
-        <dd>Shell command to install a font from 'Google Fonts'</dd>
+        <dd>Use a Font in Shiny or Markdown</dd>
 
         <dt>
 
@@ -85,10 +87,40 @@
 
         <dt>
 
-          <code><a href="liberationmonoHtmlDependency.html">liberationmonoHtmlDependency()</a></code>
+          <code><a href="install_gfont_script.html">install_gfont_script()</a></code>
 
         </dt>
-        <dd>'Liberation Mono' Font HTML dependency</dd>
+        <dd>Shell command to install a font from 'Google Fonts'</dd>
+      </dl></div><div class="section level2">
+      <h2 id="liberation-fonts">Liberation Fonts<a class="anchor" aria-label="anchor" href="#liberation-fonts"></a></h2>
+
+      <div class="section-desc"><p>Register and embed the bundled Liberation fonts (Sans, Serif, Mono). These metrically compatible alternatives to Arial, Times New Roman and Courier New are useful as cross-platform fallback fonts, for visual tests, or when no internet connection is available.</p></div>
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="register_liberationsans.html">register_liberationsans()</a></code>
+
+        </dt>
+        <dd>Register font 'Liberation Sans'</dd>
+
+        <dt>
+
+          <code><a href="register_liberationserif.html">register_liberationserif()</a></code>
+
+        </dt>
+        <dd>Register font 'Liberation Serif'</dd>
+
+        <dt>
+
+          <code><a href="register_liberationmono.html">register_liberationmono()</a></code>
+
+        </dt>
+        <dd>Register font 'Liberation Mono'</dd>
 
         <dt>
 
@@ -106,59 +138,26 @@
 
         <dt>
 
-          <code><a href="m_str_extents.html">m_str_extents()</a></code>
+          <code><a href="liberationmonoHtmlDependency.html">liberationmonoHtmlDependency()</a></code>
 
         </dt>
-        <dd>Compute string extents for a vector of strings.</dd>
+        <dd>'Liberation Mono' Font HTML dependency</dd>
+      </dl></div><div class="section level2">
+      <h2 id="font-discovery">Font discovery<a class="anchor" aria-label="anchor" href="#font-discovery"></a></h2>
 
-        <dt>
+      <div class="section-desc"><p>Query available fonts on the system. font_family_exists() checks whether a font is available, sys_fonts() lists all known fonts, and match_family() finds the best match for a given name.</p></div>
 
-          <code><a href="match_family.html">match_family()</a></code>
+      <dl></dl></div><div class="section level2">
 
-        </dt>
-        <dd>Find best family match with systemfonts</dd>
 
-        <dt>
 
-          <code><a href="register_gfont.html">register_gfont()</a></code>
 
-        </dt>
-        <dd>Register a 'Google Font'</dd>
+      <dl><dt>
 
-        <dt>
-
-          <code><a href="register_liberationmono.html">register_liberationmono()</a></code>
+          <code><a href="font_family_exists.html">font_family_exists()</a></code>
 
         </dt>
-        <dd>Register font 'Liberation Mono'</dd>
-
-        <dt>
-
-          <code><a href="register_liberationsans.html">register_liberationsans()</a></code>
-
-        </dt>
-        <dd>Register font 'Liberation Sans'</dd>
-
-        <dt>
-
-          <code><a href="register_liberationserif.html">register_liberationserif()</a></code>
-
-        </dt>
-        <dd>Register font 'Liberation Serif'</dd>
-
-        <dt>
-
-          <code><a href="str_metrics.html">str_metrics()</a></code>
-
-        </dt>
-        <dd>Get font metrics for a string.</dd>
-
-        <dt>
-
-          <code><a href="strings_sizes.html">strings_sizes()</a></code>
-
-        </dt>
-        <dd>Compute strings sizes</dd>
+        <dd>Check if font family exists.</dd>
 
         <dt>
 
@@ -166,15 +165,48 @@
 
         </dt>
         <dd>List fonts for 'systemfonts'.</dd>
+      </dl></div><div class="section level2">
+      <h2 id="font-cache">Font cache<a class="anchor" aria-label="anchor" href="#font-cache"></a></h2>
+
+      <div class="section-desc"><p>Manage the local directory where downloaded font files are stored. The cache location can be customised with the GDTOOLS_CACHE_DIR environment variable or R option.</p></div>
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="fonts_cache_dir.html">fonts_cache_dir()</a></code> <code><a href="fonts_cache_dir.html">rm_fonts_cache()</a></code> <code><a href="fonts_cache_dir.html">init_fonts_cache()</a></code>
+
+        </dt>
+        <dd>Manage Font Working Directory</dd>
 
         <dt>
+
+          <code><a href="dummy_setup.html">dummy_setup()</a></code>
+
+        </dt>
+        <dd>Set up a temporary font cache</dd>
+      </dl></div><div class="section level2">
+      <h2 id="c-library-versions">C library versions<a class="anchor" aria-label="anchor" href="#c-library-versions"></a></h2>
+
+      <div class="section-desc"><p>Return the runtime version of the Cairo and FreeType libraries linked to the package.</p></div>
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
 
           <code><a href="version_cairo.html">version_freetype()</a></code> <code><a href="version_cairo.html">version_cairo()</a></code>
 
         </dt>
         <dd>Version numbers of C libraries</dd>
       </dl></div>
-  </main></div>
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+    </nav></aside></div>
 
 
     <footer><div class="pkgdown-footer-left">
