@@ -18,6 +18,7 @@
 #' @examples
 #' str_metrics("Hello World!")
 #' @export
+#' @keywords internal
 str_metrics <- function(x, fontname = "sans", fontsize = 12, bold = FALSE, italic = FALSE, fontfile = "") {
   str_metrics_(x = x, fontname = fontname, fontsize = fontsize, bold = bold, italic = italic, fontfile = fontfile)
 }
@@ -46,6 +47,7 @@ str_metrics <- function(x, fontname = "sans", fontsize = 12, bold = FALSE, itali
 #' }
 #' @family functions for font metrics
 #' @export
+#' @keywords internal
 m_str_extents <- function(x, fontname = "sans", fontsize=10, bold = FALSE, italic = FALSE, fontfile = NULL) {
 
   stopifnot(is.character(x), is.character(fontname),

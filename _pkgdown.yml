@@ -19,6 +19,69 @@ home:
   - text: 'Visit <a href="https://www.ardata.fr"><img alt="ardata" src="https://www.ardata.fr/img/ardata-logo.svg" width="70"></a> website'
     href: https://www.ardata.fr
 
+reference:
+  - title: Text measurement
+    desc: >
+      Compute text width, ascent and descent using Cairo, independently of any
+      graphic device. strings_sizes() is the recommended entry point.
+    contents:
+    - strings_sizes
+
+  - title: Google Fonts
+    desc: >
+      Download, cache and register fonts from Google Fonts. Use register_gfont()
+      to make a font available to R packages that rely on systemfonts (flextable,
+      ggiraph, ragg, svglite). Use gfontHtmlDependency() or addGFontHtmlDependency()
+      to embed the font in an HTML output (Shiny, R Markdown, Quarto).
+    contents:
+    - register_gfont
+    - gfontHtmlDependency
+    - addGFontHtmlDependency
+    - installed_gfonts
+    - install_gfont_script
+
+  - title: Liberation Fonts
+    desc: >
+      Register and embed the bundled Liberation fonts (Sans, Serif, Mono).
+      These metrically compatible alternatives to Arial, Times New Roman and
+      Courier New are useful as cross-platform fallback fonts, for visual tests,
+      or when no internet connection is available.
+    contents:
+    - register_liberationsans
+    - register_liberationserif
+    - register_liberationmono
+    - liberationsansHtmlDependency
+    - liberationserifHtmlDependency
+    - liberationmonoHtmlDependency
+
+  - title: Font discovery
+    desc: >
+      Query available fonts on the system. font_family_exists() checks
+      whether a font is available, sys_fonts() lists all known fonts,
+      and match_family() finds the best match for a given name.
+    contents:
+    - font_family_exists
+    - sys_fonts
+
+  - title: Font cache
+    desc: >
+      Manage the local directory where downloaded font files are stored.
+      The cache location can be customised with the GDTOOLS_CACHE_DIR
+      environment variable or R option.
+    contents:
+    - fonts_cache_dir
+    - init_fonts_cache
+    - rm_fonts_cache
+    - dummy_setup
+
+  - title: C library versions
+    desc: >
+      Return the runtime version of the Cairo and FreeType libraries
+      linked to the package.
+    contents:
+    - version_cairo
+    - version_freetype
+
 
 footer:
   structure:

@@ -46,3 +46,4 @@ Other functions for font metrics:
 \code{\link{strings_sizes}()}
 }
 \concept{functions for font metrics}
+\keyword{internal}

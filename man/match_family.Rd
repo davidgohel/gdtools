@@ -22,3 +22,4 @@ match_family(font = "sans", bold = TRUE, italic = TRUE, debug = NULL)
 match_family("sans")
 match_family("serif")
 }
+\keyword{internal}

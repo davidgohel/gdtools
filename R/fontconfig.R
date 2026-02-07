@@ -11,6 +11,7 @@
 #' match_family("sans")
 #' match_family("serif")
 #' @importFrom systemfonts match_fonts system_fonts
+#' @keywords internal
 match_family <- function(font = "sans", bold = TRUE, italic = TRUE, debug = NULL) {
   if (bold) {
     weight <- "bold"
