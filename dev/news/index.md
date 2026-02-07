@@ -1,5 +1,17 @@
 # Changelog
 
+## gdtools 0.4.5.006
+
+### changes
+
+- [`register_liberationsans()`](https://davidgohel.github.io/gdtools/dev/reference/register_liberationsans.md),
+  [`register_liberationserif()`](https://davidgohel.github.io/gdtools/dev/reference/register_liberationserif.md)
+  and
+  [`register_liberationmono()`](https://davidgohel.github.io/gdtools/dev/reference/register_liberationmono.md)
+  gain a `name` parameter to register Liberation fonts under a custom
+  family name (e.g. `"sans"`, `"serif"`, `"mono"`). Default values are
+  unchanged.
+
 ## gdtools 0.4.5
 
 ### issues

@@ -8,8 +8,17 @@ packages.
 ## Usage
 
 ``` r
-register_liberationsans()
+register_liberationsans(name = "Liberation Sans")
 ```
+
+## Arguments
+
+- name:
+
+  the name to use for the font family when registering with
+  'systemfonts'. Using a custom name (e.g. `"sans"`, `"serif"`,
+  `"mono"`) allows devices like 'ragg' to resolve generic family names
+  to this font.
 
 ## Value
 
@@ -29,3 +38,12 @@ Other functions for font management:
 [`register_gfont()`](https://davidgohel.github.io/gdtools/dev/reference/register_gfont.md),
 [`register_liberationmono()`](https://davidgohel.github.io/gdtools/dev/reference/register_liberationmono.md),
 [`register_liberationserif()`](https://davidgohel.github.io/gdtools/dev/reference/register_liberationserif.md)
+
+## Examples
+
+``` r
+register_liberationsans()
+#> [1] TRUE
+register_liberationsans(name = "sans")
+#> [1] TRUE
+```
