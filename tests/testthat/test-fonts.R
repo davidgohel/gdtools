@@ -34,6 +34,25 @@ test_that("fonts work", {
   expect_s3_class(flib, "html_dependency")
 
   expect_true(register_liberationsans())
+  expect_true(font_family_exists("Liberation Sans"))
+
+  flib <- liberationserifHtmlDependency()
+  expect_identical(flib$name, "liberation-serif")
+  expect_true(grepl("liberation-serif", flib$src[[1]]))
+  expect_true(grepl("liberation-serif.css", flib$stylesheet))
+  expect_s3_class(flib, "html_dependency")
+
+  expect_true(register_liberationserif())
+  expect_true(font_family_exists("Liberation Serif"))
+
+  flib <- liberationmonoHtmlDependency()
+  expect_identical(flib$name, "liberation-mono")
+  expect_true(grepl("liberation-mono", flib$src[[1]]))
+  expect_true(grepl("liberation-mono.css", flib$stylesheet))
+  expect_s3_class(flib, "html_dependency")
+
+  expect_true(register_liberationmono())
+  expect_true(font_family_exists("Liberation Mono"))
 })
 
 test_that("system dependent font installation works", {

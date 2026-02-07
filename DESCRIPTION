@@ -1,6 +1,6 @@
 Package: gdtools
 Title: Utilities for Graphical Rendering and Fonts Management
-Version: 0.4.5.004
+Version: 0.4.5.005
 Authors@R: c(
     person("David", "Gohel", , "david.gohel@ardata.fr", role = c("aut", "cre")),
     person("Hadley", "Wickham", , "hadley@rstudio.com", role = "aut"),
