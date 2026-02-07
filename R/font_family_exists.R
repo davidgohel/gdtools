@@ -16,7 +16,7 @@ font_family_exists <- function( font_family = "sans" ){
 
 #' @title List fonts for 'systemfonts'.
 #'
-#' @description List system and registryfonts details into a data.frame
+#' @description List system and registry fonts details into a data.frame
 #' containing columns foundry, family, file, slant and weight.
 #' @examples
 #' sys_fonts()

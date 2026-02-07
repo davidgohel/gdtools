@@ -2,7 +2,7 @@
 % Please edit documentation in R/fonts.R
 \name{register_gfont}
 \alias{register_gfont}
-\title{Register a 'Google Fonts'}
+\title{Register a 'Google Font'}
 \usage{
 register_gfont(family = "Open Sans", subset = c("latin", "latin-ext"))
 }

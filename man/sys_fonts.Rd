@@ -7,7 +7,7 @@
 sys_fonts()
 }
 \description{
-List system and registryfonts details into a data.frame
+List system and registry fonts details into a data.frame
 containing columns foundry, family, file, slant and weight.
 }
 \examples{

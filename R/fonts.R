@@ -97,7 +97,7 @@ get_font_id <- function(family) {
 
 #' @importFrom systemfonts register_font
 #' @export
-#' @title Register a 'Google Fonts'
+#' @title Register a 'Google Font'
 #' @description Register a font from 'Google Fonts' so that it can be used
 #' with devices using the 'systemfonts' package, i.e. the 'flextable'
 #' package and graphic outputs generated with the 'ragg', 'svglite'

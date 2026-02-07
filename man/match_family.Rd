@@ -9,9 +9,9 @@ match_family(font = "sans", bold = TRUE, italic = TRUE, debug = NULL)
 \arguments{
 \item{font}{family or face to match.}
 
-\item{bold}{Wheter to match a font featuring a \code{bold} face.}
+\item{bold}{Whether to match a font featuring a \code{bold} face.}
 
-\item{italic}{Wheter to match a font featuring an \code{italic} face.}
+\item{italic}{Whether to match a font featuring an \code{italic} face.}
 
 \item{debug}{deprecated}
 }

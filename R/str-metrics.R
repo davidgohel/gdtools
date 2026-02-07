@@ -18,10 +18,10 @@ str_metrics <- function(x, fontname = "sans", fontsize = 12, bold = FALSE, itali
 #' For each \code{x} element, determines the width and height of a bounding box that's big enough
 #' to (just) enclose the provided text. Unit is pixel.
 #' @param x Character vector of strings to measure
-#' @param bold,italic Is text bold/italic?. A vector of logical to match with x.
-#' @param fontname Font name. A vector of character to match with x.
-#' @param fontsize Font size. A vector of numeric to match with x.
-#' @param fontfile Font file. A vector of character to match with x.
+#' @param bold,italic Is text bold/italic? A logical vector, recycled to match \code{x}.
+#' @param fontname Font name. A character vector, recycled to match \code{x}.
+#' @param fontsize Font size. A numeric vector, recycled to match \code{x}.
+#' @param fontfile Font file. A character vector, recycled to match \code{x}.
 #' @examples
 #' \donttest{
 #' # The first run can be slow when font caches are missing

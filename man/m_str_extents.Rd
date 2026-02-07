@@ -16,13 +16,13 @@ m_str_extents(
 \arguments{
 \item{x}{Character vector of strings to measure}
 
-\item{fontname}{Font name. A vector of character to match with x.}
+\item{fontname}{Font name. A character vector, recycled to match \code{x}.}
 
-\item{fontsize}{Font size. A vector of numeric to match with x.}
+\item{fontsize}{Font size. A numeric vector, recycled to match \code{x}.}
 
-\item{bold, italic}{Is text bold/italic?. A vector of logical to match with x.}
+\item{bold, italic}{Is text bold/italic? A logical vector, recycled to match \code{x}.}
 
-\item{fontfile}{Font file. A vector of character to match with x.}
+\item{fontfile}{Font file. A character vector, recycled to match \code{x}.}
 }
 \description{
 For each \code{x} element, determines the width and height of a bounding box that's big enough
