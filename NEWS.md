@@ -1,7 +1,9 @@
 # gdtools 0.4.4
 
+- fix face mapping in `strings_sizes()`: italic text was incorrectly
+measured as bold-italic (face 4 instead of face 3).
 - add tools to use fonts 'Liberation Serif' and 'Liberation Mono'.
-- deprecate `set_dummy_conf()` that should be removed from the package in a 
+- deprecate `set_dummy_conf()` that should be removed from the package in a
 later version.
 - remove `raster_*` functions not used anymore
 

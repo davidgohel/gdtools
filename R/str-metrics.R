@@ -110,7 +110,7 @@ strings_sizes <- function(x, fontname = "sans", fontsize=10, bold = FALSE, itali
     ifelse(
       bold & !italic, 2,
       ifelse(
-        bold & !italic, 3,
+        !bold & italic, 3,
         4
       )
     )
