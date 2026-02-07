@@ -79,6 +79,11 @@ test_that("system dependent font installation works", {
   } else {
     skip("Skipping install_gfont_script test because the platform is not supported")
   }
+
+  # all platform install commands run without error
+  expect_no_error(gdtools:::windows_sysinstall_command("roboto"))
+  expect_no_error(gdtools:::debian_sysinstall_command("roboto"))
+  expect_no_error(gdtools:::macos_sysinstall_command("roboto"))
 })
 
 test_that("font-caching works", {
