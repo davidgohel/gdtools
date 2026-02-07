@@ -62,6 +62,22 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// m_str_metrics_
+Rcpp::DataFrame m_str_metrics_(CharacterVector x, std::vector<std::string> fontname, std::vector<double> fontsize, std::vector<int> bold, std::vector<int> italic, std::vector<std::string> fontfile);
+RcppExport SEXP _gdtools_m_str_metrics_(SEXP xSEXP, SEXP fontnameSEXP, SEXP fontsizeSEXP, SEXP boldSEXP, SEXP italicSEXP, SEXP fontfileSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< CharacterVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< std::vector<std::string> >::type fontname(fontnameSEXP);
+    Rcpp::traits::input_parameter< std::vector<double> >::type fontsize(fontsizeSEXP);
+    Rcpp::traits::input_parameter< std::vector<int> >::type bold(boldSEXP);
+    Rcpp::traits::input_parameter< std::vector<int> >::type italic(italicSEXP);
+    Rcpp::traits::input_parameter< std::vector<std::string> >::type fontfile(fontfileSEXP);
+    rcpp_result_gen = Rcpp::wrap(m_str_metrics_(x, fontname, fontsize, bold, italic, fontfile));
+    return rcpp_result_gen;
+END_RCPP
+}
 // context_create
 XPtrCairoContext context_create();
 static SEXP _gdtools_context_create_try() {
@@ -214,6 +230,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_gdtools_str_extents_", (DL_FUNC) &_gdtools_str_extents_, 6},
     {"_gdtools_str_metrics_", (DL_FUNC) &_gdtools_str_metrics_, 6},
     {"_gdtools_m_str_extents_", (DL_FUNC) &_gdtools_m_str_extents_, 6},
+    {"_gdtools_m_str_metrics_", (DL_FUNC) &_gdtools_m_str_metrics_, 6},
     {"_gdtools_context_create", (DL_FUNC) &_gdtools_context_create, 0},
     {"_gdtools_context_set_font", (DL_FUNC) &_gdtools_context_set_font, 6},
     {"_gdtools_context_extents", (DL_FUNC) &_gdtools_context_extents, 2},

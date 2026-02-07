@@ -29,11 +29,8 @@ Default is FALSE. This argument is vectorized.}
 Default is FALSE. This argument is vectorized.}
 }
 \description{
-This function is a simple wrapper around \code{\link[systemfonts:string_metrics_dev]{systemfonts::string_metrics_dev()}}.
-It determines widths, ascent and descent in inches.
-
-This function will replace the following functions defined in this file:
-\code{\link[=str_extents]{str_extents()}}, \code{\link[=str_metrics]{str_metrics()}} and \code{\link[=m_str_extents]{m_str_extents()}}.
+Determines widths, ascent and descent in inches using
+Cairo text measurement (device-independent).
 }
 \examples{
 strings_sizes(letters)

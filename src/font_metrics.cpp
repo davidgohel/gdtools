@@ -75,3 +75,40 @@ NumericMatrix m_str_extents_(CharacterVector x,
 
   return out;
 }
+
+// [[Rcpp::export]]
+Rcpp::DataFrame m_str_metrics_(CharacterVector x,
+                               std::vector<std::string> fontname,
+                               std::vector<double> fontsize,
+                               std::vector<int> bold,
+                               std::vector<int> italic,
+                               std::vector<std::string> fontfile) {
+  int n = x.size();
+  CairoContext cc;
+  NumericVector widths(n);
+  NumericVector ascents(n);
+  NumericVector descents(n);
+
+  for (int i = 0; i < n; ++i) {
+    cc.setFont(fontname[i], fontsize[i], bold[i], italic[i], fontfile[i]);
+    if (x[i] == NA_STRING) {
+      widths[i] = NA_REAL;
+      ascents[i] = NA_REAL;
+      descents[i] = NA_REAL;
+    } else {
+      std::string str(Rf_translateCharUTF8(x[i]));
+      FontMetric fm = cc.getExtents(str);
+
+      widths[i] = fm.width;
+      ascents[i] = fm.ascent;
+      descents[i] = fm.descent;
+    }
+  }
+
+  return Rcpp::DataFrame::create(
+    _["width"] = widths,
+    _["ascent"] = ascents,
+    _["descent"] = descents,
+    _["stringsAsFactors"] = false
+  );
+}

@@ -13,6 +13,10 @@ m_str_extents_ <- function(x, fontname, fontsize, bold, italic, fontfile) {
     .Call('_gdtools_m_str_extents_', PACKAGE = 'gdtools', x, fontname, fontsize, bold, italic, fontfile)
 }
 
+m_str_metrics_ <- function(x, fontname, fontsize, bold, italic, fontfile) {
+    .Call('_gdtools_m_str_metrics_', PACKAGE = 'gdtools', x, fontname, fontsize, bold, italic, fontfile)
+}
+
 context_create <- function() {
     .Call('_gdtools_context_create', PACKAGE = 'gdtools')
 }

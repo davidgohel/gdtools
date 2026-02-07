@@ -69,14 +69,10 @@ m_str_extents <- function(x, fontname = "sans", fontsize=10, bold = FALSE, itali
 }
 
 
-#' @importFrom systemfonts string_metrics_dev
 #' @title Compute strings sizes
 #' @description
-#' This function is a simple wrapper around [systemfonts::string_metrics_dev()].
-#' It determines widths, ascent and descent in inches.
-#'
-#' This function will replace the following functions defined in this file:
-#' [str_extents()], [str_metrics()] and [m_str_extents()].
+#' Determines widths, ascent and descent in inches using
+#' Cairo text measurement (device-independent).
 #'
 #' @param x A character vector of strings to measure. All arguments are vectorized
 #'   and recycled to match the length of \code{x}.
@@ -105,22 +101,10 @@ strings_sizes <- function(x, fontname = "sans", fontsize=10, bold = FALSE, itali
   bold <- rep(bold, length.out = max_length)
   italic <- rep(italic, length.out = max_length)
 
-  face <- ifelse(
-    !bold & !italic, 1,
-    ifelse(
-      bold & !italic, 2,
-      ifelse(
-        !bold & italic, 3,
-        4
-      )
-    )
-  )
-  z <- string_metrics_dev(
-    strings = x,
-    family = fontname,
-    size = fontsize,
-    face = face,
-    unit = "inches"
-  )
+  z <- m_str_metrics_(x, fontname, fontsize, as.integer(bold), as.integer(italic),
+                       rep("", max_length))
+  z$width <- z$width / 72
+  z$ascent <- z$ascent / 72
+  z$descent <- z$descent / 72
   z
 }

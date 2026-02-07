@@ -2,6 +2,9 @@
 
 - fix face mapping in `strings_sizes()`: italic text was incorrectly
 measured as bold-italic (face 4 instead of face 3).
+- `strings_sizes()` now uses Cairo text measurement instead of
+`systemfonts::string_metrics_dev()`, making it device-independent.
+Callers no longer need a ragg device open for accurate metrics.
 - add tools to use fonts 'Liberation Serif' and 'Liberation Mono'.
 - deprecate `set_dummy_conf()` that should be removed from the package in a
 later version.
