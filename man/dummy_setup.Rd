@@ -2,12 +2,15 @@
 % Please edit documentation in R/font-caching.R
 \name{dummy_setup}
 \alias{dummy_setup}
-\title{dummy 'Google Fonts' cache}
+\title{Set up a temporary font cache}
 \usage{
 dummy_setup()
 }
+\value{
+The path to the temporary cache directory (invisibly).
+}
 \description{
-dummy 'Google Fonts' cache
-used for examples.
+Create a temporary directory used as the
+'Google Fonts' cache. This is intended for examples and tests.
 }
 \keyword{internal}

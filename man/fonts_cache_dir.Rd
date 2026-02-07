@@ -4,7 +4,7 @@
 \alias{fonts_cache_dir}
 \alias{rm_fonts_cache}
 \alias{init_fonts_cache}
-\title{manage font working directory}
+\title{Manage Font Working Directory}
 \usage{
 fonts_cache_dir()
 

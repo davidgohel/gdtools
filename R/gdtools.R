@@ -3,11 +3,14 @@
 #' @importFrom grDevices is.raster
 NULL
 
-#' Version numbers of C libraries
+#' @title Version numbers of C libraries
 #'
-#' \code{version_cairo()} and \code{version_freetype()} return the
-#' runtime version. These helpers return version objects as with
-#' \code{\link[utils]{packageVersion}()}.
+#' @description Return the runtime version of the Cairo and FreeType
+#' libraries linked to the package.
+#' @return An object of class \code{"numeric_version"}.
+#' @examples
+#' version_cairo()
+#' version_freetype()
 #' @export
 version_cairo <- function() {
   ver <- version_cairo_()

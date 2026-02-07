@@ -9,8 +9,14 @@ version_freetype()
 
 version_cairo()
 }
+\value{
+An object of class \code{"numeric_version"}.
+}
 \description{
-\code{version_cairo()} and \code{version_freetype()} return the
-runtime version. These helpers return version objects as with
-\code{\link[utils]{packageVersion}()}.
+Return the runtime version of the Cairo and FreeType
+libraries linked to the package.
+}
+\examples{
+version_cairo()
+version_freetype()
 }

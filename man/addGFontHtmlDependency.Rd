@@ -2,7 +2,7 @@
 % Please edit documentation in R/fonts.R
 \name{addGFontHtmlDependency}
 \alias{addGFontHtmlDependency}
-\title{Use a font in Shiny or Markdown}
+\title{Use a Font in Shiny or Markdown}
 \usage{
 addGFontHtmlDependency(family = "Open Sans", subset = c("latin", "latin-ext"))
 }

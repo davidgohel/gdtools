@@ -60,7 +60,7 @@ gfontHtmlDependency <- function(family = "Open Sans", subset = c("latin", "latin
 
 #' @export
 #' @importFrom htmltools tags attachDependencies
-#' @title Use a font in Shiny or Markdown
+#' @title Use a Font in Shiny or Markdown
 #' @description Add an empty HTML element attached
 #' to an 'HTML Dependency' containing
 #' the css and the font files so that the font is available

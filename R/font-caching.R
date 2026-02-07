@@ -1,6 +1,6 @@
 #' @importFrom tools R_user_dir
 #' @export
-#' @title manage font working directory
+#' @title Manage Font Working Directory
 #' @description Initialize or remove font directory used
 #' to store downloaded font files.
 #'
@@ -46,9 +46,10 @@ fonts_cache_dir <- function() {
   dir
 }
 
-#' @title dummy 'Google Fonts' cache
-#' @description dummy 'Google Fonts' cache
-#' used for examples.
+#' @title Set up a temporary font cache
+#' @description Create a temporary directory used as the
+#' 'Google Fonts' cache. This is intended for examples and tests.
+#' @return The path to the temporary cache directory (invisibly).
 #' @export
 #' @keywords internal
 dummy_setup <- function() {

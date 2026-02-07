@@ -1,11 +1,16 @@
-#' Get font metrics for a string.
+#' @title Get font metrics for a string.
 #'
-#' @return A named numeric vector
-#' @param x Character vector of strings to measure
+#' @description Compute the width, ascent and descent of a single
+#' string in points using Cairo text measurement.
+#'
+#' @return A named numeric vector with elements \code{width},
+#' \code{ascent} and \code{descent} (unit is points).
+#' @param x Character vector of strings to measure (only the first element is used).
 #' @param bold,italic Is text bold/italic?
-#' @param fontname Font name
-#' @param fontsize Font size
-#' @param fontfile Font file
+#' @param fontname Font name.
+#' @param fontsize Font size in points.
+#' @param fontfile Path to a font file. If empty, the font is
+#' resolved by name via \code{systemfonts}.
 #' @examples
 #' str_metrics("Hello World!")
 #' @export

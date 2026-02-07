@@ -14,21 +14,24 @@ str_metrics(
 )
 }
 \arguments{
-\item{x}{Character vector of strings to measure}
+\item{x}{Character vector of strings to measure (only the first element is used).}
 
-\item{fontname}{Font name}
+\item{fontname}{Font name.}
 
-\item{fontsize}{Font size}
+\item{fontsize}{Font size in points.}
 
 \item{bold, italic}{Is text bold/italic?}
 
-\item{fontfile}{Font file}
+\item{fontfile}{Path to a font file. If empty, the font is
+resolved by name via \code{systemfonts}.}
 }
 \value{
-A named numeric vector
+A named numeric vector with elements \code{width},
+\code{ascent} and \code{descent} (unit is points).
 }
 \description{
-Get font metrics for a string.
+Compute the width, ascent and descent of a single
+string in points using Cairo text measurement.
 }
 \examples{
 str_metrics("Hello World!")
