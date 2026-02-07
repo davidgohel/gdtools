@@ -25,13 +25,13 @@ Source:
 [`DESCRIPTION`](https://github.com/davidgohel/gdtools/blob/master/DESCRIPTION)
 
 Gohel D, Wickham H, Henry L, Ooms J (2026). *gdtools: Utilities for
-Graphical Rendering and Fonts Management*. R package version 0.4.5.004,
+Graphical Rendering and Fonts Management*. R package version 0.4.5.005,
 <https://davidgohel.github.io/gdtools/>.
 
     @Manual{,
       title = {gdtools: Utilities for Graphical Rendering and Fonts Management},
       author = {David Gohel and Hadley Wickham and Lionel Henry and Jeroen Ooms},
       year = {2026},
-      note = {R package version 0.4.5.004},
+      note = {R package version 0.4.5.005},
       url = {https://davidgohel.github.io/gdtools/},
     }
