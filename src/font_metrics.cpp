@@ -5,31 +5,6 @@
 using namespace Rcpp;
 
 // [[Rcpp::export]]
-NumericMatrix str_extents_(CharacterVector x, std::string fontname = "sans",
-                          double fontsize = 12, int bold = false,
-                          int italic = false, std::string fontfile = "") {
-  int n = x.size();
-  CairoContext cc;
-  cc.setFont(fontname, fontsize, bold, italic, fontfile);
-  NumericMatrix out(n, 2);
-
-  for (int i = 0; i < n; ++i) {
-    if (x[i] == NA_STRING) {
-      out(i, 0) = NA_REAL;
-      out(i, 1) = NA_REAL;
-    } else {
-      std::string str(Rf_translateCharUTF8(x[i]));
-      FontMetric fm = cc.getExtents(str);
-
-      out(i, 0) = fm.width;
-      out(i, 1) = fm.height;
-    }
-  }
-
-  return out;
-}
-
-// [[Rcpp::export]]
 NumericVector str_metrics_(CharacterVector x, std::string fontname = "sans",
                           double fontsize = 12, int bold = false,
                           int italic = false, std::string fontfile = "") {

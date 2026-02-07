@@ -1,13 +1,22 @@
-# gdtools 0.4.4
+# gdtools 0.4.5
+
+## issues
 
 - fix face mapping in `strings_sizes()`: italic text was incorrectly
 measured as bold-italic (face 4 instead of face 3).
-- `strings_sizes()` now uses Cairo text measurement instead of
+- `strings_sizes()` now re-uses Cairo text measurement instead of
 `systemfonts::string_metrics_dev()`, making it device-independent.
 Callers no longer need a ragg device open for accurate metrics.
+
+## changes
+
+- remove unused `str_extents()`.
+- remove C++ exported interface as no package uses `LinkingTo: gdtools` anymore.
+
+# gdtools 0.4.4
+
 - add tools to use fonts 'Liberation Serif' and 'Liberation Mono'.
-- deprecate `set_dummy_conf()` that should be removed from the package in a
-later version.
+- deprecate `set_dummy_conf()` that should be removed from the package in a later version.
 - remove `raster_*` functions not used anymore
 
 # gdtools 0.4.2

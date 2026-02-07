@@ -58,7 +58,4 @@ public:
 
 };
 
-typedef Rcpp::XPtr<CairoContext> XPtrCairoContext;
-
-
 #endif
