@@ -26,6 +26,9 @@ TRUE if the operation went ok.
 
 ## See also
 
+[`font_set_liberation()`](https://davidgohel.github.io/gdtools/dev/reference/font_set_liberation.md),
+[`font_set()`](https://davidgohel.github.io/gdtools/dev/reference/font_set.md)
+
 Other functions for font management:
 [`addGFontHtmlDependency()`](https://davidgohel.github.io/gdtools/dev/reference/addGFontHtmlDependency.md),
 [`fonts_cache_dir()`](https://davidgohel.github.io/gdtools/dev/reference/fonts_cache_dir.md),

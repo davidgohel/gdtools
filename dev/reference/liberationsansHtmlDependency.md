@@ -11,6 +11,8 @@ liberationsansHtmlDependency()
 
 ## See also
 
+[`font_set_liberation()`](https://davidgohel.github.io/gdtools/dev/reference/font_set_liberation.md),
+[`font_set()`](https://davidgohel.github.io/gdtools/dev/reference/font_set.md),
 [`gfontHtmlDependency()`](https://davidgohel.github.io/gdtools/dev/reference/gfontHtmlDependency.md)
 
 Other functions for font management:

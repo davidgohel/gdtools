@@ -17,6 +17,9 @@ An object of class `font_set`.
 
 ## See also
 
+[`font_set()`](https://davidgohel.github.io/gdtools/dev/reference/font_set.md),
+[`font_set_auto()`](https://davidgohel.github.io/gdtools/dev/reference/font_set_auto.md)
+
 Other font set functions:
 [`font_google()`](https://davidgohel.github.io/gdtools/dev/reference/font_google.md),
 [`font_liberation()`](https://davidgohel.github.io/gdtools/dev/reference/font_liberation.md),
