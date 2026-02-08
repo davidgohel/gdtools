@@ -12,7 +12,7 @@ to be used in 'Shiny' or 'R Markdown' with
 'Liberation Sans' Font.
 }
 \seealso{
-\code{\link[=gfontHtmlDependency]{gfontHtmlDependency()}}
+\code{\link[=font_set_liberation]{font_set_liberation()}}, \code{\link[=font_set]{font_set()}}, \code{\link[=gfontHtmlDependency]{gfontHtmlDependency()}}
 
 Other functions for font management: 
 \code{\link{addGFontHtmlDependency}()},

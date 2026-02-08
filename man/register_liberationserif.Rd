@@ -26,6 +26,8 @@ register_liberationserif()
 register_liberationserif(name = "serif")
 }
 \seealso{
+\code{\link[=font_set_liberation]{font_set_liberation()}}, \code{\link[=font_set]{font_set()}}
+
 Other functions for font management: 
 \code{\link{addGFontHtmlDependency}()},
 \code{\link{fonts_cache_dir}()},

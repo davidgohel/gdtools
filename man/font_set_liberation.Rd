@@ -19,6 +19,8 @@ fonts <- font_set_liberation()
 fonts
 }
 \seealso{
+\code{\link[=font_set]{font_set()}}, \code{\link[=font_set_auto]{font_set_auto()}}
+
 Other font set functions: 
 \code{\link{font_google}()},
 \code{\link{font_liberation}()},

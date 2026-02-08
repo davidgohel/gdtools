@@ -45,6 +45,8 @@ fonts$dsvg_fonts
 fonts$dependencies
 }
 \seealso{
+\code{\link[=font_set_liberation]{font_set_liberation()}}, \code{\link[=font_set_auto]{font_set_auto()}}
+
 Other font set functions: 
 \code{\link{font_google}()},
 \code{\link{font_liberation}()},
