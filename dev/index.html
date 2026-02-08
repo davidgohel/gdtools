@@ -72,12 +72,13 @@
 <tr class="even">
 <td>Register non-system fonts: Google Fonts or Liberation fonts (bundled) must be made visible to ‘systemfonts’</td>
 <td>
-<code><a href="reference/register_gfont.html">register_gfont()</a></code>, <code>register_liberation*()</code>, and the <code><a href="reference/font_set.html">font_set()</a></code> wrapper</td>
+<code><a href="reference/font_set_liberation.html">font_set_liberation()</a></code>, <code><a href="reference/font_set_auto.html">font_set_auto()</a></code>, <code><a href="reference/font_set.html">font_set()</a></code>
+</td>
 </tr>
 <tr class="odd">
 <td>Embed fonts in HTML: Shiny, R Markdown and girafe need <code>htmlDependency</code> objects so the browser loads the right fonts</td>
 <td>
-<code><a href="reference/gfontHtmlDependency.html">gfontHtmlDependency()</a></code>, <code>liberation*HtmlDependency()</code>, and <code>font_set()$dependencies</code>
+<code>font_set()$dependencies</code>, <code><a href="reference/gfontHtmlDependency.html">gfontHtmlDependency()</a></code>, <code>liberation*HtmlDependency()</code>
 </td>
 </tr>
 <tr class="even">
@@ -186,12 +187,13 @@
 <div class="section level4">
 <h4 id="liberation-fonts">Liberation fonts<a class="anchor" aria-label="anchor" href="#liberation-fonts"></a>
 </h4>
-<p>The package bundles ‘Liberation Sans’, ‘Liberation Serif’ and ‘Liberation Mono’ fonts. They are useful as cross-platform fallback fonts, for visual tests, or when no internet connection is available.</p>
+<p>The package bundles ‘Liberation Sans’, ‘Liberation Serif’ and ‘Liberation Mono’ fonts (SIL Open Font License). They are useful as cross-platform fallback fonts, for visual tests, or when no internet connection is available.</p>
+<p><code><a href="reference/font_set_liberation.html">font_set_liberation()</a></code> registers all three families with ‘systemfonts’ and produces the matching HTML dependencies in a single call:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/register_liberationsans.html">register_liberationsans</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="fu"><a href="reference/register_liberationserif.html">register_liberationserif</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="fu"><a href="reference/register_liberationmono.html">register_liberationmono</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p>The corresponding <code><a href="reference/liberationsansHtmlDependency.html">liberationsansHtmlDependency()</a></code>, <code><a href="reference/liberationserifHtmlDependency.html">liberationserifHtmlDependency()</a></code> and <code><a href="reference/liberationmonoHtmlDependency.html">liberationmonoHtmlDependency()</a></code> functions provide HTML dependencies for use in Shiny or R Markdown.</p>
+<code class="sourceCode R"><span><span class="va">fonts</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/font_set_liberation.html">font_set_liberation</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">fonts</span><span class="op">$</span><span class="va">sans</span></span>
+<span><span class="va">fonts</span><span class="op">$</span><span class="va">dependencies</span></span></code></pre></div>
+<p>The individual functions <code><a href="reference/register_liberationsans.html">register_liberationsans()</a></code>, <code><a href="reference/register_liberationserif.html">register_liberationserif()</a></code> and <code><a href="reference/register_liberationmono.html">register_liberationmono()</a></code> remain available when only a specific variant is needed.</p>
 </div>
 </div>
 </div>
