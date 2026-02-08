@@ -10,15 +10,19 @@ liberationsans_to_cache <- function() {
     file.copy(
       from = list.files(
         system.file(package = "fontLiberation", "fonts/liberation-fonts"),
-        full.names = TRUE),
-      to = font_dir_, overwrite = TRUE)
+        full.names = TRUE
+      ),
+      to = font_dir_,
+      overwrite = TRUE
+    )
 
     dir.create(font_css_, showWarnings = FALSE, recursive = TRUE)
     file.copy(
       from = system.file(package = "gdtools", "css/liberation-sans.css"),
-      to = font_css_, overwrite = TRUE)
+      to = font_css_,
+      overwrite = TRUE
+    )
   }
-
 }
 
 #' @importFrom fontquiver font_faces
@@ -86,15 +90,19 @@ liberationserif_to_cache <- function() {
     file.copy(
       from = list.files(
         system.file(package = "fontLiberation", "fonts/liberation-fonts"),
-        full.names = TRUE),
-      to = font_dir_, overwrite = TRUE)
+        full.names = TRUE
+      ),
+      to = font_dir_,
+      overwrite = TRUE
+    )
 
     dir.create(font_css_, showWarnings = FALSE, recursive = TRUE)
     file.copy(
       from = system.file(package = "gdtools", "css/liberation-serif.css"),
-      to = font_css_, overwrite = TRUE)
+      to = font_css_,
+      overwrite = TRUE
+    )
   }
-
 }
 
 
@@ -158,15 +166,19 @@ liberationmono_to_cache <- function() {
     file.copy(
       from = list.files(
         system.file(package = "fontLiberation", "fonts/liberation-fonts"),
-        full.names = TRUE),
-      to = font_dir_, overwrite = TRUE)
+        full.names = TRUE
+      ),
+      to = font_dir_,
+      overwrite = TRUE
+    )
 
     dir.create(font_css_, showWarnings = FALSE, recursive = TRUE)
     file.copy(
       from = system.file(package = "gdtools", "css/liberation-mono.css"),
-      to = font_css_, overwrite = TRUE)
+      to = font_css_,
+      overwrite = TRUE
+    )
   }
-
 }
 
 
@@ -217,4 +229,3 @@ liberationmonoHtmlDependency <- function() {
     stylesheet = paste0("css/", font_id, ".css")
   )
 }
-

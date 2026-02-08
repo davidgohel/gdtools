@@ -13,8 +13,19 @@ test_that("strings_sizes face mapping is correct", {
   # italic must use face 3, not face 4 (bold-italic)
   plain <- strings_sizes("Test", fontname = "sans", fontsize = 12)
   bold <- strings_sizes("Test", fontname = "sans", fontsize = 12, bold = TRUE)
-  italic <- strings_sizes("Test", fontname = "sans", fontsize = 12, italic = TRUE)
-  bi <- strings_sizes("Test", fontname = "sans", fontsize = 12, bold = TRUE, italic = TRUE)
+  italic <- strings_sizes(
+    "Test",
+    fontname = "sans",
+    fontsize = 12,
+    italic = TRUE
+  )
+  bi <- strings_sizes(
+    "Test",
+    fontname = "sans",
+    fontsize = 12,
+    bold = TRUE,
+    italic = TRUE
+  )
 
   # italic and bold-italic must differ
   expect_false(italic$width == bi$width)
@@ -25,7 +36,8 @@ test_that("strings_sizes face mapping is correct", {
 test_that("strings_sizes vectorised faces are correct", {
   res <- strings_sizes(
     rep("Test", 4),
-    fontname = "sans", fontsize = 12,
+    fontname = "sans",
+    fontsize = 12,
     bold = c(FALSE, TRUE, FALSE, TRUE),
     italic = c(FALSE, FALSE, TRUE, TRUE)
   )
@@ -48,12 +60,12 @@ test_that("NA strings produce NA metrics", {
 })
 
 test_that("m_str_extents works ", {
-
   mstre <- m_str_extents(letters, fontsize = 1:26)
   expect_equal(dim(mstre), c(26, 2))
   expect_true(all(is.numeric(mstre)))
 
-  mstre <- m_str_extents(letters[1:3],
+  mstre <- m_str_extents(
+    letters[1:3],
     bold = c(TRUE, FALSE, TRUE),
     italic = c(FALSE, TRUE, TRUE),
     fontname = c("sans", "sans", "sans")

@@ -1,6 +1,6 @@
 Package: gdtools
-Title: Utilities for Graphical Rendering and Fonts Management
-Version: 0.4.5.007
+Title: Font Metrics and Font Management Utilities for R Graphics
+Version: 0.4.5.008
 Authors@R: c(
     person("David", "Gohel", , "david.gohel@ardata.fr", role = c("aut", "cre")),
     person("Hadley", "Wickham", , "hadley@rstudio.com", role = "aut"),
@@ -13,13 +13,13 @@ Authors@R: c(
     person("ArData", role = "cph"),
     person("RStudio", role = "cph")
   )
-Description: Tools are provided to compute metrics of formatted strings
-    and to check the availability of a font.  Another set of functions is
-    provided to support the collection of fonts from 'Google Fonts' in a
-    cache. Their use is simple within 'R Markdown' documents and 'shiny'
-    applications but also with graphic productions generated with the
-    'ggiraph', 'ragg' and 'svglite' packages or with tabular productions
-    from the 'flextable' package.
+Description: Compute text metrics (width, ascent, descent) using 'Cairo'
+    and 'FreeType', independently of the active graphic device. Font
+    lookup is delegated to 'systemfonts'. Additional utilities let users
+    register 'Google Fonts' or bundled 'Liberation' fonts, check font
+    availability, and assemble 'htmlDependency' objects so that fonts are
+    correctly embedded in 'Shiny' applications, 'R Markdown' documents,
+    and 'htmlwidgets' outputs such as 'ggiraph'.
 License: GPL-3 | file LICENSE
 URL: https://davidgohel.github.io/gdtools/
 BugReports: https://github.com/davidgohel/gdtools/issues
@@ -36,7 +36,7 @@ Suggests:
     gfonts,
     methods,
     testthat
-LinkingTo: 
+LinkingTo:
     Rcpp
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

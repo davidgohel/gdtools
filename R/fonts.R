@@ -42,7 +42,10 @@
 #'   gfontHtmlDependency(family = "Open Sans")
 #' }
 #' }
-gfontHtmlDependency <- function(family = "Open Sans", subset = c("latin", "latin-ext")) {
+gfontHtmlDependency <- function(
+  family = "Open Sans",
+  subset = c("latin", "latin-ext")
+) {
   pkg_version <- packageVersion("gdtools")
   pkg_version_str <- format(pkg_version)
 
@@ -77,7 +80,10 @@ gfontHtmlDependency <- function(family = "Open Sans", subset = c("latin", "latin
 #'   addGFontHtmlDependency(family = "Open Sans")
 #' }
 #' }
-addGFontHtmlDependency <- function(family = "Open Sans", subset = c("latin", "latin-ext")) {
+addGFontHtmlDependency <- function(
+  family = "Open Sans",
+  subset = c("latin", "latin-ext")
+) {
   attachDependencies(
     x = tags$style(""),
     lapply(family, gfontHtmlDependency, subset = subset)
@@ -88,9 +94,7 @@ get_font_id <- function(family) {
   x <- gfonts_summary()
 
   if (!family %in% x$family) {
-    stop("Font family ", shQuote(family), " has not been found.",
-      call. = FALSE
-    )
+    stop("Font family ", shQuote(family), " has not been found.", call. = FALSE)
   }
   x[x$family %in% family, ]$id
 }
@@ -112,7 +116,10 @@ get_font_id <- function(family) {
 #'   register_gfont(family = "Roboto")
 #' }
 #' }
-register_gfont <- function(family = "Open Sans", subset = c("latin", "latin-ext")) {
+register_gfont <- function(
+  family = "Open Sans",
+  subset = c("latin", "latin-ext")
+) {
   font_id <- get_font_id(family)
   x <- gfonts_summary()
   faces <- reduce_faces(x[x$id %in% font_id, ]$variants[[1]])
@@ -155,10 +162,12 @@ register_gfont <- function(family = "Open Sans", subset = c("latin", "latin-ext"
 #'   install_gfont_script(family = "Roboto", platform = "macos")
 #' }
 #' }
-install_gfont_script <- function(family = "Open Sans",
-                                 subset = c("latin", "latin-ext"),
-                                 platform = c("debian", "windows", "macos"),
-                                 file = NULL) {
+install_gfont_script <- function(
+  family = "Open Sans",
+  subset = c("latin", "latin-ext"),
+  platform = c("debian", "windows", "macos"),
+  file = NULL
+) {
   platform <- match.arg(platform)
   font_id <- get_font_id(family)
   x <- gfonts_summary()
@@ -171,7 +180,10 @@ install_gfont_script <- function(family = "Open Sans",
   } else if ("windows" %in% platform) {
     str <- windows_sysinstall_command(font_id)
   } else {
-    str <- macos_sysinstall_command(font_id, dir = if (user_cache_exists()) "~/Library/Fonts" else "/Library/Fonts")
+    str <- macos_sysinstall_command(
+      font_id,
+      dir = if (user_cache_exists()) "~/Library/Fonts" else "/Library/Fonts"
+    )
   }
 
   if (!is.null(file)) {
@@ -253,7 +265,8 @@ windows_sysinstall_command <- function(font_id) {
     "foreach ($Font in $FontList) {",
     "  Copy-Item $Font \"C:\\Windows\\Fonts\"",
     "  New-ItemProperty -Name $Font.BaseName -Path \"HKLM:\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Fonts\" -PropertyType string -Value $Font.name",
-    "}", ""
+    "}",
+    ""
   )
   install_cmd <- paste0(install_cmd, collapse = "\n")
   install_cmd
@@ -266,7 +279,8 @@ debian_sysinstall_command <- function(font_id, dir = "custom-fonts") {
   id_dir <- font_dir(font_id)
   install_cmd <- sprintf(
     "find %s -name \"*.ttf\" -exec install -m644 {} /usr/share/fonts/truetype/%s/ \\; || return 1",
-    gsub(" ", "\\ ", id_dir, fixed = TRUE), dir
+    gsub(" ", "\\ ", id_dir, fixed = TRUE),
+    dir
   )
 
   paste(create_dir, install_cmd, "fc-cache -f", sep = ";")

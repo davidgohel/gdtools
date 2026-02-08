@@ -1,6 +1,7 @@
 ds <- dummy_setup()
 
 test_that("fonts work", {
+  skip_if_not_ready()
   skip_if_not(check_gfonts(errors = FALSE))
 
   fontlist <- gfontHtmlDependency(family = "Open Sans")
@@ -70,14 +71,18 @@ test_that("system dependent font installation works", {
     sysnm <- NULL
   }
   if (!is.null(sysnm)) {
-    expect_silent(command <- install_gfont_script(family = "Roboto", platform = sysnm))
+    expect_silent(
+      command <- install_gfont_script(family = "Roboto", platform = sysnm)
+    )
     expect_silent(install_gfont_script(file = tempfile()))
     # Check some part of the command -> Windows is different
     if (si["sysname"] %in% c("Linux", "macOS", "Darwin")) {
       expect_true(grepl(paste0(ds, "/roboto/fonts"), command))
     }
   } else {
-    skip("Skipping install_gfont_script test because the platform is not supported")
+    skip(
+      "Skipping install_gfont_script test because the platform is not supported"
+    )
   }
 
   # all platform install commands run without error

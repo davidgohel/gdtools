@@ -4,19 +4,27 @@
 \alias{font_family_exists}
 \title{Check if font family exists.}
 \usage{
-font_family_exists(font_family = "sans")
+font_family_exists(font_family = "sans", system_only = FALSE)
 }
 \arguments{
 \item{font_family}{font family name (case sensitive)}
+
+\item{system_only}{If \code{TRUE}, only look in system-installed fonts
+(as returned by \code{\link[systemfonts:system_fonts]{systemfonts::system_fonts()}}). This is useful
+to verify that a font will be found by fontconfig, which is the
+font resolution mechanism used by Cairo devices at rendering
+time. When \code{FALSE} (the default), both system and registered
+fonts are considered.}
 }
 \value{
 A logical value
 }
 \description{
-Check if a font family exists in system fonts.
+Check if a font family exists in available fonts.
 }
 \examples{
 font_family_exists("sans")
 font_family_exists("Arial")
 font_family_exists("Courier")
+font_family_exists("Arial", system_only = TRUE)
 }

@@ -29,8 +29,17 @@ Default is FALSE. This argument is vectorized.}
 Default is FALSE. This argument is vectorized.}
 }
 \description{
-Determines widths, ascent and descent in inches using
-Cairo text measurement (device-independent).
+Determines widths, ascent and descent in inches.
+Font lookup is performed by 'systemfonts' (so any font
+registered via \code{\link[systemfonts:register_font]{systemfonts::register_font()}},
+\code{\link[=register_gfont]{register_gfont()}}, or \code{\link[=font_set]{font_set()}} is found), then Cairo
+computes the actual metrics. The results are accurate for
+devices whose rendering finds the same font -- this is
+guaranteed for 'systemfonts'-based devices (ragg, svglite,
+ggiraph) and true for Cairo devices (\code{cairo_pdf()}, ...) when
+the font is also installed at the system level. For devices
+with their own font engine (\code{pdf()}, \code{png()}, ...) the
+metrics may not match the rendering.
 }
 \examples{
 strings_sizes(letters)

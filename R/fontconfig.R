@@ -12,7 +12,12 @@
 #' match_family("serif")
 #' @importFrom systemfonts match_fonts system_fonts
 #' @keywords internal
-match_family <- function(font = "sans", bold = TRUE, italic = TRUE, debug = NULL) {
+match_family <- function(
+  font = "sans",
+  bold = TRUE,
+  italic = TRUE,
+  debug = NULL
+) {
   if (bold) {
     weight <- "bold"
   } else {
@@ -37,4 +42,3 @@ set_dummy_conf <- function() {
   .Deprecated(msg = "The function has no effect and should not be used.")
   invisible(FALSE)
 }
-

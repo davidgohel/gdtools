@@ -19,8 +19,22 @@
 #' str_metrics("Hello World!")
 #' @export
 #' @keywords internal
-str_metrics <- function(x, fontname = "sans", fontsize = 12, bold = FALSE, italic = FALSE, fontfile = "") {
-  str_metrics_(x = x, fontname = fontname, fontsize = fontsize, bold = bold, italic = italic, fontfile = fontfile)
+str_metrics <- function(
+  x,
+  fontname = "sans",
+  fontsize = 12,
+  bold = FALSE,
+  italic = FALSE,
+  fontfile = ""
+) {
+  str_metrics_(
+    x = x,
+    fontname = fontname,
+    fontsize = fontsize,
+    bold = bold,
+    italic = italic,
+    fontfile = fontfile
+  )
 }
 
 #' Compute string extents for a vector of strings.
@@ -48,11 +62,22 @@ str_metrics <- function(x, fontname = "sans", fontsize = 12, bold = FALSE, itali
 #' @family functions for font metrics
 #' @export
 #' @keywords internal
-m_str_extents <- function(x, fontname = "sans", fontsize=10, bold = FALSE, italic = FALSE, fontfile = NULL) {
-
-  stopifnot(is.character(x), is.character(fontname),
-            is.numeric(fontsize), is.logical(bold),
-            is.logical(italic), is.character(fontfile) || is.null(fontfile))
+m_str_extents <- function(
+  x,
+  fontname = "sans",
+  fontsize = 10,
+  bold = FALSE,
+  italic = FALSE,
+  fontfile = NULL
+) {
+  stopifnot(
+    is.character(x),
+    is.character(fontname),
+    is.numeric(fontsize),
+    is.logical(bold),
+    is.logical(italic),
+    is.character(fontfile) || is.null(fontfile)
+  )
 
   max_length <- length(x)
   fontname <- rep(fontname, length.out = max_length)
@@ -60,10 +85,11 @@ m_str_extents <- function(x, fontname = "sans", fontsize=10, bold = FALSE, itali
   bold <- rep(bold, length.out = max_length)
   italic <- rep(italic, length.out = max_length)
 
-  if( is.null(fontfile) )
+  if (is.null(fontfile)) {
     fontfile <- rep("", length.out = max_length)
-  else
+  } else {
     fontfile <- rep(fontfile, length.out = max_length)
+  }
 
   m_str_extents_(x, fontname, fontsize, bold, italic, fontfile)
 }
@@ -71,8 +97,17 @@ m_str_extents <- function(x, fontname = "sans", fontsize=10, bold = FALSE, itali
 
 #' @title Compute strings sizes
 #' @description
-#' Determines widths, ascent and descent in inches using
-#' Cairo text measurement (device-independent).
+#' Determines widths, ascent and descent in inches.
+#' Font lookup is performed by 'systemfonts' (so any font
+#' registered via [systemfonts::register_font()],
+#' [register_gfont()], or [font_set()] is found), then Cairo
+#' computes the actual metrics. The results are accurate for
+#' devices whose rendering finds the same font -- this is
+#' guaranteed for 'systemfonts'-based devices (ragg, svglite,
+#' ggiraph) and true for Cairo devices (`cairo_pdf()`, ...) when
+#' the font is also installed at the system level. For devices
+#' with their own font engine (`pdf()`, `png()`, ...) the
+#' metrics may not match the rendering.
 #'
 #' @param x A character vector of strings to measure. All arguments are vectorized
 #'   and recycled to match the length of \code{x}.
@@ -90,11 +125,20 @@ m_str_extents <- function(x, fontname = "sans", fontsize=10, bold = FALSE, itali
 #'   fontname = "sans", fontsize = 12)
 #' @family functions for font metrics
 #' @export
-strings_sizes <- function(x, fontname = "sans", fontsize=10, bold = FALSE, italic = FALSE) {
-
-  stopifnot(is.character(x), is.character(fontname),
-            is.numeric(fontsize), is.logical(bold),
-            is.logical(italic))
+strings_sizes <- function(
+  x,
+  fontname = "sans",
+  fontsize = 10,
+  bold = FALSE,
+  italic = FALSE
+) {
+  stopifnot(
+    is.character(x),
+    is.character(fontname),
+    is.numeric(fontsize),
+    is.logical(bold),
+    is.logical(italic)
+  )
 
   max_length <- length(x)
   fontname <- rep(fontname, length.out = max_length)
@@ -102,8 +146,14 @@ strings_sizes <- function(x, fontname = "sans", fontsize=10, bold = FALSE, itali
   bold <- rep(bold, length.out = max_length)
   italic <- rep(italic, length.out = max_length)
 
-  z <- m_str_metrics_(x, fontname, fontsize, as.integer(bold), as.integer(italic),
-                       rep("", max_length))
+  z <- m_str_metrics_(
+    x,
+    fontname,
+    fontsize,
+    as.integer(bold),
+    as.integer(italic),
+    rep("", max_length)
+  )
   z$width <- z$width / 72
   z$ascent <- z$ascent / 72
   z$descent <- z$descent / 72

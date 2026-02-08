@@ -34,7 +34,10 @@
 fonts_cache_dir <- function() {
   if (dir.exists(Sys.getenv("GDTOOLS_CACHE_DIR"))) {
     dir <- Sys.getenv("GDTOOLS_CACHE_DIR")
-  } else if (!is.null(getOption("GDTOOLS_CACHE_DIR")) && dir.exists(getOption("GDTOOLS_CACHE_DIR"))) {
+  } else if (
+    !is.null(getOption("GDTOOLS_CACHE_DIR")) &&
+      dir.exists(getOption("GDTOOLS_CACHE_DIR"))
+  ) {
     dir <- getOption("GDTOOLS_CACHE_DIR")
   } else {
     dir <- R_user_dir(package = "gdtools", which = "data")
@@ -54,7 +57,11 @@ fonts_cache_dir <- function() {
 #' @keywords internal
 dummy_setup <- function() {
   options(GDTOOLS_CACHE_DIR = file.path(tempdir(), "GDTOOLS_CACHE_DIR"))
-  dir.create(getOption("GDTOOLS_CACHE_DIR"), recursive = TRUE, showWarnings = TRUE)
+  dir.create(
+    getOption("GDTOOLS_CACHE_DIR"),
+    recursive = TRUE,
+    showWarnings = TRUE
+  )
   fonts_cache_dir()
 }
 
@@ -69,7 +76,6 @@ rm_fonts_cache <- function() {
   dir <- fonts_cache_dir()
   unlink(dir, recursive = TRUE, force = TRUE)
 }
-
 
 
 #' @export
@@ -103,13 +109,24 @@ reduce_faces <- function(variants) {
   faces
 }
 
-font_to_cache <- function(family, faces = NULL, subset = c("latin", "latin-ext")) {
-  stopifnot(`'family' is expected to be a character value` = is.character(family), `family is expected to be a single value` = length(family) == 1L)
+font_to_cache <- function(
+  family,
+  faces = NULL,
+  subset = c("latin", "latin-ext")
+) {
+  stopifnot(
+    `'family' is expected to be a character value` = is.character(family),
+    `family is expected to be a single value` = length(family) == 1L
+  )
 
   x <- gfonts_summary()
 
   if (!family %in% x$family) {
-    stop("family ", shQuote(family), " is not in the fonts provided by 'google fonts'.")
+    stop(
+      "family ",
+      shQuote(family),
+      " is not in the fonts provided by 'google fonts'."
+    )
   }
 
   font_id <- x[x$family %in% family, ]$id
