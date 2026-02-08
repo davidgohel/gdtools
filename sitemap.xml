@@ -8,6 +8,11 @@
 <url><loc>https://davidgohel.github.io/gdtools/reference/check_gfonts.html</loc></url>
 <url><loc>https://davidgohel.github.io/gdtools/reference/dummy_setup.html</loc></url>
 <url><loc>https://davidgohel.github.io/gdtools/reference/font_family_exists.html</loc></url>
+<url><loc>https://davidgohel.github.io/gdtools/reference/font_google.html</loc></url>
+<url><loc>https://davidgohel.github.io/gdtools/reference/font_liberation.html</loc></url>
+<url><loc>https://davidgohel.github.io/gdtools/reference/font_set.html</loc></url>
+<url><loc>https://davidgohel.github.io/gdtools/reference/font_set_auto.html</loc></url>
+<url><loc>https://davidgohel.github.io/gdtools/reference/font_set_liberation.html</loc></url>
 <url><loc>https://davidgohel.github.io/gdtools/reference/fonts_cache_dir.html</loc></url>
 <url><loc>https://davidgohel.github.io/gdtools/reference/gfontHtmlDependency.html</loc></url>
 <url><loc>https://davidgohel.github.io/gdtools/reference/index.html</loc></url>
@@ -23,7 +28,6 @@
 <url><loc>https://davidgohel.github.io/gdtools/reference/register_liberationsans.html</loc></url>
 <url><loc>https://davidgohel.github.io/gdtools/reference/register_liberationserif.html</loc></url>
 <url><loc>https://davidgohel.github.io/gdtools/reference/set_dummy_conf.html</loc></url>
-<url><loc>https://davidgohel.github.io/gdtools/reference/str_extents.html</loc></url>
 <url><loc>https://davidgohel.github.io/gdtools/reference/str_metrics.html</loc></url>
 <url><loc>https://davidgohel.github.io/gdtools/reference/strings_sizes.html</loc></url>
 <url><loc>https://davidgohel.github.io/gdtools/reference/sys_fonts.html</loc></url>

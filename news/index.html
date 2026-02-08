@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">gdtools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.4.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.5.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,7 +33,27 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.4.4" id="gdtools-044">gdtools 0.4.4<a class="anchor" aria-label="anchor" href="#gdtools-044"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.5.0" id="gdtools-050">gdtools 0.5.0<a class="anchor" aria-label="anchor" href="#gdtools-050"></a></h2>
+<div class="section level3">
+<h3 id="new-features-0-5-0">New features<a class="anchor" aria-label="anchor" href="#new-features-0-5-0"></a></h3>
+<ul><li>New font management API: <code><a href="../reference/font_set.html">font_set()</a></code>, <code><a href="../reference/font_set_liberation.html">font_set_liberation()</a></code>, and <code><a href="../reference/font_set_auto.html">font_set_auto()</a></code> provide a unified way to configure font aliases, register fonts with ‘systemfonts’, and generate ‘htmlDependency’ objects in a single step. Helper functions <code><a href="../reference/font_google.html">font_google()</a></code> and <code><a href="../reference/font_liberation.html">font_liberation()</a></code> declare individual font sources.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="changes-0-5-0">changes<a class="anchor" aria-label="anchor" href="#changes-0-5-0"></a></h3>
+<ul><li>
+<code><a href="../reference/register_liberationsans.html">register_liberationsans()</a></code>, <code><a href="../reference/register_liberationserif.html">register_liberationserif()</a></code> and <code><a href="../reference/register_liberationmono.html">register_liberationmono()</a></code> gain a <code>name</code> parameter to register Liberation fonts under a custom family name (e.g. <code>"sans"</code>, <code>"serif"</code>, <code>"mono"</code>). Default values are unchanged.</li>
+<li>remove unused <code>str_extents()</code>.</li>
+<li>remove C++ exported interface as no package uses <code>LinkingTo: gdtools</code> anymore.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="issues-0-5-0">issues<a class="anchor" aria-label="anchor" href="#issues-0-5-0"></a></h3>
+<ul><li>fix face mapping in <code><a href="../reference/strings_sizes.html">strings_sizes()</a></code>: italic text was incorrectly measured as bold-italic (face 4 instead of face 3).</li>
+<li>
+<code><a href="../reference/strings_sizes.html">strings_sizes()</a></code> now re-uses Cairo text measurement instead of <code><a href="https://systemfonts.r-lib.org/reference/string_metrics_dev.html" class="external-link">systemfonts::string_metrics_dev()</a></code>. Callers no longer need a ragg device open for accurate metrics. The measurements are accurate for devices that use Cairo or ‘systemfonts’ (ragg, svglite, ggiraph, <code><a href="https://rdrr.io/r/grDevices/cairo.html" class="external-link">cairo_pdf()</a></code>, …).</li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.4.4" id="gdtools-044">gdtools 0.4.4<a class="anchor" aria-label="anchor" href="#gdtools-044"></a></h2><p class="text-muted">CRAN release: 2025-10-06</p>
 <ul><li>add tools to use fonts ‘Liberation Serif’ and ‘Liberation Mono’.</li>
 <li>deprecate <code><a href="../reference/set_dummy_conf.html">set_dummy_conf()</a></code> that should be removed from the package in a later version.</li>
 <li>remove <code>raster_*</code> functions not used anymore</li>
@@ -226,7 +246,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>

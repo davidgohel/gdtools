@@ -13,7 +13,7 @@ and 'ggiraph' packages."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">gdtools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.4.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.5.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,29 +48,49 @@ and 'ggiraph' packages.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">register_liberationmono</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">register_liberationmono</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Liberation Mono"</span><span class="op">)</span></span></code></pre></div>
     </div>
 
+    <div class="section level2">
+    <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
+
+
+<dl><dt id="arg-name">name<a class="anchor" aria-label="anchor" href="#arg-name"></a></dt>
+<dd><p>the name to use for the font family when
+registering with 'systemfonts'. Using a custom name
+(e.g. <code>"sans"</code>, <code>"serif"</code>, <code>"mono"</code>) allows devices like
+'ragg' to resolve generic family names to this font.</p></dd>
+
+</dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>TRUE if the operation went ok.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p>Other functions for font management:
-<code><a href="addGFontHtmlDependency.html">addGFontHtmlDependency</a>()</code>,
-<code><a href="fonts_cache_dir.html">fonts_cache_dir</a>()</code>,
-<code><a href="gfontHtmlDependency.html">gfontHtmlDependency</a>()</code>,
-<code><a href="install_gfont_script.html">install_gfont_script</a>()</code>,
-<code><a href="installed_gfonts.html">installed_gfonts</a>()</code>,
-<code><a href="liberationmonoHtmlDependency.html">liberationmonoHtmlDependency</a>()</code>,
-<code><a href="liberationsansHtmlDependency.html">liberationsansHtmlDependency</a>()</code>,
-<code><a href="liberationserifHtmlDependency.html">liberationserifHtmlDependency</a>()</code>,
-<code><a href="register_gfont.html">register_gfont</a>()</code>,
-<code><a href="register_liberationsans.html">register_liberationsans</a>()</code>,
-<code><a href="register_liberationserif.html">register_liberationserif</a>()</code></p></div>
+    <div class="dont-index"><p><code><a href="font_set_liberation.html">font_set_liberation()</a></code>, <code><a href="font_set.html">font_set()</a></code></p>
+<p>Other functions for font management:
+<code><a href="addGFontHtmlDependency.html">addGFontHtmlDependency()</a></code>,
+<code><a href="fonts_cache_dir.html">fonts_cache_dir()</a></code>,
+<code><a href="gfontHtmlDependency.html">gfontHtmlDependency()</a></code>,
+<code><a href="install_gfont_script.html">install_gfont_script()</a></code>,
+<code><a href="installed_gfonts.html">installed_gfonts()</a></code>,
+<code><a href="liberationmonoHtmlDependency.html">liberationmonoHtmlDependency()</a></code>,
+<code><a href="liberationsansHtmlDependency.html">liberationsansHtmlDependency()</a></code>,
+<code><a href="liberationserifHtmlDependency.html">liberationserifHtmlDependency()</a></code>,
+<code><a href="register_gfont.html">register_gfont()</a></code>,
+<code><a href="register_liberationsans.html">register_liberationsans()</a></code>,
+<code><a href="register_liberationserif.html">register_liberationserif()</a></code></p></div>
     </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">register_liberationmono</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
+<span class="r-in"><span><span class="fu">register_liberationmono</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"mono"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
 
@@ -80,7 +100,7 @@ and 'ggiraph' packages.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>
