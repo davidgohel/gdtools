@@ -219,6 +219,7 @@ process_font_role <- function(value) {
 #'   \item{sources}{named list of source labels}
 #' }
 #' @family font set functions
+#' @seealso [font_set_liberation()], [font_set_auto()]
 #' @export
 #' @examples
 #' fonts <- font_set(sans = font_liberation("sans"))
@@ -266,6 +267,7 @@ font_set <- function(sans = NULL, serif = NULL, mono = NULL, symbol = NULL) {
 #' Liberation Sans as a fallback for symbols.
 #' @return An object of class `font_set`.
 #' @family font set functions
+#' @seealso [font_set()], [font_set_auto()]
 #' @export
 #' @examples
 #' fonts <- font_set_liberation()
@@ -306,6 +308,7 @@ first_available <- function(candidates) {
 #'
 #' @return An object of class `font_set`.
 #' @family font set functions
+#' @seealso [font_set()], [font_set_liberation()]
 #' @export
 #' @examples
 #' fonts <- font_set_auto()

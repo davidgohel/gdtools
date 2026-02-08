@@ -38,6 +38,7 @@ liberationsans_to_cache <- function() {
 #' 'ragg' to resolve generic family names to this font.
 #' @return TRUE if the operation went ok.
 #' @family functions for font management
+#' @seealso [font_set_liberation()], [font_set()]
 #' @examples
 #' register_liberationsans()
 #' register_liberationsans(name = "sans")
@@ -60,7 +61,7 @@ register_liberationsans <- function(name = "Liberation Sans") {
 #' @description Create an HTML dependency ready
 #' to be used in 'Shiny' or 'R Markdown' with
 #' 'Liberation Sans' Font.
-#' @seealso [gfontHtmlDependency()]
+#' @seealso [font_set_liberation()], [font_set()], [gfontHtmlDependency()]
 #' @family functions for font management
 liberationsansHtmlDependency <- function() {
   pkg_version <- packageVersion("gdtools")
@@ -115,6 +116,7 @@ liberationserif_to_cache <- function() {
 #' @inheritParams register_liberationsans
 #' @return TRUE if the operation went ok.
 #' @family functions for font management
+#' @seealso [font_set_liberation()], [font_set()]
 #' @examples
 #' register_liberationserif()
 #' register_liberationserif(name = "serif")
@@ -137,7 +139,7 @@ register_liberationserif <- function(name = "Liberation Serif") {
 #' @description Create an HTML dependency ready
 #' to be used in 'Shiny' or 'R Markdown' with
 #' 'Liberation Serif' Font.
-#' @seealso [gfontHtmlDependency()]
+#' @seealso [font_set_liberation()], [font_set()], [gfontHtmlDependency()]
 #' @family functions for font management
 liberationserifHtmlDependency <- function() {
   pkg_version <- packageVersion("gdtools")
@@ -191,6 +193,7 @@ liberationmono_to_cache <- function() {
 #' @inheritParams register_liberationsans
 #' @return TRUE if the operation went ok.
 #' @family functions for font management
+#' @seealso [font_set_liberation()], [font_set()]
 #' @examples
 #' register_liberationmono()
 #' register_liberationmono(name = "mono")
@@ -213,7 +216,7 @@ register_liberationmono <- function(name = "Liberation Mono") {
 #' @description Create an HTML dependency ready
 #' to be used in 'Shiny' or 'R Markdown' with
 #' 'Liberation Mono' Font.
-#' @seealso [gfontHtmlDependency()]
+#' @seealso [font_set_liberation()], [font_set()], [gfontHtmlDependency()]
 #' @family functions for font management
 liberationmonoHtmlDependency <- function() {
   pkg_version <- packageVersion("gdtools")

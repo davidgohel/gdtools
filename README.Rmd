@@ -26,8 +26,8 @@ knitr::opts_chunk$set(
 | Problem | gdtools solution |
 |---------|------------------|
 | Measure text without a device: layout calculations (column widths, text wrapping) need reliable metrics independent of the rendering device | `strings_sizes()` via Cairo |
-| Register non-system fonts: Google Fonts or Liberation fonts (bundled) must be made visible to 'systemfonts' | `register_gfont()`, `register_liberation*()`, and the `font_set()` wrapper |
-| Embed fonts in HTML: Shiny, R Markdown and girafe need `htmlDependency` objects so the browser loads the right fonts | `gfontHtmlDependency()`, `liberation*HtmlDependency()`, and `font_set()$dependencies` |
+| Register non-system fonts: Google Fonts or Liberation fonts (bundled) must be made visible to 'systemfonts' | `font_set_liberation()`, `font_set_auto()`, `font_set()` |
+| Embed fonts in HTML: Shiny, R Markdown and girafe need `htmlDependency` objects so the browser loads the right fonts | `font_set()$dependencies`, `gfontHtmlDependency()`, `liberation*HtmlDependency()` |
 | Check font availability: detect missing fonts before rendering, to avoid silent fallbacks | `font_family_exists()`, `sys_fonts()` |
 
 ## How font metric calculation works
@@ -162,15 +162,18 @@ install_gfont_script("Fira Sans", platform = "debian", file = "install-font.sh")
 #### Liberation fonts
 
 The package bundles 'Liberation Sans', 'Liberation Serif' and 'Liberation Mono'
-fonts. They are useful as cross-platform fallback fonts, for visual tests,
-or when no internet connection is available.
+fonts (SIL Open Font License). They are useful as cross-platform fallback
+fonts, for visual tests, or when no internet connection is available.
+
+`font_set_liberation()` registers all three families with 'systemfonts' and
+produces the matching HTML dependencies in a single call:
 
 ```{r eval=FALSE}
-register_liberationsans()
-register_liberationserif()
-register_liberationmono()
+fonts <- font_set_liberation()
+fonts$sans
+fonts$dependencies
 ```
 
-The corresponding `liberationsansHtmlDependency()`, `liberationserifHtmlDependency()`
-and `liberationmonoHtmlDependency()` functions provide HTML dependencies
-for use in Shiny or R Markdown.
+The individual functions `register_liberationsans()`,
+`register_liberationserif()` and `register_liberationmono()` remain
+available when only a specific variant is needed.

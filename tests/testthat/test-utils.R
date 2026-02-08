@@ -12,8 +12,7 @@ test_that("generic utils work", {
   expect_s3_class(ve_ft, "numeric_version")
 
   skip_on_cran()
-  register_liberationsans()
-  register_liberationserif()
+  font_set_liberation()
   expect_true(is.character(match_family("serif")))
   expect_true(is.character(match_family("sans", bold = FALSE, italic = FALSE)))
 })
