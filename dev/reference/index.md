@@ -8,13 +8,29 @@ graphic device. strings_sizes() is the recommended entry point.
 - [`strings_sizes()`](https://davidgohel.github.io/gdtools/dev/reference/strings_sizes.md)
   : Compute strings sizes
 
+## Font set
+
+Create a font set that bundles registration, HTML dependencies and
+family names in one step. Use font_google() or font_liberation() to
+describe each font role, then pass the result to girafe(), dsvg() or
+ggplot2 themes. font_set_liberation() is a ready-made set that works
+offline on any platform.
+
+- [`font_set()`](https://davidgohel.github.io/gdtools/dev/reference/font_set.md)
+  : Create a font set
+- [`font_set_liberation()`](https://davidgohel.github.io/gdtools/dev/reference/font_set_liberation.md)
+  : Liberation font set
+- [`font_set_auto()`](https://davidgohel.github.io/gdtools/dev/reference/font_set_auto.md)
+  : Automatic font set
+- [`font_google()`](https://davidgohel.github.io/gdtools/dev/reference/font_google.md)
+  : Google Font specification
+- [`font_liberation()`](https://davidgohel.github.io/gdtools/dev/reference/font_liberation.md)
+  : Liberation Font specification
+
 ## Google Fonts
 
-Download, cache and register fonts from Google Fonts. Use
-register_gfont() to make a font available to R packages that rely on
-systemfonts (flextable, ggiraph, ragg, svglite). Use
-gfontHtmlDependency() or addGFontHtmlDependency() to embed the font in
-an HTML output (Shiny, R Markdown, Quarto).
+Lower-level helpers to download, cache and register individual fonts
+from Google Fonts.
 
 - [`register_gfont()`](https://davidgohel.github.io/gdtools/dev/reference/register_gfont.md)
   : Register a 'Google Font'
@@ -29,10 +45,8 @@ an HTML output (Shiny, R Markdown, Quarto).
 
 ## Liberation Fonts
 
-Register and embed the bundled Liberation fonts (Sans, Serif, Mono).
-These metrically compatible alternatives to Arial, Times New Roman and
-Courier New are useful as cross-platform fallback fonts, for visual
-tests, or when no internet connection is available.
+Lower-level helpers to register and embed the bundled Liberation fonts
+(Sans, Serif, Mono) individually.
 
 - [`register_liberationsans()`](https://davidgohel.github.io/gdtools/dev/reference/register_liberationsans.md)
   : Register font 'Liberation Sans'

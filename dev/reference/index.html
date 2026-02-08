@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">gdtools</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.4.5.007</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.4.5.008</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,9 +48,53 @@
         </dt>
         <dd>Compute strings sizes</dd>
       </dl></div><div class="section level2">
+      <h2 id="font-set">Font set<a class="anchor" aria-label="anchor" href="#font-set"></a></h2>
+
+      <div class="section-desc"><p>Create a font set that bundles registration, HTML dependencies and family names in one step. Use font_google() or font_liberation() to describe each font role, then pass the result to girafe(), dsvg() or ggplot2 themes. font_set_liberation() is a ready-made set that works offline on any platform.</p></div>
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="font_set.html">font_set()</a></code>
+
+        </dt>
+        <dd>Create a font set</dd>
+
+        <dt>
+
+          <code><a href="font_set_liberation.html">font_set_liberation()</a></code>
+
+        </dt>
+        <dd>Liberation font set</dd>
+
+        <dt>
+
+          <code><a href="font_set_auto.html">font_set_auto()</a></code>
+
+        </dt>
+        <dd>Automatic font set</dd>
+
+        <dt>
+
+          <code><a href="font_google.html">font_google()</a></code>
+
+        </dt>
+        <dd>Google Font specification</dd>
+
+        <dt>
+
+          <code><a href="font_liberation.html">font_liberation()</a></code>
+
+        </dt>
+        <dd>Liberation Font specification</dd>
+      </dl></div><div class="section level2">
       <h2 id="google-fonts">Google Fonts<a class="anchor" aria-label="anchor" href="#google-fonts"></a></h2>
 
-      <div class="section-desc"><p>Download, cache and register fonts from Google Fonts. Use register_gfont() to make a font available to R packages that rely on systemfonts (flextable, ggiraph, ragg, svglite). Use gfontHtmlDependency() or addGFontHtmlDependency() to embed the font in an HTML output (Shiny, R Markdown, Quarto).</p></div>
+      <div class="section-desc"><p>Lower-level helpers to download, cache and register individual fonts from Google Fonts.</p></div>
 
       <dl></dl></div><div class="section level2">
 
@@ -94,7 +138,7 @@
       </dl></div><div class="section level2">
       <h2 id="liberation-fonts">Liberation Fonts<a class="anchor" aria-label="anchor" href="#liberation-fonts"></a></h2>
 
-      <div class="section-desc"><p>Register and embed the bundled Liberation fonts (Sans, Serif, Mono). These metrically compatible alternatives to Arial, Times New Roman and Courier New are useful as cross-platform fallback fonts, for visual tests, or when no internet connection is available.</p></div>
+      <div class="section-desc"><p>Lower-level helpers to register and embed the bundled Liberation fonts (Sans, Serif, Mono) individually.</p></div>
 
       <dl></dl></div><div class="section level2">
 

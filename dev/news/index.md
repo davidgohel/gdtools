@@ -1,6 +1,21 @@
 # Changelog
 
-## gdtools 0.4.5.006
+## gdtools 0.4.5
+
+### New features
+
+- New font management API:
+  [`font_set()`](https://davidgohel.github.io/gdtools/dev/reference/font_set.md),
+  [`font_set_liberation()`](https://davidgohel.github.io/gdtools/dev/reference/font_set_liberation.md),
+  and
+  [`font_set_auto()`](https://davidgohel.github.io/gdtools/dev/reference/font_set_auto.md)
+  provide a unified way to configure font aliases, register fonts with
+  ‘systemfonts’, and generate ‘htmlDependency’ objects in a single step.
+  Helper functions
+  [`font_google()`](https://davidgohel.github.io/gdtools/dev/reference/font_google.md)
+  and
+  [`font_liberation()`](https://davidgohel.github.io/gdtools/dev/reference/font_liberation.md)
+  declare individual font sources.
 
 ### changes
 
@@ -11,8 +26,9 @@
   gain a `name` parameter to register Liberation fonts under a custom
   family name (e.g. `"sans"`, `"serif"`, `"mono"`). Default values are
   unchanged.
-
-## gdtools 0.4.5
+- remove unused `str_extents()`.
+- remove C++ exported interface as no package uses `LinkingTo: gdtools`
+  anymore.
 
 ### issues
 
@@ -22,15 +38,11 @@
   face 3).
 - [`strings_sizes()`](https://davidgohel.github.io/gdtools/dev/reference/strings_sizes.md)
   now re-uses Cairo text measurement instead of
-  [`systemfonts::string_metrics_dev()`](https://systemfonts.r-lib.org/reference/string_metrics_dev.html),
-  making it device-independent. Callers no longer need a ragg device
-  open for accurate metrics.
-
-### changes
-
-- remove unused `str_extents()`.
-- remove C++ exported interface as no package uses `LinkingTo: gdtools`
-  anymore.
+  [`systemfonts::string_metrics_dev()`](https://systemfonts.r-lib.org/reference/string_metrics_dev.html).
+  Callers no longer need a ragg device open for accurate metrics. The
+  measurements are accurate for devices that use Cairo or ‘systemfonts’
+  (ragg, svglite, ggiraph,
+  [`cairo_pdf()`](https://rdrr.io/r/grDevices/cairo.html), …).
 
 ## gdtools 0.4.4
 

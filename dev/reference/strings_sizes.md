@@ -1,7 +1,20 @@
 # Compute strings sizes
 
-Determines widths, ascent and descent in inches using Cairo text
-measurement (device-independent).
+Determines widths, ascent and descent in inches. Font lookup is
+performed by 'systemfonts' (so any font registered via
+[`systemfonts::register_font()`](https://systemfonts.r-lib.org/reference/register_font.html),
+[`register_gfont()`](https://davidgohel.github.io/gdtools/dev/reference/register_gfont.md),
+or
+[`font_set()`](https://davidgohel.github.io/gdtools/dev/reference/font_set.md)
+is found), then Cairo computes the actual metrics. The results are
+accurate for devices whose rendering finds the same font – this is
+guaranteed for 'systemfonts'-based devices (ragg, svglite, ggiraph) and
+true for Cairo devices
+([`cairo_pdf()`](https://rdrr.io/r/grDevices/cairo.html), ...) when the
+font is also installed at the system level. For devices with their own
+font engine ([`pdf()`](https://rdrr.io/r/grDevices/pdf.html),
+[`png()`](https://rdrr.io/r/grDevices/png.html), ...) the metrics may
+not match the rendering.
 
 ## Usage
 
