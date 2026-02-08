@@ -1,4 +1,4 @@
-# gdtools 0.4.5
+# gdtools 0.5.0
 
 ## New features
 
