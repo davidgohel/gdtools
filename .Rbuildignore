@@ -10,3 +10,5 @@
 ^\.github$
 ^_pkgdown\.yml$
 ^data-src$
+^\.positai$
+^\.claude$
