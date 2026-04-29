@@ -24,7 +24,7 @@
 
     <a class="navbar-brand me-2" href="index.html">gdtools</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.4.5.008</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.5.1.001</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -196,6 +196,28 @@
 <p>The individual functions <code><a href="reference/register_liberationsans.html">register_liberationsans()</a></code>, <code><a href="reference/register_liberationserif.html">register_liberationserif()</a></code> and <code><a href="reference/register_liberationmono.html">register_liberationmono()</a></code> remain available when only a specific variant is needed.</p>
 </div>
 </div>
+</div>
+<div class="section level2">
+<h2 id="install-from-sources-on-macos">Install from sources on macOS<a class="anchor" aria-label="anchor" href="#install-from-sources-on-macos"></a>
+</h2>
+<p>Please read carefully the official R for macOS instructions: <a href="https://mac.r-project.org/" class="external-link uri">https://mac.r-project.org/</a></p>
+<p>To compile <a href="https://davidgohel.github.io/gdtools/">gdtools</a> from source, you need <code>cairo</code> (which pulls in <code>freetype</code> and <code>fontconfig</code> as dependencies) and <code>gettext</code> (which provides <code>libintl</code>, required at link time by <code>fontconfig</code>). Using Homebrew is recommended:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>brew install cairo gettext</span></code></pre></div>
+<p>Then configure your <code>~/.R/Makevars</code> file with the appropriate paths. For Apple Silicon Macs (M1/M2/M3/M4), the typical configuration is:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>CFLAGS<span class="ot">=</span><span class="sc">-</span>I<span class="sc">/</span>opt<span class="sc">/</span>homebrew<span class="sc">/</span>include</span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>CPPFLAGS<span class="ot">=</span><span class="sc">-</span>I<span class="sc">/</span>opt<span class="sc">/</span>homebrew<span class="sc">/</span>include</span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>CXXFLAGS<span class="ot">=</span><span class="sc">-</span>I<span class="sc">/</span>opt<span class="sc">/</span>homebrew<span class="sc">/</span>include</span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a>CXX11FLAGS<span class="ot">=</span><span class="sc">-</span>I<span class="sc">/</span>opt<span class="sc">/</span>homebrew<span class="sc">/</span>include</span>
+<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a>LDFLAGS<span class="ot">=</span><span class="sc">-</span>L<span class="sc">/</span>opt<span class="sc">/</span>homebrew<span class="sc">/</span>lib</span></code></pre></div>
+<p>For Intel Macs, paths are usually <code>/usr/local/include</code> and <code>/usr/local/lib</code>:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a>CFLAGS<span class="ot">=</span><span class="sc">-</span>I<span class="sc">/</span>usr<span class="sc">/</span>local<span class="sc">/</span>include</span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>CPPFLAGS<span class="ot">=</span><span class="sc">-</span>I<span class="sc">/</span>usr<span class="sc">/</span>local<span class="sc">/</span>include</span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a>CXXFLAGS<span class="ot">=</span><span class="sc">-</span>I<span class="sc">/</span>usr<span class="sc">/</span>local<span class="sc">/</span>include</span>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a>CXX11FLAGS<span class="ot">=</span><span class="sc">-</span>I<span class="sc">/</span>usr<span class="sc">/</span>local<span class="sc">/</span>include</span>
+<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a>LDFLAGS<span class="ot">=</span><span class="sc">-</span>L<span class="sc">/</span>usr<span class="sc">/</span>local<span class="sc">/</span>lib</span></code></pre></div>
+<blockquote>
+<p>Note: paths may vary depending on your system configuration. We are unable to provide support for installation issues related to macOS compilation setup.</p>
+</blockquote>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">

@@ -1,6 +1,8 @@
 # Changelog
 
-## gdtools 0.4.5
+## gdtools 0.5.0
+
+CRAN release: 2026-02-09
 
 ### New features
 

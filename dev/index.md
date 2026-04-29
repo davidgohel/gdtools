@@ -188,3 +188,43 @@ The individual functions
 and
 [`register_liberationmono()`](https://davidgohel.github.io/gdtools/dev/reference/register_liberationmono.md)
 remain available when only a specific variant is needed.
+
+## Install from sources on macOS
+
+Please read carefully the official R for macOS instructions:
+<https://mac.r-project.org/>
+
+To compile [gdtools](https://davidgohel.github.io/gdtools/) from source,
+you need `cairo` (which pulls in `freetype` and `fontconfig` as
+dependencies) and `gettext` (which provides `libintl`, required at link
+time by `fontconfig`). Using Homebrew is recommended:
+
+``` R
+brew install cairo gettext
+```
+
+Then configure your `~/.R/Makevars` file with the appropriate paths. For
+Apple Silicon Macs (M1/M2/M3/M4), the typical configuration is:
+
+``` R
+CFLAGS=-I/opt/homebrew/include
+CPPFLAGS=-I/opt/homebrew/include
+CXXFLAGS=-I/opt/homebrew/include
+CXX11FLAGS=-I/opt/homebrew/include
+LDFLAGS=-L/opt/homebrew/lib
+```
+
+For Intel Macs, paths are usually `/usr/local/include` and
+`/usr/local/lib`:
+
+``` R
+CFLAGS=-I/usr/local/include
+CPPFLAGS=-I/usr/local/include
+CXXFLAGS=-I/usr/local/include
+CXX11FLAGS=-I/usr/local/include
+LDFLAGS=-L/usr/local/lib
+```
+
+> Note: paths may vary depending on your system configuration. We are
+> unable to provide support for installation issues related to macOS
+> compilation setup.
