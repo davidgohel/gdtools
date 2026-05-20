@@ -22,7 +22,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/davidgohel/gdtools/blob/master/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/davidgohel/gdtools/blob/main/DESCRIPTION)
 
 Gohel D, Wickham H, Henry L, Ooms J (2026). *gdtools: Font Metrics and
 Font Management Utilities for R Graphics*. R package version 0.5.1.002,
