@@ -10,7 +10,7 @@ status](https://www.r-pkg.org/badges/version/gdtools)](https://CRAN.R-project.or
 [![R build
 status](https://github.com/davidgohel/gdtools/workflows/R-CMD-check/badge.svg)](https://github.com/davidgohel/gdtools/actions)
 [![codecov test
-coverage](https://codecov.io/gh/davidgohel/gdtools/branch/master/graph/badge.svg)](https://app.codecov.io/gh/davidgohel/gdtools)
+coverage](https://codecov.io/gh/davidgohel/gdtools/branch/main/graph/badge.svg)](https://app.codecov.io/gh/davidgohel/gdtools)
 <!-- badges: end -->
 
 `gdtools` addresses four practical problems when working with fonts in
