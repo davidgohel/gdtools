@@ -30,10 +30,10 @@ fonts
 \seealso{
 \code{\link[=font_set]{font_set()}}, \code{\link[=font_set_liberation]{font_set_liberation()}}
 
-Other font set functions: 
-\code{\link{font_google}()},
-\code{\link{font_liberation}()},
-\code{\link{font_set}()},
-\code{\link{font_set_liberation}()}
+Other font set functions:
+\code{\link[=font_google]{font_google()}},
+\code{\link[=font_liberation]{font_liberation()}},
+\code{\link[=font_set]{font_set()}},
+\code{\link[=font_set_liberation]{font_set_liberation()}}
 }
 \concept{font set functions}

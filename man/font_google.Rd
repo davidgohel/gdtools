@@ -24,10 +24,10 @@ to be used with \code{\link[=font_set]{font_set()}}.
 font_google("Roboto")
 }
 \seealso{
-Other font set functions: 
-\code{\link{font_liberation}()},
-\code{\link{font_set}()},
-\code{\link{font_set_auto}()},
-\code{\link{font_set_liberation}()}
+Other font set functions:
+\code{\link[=font_liberation]{font_liberation()}},
+\code{\link[=font_set]{font_set()}},
+\code{\link[=font_set_auto]{font_set_auto()}},
+\code{\link[=font_set_liberation]{font_set_liberation()}}
 }
 \concept{font set functions}

@@ -44,9 +44,9 @@ m_str_extents(letters[1:3],
 }
 }
 \seealso{
-Other functions for font metrics: 
-\code{\link{str_metrics}()},
-\code{\link{strings_sizes}()}
+Other functions for font metrics:
+\code{\link[=str_metrics]{str_metrics()}},
+\code{\link[=strings_sizes]{strings_sizes()}}
 }
 \concept{functions for font metrics}
 \keyword{internal}

@@ -21,10 +21,10 @@ font_liberation("sans")
 font_liberation("mono")
 }
 \seealso{
-Other font set functions: 
-\code{\link{font_google}()},
-\code{\link{font_set}()},
-\code{\link{font_set_auto}()},
-\code{\link{font_set_liberation}()}
+Other font set functions:
+\code{\link[=font_google]{font_google()}},
+\code{\link[=font_set]{font_set()}},
+\code{\link[=font_set_auto]{font_set_auto()}},
+\code{\link[=font_set_liberation]{font_set_liberation()}}
 }
 \concept{font set functions}

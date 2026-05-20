@@ -28,17 +28,17 @@ register_liberationsans(name = "sans")
 \seealso{
 \code{\link[=font_set_liberation]{font_set_liberation()}}, \code{\link[=font_set]{font_set()}}
 
-Other functions for font management: 
-\code{\link{addGFontHtmlDependency}()},
-\code{\link{fonts_cache_dir}()},
-\code{\link{gfontHtmlDependency}()},
-\code{\link{install_gfont_script}()},
-\code{\link{installed_gfonts}()},
-\code{\link{liberationmonoHtmlDependency}()},
-\code{\link{liberationsansHtmlDependency}()},
-\code{\link{liberationserifHtmlDependency}()},
-\code{\link{register_gfont}()},
-\code{\link{register_liberationmono}()},
-\code{\link{register_liberationserif}()}
+Other functions for font management:
+\code{\link[=addGFontHtmlDependency]{addGFontHtmlDependency()}},
+\code{\link[=fonts_cache_dir]{fonts_cache_dir()}},
+\code{\link[=gfontHtmlDependency]{gfontHtmlDependency()}},
+\code{\link[=install_gfont_script]{install_gfont_script()}},
+\code{\link[=installed_gfonts]{installed_gfonts()}},
+\code{\link[=liberationmonoHtmlDependency]{liberationmonoHtmlDependency()}},
+\code{\link[=liberationsansHtmlDependency]{liberationsansHtmlDependency()}},
+\code{\link[=liberationserifHtmlDependency]{liberationserifHtmlDependency()}},
+\code{\link[=register_gfont]{register_gfont()}},
+\code{\link[=register_liberationmono]{register_liberationmono()}},
+\code{\link[=register_liberationserif]{register_liberationserif()}}
 }
 \concept{functions for font management}

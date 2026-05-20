@@ -90,7 +90,8 @@ ensure_cache_dir <- function(path) {
   }
   if (!dir.exists(path)) {
     stop(
-      "Cannot create cache directory ", shQuote(path),
+      "Cannot create cache directory ",
+      shQuote(path),
       ". Check write permissions on the parent directory, ",
       "or set option 'GDTOOLS_CACHE_DIR' / env var 'GDTOOLS_CACHE_DIR' ",
       "to a writable location.",

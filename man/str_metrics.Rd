@@ -41,9 +41,9 @@ Use \code{\link[=strings_sizes]{strings_sizes()}} instead.
 str_metrics("Hello World!")
 }
 \seealso{
-Other functions for font metrics: 
-\code{\link{m_str_extents}()},
-\code{\link{strings_sizes}()}
+Other functions for font metrics:
+\code{\link[=m_str_extents]{m_str_extents()}},
+\code{\link[=strings_sizes]{strings_sizes()}}
 }
 \concept{functions for font metrics}
 \keyword{internal}

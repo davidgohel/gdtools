@@ -21,10 +21,10 @@ fonts
 \seealso{
 \code{\link[=font_set]{font_set()}}, \code{\link[=font_set_auto]{font_set_auto()}}
 
-Other font set functions: 
-\code{\link{font_google}()},
-\code{\link{font_liberation}()},
-\code{\link{font_set}()},
-\code{\link{font_set_auto}()}
+Other font set functions:
+\code{\link[=font_google]{font_google()}},
+\code{\link[=font_liberation]{font_liberation()}},
+\code{\link[=font_set]{font_set()}},
+\code{\link[=font_set_auto]{font_set_auto()}}
 }
 \concept{font set functions}
