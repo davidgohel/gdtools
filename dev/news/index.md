@@ -1,5 +1,14 @@
 # Changelog
 
+## gdtools 0.5.1
+
+### issues
+
+- font cache helpers now raise an explicit error when the cache
+  directory cannot be created (e.g. unwritable parent), instead of
+  showing a confusing [`file.copy()`](https://rdrr.io/r/base/files.html)
+  error ([\#82](https://github.com/davidgohel/gdtools/issues/82)).
+
 ## gdtools 0.5.0
 
 CRAN release: 2026-02-09

@@ -94,7 +94,7 @@ fonts$dependencies
 #> [[1]]
 #> List of 10
 #>  $ name      : chr "liberation-sans"
-#>  $ version   : chr "0.5.1.1"
+#>  $ version   : chr "0.5.1.2"
 #>  $ src       :List of 1
 #>   ..$ file: chr "/home/runner/.local/share/R/gdtools/liberation-sans"
 #>  $ meta      : NULL
