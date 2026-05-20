@@ -96,8 +96,8 @@ sysfont_to_cache <- function(family) {
 
   .font_dir <- font_dir(id = font_id)
   .css_dir <- css_dir(id = font_id)
-  dir.create(.font_dir, recursive = TRUE, showWarnings = FALSE)
-  dir.create(.css_dir, recursive = TRUE, showWarnings = FALSE)
+  ensure_cache_dir(.font_dir)
+  ensure_cache_dir(.css_dir)
 
   css_lines <- character()
 

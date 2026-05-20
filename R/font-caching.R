@@ -56,12 +56,9 @@ fonts_cache_dir <- function() {
 #' @export
 #' @keywords internal
 dummy_setup <- function() {
-  options(GDTOOLS_CACHE_DIR = file.path(tempdir(), "GDTOOLS_CACHE_DIR"))
-  dir.create(
-    getOption("GDTOOLS_CACHE_DIR"),
-    recursive = TRUE,
-    showWarnings = TRUE
-  )
+  dummy_dir <- file.path(tempdir(), "GDTOOLS_CACHE_DIR")
+  options(GDTOOLS_CACHE_DIR = dummy_dir)
+  ensure_cache_dir(dummy_dir)
   fonts_cache_dir()
 }
 
@@ -82,9 +79,25 @@ rm_fonts_cache <- function() {
 #' @rdname fonts_cache_dir
 init_fonts_cache <- function() {
   rm_fonts_cache()
-  dir.create(fonts_cache_dir(), showWarnings = FALSE, recursive = TRUE)
+  ensure_cache_dir(fonts_cache_dir())
   liberationsans_to_cache()
   fonts_cache_dir()
+}
+
+ensure_cache_dir <- function(path) {
+  if (!dir.exists(path)) {
+    dir.create(path, recursive = TRUE, showWarnings = FALSE)
+  }
+  if (!dir.exists(path)) {
+    stop(
+      "Cannot create cache directory ", shQuote(path),
+      ". Check write permissions on the parent directory, ",
+      "or set option 'GDTOOLS_CACHE_DIR' / env var 'GDTOOLS_CACHE_DIR' ",
+      "to a writable location.",
+      call. = FALSE
+    )
+  }
+  invisible(path)
 }
 
 css_filepath <- function(id) {
@@ -147,8 +160,8 @@ font_to_cache <- function(
   .font_dir <- font_dir(id = font_id)
   .css_dir <- css_dir(id = font_id)
 
-  dir.create(.font_dir, recursive = TRUE, showWarnings = FALSE)
-  dir.create(.css_dir, recursive = TRUE, showWarnings = FALSE)
+  ensure_cache_dir(.font_dir)
+  ensure_cache_dir(.css_dir)
 
   gfonts::download_font(
     id = font_id,

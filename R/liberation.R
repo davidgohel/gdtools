@@ -6,7 +6,7 @@ liberationsans_to_cache <- function() {
   font_css_ <- css_dir(id = font_id)
 
   if (!dir.exists(font_dir_) || !dir.exists(font_css_)) {
-    dir.create(font_dir_, showWarnings = FALSE, recursive = TRUE)
+    ensure_cache_dir(font_dir_)
     file.copy(
       from = list.files(
         system.file(package = "fontLiberation", "fonts/liberation-fonts"),
@@ -16,7 +16,7 @@ liberationsans_to_cache <- function() {
       overwrite = TRUE
     )
 
-    dir.create(font_css_, showWarnings = FALSE, recursive = TRUE)
+    ensure_cache_dir(font_css_)
     file.copy(
       from = system.file(package = "gdtools", "css/liberation-sans.css"),
       to = font_css_,
@@ -87,7 +87,7 @@ liberationserif_to_cache <- function() {
   font_css_ <- css_dir(id = font_id)
 
   if (!dir.exists(font_dir_) || !dir.exists(font_css_)) {
-    dir.create(font_dir_, showWarnings = FALSE, recursive = TRUE)
+    ensure_cache_dir(font_dir_)
     file.copy(
       from = list.files(
         system.file(package = "fontLiberation", "fonts/liberation-fonts"),
@@ -97,7 +97,7 @@ liberationserif_to_cache <- function() {
       overwrite = TRUE
     )
 
-    dir.create(font_css_, showWarnings = FALSE, recursive = TRUE)
+    ensure_cache_dir(font_css_)
     file.copy(
       from = system.file(package = "gdtools", "css/liberation-serif.css"),
       to = font_css_,
@@ -164,7 +164,7 @@ liberationmono_to_cache <- function() {
   font_css_ <- css_dir(id = font_id)
 
   if (!dir.exists(font_dir_) || !dir.exists(font_css_)) {
-    dir.create(font_dir_, showWarnings = FALSE, recursive = TRUE)
+    ensure_cache_dir(font_dir_)
     file.copy(
       from = list.files(
         system.file(package = "fontLiberation", "fonts/liberation-fonts"),
@@ -174,7 +174,7 @@ liberationmono_to_cache <- function() {
       overwrite = TRUE
     )
 
-    dir.create(font_css_, showWarnings = FALSE, recursive = TRUE)
+    ensure_cache_dir(font_css_)
     file.copy(
       from = system.file(package = "gdtools", "css/liberation-mono.css"),
       to = font_css_,

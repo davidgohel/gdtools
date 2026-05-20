@@ -92,7 +92,7 @@ test_that("system dependent font installation works", {
 })
 
 test_that("font-caching works", {
-  expect_warning(ds <- dummy_setup())
+  ds <- dummy_setup()
 
   expect_silent(fcd <- fonts_cache_dir())
   expect_true(dir.exists(fcd))

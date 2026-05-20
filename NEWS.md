@@ -1,3 +1,11 @@
+# gdtools 0.5.1
+
+## issues
+
+- font cache helpers now raise an explicit error when the cache
+directory cannot be created (e.g. unwritable parent), instead of
+showing a confusing `file.copy()` error (#82).
+
 # gdtools 0.5.0
 
 ## New features
