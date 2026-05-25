@@ -16,7 +16,7 @@ template:
 
 home:
   links:
-  - text: 'Visit <a href="https://www.ardata.fr"><img alt="ardata" src="https://www.ardata.fr/img/ardata-logo.svg" width="70"></a> website'
+  - text: 'Visit ardata website'
     href: https://www.ardata.fr
 
 reference:
@@ -97,7 +97,7 @@ footer:
   structure:
     left: legal
   components:
-    legal: proudly brought to you by <a href="https://www.ardata.fr"><img alt="ardata" src="https://www.ardata.fr/img/ardata-logo.svg" width="70"></a>
+    legal: proudly brought to you by ardata.
 
 
 authors:

@@ -1,6 +1,6 @@
 Package: gdtools
 Title: Font Metrics and Font Management Utilities for R Graphics
-Version: 0.5.1.002
+Version: 0.5.1
 Authors@R: c(
     person("David", "Gohel", , "david.gohel@ardata.fr", role = c("aut", "cre")),
     person("Hadley", "Wickham", , "hadley@rstudio.com", role = "aut"),
