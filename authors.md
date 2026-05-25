@@ -22,16 +22,16 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/davidgohel/gdtools/blob/master/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/davidgohel/gdtools/blob/main/DESCRIPTION)
 
 Gohel D, Wickham H, Henry L, Ooms J (2026). *gdtools: Font Metrics and
-Font Management Utilities for R Graphics*. R package version 0.5.0,
+Font Management Utilities for R Graphics*. R package version 0.5.1,
 <https://davidgohel.github.io/gdtools/>.
 
     @Manual{,
       title = {gdtools: Font Metrics and Font Management Utilities for R Graphics},
       author = {David Gohel and Hadley Wickham and Lionel Henry and Jeroen Ooms},
       year = {2026},
-      note = {R package version 0.5.0},
+      note = {R package version 0.5.1},
       url = {https://davidgohel.github.io/gdtools/},
     }

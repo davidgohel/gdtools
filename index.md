@@ -3,12 +3,12 @@
 `gdtools` addresses four practical problems when working with fonts in
 R:
 
-| Problem                                                                                                                                     | gdtools solution                                                                                                                                                                                                                                                   |
-|---------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Measure text without a device: layout calculations (column widths, text wrapping) need reliable metrics independent of the rendering device | [`strings_sizes()`](https://davidgohel.github.io/gdtools/reference/strings_sizes.md) via Cairo                                                                                                                                                                     |
-| Register non-system fonts: Google Fonts or Liberation fonts (bundled) must be made visible to ‘systemfonts’                                 | [`font_set_liberation()`](https://davidgohel.github.io/gdtools/reference/font_set_liberation.md), [`font_set_auto()`](https://davidgohel.github.io/gdtools/reference/font_set_auto.md), [`font_set()`](https://davidgohel.github.io/gdtools/reference/font_set.md) |
-| Embed fonts in HTML: Shiny, R Markdown and girafe need `htmlDependency` objects so the browser loads the right fonts                        | `font_set()$dependencies`, [`gfontHtmlDependency()`](https://davidgohel.github.io/gdtools/reference/gfontHtmlDependency.md), `liberation*HtmlDependency()`                                                                                                         |
-| Check font availability: detect missing fonts before rendering, to avoid silent fallbacks                                                   | [`font_family_exists()`](https://davidgohel.github.io/gdtools/reference/font_family_exists.md), [`sys_fonts()`](https://davidgohel.github.io/gdtools/reference/sys_fonts.md)                                                                                       |
+| Problem | gdtools solution |
+|----|----|
+| Measure text without a device: layout calculations (column widths, text wrapping) need reliable metrics independent of the rendering device | [`strings_sizes()`](https://davidgohel.github.io/gdtools/reference/strings_sizes.md) via Cairo |
+| Register non-system fonts: Google Fonts or Liberation fonts (bundled) must be made visible to ‘systemfonts’ | [`font_set_liberation()`](https://davidgohel.github.io/gdtools/reference/font_set_liberation.md), [`font_set_auto()`](https://davidgohel.github.io/gdtools/reference/font_set_auto.md), [`font_set()`](https://davidgohel.github.io/gdtools/reference/font_set.md) |
+| Embed fonts in HTML: Shiny, R Markdown and girafe need `htmlDependency` objects so the browser loads the right fonts | `font_set()$dependencies`, [`gfontHtmlDependency()`](https://davidgohel.github.io/gdtools/reference/gfontHtmlDependency.md), `liberation*HtmlDependency()` |
+| Check font availability: detect missing fonts before rendering, to avoid silent fallbacks | [`font_family_exists()`](https://davidgohel.github.io/gdtools/reference/font_family_exists.md), [`sys_fonts()`](https://davidgohel.github.io/gdtools/reference/sys_fonts.md) |
 
 ## How font metric calculation works
 
@@ -39,12 +39,14 @@ side, this is a device concern.
 You can install the released version of gdtools from CRAN with:
 
 ``` r
+
 install.packages("gdtools")
 ```
 
 And the development version from GitHub with:
 
 ``` r
+
 # install.packages("remotes")
 remotes::install_github("davidgohel/gdtools")
 ```
@@ -63,6 +65,7 @@ with their own font engine
 match the rendering.
 
 ``` r
+
 library(gdtools)
 strings_sizes(
   c("a string", "a longer string"),
@@ -78,6 +81,7 @@ strings_sizes(
 All arguments are vectorized:
 
 ``` r
+
 strings_sizes(
   c("normal", "bold", "italic", "bold-italic"),
   fontsize = 12,
@@ -99,6 +103,7 @@ fonts when needed. It returns a `font_set` object ready to use with
 ggplot2, ggiraph, or any ‘systemfonts’-based device:
 
 ``` r
+
 library(gdtools)
 
 fonts <- font_set_auto()
@@ -119,6 +124,7 @@ lets you pick each role with
 or a plain family name:
 
 ``` r
+
 fonts <- font_set(
   sans  = font_google("Open Sans"),
   mono  = font_liberation("mono")
@@ -134,6 +140,7 @@ For an offline-only setup,
 uses Liberation fonts for all four roles:
 
 ``` r
+
 fonts <- font_set_liberation()
 fonts
 ```
@@ -148,6 +155,7 @@ from ‘Google Fonts’. They can be used in ‘R Markdown’ documents and
 ‘ggiraph’, ‘ragg’ and ‘svglite’, or tabular outputs from ‘flextable’.
 
 ``` r
+
 # Download and register with systemfonts (cached for future use)
 register_gfont(family = "Open Sans")
 ```
@@ -162,6 +170,7 @@ To install a Google Font at the system level (e.g. in a Dockerfile), use
 [`install_gfont_script()`](https://davidgohel.github.io/gdtools/reference/install_gfont_script.md):
 
 ``` r
+
 install_gfont_script("Fira Sans", platform = "debian", file = "install-font.sh")
 ```
 
@@ -177,6 +186,7 @@ registers all three families with ‘systemfonts’ and produces the
 matching HTML dependencies in a single call:
 
 ``` r
+
 fonts <- font_set_liberation()
 fonts$sans
 fonts$dependencies
@@ -188,3 +198,43 @@ The individual functions
 and
 [`register_liberationmono()`](https://davidgohel.github.io/gdtools/reference/register_liberationmono.md)
 remain available when only a specific variant is needed.
+
+## Install from sources on macOS
+
+Please read carefully the official R for macOS instructions:
+<https://mac.r-project.org/>
+
+To compile ‘gdtools’ from source, you need `cairo` (which pulls in
+`freetype` and `fontconfig` as dependencies) and `gettext` (which
+provides `libintl`, required at link time by `fontconfig`). Using
+Homebrew is recommended:
+
+``` R
+brew install cairo fontconfig gettext
+```
+
+Then configure your `~/.R/Makevars` file with the appropriate paths. For
+Apple Silicon Macs (M1/M2/M3/M4), the typical configuration is:
+
+``` R
+CFLAGS=-I/opt/homebrew/include
+CPPFLAGS=-I/opt/homebrew/include
+CXXFLAGS=-I/opt/homebrew/include
+CXX11FLAGS=-I/opt/homebrew/include
+LDFLAGS=-L/opt/homebrew/lib
+```
+
+For Intel Macs, paths are usually `/usr/local/include` and
+`/usr/local/lib`:
+
+``` R
+CFLAGS=-I/usr/local/include
+CPPFLAGS=-I/usr/local/include
+CXXFLAGS=-I/usr/local/include
+CXX11FLAGS=-I/usr/local/include
+LDFLAGS=-L/usr/local/lib
+```
+
+> Note: paths may vary depending on your system configuration. We are
+> unable to provide support for installation issues related to macOS
+> compilation setup.
