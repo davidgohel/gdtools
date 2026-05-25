@@ -201,8 +201,8 @@
 <h2 id="install-from-sources-on-macos">Install from sources on macOS<a class="anchor" aria-label="anchor" href="#install-from-sources-on-macos"></a>
 </h2>
 <p>Please read carefully the official R for macOS instructions: <a href="https://mac.r-project.org/" class="external-link uri">https://mac.r-project.org/</a></p>
-<p>To compile <a href="https://davidgohel.github.io/gdtools/">gdtools</a> from source, you need <code>cairo</code> (which pulls in <code>freetype</code> and <code>fontconfig</code> as dependencies) and <code>gettext</code> (which provides <code>libintl</code>, required at link time by <code>fontconfig</code>). Using Homebrew is recommended:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>brew install cairo gettext</span></code></pre></div>
+<p>To compile ‘gdtools’ from source, you need <code>cairo</code> (which pulls in <code>freetype</code> and <code>fontconfig</code> as dependencies) and <code>gettext</code> (which provides <code>libintl</code>, required at link time by <code>fontconfig</code>). Using Homebrew is recommended:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>brew install cairo fontconfig gettext</span></code></pre></div>
 <p>Then configure your <code>~/.R/Makevars</code> file with the appropriate paths. For Apple Silicon Macs (M1/M2/M3/M4), the typical configuration is:</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>CFLAGS<span class="ot">=</span><span class="sc">-</span>I<span class="sc">/</span>opt<span class="sc">/</span>homebrew<span class="sc">/</span>include</span>
 <span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>CPPFLAGS<span class="ot">=</span><span class="sc">-</span>I<span class="sc">/</span>opt<span class="sc">/</span>homebrew<span class="sc">/</span>include</span>

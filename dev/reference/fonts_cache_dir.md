@@ -44,12 +44,12 @@ fonts_cache_dir()
 
 options(GDTOOLS_CACHE_DIR = tempdir())
 fonts_cache_dir()
-#> [1] "/tmp/RtmpQPcbHb"
+#> [1] "/tmp/Rtmp5Pv8NM"
 options(GDTOOLS_CACHE_DIR = NULL)
 
 Sys.setenv(GDTOOLS_CACHE_DIR = tempdir())
 fonts_cache_dir()
-#> [1] "/tmp/RtmpQPcbHb"
+#> [1] "/tmp/Rtmp5Pv8NM"
 Sys.setenv(GDTOOLS_CACHE_DIR = "")
 
 

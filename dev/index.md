@@ -204,13 +204,13 @@ remain available when only a specific variant is needed.
 Please read carefully the official R for macOS instructions:
 <https://mac.r-project.org/>
 
-To compile [gdtools](https://davidgohel.github.io/gdtools/) from source,
-you need `cairo` (which pulls in `freetype` and `fontconfig` as
-dependencies) and `gettext` (which provides `libintl`, required at link
-time by `fontconfig`). Using Homebrew is recommended:
+To compile ‘gdtools’ from source, you need `cairo` (which pulls in
+`freetype` and `fontconfig` as dependencies) and `gettext` (which
+provides `libintl`, required at link time by `fontconfig`). Using
+Homebrew is recommended:
 
 ``` R
-brew install cairo gettext
+brew install cairo fontconfig gettext
 ```
 
 Then configure your `~/.R/Makevars` file with the appropriate paths. For
