@@ -2,6 +2,8 @@
 
 ## gdtools 0.5.1
 
+CRAN release: 2026-05-25
+
 ### issues
 
 - font cache helpers now raise an explicit error when the cache
@@ -75,7 +77,7 @@ CRAN release: 2025-03-27
 
 CRAN release: 2024-11-04
 
-- specify systemfonts version shoud be 1.1.0
+- specify systemfonts version should be 1.1.0
   ([\#71](https://github.com/davidgohel/gdtools/issues/71))
 
 ## gdtools 0.4.0
