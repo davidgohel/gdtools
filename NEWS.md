@@ -46,7 +46,7 @@ devices that use Cairo or 'systemfonts' (ragg, svglite, ggiraph,
 
 # gdtools 0.4.1
 
-- specify systemfonts version shoud be 1.1.0 (#71)
+- specify systemfonts version should be 1.1.0 (#71)
 
 # gdtools 0.4.0
 
