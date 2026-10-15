@@ -9,7 +9,7 @@ to (just) enclose the provided text. Unit is points."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">gdtools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.5.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.5.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -78,8 +78,10 @@ to (just) enclose the provided text. Unit is points.</p>
 </dl></div>
     <div class="section level2">
     <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>
-    <p>This function will be deprecated in a future release.
-Use <code><a href="strings_sizes.html">strings_sizes()</a></code> instead.</p>
+    <p>This function is deprecated and will be removed in a future
+release. Use <code><a href="strings_sizes.html">strings_sizes()</a></code> instead, which returns the width, the
+ascent and the descent in inches (the height is the sum of the ascent
+and the descent).</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
@@ -88,50 +90,6 @@ Use <code><a href="strings_sizes.html">strings_sizes()</a></code> instead.</p>
 <code><a href="strings_sizes.html">strings_sizes()</a></code></p></div>
     </div>
 
-    <div class="section level2">
-    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
-<span class="r-in"><span><span class="co"># The first run can be slow when font caches are missing</span></span></span>
-<span class="r-in"><span><span class="co"># as font files are then being scanned to build those font caches.</span></span></span>
-<span class="r-in"><span><span class="fu">m_str_extents</span><span class="op">(</span><span class="va">letters</span>, fontsize <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">26</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            [,1]       [,2]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]  0.612793  0.5742188</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  1.269531  1.5478516</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,]  1.649414  1.7226562</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,]  2.539062  3.0957031</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]  3.076172  2.8710938</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,]  2.112305  4.5585938</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,]  4.443359  5.3764648</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,]  5.070312  6.0781250</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,]  2.500488  6.8378906</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [10,]  2.778320  9.6777344</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [11,]  6.370117  8.3574219</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [12,]  3.333984  9.1171875</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [13,] 12.663574  7.2807617</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [14,]  8.873047  7.8408203</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [15,]  9.177246  8.6132812</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [16,] 10.156250 12.2890625</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [17,] 10.791016 13.0571289</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [18,]  7.400391 10.0810547</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [19,]  9.898926 10.9101562</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [20,]  7.841797 14.0429688</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [21,] 13.309570 12.0585938</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [22,] 13.019531 12.0312500</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [23,] 18.811035 12.5781250</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [24,] 14.203125 13.1250000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [25,] 14.794922 18.8720703</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [26,] 13.647461 14.2187500</span>
-<span class="r-in"><span><span class="fu">m_str_extents</span><span class="op">(</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>,</span></span>
-<span class="r-in"><span>  bold <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  italic <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  fontname <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sans"</span>, <span class="st">"sans"</span>, <span class="st">"sans"</span><span class="op">)</span> <span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          [,1]     [,2]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 6.748047 5.742188</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 6.347656 7.739258</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 5.927734 5.742188</span>
-<span class="r-in"><span><span class="co"># }</span></span></span>
-</code></pre></div>
-    </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
 
@@ -141,7 +99,7 @@ Use <code><a href="strings_sizes.html">strings_sizes()</a></code> instead.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer></div>

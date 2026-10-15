@@ -1,5 +1,29 @@
 # Changelog
 
+## gdtools 0.5.2
+
+### issues
+
+- The list of system fonts is now read once per R session, as reading it
+  is slow when many fonts are installed:
+  [`font_family_exists()`](https://davidgohel.github.io/gdtools/reference/font_family_exists.md),
+  [`sys_fonts()`](https://davidgohel.github.io/gdtools/reference/sys_fonts.md),
+  [`font_set_liberation()`](https://davidgohel.github.io/gdtools/reference/font_set_liberation.md)
+  and
+  [`font_set_auto()`](https://davidgohel.github.io/gdtools/reference/font_set_auto.md)
+  no longer list all the installed fonts on each call
+  ([\#84](https://github.com/davidgohel/gdtools/issues/84)). Fonts
+  registered during the session are still found; new function
+  [`sys_fonts_reset()`](https://davidgohel.github.io/gdtools/reference/sys_fonts_reset.md)
+  refreshes the list after a font is installed on the system.
+- [`m_str_extents()`](https://davidgohel.github.io/gdtools/reference/m_str_extents.md)
+  is deprecated, use
+  [`strings_sizes()`](https://davidgohel.github.io/gdtools/reference/strings_sizes.md)
+  instead.
+- The unused argument `debug` of
+  [`match_family()`](https://davidgohel.github.io/gdtools/reference/match_family.md)
+  is removed.
+
 ## gdtools 0.5.1
 
 CRAN release: 2026-05-25

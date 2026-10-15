@@ -5,7 +5,7 @@
 ## Usage
 
 ``` r
-match_family(font = "sans", bold = TRUE, italic = TRUE, debug = NULL)
+match_family(font = "sans", bold = TRUE, italic = TRUE)
 ```
 
 ## Arguments
@@ -21,10 +21,6 @@ match_family(font = "sans", bold = TRUE, italic = TRUE, debug = NULL)
 - italic:
 
   Whether to match a font featuring an `italic` face.
-
-- debug:
-
-  deprecated
 
 ## Examples
 

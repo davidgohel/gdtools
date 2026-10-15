@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">gdtools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.5.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.5.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,6 +32,16 @@
       <small>Source: <a href="https://github.com/davidgohel/gdtools/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.5.2" id="gdtools-052">gdtools 0.5.2<a class="anchor" aria-label="anchor" href="#gdtools-052"></a></h2>
+<div class="section level3">
+<h3 id="issues-0-5-2">issues<a class="anchor" aria-label="anchor" href="#issues-0-5-2"></a></h3>
+<ul><li>The list of system fonts is now read once per R session, as reading it is slow when many fonts are installed: <code><a href="../reference/font_family_exists.html">font_family_exists()</a></code>, <code><a href="../reference/sys_fonts.html">sys_fonts()</a></code>, <code><a href="../reference/font_set_liberation.html">font_set_liberation()</a></code> and <code><a href="../reference/font_set_auto.html">font_set_auto()</a></code> no longer list all the installed fonts on each call (<a href="https://github.com/davidgohel/gdtools/issues/84" class="external-link">#84</a>). Fonts registered during the session are still found; new function <code><a href="../reference/sys_fonts_reset.html">sys_fonts_reset()</a></code> refreshes the list after a font is installed on the system.</li>
+<li>
+<code><a href="../reference/m_str_extents.html">m_str_extents()</a></code> is deprecated, use <code><a href="../reference/strings_sizes.html">strings_sizes()</a></code> instead.</li>
+<li>The unused argument <code>debug</code> of <code><a href="../reference/match_family.html">match_family()</a></code> is removed.</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.5.1" id="gdtools-051">gdtools 0.5.1<a class="anchor" aria-label="anchor" href="#gdtools-051"></a></h2><p class="text-muted">CRAN release: 2026-05-25</p>
 <div class="section level3">
@@ -253,7 +263,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer></div>
