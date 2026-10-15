@@ -16,6 +16,13 @@
   registered during the session are still found; new function
   [`sys_fonts_reset()`](https://davidgohel.github.io/gdtools/dev/reference/sys_fonts_reset.md)
   refreshes the list after a font is installed on the system.
+- [`m_str_extents()`](https://davidgohel.github.io/gdtools/dev/reference/m_str_extents.md)
+  is deprecated, use
+  [`strings_sizes()`](https://davidgohel.github.io/gdtools/dev/reference/strings_sizes.md)
+  instead.
+- The unused argument `debug` of
+  [`match_family()`](https://davidgohel.github.io/gdtools/dev/reference/match_family.md)
+  is removed.
 
 ## gdtools 0.5.1
 

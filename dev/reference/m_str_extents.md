@@ -40,9 +40,10 @@ m_str_extents(
 
 ## Note
 
-This function will be deprecated in a future release. Use
+This function is deprecated and will be removed in a future release. Use
 [`strings_sizes()`](https://davidgohel.github.io/gdtools/dev/reference/strings_sizes.md)
-instead.
+instead, which returns the width, the ascent and the descent in inches
+(the height is the sum of the ascent and the descent).
 
 ## See also
 
@@ -57,6 +58,9 @@ Other functions for font metrics:
 # The first run can be slow when font caches are missing
 # as font files are then being scanned to build those font caches.
 m_str_extents(letters, fontsize = 1:26)
+#> Warning: 'm_str_extents' is deprecated.
+#> Use 'strings_sizes' instead.
+#> See help("Deprecated")
 #>            [,1]       [,2]
 #>  [1,]  0.612793  0.5742188
 #>  [2,]  1.269531  1.5478516
@@ -88,6 +92,9 @@ m_str_extents(letters[1:3],
   bold = c(TRUE, FALSE, TRUE),
   italic = c(FALSE, TRUE, TRUE),
   fontname = c("sans", "sans", "sans") )
+#> Warning: 'm_str_extents' is deprecated.
+#> Use 'strings_sizes' instead.
+#> See help("Deprecated")
 #>          [,1]     [,2]
 #> [1,] 6.748047 5.742188
 #> [2,] 6.347656 7.739258
