@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">gdtools</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.5.1.002</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.5.2.002</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -189,7 +189,7 @@
       </dl></div><div class="section level2">
       <h2 id="font-discovery">Font discovery<a class="anchor" aria-label="anchor" href="#font-discovery"></a></h2>
 
-      <div class="section-desc"><p>Query available fonts on the system. font_family_exists() checks whether a font is available, sys_fonts() lists all known fonts, and match_family() finds the best match for a given name.</p></div>
+      <div class="section-desc"><p>Query available fonts on the system. font_family_exists() checks whether a font is available, sys_fonts() lists all known fonts, sys_fonts_reset() refreshes that list after a font is installed during the session, and match_family() finds the best match for a given name.</p></div>
 
       <dl></dl></div><div class="section level2">
 
@@ -209,6 +209,13 @@
 
         </dt>
         <dd>List fonts for 'systemfonts'.</dd>
+
+        <dt>
+
+          <code><a href="sys_fonts_reset.html">sys_fonts_reset()</a></code>
+
+        </dt>
+        <dd>Refresh the list of system fonts</dd>
       </dl></div><div class="section level2">
       <h2 id="font-cache">Font cache<a class="anchor" aria-label="anchor" href="#font-cache"></a></h2>
 
@@ -254,11 +261,11 @@
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>proudly brought to you by <a href="https://www.ardata.fr" class="external-link"><img alt="ardata" src="https://www.ardata.fr/img/ardata-logo.svg" width="70"></a></p>
+  <p>proudly brought to you by ardata.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer></div>

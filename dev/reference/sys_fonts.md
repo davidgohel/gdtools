@@ -3,6 +3,16 @@
 List system and registry fonts into a data.frame containing columns such
 as path, family, style, weight and italic.
 
+Listing the system fonts is slow when many fonts are installed, so the
+list is read once per R session; fonts registered with 'systemfonts'
+(e.g. with
+[`register_liberationsans()`](https://davidgohel.github.io/gdtools/dev/reference/register_liberationsans.md)
+or
+[`register_gfont()`](https://davidgohel.github.io/gdtools/dev/reference/register_gfont.md))
+are always included. Call
+[`sys_fonts_reset()`](https://davidgohel.github.io/gdtools/dev/reference/sys_fonts_reset.md)
+after installing a font on the system during the session.
+
 ## Usage
 
 ``` r

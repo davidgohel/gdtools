@@ -1,6 +1,25 @@
 # Changelog
 
+## gdtools 0.5.2
+
+### issues
+
+- The list of system fonts is now read once per R session, as reading it
+  is slow when many fonts are installed:
+  [`font_family_exists()`](https://davidgohel.github.io/gdtools/dev/reference/font_family_exists.md),
+  [`sys_fonts()`](https://davidgohel.github.io/gdtools/dev/reference/sys_fonts.md),
+  [`font_set_liberation()`](https://davidgohel.github.io/gdtools/dev/reference/font_set_liberation.md)
+  and
+  [`font_set_auto()`](https://davidgohel.github.io/gdtools/dev/reference/font_set_auto.md)
+  no longer list all the installed fonts on each call
+  ([\#84](https://github.com/davidgohel/gdtools/issues/84)). Fonts
+  registered during the session are still found; new function
+  [`sys_fonts_reset()`](https://davidgohel.github.io/gdtools/dev/reference/sys_fonts_reset.md)
+  refreshes the list after a font is installed on the system.
+
 ## gdtools 0.5.1
+
+CRAN release: 2026-05-25
 
 ### issues
 
@@ -75,7 +94,7 @@ CRAN release: 2025-03-27
 
 CRAN release: 2024-11-04
 
-- specify systemfonts version shoud be 1.1.0
+- specify systemfonts version should be 1.1.0
   ([\#71](https://github.com/davidgohel/gdtools/issues/71))
 
 ## gdtools 0.4.0
