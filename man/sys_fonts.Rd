@@ -12,6 +12,12 @@ A data.frame of font information.
 \description{
 List system and registry fonts into a data.frame
 containing columns such as path, family, style, weight and italic.
+
+Listing the system fonts is slow when many fonts are installed, so
+the list is read once per R session; fonts registered with
+'systemfonts' (e.g. with \code{\link[=register_liberationsans]{register_liberationsans()}} or
+\code{\link[=register_gfont]{register_gfont()}}) are always included. Call \code{\link[=sys_fonts_reset]{sys_fonts_reset()}}
+after installing a font on the system during the session.
 }
 \examples{
 sys_fonts()

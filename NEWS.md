@@ -1,3 +1,14 @@
+# gdtools 0.5.2
+
+## issues
+
+- The list of system fonts is now read once per R session, as reading it
+is slow when many fonts are installed: `font_family_exists()`,
+`sys_fonts()`, `font_set_liberation()` and `font_set_auto()` no longer
+list all the installed fonts on each call (#84). Fonts registered during
+the session are still found; new function `sys_fonts_reset()` refreshes
+the list after a font is installed on the system.
+
 # gdtools 0.5.1
 
 ## issues

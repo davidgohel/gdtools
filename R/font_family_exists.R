@@ -18,7 +18,7 @@
 #' @export
 font_family_exists <- function(font_family = "sans", system_only = FALSE) {
   if (system_only) {
-    families <- c(system_fonts()$family, default_sys_fonts()$family)
+    families <- c(cached_system_fonts()$family, default_sys_fonts()$family)
   } else {
     families <- sys_fonts()$family
   }
@@ -29,13 +29,19 @@ font_family_exists <- function(font_family = "sans", system_only = FALSE) {
 #'
 #' @description List system and registry fonts into a data.frame
 #' containing columns such as path, family, style, weight and italic.
+#'
+#' Listing the system fonts is slow when many fonts are installed, so
+#' the list is read once per R session; fonts registered with
+#' 'systemfonts' (e.g. with [register_liberationsans()] or
+#' [register_gfont()]) are always included. Call [sys_fonts_reset()]
+#' after installing a font on the system during the session.
 #' @return A data.frame of font information.
 #' @examples
 #' sys_fonts()
 #' @export
 #' @importFrom systemfonts system_fonts registry_fonts
 sys_fonts <- function() {
-  db_sys <- system_fonts()
+  db_sys <- cached_system_fonts()
   db_reg <- registry_fonts()
   nam <- intersect(colnames(db_sys), colnames(db_reg))
   db_sys <- db_sys[, nam]
@@ -62,4 +68,36 @@ default_sys_fonts <- function() {
   dat$path <- res$path
   dat$index <- res$index
   dat
+}
+
+# the list of system fonts, read once per session (see sys_fonts_reset())
+sys_fonts_cache <- new.env(parent = emptyenv())
+
+cached_system_fonts <- function() {
+  if (is.null(sys_fonts_cache$fonts)) {
+    sys_fonts_cache$fonts <- system_fonts()
+  }
+  sys_fonts_cache$fonts
+}
+
+#' @title Refresh the list of system fonts
+#'
+#' @description The list of system fonts used by [sys_fonts()] and
+#' [font_family_exists()] is read once per R session, as reading it is
+#' slow when many fonts are installed. Call this function after
+#' installing a font on the system during the session so that it is
+#' found.
+#'
+#' It also resets the font cache of 'systemfonts'
+#' ([systemfonts::reset_font_cache()]).
+#' @return `NULL`, invisibly.
+#' @examples
+#' sys_fonts_reset()
+#' @family functions for font management
+#' @export
+#' @importFrom systemfonts reset_font_cache
+sys_fonts_reset <- function() {
+  sys_fonts_cache$fonts <- NULL
+  reset_font_cache()
+  invisible(NULL)
 }

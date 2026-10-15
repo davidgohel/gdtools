@@ -68,10 +68,13 @@ reference:
     desc: >
       Query available fonts on the system. font_family_exists() checks
       whether a font is available, sys_fonts() lists all known fonts,
-      and match_family() finds the best match for a given name.
+      sys_fonts_reset() refreshes that list after a font is installed
+      during the session, and match_family() finds the best match for a
+      given name.
     contents:
     - font_family_exists
     - sys_fonts
+    - sys_fonts_reset
 
   - title: Font cache
     desc: >
