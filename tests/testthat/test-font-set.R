@@ -1,3 +1,6 @@
+# write the font files and CSS into a temporary cache
+dummy_setup()
+
 test_that("font_liberation() returns font_spec", {
   spec <- font_liberation("sans")
   expect_s3_class(spec, "font_spec")
@@ -15,7 +18,6 @@ test_that("font_liberation() returns font_spec", {
 })
 
 test_that("font_google() returns font_spec", {
-  skip_if_not_ready()
   spec <- font_google("Roboto")
   expect_s3_class(spec, "font_spec")
   expect_identical(spec$family, "Roboto")
@@ -167,4 +169,83 @@ test_that("font_set() with google font", {
   expect_identical(fonts$sans, "Open Sans")
   expect_length(fonts$dependencies, 1L)
   expect_identical(fonts$sources$sans, "google")
+})
+
+test_that("css_font_format() maps file extensions to CSS formats", {
+  expect_identical(css_font_format("a.ttf"), "truetype")
+  expect_identical(css_font_format("a.TTF"), "truetype")
+  expect_identical(css_font_format("a.otf"), "opentype")
+  expect_identical(css_font_format("a.woff"), "woff")
+  expect_identical(css_font_format("a.woff2"), "woff2")
+  expect_identical(css_font_format("a.ttc"), "truetype")
+})
+
+test_that("a system font is copied to the cache with its CSS", {
+  family <- "gdtools Cached Sans"
+  expect_true(register_liberationsans(name = family))
+
+  fonts <- font_set(sans = family)
+  expect_identical(fonts$sans, family)
+  expect_identical(fonts$sources$sans, "system")
+  dep <- fonts$dependencies[[1]]
+  expect_identical(dep$name, "gdtools-cached-sans")
+
+  css_path <- file.path(dep$src, "css", "gdtools-cached-sans.css")
+  expect_true(file.exists(css_path))
+  css_content <- readLines(css_path)
+  expect_equal(sum(grepl("@font-face", css_content, fixed = TRUE)), 4L)
+  expect_true(any(grepl("font-family: 'gdtools Cached Sans';", css_content)))
+  expect_true(any(grepl("font-style: italic;", css_content)))
+  expect_true(any(grepl("font-weight: 700;", css_content)))
+  expect_true(any(grepl("format('truetype')", css_content, fixed = TRUE)))
+
+  font_files <- list.files(file.path(dep$src, "fonts"))
+  expect_setequal(
+    font_files,
+    paste0(
+      "gdtools-cached-sans-",
+      c("regular", "bold", "italic", "bolditalic"),
+      ".ttf"
+    )
+  )
+
+  # the second call reuses the cached files
+  mtime <- file.mtime(css_path)
+  expect_identical(sysfont_to_cache(family), "gdtools-cached-sans")
+  expect_identical(file.mtime(css_path), mtime)
+})
+
+test_that("font_set() errors on invalid font specifications", {
+  expect_error(font_set(sans = 1), "must be a character string")
+  expect_error(font_set(mono = list(family = "x")), "must be a character string")
+  bad_spec <- structure(
+    list(family = "x", source = "unknown"),
+    class = "font_spec"
+  )
+  expect_error(font_set(sans = bad_spec), "Unknown font_spec source")
+})
+
+test_that("first_available() returns the first existing font", {
+  register_liberationsans()
+  expect_identical(
+    first_available(c("nonexistent_xyz_font_abc", "Liberation Sans")),
+    "Liberation Sans"
+  )
+  expect_null(first_available(c("nonexistent_xyz_font_abc", "nonexistent_2")))
+  expect_null(first_available(character()))
+})
+
+test_that("font_set_auto() fills every role", {
+  fonts <- font_set_auto()
+  expect_s3_class(fonts, "font_set")
+  for (role in c("sans", "serif", "mono", "symbol")) {
+    expect_true(is.character(fonts[[role]]) && length(fonts[[role]]) == 1L)
+    expect_true(fonts$sources[[role]] %in% c("system", "liberation"))
+    expect_true(font_family_exists(fonts[[role]]))
+  }
+  expect_named(
+    fonts$dsvg_fonts,
+    c("sans", "serif", "mono", "symbol")
+  )
+  expect_length(fonts$dependencies, 4L)
 })
