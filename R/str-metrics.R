@@ -51,16 +51,6 @@ str_metrics <- function(
 #' @param fontname Font name. A character vector, recycled to match \code{x}.
 #' @param fontsize Font size. A numeric vector, recycled to match \code{x}.
 #' @param fontfile Font file. A character vector, recycled to match \code{x}.
-#' @examples
-#' \donttest{
-#' # The first run can be slow when font caches are missing
-#' # as font files are then being scanned to build those font caches.
-#' m_str_extents(letters, fontsize = 1:26)
-#' m_str_extents(letters[1:3],
-#'   bold = c(TRUE, FALSE, TRUE),
-#'   italic = c(FALSE, TRUE, TRUE),
-#'   fontname = c("sans", "sans", "sans") )
-#' }
 #' @family functions for font metrics
 #' @export
 #' @keywords internal

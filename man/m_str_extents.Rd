@@ -34,17 +34,6 @@ release. Use \code{\link[=strings_sizes]{strings_sizes()}} instead, which return
 ascent and the descent in inches (the height is the sum of the ascent
 and the descent).
 }
-\examples{
-\donttest{
-# The first run can be slow when font caches are missing
-# as font files are then being scanned to build those font caches.
-m_str_extents(letters, fontsize = 1:26)
-m_str_extents(letters[1:3],
-  bold = c(TRUE, FALSE, TRUE),
-  italic = c(FALSE, TRUE, TRUE),
-  fontname = c("sans", "sans", "sans") )
-}
-}
 \seealso{
 Other functions for font metrics:
 \code{\link[=str_metrics]{str_metrics()}},
