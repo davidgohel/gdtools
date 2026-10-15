@@ -8,6 +8,8 @@ is slow when many fonts are installed: `font_family_exists()`,
 list all the installed fonts on each call (#84). Fonts registered during
 the session are still found; new function `sys_fonts_reset()` refreshes
 the list after a font is installed on the system.
+- `m_str_extents()` is deprecated, use `strings_sizes()` instead.
+- The unused argument `debug` of `match_family()` is removed.
 
 # gdtools 0.5.1
 

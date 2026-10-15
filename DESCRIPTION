@@ -34,7 +34,6 @@ Imports:
 Suggests:
     curl,
     gfonts,
-    methods,
     testthat
 LinkingTo:
     Rcpp

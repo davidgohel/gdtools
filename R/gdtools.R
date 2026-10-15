@@ -1,6 +1,5 @@
 #' @useDynLib gdtools
 #' @importFrom Rcpp sourceCpp
-#' @importFrom grDevices is.raster
 NULL
 
 #' @title Version numbers of C libraries

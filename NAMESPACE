@@ -34,7 +34,6 @@ export(version_cairo)
 export(version_freetype)
 importFrom(Rcpp,sourceCpp)
 importFrom(fontquiver,font_faces)
-importFrom(grDevices,is.raster)
 importFrom(htmltools,
   attachDependencies,
   htmlDependency,

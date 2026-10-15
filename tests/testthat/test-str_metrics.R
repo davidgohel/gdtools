@@ -53,23 +53,26 @@ test_that("NA strings produce NA metrics", {
   expect_true(res$width[1] > 0)
   expect_true(res$width[3] > 0)
 
-  mstre <- m_str_extents(c("a", NA_character_), fontsize = 12)
+  mstre <- suppressWarnings(m_str_extents(c("a", NA_character_), fontsize = 12))
   expect_true(is.na(mstre[2, 1]))
   expect_true(is.na(mstre[2, 2]))
   expect_true(mstre[1, 1] > 0)
 })
 
 test_that("m_str_extents works ", {
-  mstre <- m_str_extents(letters, fontsize = 1:26)
+  expect_warning(
+    mstre <- m_str_extents(letters, fontsize = 1:26),
+    "strings_sizes"
+  )
   expect_equal(dim(mstre), c(26, 2))
   expect_true(all(is.numeric(mstre)))
 
-  mstre <- m_str_extents(
+  mstre <- suppressWarnings(m_str_extents(
     letters[1:3],
     bold = c(TRUE, FALSE, TRUE),
     italic = c(FALSE, TRUE, TRUE),
     fontname = c("sans", "sans", "sans")
-  )
+  ))
   expect_equal(dim(mstre), c(3, 2))
   expect_true(all(is.numeric(mstre)))
 })

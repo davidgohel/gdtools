@@ -29,8 +29,10 @@ For each \code{x} element, determines the width and height of a bounding box tha
 to (just) enclose the provided text. Unit is points.
 }
 \note{
-This function will be deprecated in a future release.
-Use \code{\link[=strings_sizes]{strings_sizes()}} instead.
+This function is deprecated and will be removed in a future
+release. Use \code{\link[=strings_sizes]{strings_sizes()}} instead, which returns the width, the
+ascent and the descent in inches (the height is the sum of the ascent
+and the descent).
 }
 \examples{
 \donttest{

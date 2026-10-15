@@ -4,7 +4,7 @@
 \alias{match_family}
 \title{Find best family match with systemfonts}
 \usage{
-match_family(font = "sans", bold = TRUE, italic = TRUE, debug = NULL)
+match_family(font = "sans", bold = TRUE, italic = TRUE)
 }
 \arguments{
 \item{font}{family or face to match.}
@@ -12,8 +12,6 @@ match_family(font = "sans", bold = TRUE, italic = TRUE, debug = NULL)
 \item{bold}{Whether to match a font featuring a \code{bold} face.}
 
 \item{italic}{Whether to match a font featuring an \code{italic} face.}
-
-\item{debug}{deprecated}
 }
 \description{
 \code{match_family()} returns the best font family match.

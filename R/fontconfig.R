@@ -5,7 +5,6 @@
 #' @param font family or face to match.
 #' @param bold Whether to match a font featuring a \code{bold} face.
 #' @param italic Whether to match a font featuring an \code{italic} face.
-#' @param debug deprecated
 #' @export
 #' @examples
 #' match_family("sans")
@@ -15,8 +14,7 @@
 match_family <- function(
   font = "sans",
   bold = TRUE,
-  italic = TRUE,
-  debug = NULL
+  italic = TRUE
 ) {
   if (bold) {
     weight <- "bold"
