@@ -34,13 +34,17 @@ export(version_freetype)
 importFrom(Rcpp,sourceCpp)
 importFrom(fontquiver,font_faces)
 importFrom(grDevices,is.raster)
-importFrom(htmltools,attachDependencies)
-importFrom(htmltools,htmlDependency)
-importFrom(htmltools,tags)
-importFrom(systemfonts,match_fonts)
-importFrom(systemfonts,register_font)
-importFrom(systemfonts,registry_fonts)
-importFrom(systemfonts,system_fonts)
+importFrom(htmltools,
+  attachDependencies,
+  htmlDependency,
+  tags
+)
+importFrom(systemfonts,
+  match_fonts,
+  register_font,
+  registry_fonts,
+  system_fonts
+)
 importFrom(tools,R_user_dir)
 importFrom(utils,packageVersion)
 useDynLib(gdtools)

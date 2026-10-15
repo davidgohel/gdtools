@@ -1,6 +1,6 @@
 Package: gdtools
 Title: Font Metrics and Font Management Utilities for R Graphics
-Version: 0.5.1
+Version: 0.5.2.001
 Authors@R: c(
     person("David", "Gohel", , "david.gohel@ardata.fr", role = c("aut", "cre")),
     person("Hadley", "Wickham", , "hadley@rstudio.com", role = "aut"),
@@ -38,7 +38,7 @@ Suggests:
     testthat
 LinkingTo:
     Rcpp
+Config/roxygen2/version: 8.1.0
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 SystemRequirements: cairo, freetype2, fontconfig
-Config/roxygen2/version: 8.0.0
