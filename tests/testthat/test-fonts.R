@@ -20,7 +20,10 @@ test_that("fonts work", {
   expect_error(addGFontHtmlDependency("notafont"))
   expect_identical(attr(out, which = "html_dependencies")[[1]], fontlist)
 
-  random_font <- gfonts::get_all_fonts()$family[4]
+  random_font <- setdiff(
+    gfonts::get_all_fonts()$family,
+    c("Roboto", "Open Sans")
+  )[1]
   expect_true(register_gfont(family = random_font))
 
   expect_identical(
