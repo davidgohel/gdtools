@@ -2,6 +2,8 @@
 
 ## gdtools 0.5.2
 
+CRAN release: 2026-10-15
+
 ### issues
 
 - The list of system fonts is now read once per R session, as reading it

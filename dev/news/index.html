@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">gdtools</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.5.2.004</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.5.3.001</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,7 +33,7 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.5.2" id="gdtools-052">gdtools 0.5.2<a class="anchor" aria-label="anchor" href="#gdtools-052"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.5.2" id="gdtools-052">gdtools 0.5.2<a class="anchor" aria-label="anchor" href="#gdtools-052"></a></h2><p class="text-muted">CRAN release: 2026-10-15</p>
 <div class="section level3">
 <h3 id="issues-0-5-2">issues<a class="anchor" aria-label="anchor" href="#issues-0-5-2"></a></h3>
 <ul><li>The list of system fonts is now read once per R session, as reading it is slow when many fonts are installed: <code><a href="../reference/font_family_exists.html">font_family_exists()</a></code>, <code><a href="../reference/sys_fonts.html">sys_fonts()</a></code>, <code><a href="../reference/font_set_liberation.html">font_set_liberation()</a></code> and <code><a href="../reference/font_set_auto.html">font_set_auto()</a></code> no longer list all the installed fonts on each call (<a href="https://github.com/davidgohel/gdtools/issues/84" class="external-link">#84</a>). Fonts registered during the session are still found; new function <code><a href="../reference/sys_fonts_reset.html">sys_fonts_reset()</a></code> refreshes the list after a font is installed on the system.</li>
