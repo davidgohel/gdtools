@@ -1,19 +1,16 @@
-# Text measurement from glyph metrics, without Cairo.
+# Text measurement from the metrics stored in font files, without Cairo.
 #
-# Strings are measured in C++ (`glyph_strings_()`) with the systemfonts C
-# API: each distinct glyph is measured once per font at a large reference
-# size, then values are scaled to the requested size. The width is the sum
-# of the glyph advances (no kerning, as Cairo's toy text API), the ascent and
-# the descent are those of the union of the ink boxes of the glyphs.
+# Strings are measured in C++ (`glyph_strings_()`) with FreeType: each
+# distinct glyph is read once per font, unscaled and unhinted, in font units.
+# The width is the sum of the glyph advances of the 'hmtx' table (no
+# kerning, as HarfBuzz and Cairo's toy text API), the ascent and the descent
+# are those of the union of the ink boxes of the glyph outlines. Values are
+# exact: they only depend on the font file.
+#
+# Fonts are resolved by systemfonts; files are opened by the FreeType gdtools
+# is linked with, not the one of systemfonts.
 #
 # Values are returned in points.
-
-# Glyph metrics are integers (pixels): measuring at a large size and a
-# high resolution keeps the rounding error below 0.001 point per glyph at
-# 10 points. 100 points at 1e4 dpi is about 13900 pixels per em, close to the
-# largest size FreeType accepts (1000 points fails with error 23).
-glyph_ref_size <- 100
-glyph_ref_res <- 1e4
 
 glyph_metrics_ <- function(x, fontname, fontsize, bold, italic, fontfile) {
   has_file <- !is.na(fontfile) & nzchar(fontfile)
@@ -35,15 +32,13 @@ glyph_metrics_ <- function(x, fontname, fontsize, bold, italic, fontfile) {
     x,
     font_id,
     fonts$path,
-    fonts$index,
-    glyph_ref_size,
-    glyph_ref_res
+    fonts$index
   )
 
   if (any(m$failed)) {
-    # The file found by systemfonts may not be readable by its FreeType,
-    # e.g. reserved macOS system fonts. Same fallback as ragg: warn and use
-    # the default sans-serif font.
+    # The file found by systemfonts may not be readable, e.g. reserved
+    # macOS system fonts with some FreeType builds. Same fallback as ragg:
+    # warn and use the default sans-serif font.
     failed <- sort(unique(font_id[m$failed]))
     warning(
       "Unable to load font: ",
@@ -62,13 +57,12 @@ glyph_metrics_ <- function(x, fontname, fontsize, bold, italic, fontfile) {
       x[redo],
       match(font_id[redo], failed),
       sans$path,
-      sans$index,
-      glyph_ref_size,
-      glyph_ref_res
+      sans$index
     )
   }
 
-  scale <- fontsize / glyph_ref_size * 72 / glyph_ref_res
+  # values are in em
+  scale <- fontsize
   data.frame(
     width = m$width * scale,
     ascent = m$ascent * scale,

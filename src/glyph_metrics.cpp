@@ -1,5 +1,7 @@
 #include <Rcpp.h>
-#include <systemfonts.h>
+#include <ft2build.h>
+#include FT_FREETYPE_H
+#include FT_ADVANCES_H
 #include <algorithm>
 #include <cstdint>
 #include <numeric>
@@ -10,11 +12,12 @@ using namespace Rcpp;
 
 namespace {
 
+// Metrics of one glyph, in font units.
 struct GlyphMetric {
-  double width;
-  double ascent;
-  double descent;
-  int error;
+  double advance;
+  double top;    // yMax of the ink box
+  double bottom; // -yMin of the ink box
+  bool inked;
 };
 
 // Decode UTF-8 into code points. Returns false on invalid input.
@@ -50,43 +53,52 @@ bool decode_utf8(const char* s, std::vector<uint32_t>& out) {
   return true;
 }
 
-GlyphMetric measure_glyph(uint32_t code, const char* path, int index,
-                          double size, double res) {
-  GlyphMetric m = {0, 0, 0, 0};
-  m.error = glyph_metrics(code, path, index, size, res,
-                          &m.ascent, &m.descent, &m.width);
-  if (m.error != 0) {
-    // one retry: a previous failure can leave the systemfonts cache in a
-    // state where the next load fails
-    m.error = glyph_metrics(code, path, index, size, res,
-                            &m.ascent, &m.descent, &m.width);
+// Read the metrics stored in the font file, unscaled and unhinted: the
+// advance from the 'hmtx' table (as HarfBuzz), the ink box from the outline.
+GlyphMetric read_glyph(FT_Face face, uint32_t code) {
+  GlyphMetric m = {0, 0, 0, false};
+  FT_UInt gid = FT_Get_Char_Index(face, code); // 0 is .notdef
+
+  FT_Fixed advance = 0;
+  if (FT_Get_Advance(face, gid, FT_LOAD_NO_SCALE, &advance) == 0) {
+    m.advance = (double) advance;
   }
-  if (m.error != 0) {
-    m.width = m.ascent = m.descent = 0;
+  if (FT_Load_Glyph(face, gid, FT_LOAD_NO_SCALE) == 0) {
+    const FT_Glyph_Metrics& gm = face->glyph->metrics;
+    if (gm.height > 0) {
+      m.top = (double) gm.horiBearingY;
+      m.bottom = (double) (gm.height - gm.horiBearingY);
+      m.inked = true;
+    }
   }
   return m;
 }
 
 } // namespace
 
-// Measure strings from glyph metrics given by the systemfonts C API (no
-// Cairo). `font` gives, for each string, a 1-based row in `path`/`index`.
-// Width is the sum of glyph advances (no kerning); ascent and descent are
-// those of the union of the glyph ink boxes. Values are in pixels at `size`
-// points and `res` dpi. `failed` is TRUE when the font could not be read.
-// NA strings give NA; invalid UTF-8 is measured as an empty string.
+// Measure strings from the metrics stored in font files, read with FreeType
+// (no Cairo, no hinting, no scaling). `font` gives, for each string, a
+// 1-based row in `path`/`index`. Width is the sum of glyph advances (no
+// kerning); ascent and descent are those of the union of the glyph ink
+// boxes. Values are in em (divide by units per em done here): multiply by
+// the font size to get points. `failed` is TRUE when the font file could not
+// be opened. NA strings give NA; invalid UTF-8 is measured as an empty
+// string.
 // [[Rcpp::export]]
 DataFrame glyph_strings_(CharacterVector x,
                          IntegerVector font,
                          CharacterVector path,
-                         IntegerVector index,
-                         double size,
-                         double res) {
+                         IntegerVector index) {
   int n = x.size();
   NumericVector width(n);
   NumericVector ascent(n);
   NumericVector descent(n);
   LogicalVector failed(n);
+
+  FT_Library library;
+  if (FT_Init_FreeType(&library)) {
+    Rcpp::stop("FreeType error: unable to initialize FreeType library object");
+  }
 
   // process strings font by font
   std::vector<int> order(n);
@@ -101,10 +113,10 @@ DataFrame glyph_strings_(CharacterVector x,
   std::vector<char> bmp_known(bmp_size, 0);
   std::unordered_map<uint32_t, GlyphMetric> cache;
   std::vector<uint32_t> codes;
+
   int current_font = -1;
-  bool current_failed = false;
-  const char* current_path = NULL;
-  int current_index = 0;
+  FT_Face face = NULL;
+  double units_per_em = 1;
 
   for (int k = 0; k < n; ++k) {
     int i = order[k];
@@ -114,13 +126,20 @@ DataFrame glyph_strings_(CharacterVector x,
     }
     if (font[i] != current_font) {
       current_font = font[i];
-      current_failed = false;
+      if (face != NULL) {
+        FT_Done_Face(face);
+        face = NULL;
+      }
       cache.clear();
       std::fill(bmp_known.begin(), bmp_known.end(), 0);
-      current_path = CHAR(path[current_font - 1]);
-      current_index = index[current_font - 1];
+      if (FT_New_Face(library, CHAR(path[current_font - 1]),
+                      index[current_font - 1], &face) != 0) {
+        face = NULL;
+      } else {
+        units_per_em = face->units_per_EM > 0 ? face->units_per_EM : 1;
+      }
     }
-    if (current_failed) {
+    if (face == NULL) {
       failed[i] = true;
       continue;
     }
@@ -130,13 +149,11 @@ DataFrame glyph_strings_(CharacterVector x,
 
     double w = 0, a = 0, d = 0;
     bool inked = false;
-    bool string_failed = false;
     for (uint32_t code : codes) {
       const GlyphMetric* mp;
       if (code < bmp_size) {
         if (!bmp_known[code]) {
-          bmp[code] = measure_glyph(code, current_path, current_index,
-                                    size, res);
+          bmp[code] = read_glyph(face, code);
           bmp_known[code] = 1;
         }
         mp = &bmp[code];
@@ -144,39 +161,33 @@ DataFrame glyph_strings_(CharacterVector x,
         std::unordered_map<uint32_t, GlyphMetric>::iterator it =
           cache.find(code);
         if (it == cache.end()) {
-          it = cache.emplace(code, measure_glyph(code, current_path,
-                                                 current_index, size,
-                                                 res)).first;
+          it = cache.emplace(code, read_glyph(face, code)).first;
         }
         mp = &it->second;
       }
       const GlyphMetric& m = *mp;
-      if (m.error != 0) {
-        string_failed = true;
-        break;
-      }
-      w += m.width;
+      w += m.advance;
       // glyphs without ink (spaces) do not contribute to the ink box
-      if (m.ascent + m.descent > 0) {
+      if (m.inked) {
         if (!inked) {
-          a = m.ascent;
-          d = m.descent;
+          a = m.top;
+          d = m.bottom;
           inked = true;
         } else {
-          a = std::max(a, m.ascent);
-          d = std::max(d, m.descent);
+          a = std::max(a, m.top);
+          d = std::max(d, m.bottom);
         }
       }
     }
-    if (string_failed) {
-      current_failed = true;
-      failed[i] = true;
-      continue;
-    }
-    width[i] = w;
-    ascent[i] = a;
-    descent[i] = d;
+    width[i] = w / units_per_em;
+    ascent[i] = a / units_per_em;
+    descent[i] = d / units_per_em;
   }
+
+  if (face != NULL) {
+    FT_Done_Face(face);
+  }
+  FT_Done_FreeType(library);
 
   return DataFrame::create(
     _["width"] = width,

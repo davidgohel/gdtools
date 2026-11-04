@@ -13,8 +13,8 @@ m_str_metrics_ <- function(x, fontname, fontsize, bold, italic, fontfile) {
     .Call('_gdtools_m_str_metrics_', PACKAGE = 'gdtools', x, fontname, fontsize, bold, italic, fontfile)
 }
 
-glyph_strings_ <- function(x, font, path, index, size, res) {
-    .Call('_gdtools_glyph_strings_', PACKAGE = 'gdtools', x, font, path, index, size, res)
+glyph_strings_ <- function(x, font, path, index) {
+    .Call('_gdtools_glyph_strings_', PACKAGE = 'gdtools', x, font, path, index)
 }
 
 #' @rdname version_cairo

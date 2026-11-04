@@ -37,10 +37,11 @@ test_that("glyph engine matches the Cairo reference values", {
   skip_if_not_installed("fontquiver")
   x <- read_reference()
   glyph <- glyph_of_cases(x$cases)
-  # points; Cairo reference measured on macOS (cairo 1.18.6)
-  expect_lt(max_abs_diff(glyph$width, x$ref$width), 0.02)
-  expect_lt(max_abs_diff(glyph$ascent, x$ref$ascent), 0.005)
-  expect_lt(max_abs_diff(glyph$descent, x$ref$descent), 0.005)
+  # points; Cairo reference measured on macOS (cairo 1.18.6), rounded to 1e-6.
+  # Both read the unscaled metrics of the same files: values are equal.
+  expect_lt(max_abs_diff(glyph$width, x$ref$width), 2e-6)
+  expect_lt(max_abs_diff(glyph$ascent, x$ref$ascent), 2e-6)
+  expect_lt(max_abs_diff(glyph$descent, x$ref$descent), 2e-6)
 })
 
 test_that("Cairo engine gives the reference values on this platform", {
@@ -89,9 +90,9 @@ test_that("fonts resolved by name give the reference values", {
     italic = italic,
     fontfile = rep("", n)
   )
-  expect_lt(max_abs_diff(glyph$width, x$ref$width), 0.02)
-  expect_lt(max_abs_diff(glyph$ascent, x$ref$ascent), 0.005)
-  expect_lt(max_abs_diff(glyph$descent, x$ref$descent), 0.005)
+  expect_lt(max_abs_diff(glyph$width, x$ref$width), 2e-6)
+  expect_lt(max_abs_diff(glyph$ascent, x$ref$ascent), 2e-6)
+  expect_lt(max_abs_diff(glyph$descent, x$ref$descent), 2e-6)
 
   skip_on_cran()
   cairo <- m_str_metrics_(
