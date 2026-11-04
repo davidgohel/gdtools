@@ -32,14 +32,29 @@ Default is FALSE. This argument is vectorized.}
 Determines widths, ascent and descent in inches.
 Font lookup is performed by 'systemfonts' (so any font
 registered via \code{\link[systemfonts:register_font]{systemfonts::register_font()}},
-\code{\link[=register_gfont]{register_gfont()}}, or \code{\link[=font_set]{font_set()}} is found), then Cairo
-computes the actual metrics. The results are accurate for
+\code{\link[=register_gfont]{register_gfont()}}, or \code{\link[=font_set]{font_set()}} is found), then the
+metrics stored in the font file are read with FreeType,
+without scaling or hinting:
+\itemize{
+\item the width is the sum of the glyph advances (no kerning);
+\item the ascent and the descent are those of the box enclosing
+the ink of the glyphs, so they depend on the text
+(\code{"xxx"} has no descent).
+}
+
+The results only depend on the font file: the same file gives
+the same values on every platform. They are accurate for
 devices whose rendering finds the same font -- this is
 guaranteed for 'systemfonts'-based devices (ragg, svglite,
 ggiraph) and true for Cairo devices (\code{cairo_pdf()}, ...) when
 the font is also installed at the system level. For devices
 with their own font engine (\code{pdf()}, \code{png()}, ...) the
 metrics may not match the rendering.
+
+When the font file found cannot be read, a warning is issued
+and the default sans-serif font is used. \code{NA} strings give
+\code{NA} metrics; invalid UTF-8 strings are measured as empty
+strings.
 }
 \examples{
 strings_sizes(letters)

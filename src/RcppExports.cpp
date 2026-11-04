@@ -59,6 +59,20 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// glyph_strings_
+List glyph_strings_(CharacterVector x, IntegerVector font, CharacterVector path, IntegerVector index);
+RcppExport SEXP _gdtools_glyph_strings_(SEXP xSEXP, SEXP fontSEXP, SEXP pathSEXP, SEXP indexSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< CharacterVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type font(fontSEXP);
+    Rcpp::traits::input_parameter< CharacterVector >::type path(pathSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type index(indexSEXP);
+    rcpp_result_gen = Rcpp::wrap(glyph_strings_(x, font, path, index));
+    return rcpp_result_gen;
+END_RCPP
+}
 // version_freetype
 Rcpp::List version_freetype();
 RcppExport SEXP _gdtools_version_freetype() {
@@ -84,6 +98,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_gdtools_str_metrics_", (DL_FUNC) &_gdtools_str_metrics_, 6},
     {"_gdtools_m_str_extents_", (DL_FUNC) &_gdtools_m_str_extents_, 6},
     {"_gdtools_m_str_metrics_", (DL_FUNC) &_gdtools_m_str_metrics_, 6},
+    {"_gdtools_glyph_strings_", (DL_FUNC) &_gdtools_glyph_strings_, 4},
     {"_gdtools_version_freetype", (DL_FUNC) &_gdtools_version_freetype, 0},
     {"_gdtools_version_cairo_", (DL_FUNC) &_gdtools_version_cairo_, 0},
     {NULL, NULL, 0}
