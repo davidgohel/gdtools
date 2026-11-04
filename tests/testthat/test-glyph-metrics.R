@@ -62,102 +62,50 @@ test_that("Cairo engine gives the reference values on this platform", {
   expect_lt(max_abs_diff(cairo$descent, x$ref$descent), 2e-6)
 })
 
-# Temporary diagnostic for the Windows CI: worst strings, then the width of
-# single characters in each font, with both engines.
-width_diagnostic <- function(x, grid, glyph, cairo) {
-  d <- glyph$width - cairo$width
-  worst <- order(-abs(d))[1:8]
-  paths <- vapply(
-    seq_len(nrow(grid)),
-    function(k) {
-      basename(systemfonts::match_fonts(
-        grid$fontname[k],
-        italic = grid$italic[k],
-        weight = if (grid$bold[k]) "bold" else "normal"
-      )$path)
-    },
-    ""
+test_that("fonts resolved by name give the reference values", {
+  skip_if_not_installed("fontquiver")
+  # Liberation files from fontquiver, registered under names that cannot
+  # exist on the machine: a system "Liberation Sans" may be another version.
+  families <- c(
+    sans = "gdtools-test-sans",
+    serif = "gdtools-test-serif",
+    mono = "gdtools-test-mono"
   )
-  rows <- sprintf(
-    "%s b=%s i=%s [%s] '%s': glyph=%.4f cairo=%.4f diff=%.4f",
-    grid$fontname[worst],
-    grid$bold[worst],
-    grid$italic[worst],
-    paths[worst],
-    encodeString(x[worst]),
-    glyph$width[worst],
-    cairo$width[worst],
-    d[worst]
-  )
-  chars <- c("A", "a", "m", "W", "i", "1", " ", "\t", "é", "漢")
-  fonts <- c("sans", "serif", "mono")
-  per_char <- vapply(
-    fonts,
-    function(f) {
-      n <- length(chars)
-      g <- glyph_metrics_(chars, rep(f, n), rep(10, n), rep(FALSE, n),
-        rep(FALSE, n), rep("", n))$width
-      cc <- m_str_metrics_(chars, rep(f, n), rep(10, n), rep(0L, n),
-        rep(0L, n), rep("", n))$width
-      paste0(
-        f, ": ",
-        paste(sprintf("%s=%.4f/%.4f", encodeString(chars), g, cc),
-          collapse = " "
-        )
-      )
-    },
-    ""
-  )
-  paste(
-    c(
-      "max width difference (glyph vs cairo). Worst strings:",
-      rows,
-      "Single characters (glyph/cairo):",
-      per_char,
-      paste("cairo", format(version_cairo()), "freetype",
-        format(version_freetype()))
-    ),
-    collapse = "\n"
-  )
-}
+  register_liberationsans(name = families[["sans"]])
+  register_liberationserif(name = families[["serif"]])
+  register_liberationmono(name = families[["mono"]])
 
-test_that("glyph and Cairo engines agree on system fonts", {
-  skip_on_cran()
-  strings <- reference_strings()
-  grid <- expand.grid(
-    i = seq_along(strings),
-    fontname = c("sans", "serif", "mono"),
-    bold = c(FALSE, TRUE),
-    italic = c(FALSE, TRUE),
-    stringsAsFactors = FALSE
-  )
-  x <- strings[grid$i]
-  n <- length(x)
-  cairo <- m_str_metrics_(
-    x,
-    grid$fontname,
-    rep(10, n),
-    as.integer(grid$bold),
-    as.integer(grid$italic),
-    rep("", n)
-  )
+  x <- read_reference()
+  n <- nrow(x$cases)
+  fontname <- unname(families[x$cases$family])
+  bold <- x$cases$face %in% c("bold", "bolditalic")
+  italic <- x$cases$face %in% c("italic", "bolditalic")
+
   glyph <- glyph_metrics_(
-    x,
-    fontname = grid$fontname,
-    fontsize = rep(10, n),
-    bold = grid$bold,
-    italic = grid$italic,
+    x$cases$x,
+    fontname = fontname,
+    fontsize = x$cases$size,
+    bold = bold,
+    italic = italic,
     fontfile = rep("", n)
   )
-  expect_lt(
-    max_abs_diff(glyph$width, cairo$width),
-    0.02,
-    label = width_diagnostic(x, grid, glyph, cairo)
-  )
-  expect_lt(max_abs_diff(glyph$ascent, cairo$ascent), 0.005)
-  expect_lt(max_abs_diff(glyph$descent, cairo$descent), 0.005)
-})
+  expect_lt(max_abs_diff(glyph$width, x$ref$width), 0.02)
+  expect_lt(max_abs_diff(glyph$ascent, x$ref$ascent), 0.005)
+  expect_lt(max_abs_diff(glyph$descent, x$ref$descent), 0.005)
 
+  skip_on_cran()
+  cairo <- m_str_metrics_(
+    x$cases$x,
+    fontname,
+    x$cases$size,
+    as.integer(bold),
+    as.integer(italic),
+    rep("", n)
+  )
+  expect_lt(max_abs_diff(cairo$width, x$ref$width), 2e-6)
+  expect_lt(max_abs_diff(cairo$ascent, x$ref$ascent), 2e-6)
+  expect_lt(max_abs_diff(cairo$descent, x$ref$descent), 2e-6)
+})
 
 test_that("glyph engine handles empty, NA and invalid strings", {
   x <- c("", " ", NA_character_, "\xff", "abc")

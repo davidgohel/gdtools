@@ -16,9 +16,9 @@ reference_strings <- function() {
     "^'",
     "0123456789",
     "a\tb",
-    "été Ça",
-    "Ωμέγα",
-    "漢字",
+    "\u00e9t\u00e9 \u00c7a",
+    "\u03a9\u03bc\u03ad\u03b3\u03b1",
+    "\u6f22\u5b57",
     "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
     "abcdefghijklmnopqrstuvwxyz"
   )
