@@ -78,7 +78,11 @@ test_that("fonts resolved by name give the reference values", {
 })
 
 test_that("glyph engine handles empty, NA and invalid strings", {
-  x <- c("", " ", NA_character_, "\xff", "abc")
+  # declared UTF-8, so that it is invalid whatever the native encoding: in a
+  # Windows-1252 session (R < 4.2 on Windows), "\xff" is a valid "y diaeresis"
+  invalid <- "\xff"
+  Encoding(invalid) <- "UTF-8"
+  x <- c("", " ", NA_character_, invalid, "abc")
   res <- glyph_metrics_(
     x,
     fontname = rep("sans", 5),
