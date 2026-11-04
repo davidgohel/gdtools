@@ -31,7 +31,7 @@ A named numeric vector with elements \code{width},
 }
 \description{
 Compute the width, ascent and descent of a single
-string in points using Cairo text measurement.
+string in points, from the metrics stored in the font file.
 }
 \note{
 This function will be deprecated in a future release.

@@ -1,7 +1,7 @@
 #' @title Get font metrics for a string.
 #'
 #' @description Compute the width, ascent and descent of a single
-#' string in points using Cairo text measurement.
+#' string in points, from the metrics stored in the font file.
 #'
 #' @note This function will be deprecated in a future release.
 #' Use [strings_sizes()] instead.
@@ -27,14 +27,15 @@ str_metrics <- function(
   italic = FALSE,
   fontfile = ""
 ) {
-  str_metrics_(
-    x = x,
-    fontname = fontname,
-    fontsize = fontsize,
-    bold = bold,
-    italic = italic,
-    fontfile = fontfile
+  z <- glyph_metrics_(
+    x = x[1],
+    fontname = fontname[1],
+    fontsize = fontsize[1],
+    bold = bold[1],
+    italic = italic[1],
+    fontfile = fontfile[1]
   )
+  c(width = z$width, ascent = z$ascent, descent = z$descent)
 }
 
 #' Compute string extents for a vector of strings.
@@ -84,7 +85,8 @@ m_str_extents <- function(
     fontfile <- rep(fontfile, length.out = max_length)
   }
 
-  m_str_extents_(x, fontname, fontsize, bold, italic, fontfile)
+  z <- glyph_metrics_(x, fontname, fontsize, bold, italic, fontfile)
+  cbind(z$width, z$ascent + z$descent)
 }
 
 
@@ -93,14 +95,28 @@ m_str_extents <- function(
 #' Determines widths, ascent and descent in inches.
 #' Font lookup is performed by 'systemfonts' (so any font
 #' registered via [systemfonts::register_font()],
-#' [register_gfont()], or [font_set()] is found), then Cairo
-#' computes the actual metrics. The results are accurate for
+#' [register_gfont()], or [font_set()] is found), then the
+#' metrics stored in the font file are read with FreeType,
+#' without scaling or hinting:
+#'
+#' - the width is the sum of the glyph advances (no kerning);
+#' - the ascent and the descent are those of the box enclosing
+#'   the ink of the glyphs, so they depend on the text
+#'   (`"xxx"` has no descent).
+#'
+#' The results only depend on the font file: the same file gives
+#' the same values on every platform. They are accurate for
 #' devices whose rendering finds the same font -- this is
 #' guaranteed for 'systemfonts'-based devices (ragg, svglite,
 #' ggiraph) and true for Cairo devices (`cairo_pdf()`, ...) when
 #' the font is also installed at the system level. For devices
 #' with their own font engine (`pdf()`, `png()`, ...) the
 #' metrics may not match the rendering.
+#'
+#' When the font file found cannot be read, a warning is issued
+#' and the default sans-serif font is used. `NA` strings give
+#' `NA` metrics; invalid UTF-8 strings are measured as empty
+#' strings.
 #'
 #' @param x A character vector of strings to measure. All arguments are vectorized
 #'   and recycled to match the length of \code{x}.
@@ -139,12 +155,12 @@ strings_sizes <- function(
   bold <- rep(bold, length.out = max_length)
   italic <- rep(italic, length.out = max_length)
 
-  z <- m_str_metrics_(
+  z <- glyph_metrics_(
     x,
     fontname,
     fontsize,
-    as.integer(bold),
-    as.integer(italic),
+    bold,
+    italic,
     rep("", max_length)
   )
   z$width <- z$width / 72

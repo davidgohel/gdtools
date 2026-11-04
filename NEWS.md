@@ -1,3 +1,18 @@
+# gdtools 0.5.3.001
+
+## internals
+
+- `strings_sizes()`, `str_metrics()` and `m_str_extents()` no longer use
+Cairo. The metrics are read with FreeType from the font file, without
+scaling or hinting: the width is the sum of the glyph advances of the
+'hmtx' table and the ascent and descent are those of the box enclosing the
+ink of the glyphs. The values are unchanged and only depend on the font
+file, so the same file gives the same values on every platform.
+- When the font file found by 'systemfonts' cannot be read, a warning is
+issued and the default sans-serif font is used.
+- `str_metrics(NA)` now returns `NA` metrics, as `strings_sizes()` does,
+instead of measuring the string `"NA"`.
+
 # gdtools 0.5.2
 
 ## issues
