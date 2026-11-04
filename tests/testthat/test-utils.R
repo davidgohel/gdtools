@@ -1,9 +1,6 @@
 test_that("generic utils work", {
-  ve_c <- version_cairo()
-
-  expect_true(ve_c > numeric_version('0'))
-  expect_s3_class(ve_c, "package_version")
-  expect_s3_class(ve_c, "numeric_version")
+  expect_warning(ve_c <- version_cairo(), "deprecated")
+  expect_null(ve_c)
 
   ve_ft <- version_freetype()
 

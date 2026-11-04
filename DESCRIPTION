@@ -8,14 +8,12 @@ Authors@R: c(
     person("Jeroen", "Ooms", , "jeroen@berkeley.edu", role = "aut",
            comment = c(ORCID = "0000-0002-4035-0289")),
     person("Yixuan", "Qiu", role = "ctb"),
-    person("R Core Team", role = "cph",
-           comment = "Cairo code from X11 device"),
     person("ArData", role = "cph"),
     person("RStudio", role = "cph")
   )
-Description: Compute text metrics (width, ascent, descent) using 'Cairo'
-    and 'FreeType', independently of the active graphic device. Font
-    lookup is delegated to 'systemfonts'. Additional utilities let users
+Description: Compute text metrics (width, ascent, descent) from font
+    files with 'FreeType', independently of the active graphic device.
+    Font lookup is delegated to 'systemfonts'. Additional utilities let users
     register 'Google Fonts' or bundled 'Liberation' fonts, check font
     availability, and assemble 'htmlDependency' objects so that fonts are
     correctly embedded in 'Shiny' applications, 'R Markdown' documents,
@@ -40,4 +38,4 @@ LinkingTo:
 Config/roxygen2/version: 8.1.1
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-SystemRequirements: cairo, freetype2, fontconfig
+SystemRequirements: freetype2

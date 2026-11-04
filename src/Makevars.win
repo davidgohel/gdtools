@@ -1,4 +1,6 @@
-PKG_CONFIG_NAME = cairo
+# FreeType from Rtools (R >= 4.2) with pkg-config, otherwise from the
+# r-windows bundles (same setup as 'systemfonts').
+PKG_CONFIG_NAME = freetype2
 PKG_CONFIG ?= $(BINPREF)pkg-config
 PKG_LIBS := $(shell $(PKG_CONFIG) --libs $(PKG_CONFIG_NAME))
 
@@ -6,11 +8,9 @@ ifneq ($(PKG_LIBS),)
 $(info using $(PKG_CONFIG_NAME) from Rtools)
 PKG_CPPFLAGS := $(shell $(PKG_CONFIG) --cflags $(PKG_CONFIG_NAME))
 else
-RWINLIB = ../windows/cairo
-PKG_CPPFLAGS = -I$(RWINLIB)/include/cairo -I$(RWINLIB)/include \
-	-I$(RWINLIB)/include/freetype2 -DCAIRO_WIN32_STATIC_BUILD
-PKG_LIBS = -L$(RWINLIB)/lib$(R_ARCH) -L$(RWINLIB)/lib -lcairo -lfreetype -lpng -lpixman-1 \
-  -lharfbuzz -lbz2 -lz -liconv -lgdi32 -lrpcrt4
+RWINLIB = ../windows/freetype2
+PKG_CPPFLAGS = -I$(RWINLIB)/include/freetype2
+PKG_LIBS = -L$(RWINLIB)/lib$(R_ARCH) -L$(RWINLIB)/lib -lfreetype -lharfbuzz -lpng -lbz2 -lz -lrpcrt4 -lgdi32 -luuid
 endif
 
 all: $(SHLIB)

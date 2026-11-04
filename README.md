@@ -18,7 +18,7 @@ R:
 
 | Problem | gdtools solution |
 |----|----|
-| Measure text without a device: layout calculations (column widths, text wrapping) need reliable metrics independent of the rendering device | `strings_sizes()` via Cairo |
+| Measure text without a device: layout calculations (column widths, text wrapping) need reliable metrics independent of the rendering device | `strings_sizes()`, from the font files |
 | Register non-system fonts: Google Fonts or Liberation fonts (bundled) must be made visible to ‘systemfonts’ | `font_set_liberation()`, `font_set_auto()`, `font_set()` |
 | Embed fonts in HTML: Shiny, R Markdown and girafe need `htmlDependency` objects so the browser loads the right fonts | `font_set()$dependencies`, `gfontHtmlDependency()`, `liberation*HtmlDependency()` |
 | Check font availability: detect missing fonts before rendering, to avoid silent fallbacks | `font_family_exists()`, `sys_fonts()` |
@@ -36,12 +36,14 @@ two steps:
 1.  Font lookup: ‘systemfonts’ resolves the family name to a font file.
     Any font registered via `systemfonts::register_font()`,
     `register_gfont()`, or `font_set()` is found.
-2.  Metric computation: Cairo reads the font file and computes width,
-    ascent, and descent.
+2.  Metric computation: FreeType reads the metrics stored in the font
+    file, without scaling or hinting: the glyph advances give the width,
+    the ink boxes of the glyphs give the ascent and the descent.
 
-The metrics are independent of any graphic device. Whether they match
-the final rendering depends on how the device resolves fonts on its
-side, this is a device concern.
+The metrics are independent of any graphic device and only depend on the
+font file: the same file gives the same values on every platform.
+Whether they match the final rendering depends on how the device
+resolves fonts on its side, this is a device concern.
 
 ## Installation
 
@@ -61,11 +63,10 @@ remotes::install_github("davidgohel/gdtools")
 ## Font metrics
 
 The main function for text measurement is `strings_sizes()`. It returns
-width, ascent and descent in inches using Cairo. The measurements are
-accurate for devices that use Cairo or ‘systemfonts’ for font resolution
-(ragg, svglite, ggiraph, `cairo_pdf()`, …); for devices with their own
-font engine (`pdf()`, `png()`, …) the metrics may not match the
-rendering.
+width, ascent and descent in inches. The measurements are accurate for
+devices that use Cairo or ‘systemfonts’ for font resolution (ragg,
+svglite, ggiraph, `cairo_pdf()`, …); for devices with their own font
+engine (`pdf()`, `png()`, …) the metrics may not match the rendering.
 
 ``` r
 library(gdtools)
@@ -187,30 +188,10 @@ available when only a specific variant is needed.
 Please read carefully the official R for macOS instructions:
 <https://mac.r-project.org/>
 
-To compile ‘gdtools’ from source, you need `cairo` (which pulls in
-`freetype` and `fontconfig` as dependencies) and `gettext` (which
-provides `libintl`, required at link time by `fontconfig`). Using
-Homebrew is recommended:
+To compile ‘gdtools’ from source, you need `freetype`, found with
+`pkg-config`. Using Homebrew is recommended:
 
-    brew install cairo fontconfig gettext
-
-Then configure your `~/.R/Makevars` file with the appropriate paths. For
-Apple Silicon Macs (M1/M2/M3/M4), the typical configuration is:
-
-    CFLAGS=-I/opt/homebrew/include
-    CPPFLAGS=-I/opt/homebrew/include
-    CXXFLAGS=-I/opt/homebrew/include
-    CXX11FLAGS=-I/opt/homebrew/include
-    LDFLAGS=-L/opt/homebrew/lib
-
-For Intel Macs, paths are usually `/usr/local/include` and
-`/usr/local/lib`:
-
-    CFLAGS=-I/usr/local/include
-    CPPFLAGS=-I/usr/local/include
-    CXXFLAGS=-I/usr/local/include
-    CXX11FLAGS=-I/usr/local/include
-    LDFLAGS=-L/usr/local/lib
+    brew install freetype pkg-config
 
 > Note: paths may vary depending on your system configuration. We are
 > unable to provide support for installation issues related to macOS

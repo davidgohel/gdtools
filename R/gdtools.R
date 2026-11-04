@@ -2,19 +2,22 @@
 #' @importFrom Rcpp sourceCpp
 NULL
 
-#' @title Version numbers of C libraries
+#' @title Version of the Cairo library (deprecated)
 #'
-#' @description Return the runtime version of the Cairo and FreeType
-#' libraries linked to the package.
-#' @return An object of class \code{"numeric_version"}.
+#' @description gdtools no longer uses Cairo: font metrics are read with
+#' FreeType from the font files (see [version_freetype()]). This function
+#' is deprecated and will be removed in a future release.
+#' @return `NULL`, invisibly.
 #' @examples
-#' version_cairo()
-#' version_freetype()
+#' suppressWarnings(version_cairo())
 #' @export
+#' @keywords internal
 version_cairo <- function() {
-  ver <- version_cairo_()
-  ver <- strsplit(ver, "\\.")[[1]]
-  ver <- as.integer(ver)
-
-  structure(list(ver), class = c("package_version", "numeric_version"))
+  .Deprecated(
+    msg = paste0(
+      "`version_cairo()` is deprecated: gdtools no longer uses Cairo ",
+      "and the function returns NULL."
+    )
+  )
+  invisible(NULL)
 }

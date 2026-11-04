@@ -1,10 +1,13 @@
 # Reference metrics measured with Cairo, used by tests/testthat/test-glyph-metrics.R.
 #
 # Fonts are the Liberation files shipped by fontquiver, so every machine
-# measures the same font files. Run from the package root, with the Cairo
-# engine (`m_str_metrics_()`) still available:
+# measures the same font files. The values were generated with the Cairo
+# engine of gdtools 0.5.3 (`m_str_metrics_()`, removed since then), from the
+# package root at commit 26dbd8a:
 #
 #   pkgload::load_all(); source("data-src/glyph-reference.R")
+#
+# Kept as a record of how tests/testthat/fixtures/glyph-reference.csv was made.
 #
 # The cases are defined in tests/testthat/helper-glyph-reference.R.
 

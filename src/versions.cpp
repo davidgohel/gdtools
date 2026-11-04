@@ -1,7 +1,6 @@
 #include <Rcpp.h>
 #include <ft2build.h>
 #include FT_FREETYPE_H
-#include <cairo.h>
 
 Rcpp::List version_make(int major, int minor, int patch) {
   Rcpp::IntegerVector version;
@@ -16,7 +15,13 @@ Rcpp::List version_make(int major, int minor, int patch) {
   return output;
 }
 
-//' @rdname version_cairo
+//' @title Version of the FreeType library
+//'
+//' @description Return the runtime version of the FreeType library
+//' linked to the package, used to read font metrics.
+//' @return An object of class \code{"numeric_version"}.
+//' @examples
+//' version_freetype()
 //' @export
 // [[Rcpp::export]]
 Rcpp::List version_freetype() {
@@ -29,9 +34,4 @@ Rcpp::List version_freetype() {
   FT_Done_FreeType(library);
 
   return version_make(major, minor, patch);
-}
-
-// [[Rcpp::export]]
-Rcpp::CharacterVector version_cairo_() {
-  return cairo_version_string();
 }
