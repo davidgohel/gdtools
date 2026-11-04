@@ -1,5 +1,6 @@
-# The glyph engine (systemfonts) must give the same metrics as Cairo, and
-# the same metrics on every platform for the same font files.
+# Metrics must equal the reference values on every platform: they are read
+# from the same font files (Liberation, shipped by fontquiver). The reference
+# values were measured with Cairo, used by gdtools up to version 0.5.3.
 
 read_reference <- function() {
   ref <- utils::read.csv(
@@ -33,34 +34,14 @@ glyph_of_cases <- function(cases) {
   )
 }
 
-test_that("glyph engine matches the Cairo reference values", {
+test_that("font files give the reference values", {
   skip_if_not_installed("fontquiver")
   x <- read_reference()
   glyph <- glyph_of_cases(x$cases)
-  # points; Cairo reference measured on macOS (cairo 1.18.6), rounded to 1e-6.
-  # Both read the unscaled metrics of the same files: values are equal.
+  # points, rounded to 1e-6
   expect_lt(max_abs_diff(glyph$width, x$ref$width), 2e-6)
   expect_lt(max_abs_diff(glyph$ascent, x$ref$ascent), 2e-6)
   expect_lt(max_abs_diff(glyph$descent, x$ref$descent), 2e-6)
-})
-
-test_that("Cairo engine gives the reference values on this platform", {
-  skip_on_cran()
-  skip_if_not_installed("fontquiver")
-  x <- read_reference()
-  n <- nrow(x$cases)
-  cairo <- m_str_metrics_(
-    x$cases$x,
-    rep("", n),
-    x$cases$size,
-    rep(0L, n),
-    rep(0L, n),
-    x$cases$file
-  )
-  # reference values are rounded to 1e-6
-  expect_lt(max_abs_diff(cairo$width, x$ref$width), 2e-6)
-  expect_lt(max_abs_diff(cairo$ascent, x$ref$ascent), 2e-6)
-  expect_lt(max_abs_diff(cairo$descent, x$ref$descent), 2e-6)
 })
 
 test_that("fonts resolved by name give the reference values", {
@@ -94,18 +75,6 @@ test_that("fonts resolved by name give the reference values", {
   expect_lt(max_abs_diff(glyph$ascent, x$ref$ascent), 2e-6)
   expect_lt(max_abs_diff(glyph$descent, x$ref$descent), 2e-6)
 
-  skip_on_cran()
-  cairo <- m_str_metrics_(
-    x$cases$x,
-    fontname,
-    x$cases$size,
-    as.integer(bold),
-    as.integer(italic),
-    rep("", n)
-  )
-  expect_lt(max_abs_diff(cairo$width, x$ref$width), 2e-6)
-  expect_lt(max_abs_diff(cairo$ascent, x$ref$ascent), 2e-6)
-  expect_lt(max_abs_diff(cairo$descent, x$ref$descent), 2e-6)
 })
 
 test_that("glyph engine handles empty, NA and invalid strings", {

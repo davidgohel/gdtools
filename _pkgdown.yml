@@ -22,8 +22,8 @@ home:
 reference:
   - title: Text measurement
     desc: >
-      Compute text width, ascent and descent using Cairo, independently of any
-      graphic device. strings_sizes() is the recommended entry point.
+      Compute text width, ascent and descent from the font files, independently
+      of any graphic device. strings_sizes() is the recommended entry point.
     contents:
     - strings_sizes
 
@@ -89,10 +89,9 @@ reference:
 
   - title: C library versions
     desc: >
-      Return the runtime version of the Cairo and FreeType libraries
-      linked to the package.
+      Return the runtime version of the FreeType library linked to the
+      package.
     contents:
-    - version_cairo
     - version_freetype
 
 

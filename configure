@@ -5,12 +5,12 @@
 # R CMD INSTALL --configure-vars='INCLUDE_DIR=/.../include LIB_DIR=/.../lib'
 
 # Library settings
-PKG_CONFIG_NAME="cairo freetype2"
-PKG_DEB_NAME="libcairo2-dev"
-PKG_RPM_NAME="cairo-devel"
-PKG_CSW_NAME="libcairo_dev"
-PKG_BREW_NAME="cairo fontconfig gettext"
-PKG_LIBS="-lcairo -lfreetype"
+PKG_CONFIG_NAME="freetype2"
+PKG_DEB_NAME="libfreetype-dev"
+PKG_RPM_NAME="freetype-devel"
+PKG_CSW_NAME="libfreetype_dev"
+PKG_BREW_NAME="freetype"
+PKG_LIBS="-lfreetype"
 PKG_TEST_FILE="src/tests/sysdeps.c"
 
 # Prefer static linking on MacOS
@@ -27,12 +27,6 @@ if [ `command -v pkg-config` ]; then
   PKGCONFIG_LIBS=`pkg-config --libs ${PKG_CONFIG_NAME}`
 fi
 
-# On CRAN do not use pkgconfig cairo (which depends on XQuartz)
-if [ -d "/Builds/CRAN-QA-Simon" ] || [ -d "/Volumes/Builds" ]; then
-  unset PKGCONFIG_CFLAGS
-  unset PKGCONFIG_LIBS
-fi
-
 # Note that cflags may be empty in case of success
 if [ "$INCLUDE_DIR" ] || [ "$LIB_DIR" ]; then
   echo "Found INCLUDE_DIR and/or LIB_DIR!"
@@ -46,11 +40,8 @@ elif [ `uname` = "Darwin" ]; then
   brew --version 2>/dev/null
   if [ $? -eq 0 ]; then
     BREWDIR=`brew --prefix`
-    PKG_CFLAGS="-I$BREWDIR/include/cairo -I$BREWDIR/include/fontconfig -I$BREWDIR/include/freetype2"
+    PKG_CFLAGS="-I$BREWDIR/include/freetype2"
     PKG_LIBS="-L$BREWDIR/lib $PKG_LIBS"
-  else
-    curl -sfL "https://autobrew.github.io/scripts/cairo" > autobrew
-    . ./autobrew
   fi
 fi
 
