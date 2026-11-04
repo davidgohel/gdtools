@@ -2,8 +2,9 @@
 
 ## Text measurement
 
-Compute text width, ascent and descent using Cairo, independently of any
-graphic device. strings_sizes() is the recommended entry point.
+Compute text width, ascent and descent from the font files,
+independently of any graphic device. strings_sizes() is the recommended
+entry point.
 
 - [`strings_sizes()`](https://davidgohel.github.io/gdtools/dev/reference/strings_sizes.md)
   : Compute strings sizes
@@ -90,9 +91,8 @@ variable or R option.
 
 ## C library versions
 
-Return the runtime version of the Cairo and FreeType libraries linked to
-the package.
+Return the runtime version of the FreeType library linked to the
+package.
 
-- [`version_freetype()`](https://davidgohel.github.io/gdtools/dev/reference/version_cairo.md)
-  [`version_cairo()`](https://davidgohel.github.io/gdtools/dev/reference/version_cairo.md)
-  : Version numbers of C libraries
+- [`version_freetype()`](https://davidgohel.github.io/gdtools/dev/reference/version_freetype.md)
+  : Version of the FreeType library

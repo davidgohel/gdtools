@@ -6,15 +6,27 @@ performed by 'systemfonts' (so any font registered via
 [`register_gfont()`](https://davidgohel.github.io/gdtools/dev/reference/register_gfont.md),
 or
 [`font_set()`](https://davidgohel.github.io/gdtools/dev/reference/font_set.md)
-is found), then Cairo computes the actual metrics. The results are
-accurate for devices whose rendering finds the same font – this is
-guaranteed for 'systemfonts'-based devices (ragg, svglite, ggiraph) and
-true for Cairo devices
+is found), then the metrics stored in the font file are read with
+FreeType, without scaling or hinting:
+
+- the width is the sum of the glyph advances (no kerning);
+
+- the ascent and the descent are those of the box enclosing the ink of
+  the glyphs, so they depend on the text (`"xxx"` has no descent).
+
+The results only depend on the font file: the same file gives the same
+values on every platform. They are accurate for devices whose rendering
+finds the same font – this is guaranteed for 'systemfonts'-based devices
+(ragg, svglite, ggiraph) and true for Cairo devices
 ([`cairo_pdf()`](https://rdrr.io/r/grDevices/cairo.html), ...) when the
 font is also installed at the system level. For devices with their own
 font engine ([`pdf()`](https://rdrr.io/r/grDevices/pdf.html),
 [`png()`](https://rdrr.io/r/grDevices/png.html), ...) the metrics may
 not match the rendering.
+
+When the font file found cannot be read, a warning is issued and the
+default sans-serif font is used. `NA` strings give `NA` metrics; invalid
+UTF-8 strings are measured as empty strings.
 
 ## Usage
 

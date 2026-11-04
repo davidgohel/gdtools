@@ -1,25 +1,22 @@
-# Version numbers of C libraries
+# Version of the Cairo library (deprecated)
 
-Return the runtime version of the Cairo and FreeType libraries linked to
-the package.
+gdtools no longer uses Cairo: font metrics are read with FreeType from
+the font files (see
+[`version_freetype()`](https://davidgohel.github.io/gdtools/dev/reference/version_freetype.md)).
+This function is deprecated and will be removed in a future release.
 
 ## Usage
 
 ``` r
-version_freetype()
-
 version_cairo()
 ```
 
 ## Value
 
-An object of class `"numeric_version"`.
+`NULL`, invisibly.
 
 ## Examples
 
 ``` r
-version_cairo()
-#> [1] ‘1.18.0’
-version_freetype()
-#> [1] ‘2.13.2’
+suppressWarnings(version_cairo())
 ```

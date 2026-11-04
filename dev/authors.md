@@ -12,9 +12,6 @@
 
 - **Yixuan Qiu**. Contributor.
 
-- **R Core Team**. Copyright holder.  
-  Cairo code from X11 device
-
 - **ArData**. Copyright holder.
 
 - **RStudio**. Copyright holder.

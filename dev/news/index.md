@@ -1,5 +1,31 @@
 # Changelog
 
+## gdtools 0.5.3.001
+
+### internals
+
+- [`strings_sizes()`](https://davidgohel.github.io/gdtools/dev/reference/strings_sizes.md),
+  [`str_metrics()`](https://davidgohel.github.io/gdtools/dev/reference/str_metrics.md)
+  and
+  [`m_str_extents()`](https://davidgohel.github.io/gdtools/dev/reference/m_str_extents.md)
+  no longer use Cairo. The metrics are read with FreeType from the font
+  file, without scaling or hinting: the width is the sum of the glyph
+  advances of the ‘hmtx’ table and the ascent and descent are those of
+  the box enclosing the ink of the glyphs. The values are unchanged and
+  only depend on the font file, so the same file gives the same values
+  on every platform.
+- When the font file found by ‘systemfonts’ cannot be read, a warning is
+  issued and the default sans-serif font is used.
+- `str_metrics(NA)` now returns `NA` metrics, as
+  [`strings_sizes()`](https://davidgohel.github.io/gdtools/dev/reference/strings_sizes.md)
+  does, instead of measuring the string `"NA"`.
+- Cairo is no longer a system requirement: gdtools only needs FreeType
+  (`SystemRequirements: freetype2`). On Windows, FreeType comes from
+  Rtools, or from the r-windows bundles for older R versions, as for
+  ‘systemfonts’.
+- [`version_cairo()`](https://davidgohel.github.io/gdtools/dev/reference/version_cairo.md)
+  is deprecated and returns `NULL`.
+
 ## gdtools 0.5.2
 
 CRAN release: 2026-10-15
