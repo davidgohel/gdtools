@@ -85,7 +85,7 @@ GlyphMetric read_glyph(FT_Face face, uint32_t code) {
 // be opened. NA strings give NA; invalid UTF-8 is measured as an empty
 // string.
 // [[Rcpp::export]]
-DataFrame glyph_strings_(CharacterVector x,
+List glyph_strings_(CharacterVector x,
                          IntegerVector font,
                          CharacterVector path,
                          IntegerVector index) {
@@ -106,9 +106,10 @@ DataFrame glyph_strings_(CharacterVector x,
   std::stable_sort(order.begin(), order.end(),
                    [&font](int a, int b) { return font[a] < font[b]; });
 
-  // glyph cache of the current font: direct table for the Basic
-  // Multilingual Plane, hash map above
-  const uint32_t bmp_size = 0x10000;
+  // glyph cache of the current font: small direct table for Latin
+  // characters (U+0000 to U+024F), hash map above. The table is kept small:
+  // it is allocated and cleared at each call.
+  const uint32_t bmp_size = 0x250;
   std::vector<GlyphMetric> bmp(bmp_size);
   std::vector<char> bmp_known(bmp_size, 0);
   std::unordered_map<uint32_t, GlyphMetric> cache;
@@ -189,7 +190,9 @@ DataFrame glyph_strings_(CharacterVector x,
   }
   FT_Done_FreeType(library);
 
-  return DataFrame::create(
+  // a list, not a DataFrame: DataFrame::create() calls R code and costs
+  // more than measuring a few strings
+  return List::create(
     _["width"] = width,
     _["ascent"] = ascent,
     _["descent"] = descent,

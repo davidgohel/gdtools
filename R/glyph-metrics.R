@@ -10,7 +10,9 @@
 # Fonts are resolved by systemfonts; files are opened by the FreeType gdtools
 # is linked with, not the one of systemfonts.
 #
-# Values are returned in points.
+# Values are returned in points, as a list of three numeric vectors (width,
+# ascent, descent): building a data.frame costs more than measuring a few
+# strings.
 
 glyph_metrics_ <- function(x, fontname, fontsize, bold, italic, fontfile) {
   has_file <- !is.na(fontfile) & nzchar(fontfile)
@@ -53,21 +55,22 @@ glyph_metrics_ <- function(x, fontname, fontsize, bold, italic, fontfile) {
       fontfile = rep("", length(failed))
     )
     redo <- m$failed
-    m[redo, ] <- glyph_strings_(
+    m2 <- glyph_strings_(
       x[redo],
       match(font_id[redo], failed),
       sans$path,
       sans$index
     )
+    m$width[redo] <- m2$width
+    m$ascent[redo] <- m2$ascent
+    m$descent[redo] <- m2$descent
   }
 
   # values are in em
-  scale <- fontsize
-  data.frame(
-    width = m$width * scale,
-    ascent = m$ascent * scale,
-    descent = m$descent * scale,
-    stringsAsFactors = FALSE
+  list(
+    width = m$width * fontsize,
+    ascent = m$ascent * fontsize,
+    descent = m$descent * fontsize
   )
 }
 
@@ -85,12 +88,11 @@ resolve_fonts_ <- function(fontname, bold, italic, fontfile) {
     path[by_name] <- found$path
     index[by_name] <- found$index
   }
-  data.frame(
+  list(
     path = path,
     index = index,
     label = ifelse(by_name, fontname, fontfile),
     bold = bold,
-    italic = italic,
-    stringsAsFactors = FALSE
+    italic = italic
   )
 }

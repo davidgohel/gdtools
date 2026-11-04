@@ -11,7 +11,7 @@ Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
 // glyph_strings_
-DataFrame glyph_strings_(CharacterVector x, IntegerVector font, CharacterVector path, IntegerVector index);
+List glyph_strings_(CharacterVector x, IntegerVector font, CharacterVector path, IntegerVector index);
 RcppExport SEXP _gdtools_glyph_strings_(SEXP xSEXP, SEXP fontSEXP, SEXP pathSEXP, SEXP indexSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;

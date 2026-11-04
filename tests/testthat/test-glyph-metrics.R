@@ -91,12 +91,13 @@ test_that("glyph engine handles empty, NA and invalid strings", {
     italic = rep(FALSE, 5),
     fontfile = rep("", 5)
   )
-  expect_equal(unlist(res[1, ]), c(width = 0, ascent = 0, descent = 0))
+  row <- function(i) vapply(res, function(z) z[i], 0)
+  expect_equal(row(1), c(width = 0, ascent = 0, descent = 0))
   expect_true(res$width[2] > 0)
   expect_equal(res$ascent[2], 0)
-  expect_true(all(is.na(res[3, ])))
+  expect_true(all(is.na(row(3))))
   # invalid UTF-8 is measured as an empty string, as Cairo does
-  expect_equal(unlist(res[4, ]), c(width = 0, ascent = 0, descent = 0))
+  expect_equal(row(4), c(width = 0, ascent = 0, descent = 0))
   expect_true(res$width[5] > 0)
 })
 

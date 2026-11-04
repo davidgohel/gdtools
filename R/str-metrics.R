@@ -163,8 +163,14 @@ strings_sizes <- function(
     italic,
     rep("", max_length)
   )
-  z$width <- z$width / 72
-  z$ascent <- z$ascent / 72
-  z$descent <- z$descent / 72
-  z
+  # lighter than data.frame(), same object
+  structure(
+    list(
+      width = z$width / 72,
+      ascent = z$ascent / 72,
+      descent = z$descent / 72
+    ),
+    class = "data.frame",
+    row.names = .set_row_names(max_length)
+  )
 }
