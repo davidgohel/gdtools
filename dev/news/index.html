@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">gdtools</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.5.3.001</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.5.3.002</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,9 +33,9 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.5.3.001" id="gdtools-053001">gdtools 0.5.3.001<a class="anchor" aria-label="anchor" href="#gdtools-053001"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.5.3" id="gdtools-053">gdtools 0.5.3<a class="anchor" aria-label="anchor" href="#gdtools-053"></a></h2>
 <div class="section level3">
-<h3 id="internals-0-5-3-001">internals<a class="anchor" aria-label="anchor" href="#internals-0-5-3-001"></a></h3>
+<h3 id="internals-0-5-3">internals<a class="anchor" aria-label="anchor" href="#internals-0-5-3"></a></h3>
 <ul><li>
 <code><a href="../reference/strings_sizes.html">strings_sizes()</a></code>, <code><a href="../reference/str_metrics.html">str_metrics()</a></code> and <code><a href="../reference/m_str_extents.html">m_str_extents()</a></code> no longer use Cairo. The metrics are read with FreeType from the font file, without scaling or hinting: the width is the sum of the glyph advances of the ‘hmtx’ table and the ascent and descent are those of the box enclosing the ink of the glyphs. The values are unchanged and only depend on the font file, so the same file gives the same values on every platform.</li>
 <li>When the font file found by ‘systemfonts’ cannot be read, a warning is issued and the default sans-serif font is used.</li>

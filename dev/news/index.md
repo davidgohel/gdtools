@@ -1,6 +1,6 @@
 # Changelog
 
-## gdtools 0.5.3.001
+## gdtools 0.5.3
 
 ### internals
 
