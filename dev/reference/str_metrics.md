@@ -38,7 +38,7 @@ str_metrics(
 - fontfile:
 
   Path to a font file. If empty, the font is resolved by name via
-  `systemfonts`.
+  'systemfonts'.
 
 ## Value
 

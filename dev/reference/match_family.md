@@ -16,11 +16,11 @@ match_family(font = "sans", bold = TRUE, italic = TRUE)
 
 - bold:
 
-  Whether to match a font featuring a `bold` face.
+  Whether to match a font featuring a bold face.
 
 - italic:
 
-  Whether to match a font featuring an `italic` face.
+  Whether to match a font featuring an italic face.
 
 ## Examples
 
