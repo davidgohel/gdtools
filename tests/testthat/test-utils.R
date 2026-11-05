@@ -10,8 +10,13 @@ test_that("generic utils work", {
 
   skip_on_cran()
   font_set_liberation()
-  expect_true(is.character(match_family("serif")))
-  expect_true(is.character(match_family("sans", bold = FALSE, italic = FALSE)))
+  expect_warning(serif <- match_family("serif"), "deprecated")
+  expect_true(is.character(serif))
+  expect_warning(
+    sans <- match_family("sans", bold = FALSE, italic = FALSE),
+    "deprecated"
+  )
+  expect_true(is.character(sans))
 })
 
 test_that("ensure_cache_dir errors clearly when dir cannot be created (#82)", {
@@ -23,9 +28,4 @@ test_that("ensure_cache_dir errors clearly when dir cannot be created (#82)", {
     gdtools:::ensure_cache_dir(bad_path),
     "Cannot create cache directory"
   )
-})
-
-test_that("set_dummy_conf is deprecated", {
-  expect_warning(result <- set_dummy_conf(), "should not be used")
-  expect_false(result)
 })

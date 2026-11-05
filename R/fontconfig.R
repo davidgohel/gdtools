@@ -1,14 +1,16 @@
-#' Find best family match with systemfonts
+#' Find best family match with systemfonts (deprecated)
 #'
-#' `match_family()` returns the best font family match.
+#' `match_family()` returns the best font family match. It is deprecated and
+#' will be removed in a future release, use [systemfonts::match_fonts()]
+#' instead.
 #'
 #' @param font family or face to match.
 #' @param bold Whether to match a font featuring a bold face.
 #' @param italic Whether to match a font featuring an italic face.
 #' @export
 #' @examples
-#' match_family("sans")
-#' match_family("serif")
+#' suppressWarnings(match_family("sans"))
+#' suppressWarnings(match_family("serif"))
 #' @importFrom systemfonts match_fonts system_fonts
 #' @keywords internal
 match_family <- function(
@@ -16,6 +18,7 @@ match_family <- function(
   bold = TRUE,
   italic = TRUE
 ) {
+  .Deprecated(new = "systemfonts::match_fonts")
   if (bold) {
     weight <- "bold"
   } else {
@@ -26,17 +29,4 @@ match_family <- function(
   sysfonts <- sys_fonts()
   match <- which(sysfonts$path %in% font$path)
   sysfonts$family[match[1]]
-}
-
-
-#' Set and unset a minimalistic Fontconfig configuration
-#'
-#' @note
-#' Fontconfig is not used anymore and these functions will be deprecated
-#' in the next release.
-#' @export
-#' @keywords internal
-set_dummy_conf <- function() {
-  .Deprecated(msg = "The function has no effect and should not be used.")
-  invisible(FALSE)
 }

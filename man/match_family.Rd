@@ -2,7 +2,7 @@
 % Please edit documentation in R/fontconfig.R
 \name{match_family}
 \alias{match_family}
-\title{Find best family match with systemfonts}
+\title{Find best family match with systemfonts (deprecated)}
 \usage{
 match_family(font = "sans", bold = TRUE, italic = TRUE)
 }
@@ -14,10 +14,12 @@ match_family(font = "sans", bold = TRUE, italic = TRUE)
 \item{italic}{Whether to match a font featuring an italic face.}
 }
 \description{
-\code{match_family()} returns the best font family match.
+\code{match_family()} returns the best font family match. It is deprecated and
+will be removed in a future release, use \code{\link[systemfonts:match_fonts]{systemfonts::match_fonts()}}
+instead.
 }
 \examples{
-match_family("sans")
-match_family("serif")
+suppressWarnings(match_family("sans"))
+suppressWarnings(match_family("serif"))
 }
 \keyword{internal}

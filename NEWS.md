@@ -16,6 +16,9 @@ instead of measuring the string `"NA"`.
 (`SystemRequirements: freetype2`). On Windows, FreeType comes from Rtools,
 or from the r-windows bundles for older R versions, as for 'systemfonts'.
 - `version_cairo()` is deprecated and returns `NULL`.
+- `match_family()` is deprecated, use `systemfonts::match_fonts()` instead.
+- `set_dummy_conf()`, deprecated since version 0.4.4 and without any effect,
+is removed.
 
 # gdtools 0.5.2
 
