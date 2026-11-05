@@ -14,13 +14,13 @@ PKG_TEST_FILE="src/tests/sysdeps.c"
 
 # Prefer static linking on MacOS
 if [ `uname` = "Darwin" ]; then
-  PKG_CONFIG_NAME="--static $PKG_CONFIG_NAME"
+  PKG_CONFIG_STATIC="--static"
 fi
 
 # Use pkg-config if available
 if [ `command -v pkg-config` ]; then
-  PKGCONFIG_CFLAGS=`pkg-config --cflags ${PKG_CONFIG_NAME}`
-  PKGCONFIG_LIBS=`pkg-config --libs ${PKG_CONFIG_NAME}`
+  PKGCONFIG_CFLAGS=`pkg-config --cflags ${PKG_CONFIG_STATIC} ${PKG_CONFIG_NAME}`
+  PKGCONFIG_LIBS=`pkg-config --libs ${PKG_CONFIG_STATIC} ${PKG_CONFIG_NAME}`
 fi
 
 # Note that cflags may be empty in case of success
