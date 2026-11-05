@@ -284,9 +284,9 @@ Lower-level helpers to register and embed the bundled Liberation fonts
 ## Font discovery
 
 Query available fonts on the system. font_family_exists() checks whether
-a font is available, sys_fonts() lists all known fonts,
+a font is available, sys_fonts() lists all known fonts and
 sys_fonts_reset() refreshes that list after a font is installed during
-the session, and match_family() finds the best match for a given name.
+the session.
 
 - [`font_family_exists()`](https://davidgohel.github.io/gdtools/dev/reference/font_family_exists.md)
   : Check if font family exists.

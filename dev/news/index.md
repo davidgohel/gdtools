@@ -25,6 +25,12 @@
   ‘systemfonts’.
 - [`version_cairo()`](https://davidgohel.github.io/gdtools/dev/reference/version_cairo.md)
   is deprecated and returns `NULL`.
+- [`match_family()`](https://davidgohel.github.io/gdtools/dev/reference/match_family.md)
+  is deprecated, use
+  [`systemfonts::match_fonts()`](https://systemfonts.r-lib.org/reference/match_fonts.html)
+  instead.
+- `set_dummy_conf()`, deprecated since version 0.4.4 and without any
+  effect, is removed.
 
 ## gdtools 0.5.2
 
@@ -114,9 +120,8 @@ CRAN release: 2026-02-09
 CRAN release: 2025-10-06
 
 - add tools to use fonts ‘Liberation Serif’ and ‘Liberation Mono’.
-- deprecate
-  [`set_dummy_conf()`](https://davidgohel.github.io/gdtools/dev/reference/set_dummy_conf.md)
-  that should be removed from the package in a later version.
+- deprecate `set_dummy_conf()` that should be removed from the package
+  in a later version.
 - remove `raster_*` functions not used anymore
 
 ## gdtools 0.4.2
