@@ -12,9 +12,6 @@
 
 - **Yixuan Qiu**. Contributor.
 
-- **R Core Team**. Copyright holder.  
-  Cairo code from X11 device
-
 - **ArData**. Copyright holder.
 
 - **RStudio**. Copyright holder.
@@ -25,13 +22,13 @@ Source:
 [`DESCRIPTION`](https://github.com/davidgohel/gdtools/blob/main/DESCRIPTION)
 
 Gohel D, Wickham H, Henry L, Ooms J (2026). *gdtools: Font Metrics and
-Font Management Utilities for R Graphics*. R package version 0.5.2,
+Font Management Utilities for R Graphics*. R package version 0.5.3,
 <https://davidgohel.github.io/gdtools/>.
 
     @Manual{,
       title = {gdtools: Font Metrics and Font Management Utilities for R Graphics},
       author = {David Gohel and Hadley Wickham and Lionel Henry and Jeroen Ooms},
       year = {2026},
-      note = {R package version 0.5.2},
+      note = {R package version 0.5.3},
       url = {https://davidgohel.github.io/gdtools/},
     }

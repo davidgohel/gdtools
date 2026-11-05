@@ -1,6 +1,43 @@
 # Changelog
 
+## gdtools 0.5.3
+
+### internals
+
+- [`strings_sizes()`](https://davidgohel.github.io/gdtools/reference/strings_sizes.md),
+  [`str_metrics()`](https://davidgohel.github.io/gdtools/reference/str_metrics.md)
+  and
+  [`m_str_extents()`](https://davidgohel.github.io/gdtools/reference/m_str_extents.md)
+  no longer use Cairo. The metrics are read with FreeType from the font
+  file, without scaling or hinting: the width is the sum of the glyph
+  advances of the ‘hmtx’ table and the ascent and descent are those of
+  the box enclosing the ink of the glyphs. The values are unchanged and
+  only depend on the font file, so the same file gives the same values
+  on every platform.
+- When the font file found by ‘systemfonts’ cannot be read, a warning is
+  issued and the default sans-serif font is used.
+- `str_metrics(NA)` now returns `NA` metrics, as
+  [`strings_sizes()`](https://davidgohel.github.io/gdtools/reference/strings_sizes.md)
+  does, instead of measuring the string `"NA"`.
+- Cairo is no longer a system requirement: gdtools only needs FreeType
+  (`SystemRequirements: freetype2`). On Windows, FreeType comes from
+  Rtools, or from the r-windows bundles for older R versions, as for
+  ‘systemfonts’.
+- [`version_cairo()`](https://davidgohel.github.io/gdtools/reference/version_cairo.md)
+  is deprecated and returns `NULL`.
+- [`match_family()`](https://davidgohel.github.io/gdtools/reference/match_family.md)
+  is deprecated, use
+  [`systemfonts::match_fonts()`](https://systemfonts.r-lib.org/reference/match_fonts.html)
+  instead.
+- `set_dummy_conf()`, deprecated since version 0.4.4 and without any
+  effect, is removed.
+- The minimum version of ‘Rcpp’ is now 0.12.16: version 0.12.12 cannot
+  be installed with R \>= 4.0.0
+  ([\#58](https://github.com/davidgohel/gdtools/issues/58)).
+
 ## gdtools 0.5.2
+
+CRAN release: 2026-10-15
 
 ### issues
 
@@ -86,9 +123,8 @@ CRAN release: 2026-02-09
 CRAN release: 2025-10-06
 
 - add tools to use fonts ‘Liberation Serif’ and ‘Liberation Mono’.
-- deprecate
-  [`set_dummy_conf()`](https://davidgohel.github.io/gdtools/reference/set_dummy_conf.md)
-  that should be removed from the package in a later version.
+- deprecate `set_dummy_conf()` that should be removed from the package
+  in a later version.
 - remove `raster_*` functions not used anymore
 
 ## gdtools 0.4.2

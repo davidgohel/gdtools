@@ -1,7 +1,7 @@
 # Get font metrics for a string.
 
-Compute the width, ascent and descent of a single string in points using
-Cairo text measurement.
+Compute the width, ascent and descent of a single string in points, from
+the metrics stored in the font file.
 
 ## Usage
 
@@ -38,7 +38,7 @@ str_metrics(
 - fontfile:
 
   Path to a font file. If empty, the font is resolved by name via
-  `systemfonts`.
+  'systemfonts'.
 
 ## Value
 
