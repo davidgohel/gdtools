@@ -31,6 +31,9 @@
   instead.
 - `set_dummy_conf()`, deprecated since version 0.4.4 and without any
   effect, is removed.
+- The minimum version of ‘Rcpp’ is now 0.12.16: version 0.12.12 cannot
+  be installed with R \>= 4.0.0
+  ([\#58](https://github.com/davidgohel/gdtools/issues/58)).
 
 ## gdtools 0.5.2
 
