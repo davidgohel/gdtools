@@ -206,11 +206,10 @@ remain available when only a specific variant is needed.
 Please read carefully the official R for macOS instructions:
 <https://mac.r-project.org/>
 
-To compile ‘gdtools’ from source, you need `freetype`, found with
-`pkg-config`. Using Homebrew is recommended:
+To compile ‘gdtools’ from source, you need FreeType. With Homebrew:
 
 ``` R
-brew install freetype pkg-config
+brew install freetype
 ```
 
 > Note: paths may vary depending on your system configuration. We are
