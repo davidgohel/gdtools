@@ -6,14 +6,14 @@
 #' @note This function will be deprecated in a future release.
 #' Use [strings_sizes()] instead.
 #'
-#' @return A named numeric vector with elements \code{width},
-#' \code{ascent} and \code{descent} (unit is points).
+#' @return A named numeric vector with elements `width`,
+#' `ascent` and `descent` (unit is points).
 #' @param x Character vector of strings to measure (only the first element is used).
 #' @param bold,italic Is text bold/italic?
 #' @param fontname Font name.
 #' @param fontsize Font size in points.
 #' @param fontfile Path to a font file. If empty, the font is
-#' resolved by name via \code{systemfonts}.
+#' resolved by name via 'systemfonts'.
 #' @family functions for font metrics
 #' @examples
 #' str_metrics("Hello World!")
@@ -40,7 +40,7 @@ str_metrics <- function(
 
 #' Compute string extents for a vector of strings.
 #'
-#' For each \code{x} element, determines the width and height of a bounding box that's big enough
+#' For each `x` element, determines the width and height of a bounding box that's big enough
 #' to (just) enclose the provided text. Unit is points.
 #'
 #' @note This function is deprecated and will be removed in a future
@@ -48,10 +48,10 @@ str_metrics <- function(
 #' ascent and the descent in inches (the height is the sum of the ascent
 #' and the descent).
 #' @param x Character vector of strings to measure
-#' @param bold,italic Is text bold/italic? A logical vector, recycled to match \code{x}.
-#' @param fontname Font name. A character vector, recycled to match \code{x}.
-#' @param fontsize Font size. A numeric vector, recycled to match \code{x}.
-#' @param fontfile Font file. A character vector, recycled to match \code{x}.
+#' @param bold,italic Is text bold/italic? A logical vector, recycled to match `x`.
+#' @param fontname Font name. A character vector, recycled to match `x`.
+#' @param fontsize Font size. A numeric vector, recycled to match `x`.
+#' @param fontfile Font file. A character vector, recycled to match `x`.
 #' @family functions for font metrics
 #' @export
 #' @keywords internal
@@ -119,7 +119,7 @@ m_str_extents <- function(
 #' strings.
 #'
 #' @param x A character vector of strings to measure. All arguments are vectorized
-#'   and recycled to match the length of \code{x}.
+#'   and recycled to match the length of `x`.
 #' @param fontname A character vector specifying the font family name (e.g., "sans", "serif", "mono").
 #'   Default is "sans". This argument is vectorized.
 #' @param fontsize A numeric vector specifying the font size in points.

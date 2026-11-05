@@ -23,7 +23,7 @@ str_metrics(
 \item{bold, italic}{Is text bold/italic?}
 
 \item{fontfile}{Path to a font file. If empty, the font is
-resolved by name via \code{systemfonts}.}
+resolved by name via 'systemfonts'.}
 }
 \value{
 A named numeric vector with elements \code{width},

@@ -1,10 +1,10 @@
 #' Find best family match with systemfonts
 #'
-#' \code{match_family()} returns the best font family match.
+#' `match_family()` returns the best font family match.
 #'
 #' @param font family or face to match.
-#' @param bold Whether to match a font featuring a \code{bold} face.
-#' @param italic Whether to match a font featuring an \code{italic} face.
+#' @param bold Whether to match a font featuring a bold face.
+#' @param italic Whether to match a font featuring an italic face.
 #' @export
 #' @examples
 #' match_family("sans")

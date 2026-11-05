@@ -1,6 +1,6 @@
 # Metrics must equal the reference values on every platform: they are read
 # from the same font files (Liberation, shipped by fontquiver). The reference
-# values were measured with Cairo, used by gdtools up to version 0.5.3.
+# values were measured with Cairo, used by gdtools up to version 0.5.2.
 
 read_reference <- function() {
   ref <- utils::read.csv(

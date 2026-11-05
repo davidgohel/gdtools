@@ -4,10 +4,6 @@
 src/*.o
 src/*.so
 src/*.dll
-^.*\.Rproj$
-config.status
 windows
-inst/doc
 revdep
 configure.log
-.positai

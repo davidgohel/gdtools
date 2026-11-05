@@ -9,9 +9,9 @@ match_family(font = "sans", bold = TRUE, italic = TRUE)
 \arguments{
 \item{font}{family or face to match.}
 
-\item{bold}{Whether to match a font featuring a \code{bold} face.}
+\item{bold}{Whether to match a font featuring a bold face.}
 
-\item{italic}{Whether to match a font featuring an \code{italic} face.}
+\item{italic}{Whether to match a font featuring an italic face.}
 }
 \description{
 \code{match_family()} returns the best font family match.

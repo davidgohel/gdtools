@@ -1,6 +1,5 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
-^gdtools\.Rproj$
 ^src/Makevars$
 ^cran-comments\.md$
 ^windows

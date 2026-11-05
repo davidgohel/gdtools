@@ -8,17 +8,13 @@
 PKG_CONFIG_NAME="freetype2"
 PKG_DEB_NAME="libfreetype-dev"
 PKG_RPM_NAME="freetype-devel"
-PKG_CSW_NAME="libfreetype_dev"
 PKG_BREW_NAME="freetype"
 PKG_LIBS="-lfreetype"
 PKG_TEST_FILE="src/tests/sysdeps.c"
 
 # Prefer static linking on MacOS
 if [ `uname` = "Darwin" ]; then
-PKG_CONFIG_NAME="--static $PKG_CONFIG_NAME"
-  if [ `arch` = "i386" ]; then
-    export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:/usr/local/opt/libffi/lib/pkgconfig"
-  fi
+  PKG_CONFIG_NAME="--static $PKG_CONFIG_NAME"
 fi
 
 # Use pkg-config if available
@@ -61,7 +57,6 @@ if [ $? -ne 0 ]; then
   echo "Configuration failed to find libraries. Try installing:"
   echo " * deb: $PKG_DEB_NAME (Debian, Ubuntu)"
   echo " * rpm: $PKG_RPM_NAME (Fedora, CentOS, RHEL)"
-  echo " * csw: $PKG_CSW_NAME (Solaris)"
   echo " * brew: $PKG_BREW_NAME (OSX)"
   echo "If $PKG_CONFIG_NAME are already installed, check that 'pkg-config' is in your"
   echo "PATH and PKG_CONFIG_PATH contains a $PKG_CONFIG_NAME.pc file. If pkg-config"
