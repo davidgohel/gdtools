@@ -18,6 +18,9 @@ count_font_listings <- function(expr) {
 }
 
 test_that("system fonts are listed once per session", {
+  # registering a new font also lists the system fonts, in
+  # systemfonts::register_font()
+  font_set_liberation()
   sys_fonts_reset()
   n <- count_font_listings({
     sys_fonts()
