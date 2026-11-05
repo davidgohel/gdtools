@@ -2,8 +2,8 @@
 #
 # Fonts are the Liberation files shipped by fontquiver, so every machine
 # measures the same font files. The values were generated with the Cairo
-# engine of gdtools 0.5.3 (`m_str_metrics_()`, removed since then), from the
-# package root at commit 26dbd8a:
+# engine (`m_str_metrics_()`, removed since then; the last released version
+# using it is 0.5.2), from the package root at commit 26dbd8a:
 #
 #   pkgload::load_all(); source("data-src/glyph-reference.R")
 #
