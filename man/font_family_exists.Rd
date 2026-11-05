@@ -12,7 +12,7 @@ font_family_exists(font_family = "sans", system_only = FALSE)
 \item{system_only}{If \code{TRUE}, only look in system-installed fonts
 (as returned by \code{\link[systemfonts:system_fonts]{systemfonts::system_fonts()}}). This is useful
 to verify that a font will be found by fontconfig, which is the
-font resolution mechanism used by Cairo devices at rendering
+font resolution mechanism used by \code{cairo_pdf()} at rendering
 time. When \code{FALSE} (the default), both system and registered
 fonts are considered.}
 }

@@ -46,7 +46,7 @@ The results only depend on the font file: the same file gives
 the same values on every platform. They are accurate for
 devices whose rendering finds the same font -- this is
 guaranteed for 'systemfonts'-based devices (ragg, svglite,
-ggiraph) and true for Cairo devices (\code{cairo_pdf()}, ...) when
+ggiraph) and true for \code{cairo_pdf()} when
 the font is also installed at the system level. For devices
 with their own font engine (\code{pdf()}, \code{png()}, ...) the
 metrics may not match the rendering.

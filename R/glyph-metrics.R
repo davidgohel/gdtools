@@ -1,10 +1,9 @@
-# Text measurement from the metrics stored in font files, without Cairo.
+# Text measurement from the metrics stored in font files.
 #
 # Strings are measured in C++ (`glyph_strings_()`) with FreeType: each
 # distinct glyph is read once per font, unscaled and unhinted, in font units.
 # The width is the sum of the glyph advances of the 'hmtx' table (no
-# kerning, as HarfBuzz and Cairo's toy text API), the ascent and the descent
-# are those of the union of the ink boxes of the glyph outlines. Values are
+# kerning), the ascent and the descent are those of the union of the ink boxes of the glyph outlines. Values are
 # exact: they only depend on the font file.
 #
 # Fonts are resolved by systemfonts; files are opened by the FreeType gdtools

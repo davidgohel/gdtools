@@ -77,7 +77,7 @@ GlyphMetric read_glyph(FT_Face face, uint32_t code) {
 } // namespace
 
 // Measure strings from the metrics stored in font files, read with FreeType
-// (no Cairo, no hinting, no scaling). `font` gives, for each string, a
+// (no hinting, no scaling). `font` gives, for each string, a
 // 1-based row in `path`/`index`. Width is the sum of glyph advances (no
 // kerning); ascent and descent are those of the union of the glyph ink
 // boxes. Values are in em (divide by units per em done here): multiply by

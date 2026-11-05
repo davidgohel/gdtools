@@ -7,7 +7,7 @@
 #' @param system_only If `TRUE`, only look in system-installed fonts
 #'   (as returned by [systemfonts::system_fonts()]). This is useful
 #'   to verify that a font will be found by fontconfig, which is the
-#'   font resolution mechanism used by Cairo devices at rendering
+#'   font resolution mechanism used by `cairo_pdf()` at rendering
 #'   time. When `FALSE` (the default), both system and registered
 #'   fonts are considered.
 #' @examples

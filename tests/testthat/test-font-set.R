@@ -217,7 +217,10 @@ test_that("a system font is copied to the cache with its CSS", {
 
 test_that("font_set() errors on invalid font specifications", {
   expect_error(font_set(sans = 1), "must be a character string")
-  expect_error(font_set(mono = list(family = "x")), "must be a character string")
+  expect_error(
+    font_set(mono = list(family = "x")),
+    "must be a character string"
+  )
   bad_spec <- structure(
     list(family = "x", source = "unknown"),
     class = "font_spec"

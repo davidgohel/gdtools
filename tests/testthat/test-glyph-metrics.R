@@ -74,7 +74,6 @@ test_that("fonts resolved by name give the reference values", {
   expect_lt(max_abs_diff(glyph$width, x$ref$width), 2e-6)
   expect_lt(max_abs_diff(glyph$ascent, x$ref$ascent), 2e-6)
   expect_lt(max_abs_diff(glyph$descent, x$ref$descent), 2e-6)
-
 })
 
 test_that("glyph engine handles empty, NA and invalid strings", {
@@ -96,7 +95,7 @@ test_that("glyph engine handles empty, NA and invalid strings", {
   expect_true(res$width[2] > 0)
   expect_equal(res$ascent[2], 0)
   expect_true(all(is.na(row(3))))
-  # invalid UTF-8 is measured as an empty string, as Cairo does
+  # invalid UTF-8 is measured as an empty string
   expect_equal(row(4), c(width = 0, ascent = 0, descent = 0))
   expect_true(res$width[5] > 0)
 })
