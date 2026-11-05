@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">gdtools</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.5.3.006</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.5.3.007</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -54,7 +54,7 @@
 <dd><p>If <code>TRUE</code>, only look in system-installed fonts
 (as returned by <code><a href="https://systemfonts.r-lib.org/reference/system_fonts.html" class="external-link">systemfonts::system_fonts()</a></code>). This is useful
 to verify that a font will be found by fontconfig, which is the
-font resolution mechanism used by Cairo devices at rendering
+font resolution mechanism used by <code><a href="https://rdrr.io/r/grDevices/cairo.html" class="external-link">cairo_pdf()</a></code> at rendering
 time. When <code>FALSE</code> (the default), both system and registered
 fonts are considered.</p></dd>
 

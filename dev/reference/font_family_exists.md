@@ -19,9 +19,10 @@ font_family_exists(font_family = "sans", system_only = FALSE)
   If `TRUE`, only look in system-installed fonts (as returned by
   [`systemfonts::system_fonts()`](https://systemfonts.r-lib.org/reference/system_fonts.html)).
   This is useful to verify that a font will be found by fontconfig,
-  which is the font resolution mechanism used by Cairo devices at
-  rendering time. When `FALSE` (the default), both system and registered
-  fonts are considered.
+  which is the font resolution mechanism used by
+  [`cairo_pdf()`](https://rdrr.io/r/grDevices/cairo.html) at rendering
+  time. When `FALSE` (the default), both system and registered fonts are
+  considered.
 
 ## Value
 

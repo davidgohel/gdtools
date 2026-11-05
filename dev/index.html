@@ -24,7 +24,7 @@
 
     <a class="navbar-brand me-2" href="index.html">gdtools</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.5.3.006</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.5.3.007</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -92,7 +92,7 @@
 <div class="section level2">
 <h2 id="how-font-metric-calculation-works">How font metric calculation works<a class="anchor" aria-label="anchor" href="#how-font-metric-calculation-works"></a>
 </h2>
-<p><code>gdtools</code> was originally designed to compute font metrics for R graphic devices via C-level interfaces (Cairo and FreeType). With the arrival of the ‘systemfonts’ package, font discovery and matching became much simpler and the C interface was no longer needed by other packages.</p>
+<p><code>gdtools</code> was originally designed to compute font metrics for R graphic devices via C-level interfaces. With the arrival of the ‘systemfonts’ package, font discovery and matching became much simpler and the C interface was no longer needed by other packages.</p>
 <p>The package has since been refocused. Font metric calculation follows two steps:</p>
 <ol style="list-style-type: decimal">
 <li>Font lookup: ‘systemfonts’ resolves the family name to a font file. Any font registered via <code><a href="https://systemfonts.r-lib.org/reference/register_font.html" class="external-link">systemfonts::register_font()</a></code>, <code><a href="reference/register_gfont.html">register_gfont()</a></code>, or <code><a href="reference/font_set.html">font_set()</a></code> is found.</li>
@@ -114,7 +114,7 @@
 <div class="section level2">
 <h2 id="font-metrics">Font metrics<a class="anchor" aria-label="anchor" href="#font-metrics"></a>
 </h2>
-<p>The main function for text measurement is <code><a href="reference/strings_sizes.html">strings_sizes()</a></code>. It returns width, ascent and descent in inches. The measurements are accurate for devices that use Cairo or ‘systemfonts’ for font resolution (ragg, svglite, ggiraph, <code><a href="https://rdrr.io/r/grDevices/cairo.html" class="external-link">cairo_pdf()</a></code>, …); for devices with their own font engine (<code><a href="https://rdrr.io/r/grDevices/pdf.html" class="external-link">pdf()</a></code>, <code><a href="https://rdrr.io/r/grDevices/png.html" class="external-link">png()</a></code>, …) the metrics may not match the rendering.</p>
+<p>The main function for text measurement is <code><a href="reference/strings_sizes.html">strings_sizes()</a></code>. It returns width, ascent and descent in inches. The measurements are accurate for devices that use ‘systemfonts’ for font resolution (ragg, svglite, ggiraph) and for <code><a href="https://rdrr.io/r/grDevices/cairo.html" class="external-link">cairo_pdf()</a></code> when the font is also installed at the system level; for devices with their own font engine (<code><a href="https://rdrr.io/r/grDevices/pdf.html" class="external-link">pdf()</a></code>, <code><a href="https://rdrr.io/r/grDevices/png.html" class="external-link">png()</a></code>, …) the metrics may not match the rendering.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://davidgohel.github.io/gdtools/">gdtools</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="reference/strings_sizes.html">strings_sizes</a></span><span class="op">(</span></span>

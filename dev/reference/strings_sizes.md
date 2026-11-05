@@ -17,10 +17,10 @@ FreeType, without scaling or hinting:
 The results only depend on the font file: the same file gives the same
 values on every platform. They are accurate for devices whose rendering
 finds the same font – this is guaranteed for 'systemfonts'-based devices
-(ragg, svglite, ggiraph) and true for Cairo devices
-([`cairo_pdf()`](https://rdrr.io/r/grDevices/cairo.html), ...) when the
-font is also installed at the system level. For devices with their own
-font engine ([`pdf()`](https://rdrr.io/r/grDevices/pdf.html),
+(ragg, svglite, ggiraph) and true for
+[`cairo_pdf()`](https://rdrr.io/r/grDevices/cairo.html) when the font is
+also installed at the system level. For devices with their own font
+engine ([`pdf()`](https://rdrr.io/r/grDevices/pdf.html),
 [`png()`](https://rdrr.io/r/grDevices/png.html), ...) the metrics may
 not match the rendering.
 

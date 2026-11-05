@@ -13,9 +13,9 @@ R:
 ## How font metric calculation works
 
 `gdtools` was originally designed to compute font metrics for R graphic
-devices via C-level interfaces (Cairo and FreeType). With the arrival of
-the ‘systemfonts’ package, font discovery and matching became much
-simpler and the C interface was no longer needed by other packages.
+devices via C-level interfaces. With the arrival of the ‘systemfonts’
+package, font discovery and matching became much simpler and the C
+interface was no longer needed by other packages.
 
 The package has since been refocused. Font metric calculation follows
 two steps:
@@ -58,11 +58,11 @@ remotes::install_github("davidgohel/gdtools")
 The main function for text measurement is
 [`strings_sizes()`](https://davidgohel.github.io/gdtools/dev/reference/strings_sizes.md).
 It returns width, ascent and descent in inches. The measurements are
-accurate for devices that use Cairo or ‘systemfonts’ for font resolution
-(ragg, svglite, ggiraph,
-[`cairo_pdf()`](https://rdrr.io/r/grDevices/cairo.html), …); for devices
-with their own font engine
-([`pdf()`](https://rdrr.io/r/grDevices/pdf.html),
+accurate for devices that use ‘systemfonts’ for font resolution (ragg,
+svglite, ggiraph) and for
+[`cairo_pdf()`](https://rdrr.io/r/grDevices/cairo.html) when the font is
+also installed at the system level; for devices with their own font
+engine ([`pdf()`](https://rdrr.io/r/grDevices/pdf.html),
 [`png()`](https://rdrr.io/r/grDevices/png.html), …) the metrics may not
 match the rendering.
 
