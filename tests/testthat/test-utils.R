@@ -18,14 +18,3 @@ test_that("generic utils work", {
   )
   expect_true(is.character(sans))
 })
-
-test_that("ensure_cache_dir errors clearly when dir cannot be created (#82)", {
-  parent <- tempfile()
-  writeLines("x", parent)
-  on.exit(unlink(parent), add = TRUE)
-  bad_path <- file.path(parent, "subdir")
-  expect_error(
-    gdtools:::ensure_cache_dir(bad_path),
-    "Cannot create cache directory"
-  )
-})

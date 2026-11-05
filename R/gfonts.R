@@ -291,3 +291,86 @@ macos_sysinstall_command <- function(font_id, dir = "~/Library/Fonts") {
   id_dir <- font_dir(font_id)
   sprintf("cp %s/* %s", gsub(" ", "\\ ", id_dir, fixed = TRUE), dir)
 }
+
+reduce_faces <- function(variants) {
+  faces <- c(
+    plain = "regular",
+    italic = "italic",
+    bold = "700",
+    bolditalic = "700italic"
+  )
+  faces <- faces[faces %in% variants]
+  faces <- faces[!is.na(faces)]
+  faces
+}
+
+font_to_cache <- function(
+  family,
+  faces = NULL,
+  subset = c("latin", "latin-ext")
+) {
+  stopifnot(
+    `'family' is expected to be a character value` = is.character(family),
+    `family is expected to be a single value` = length(family) == 1L
+  )
+
+  x <- gfonts_summary()
+
+  if (!family %in% x$family) {
+    stop(
+      "family ",
+      shQuote(family),
+      " is not in the fonts provided by 'google fonts'."
+    )
+  }
+
+  font_id <- x[x$family %in% family, ]$id
+
+  css_file <- css_filepath(id = font_id)
+  if (file.exists(css_file)) {
+    return(TRUE)
+  }
+
+  check_gfonts(errors = TRUE)
+
+  if (is.null(faces)) {
+    faces <- reduce_faces(x[x$id %in% font_id, ]$variants[[1]])
+  }
+
+  subsets <- intersect(x[x$id %in% font_id, ]$subsets[[1]], subset)
+
+  .font_dir <- font_dir(id = font_id)
+  .css_dir <- css_dir(id = font_id)
+
+  ensure_cache_dir(.font_dir)
+  ensure_cache_dir(.css_dir)
+
+  gfonts::download_font(
+    id = font_id,
+    subsets = paste0(subsets, collapse = ","),
+    variants = faces,
+    output_dir = .font_dir
+  )
+  Sys.sleep(getOption("GFONTS_DOWNLOAD_SLEEPTIME"))
+  gfonts::generate_css(
+    prefer_local_source = FALSE,
+    browser_support = "best",
+    subsets = paste0(subsets, collapse = ","),
+    id = font_id,
+    variants = faces,
+    font_dir = "../fonts/",
+    output = css_file
+  )
+
+  # drop IE support as it generates issues - enough with IE8
+  css_str <- readLines(css_file, encoding = "UTF-8")
+  css_str <- css_str[!grepl("/* IE6-IE8 */", css_str, fixed = TRUE)]
+  writeLines(css_str, css_file, useBytes = TRUE)
+  TRUE
+}
+
+
+## gfonts_summary -----
+gfonts_summary <- function() {
+  all_gfonts
+}
