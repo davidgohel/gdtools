@@ -1,6 +1,6 @@
 Package: gdtools
 Title: Font Metrics and Font Management Utilities for R Graphics
-Version: 0.6.0.001
+Version: 0.6.0.002
 Authors@R: c(
     person("David", "Gohel", , "david.gohel@ardata.fr", role = c("aut", "cre")),
     person("Hadley", "Wickham", , "hadley@rstudio.com", role = "aut"),
@@ -13,10 +13,11 @@ Authors@R: c(
     person("The STIX Fonts Project Authors", role = "cph",
            comment = "STIX Two Math font, see file COPYRIGHTS")
   )
-Description: Compute text metrics (width, ascent, descent) from font
-    files with 'FreeType', independently of the active graphic device.
-    Font lookup is delegated to 'systemfonts'. Additional utilities let users
-    register 'Google Fonts' or bundled 'Liberation' fonts, check font
+Description: Compute text metrics (width, ascent, descent), with or
+    without kerning, from font files with 'FreeType', independently of the
+    active graphic device. Font lookup is delegated to 'systemfonts'.
+    Additional utilities let users register 'Google Fonts', the bundled
+    'Liberation' fonts or the bundled math font 'STIX Two Math', check font
     availability, and assemble 'htmlDependency' objects so that fonts are
     correctly embedded in 'Shiny' applications, 'R Markdown' documents,
     and 'htmlwidgets' outputs such as 'ggiraph'.

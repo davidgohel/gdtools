@@ -64,6 +64,14 @@ reference:
     - liberationserifHtmlDependency
     - liberationmonoHtmlDependency
 
+  - title: Math font
+    desc: >
+      The bundled 'STIX Two Math' font, an OpenType math font used to lay
+      out equations: its file path, and its registration with systemfonts.
+    contents:
+    - stixmath_file
+    - register_stixmath
+
   - title: Font discovery
     desc: >
       Query available fonts on the system. font_family_exists() checks
