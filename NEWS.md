@@ -2,6 +2,10 @@
 
 ## new features
 
+- The font 'STIX Two Math' (version 2.13 b171, SIL Open Font License) is
+shipped with the package, for the layout of equations: new functions
+`register_stixmath()`, which registers it with 'systemfonts', and
+`stixmath_file()`, which returns the path of the file.
 - `strings_sizes()` has a new argument `kerning`. With `kerning = TRUE`, the
 width includes the kerning stored in the font file ('kerx', 'GPOS' or 'kern'
 tables), as drawn by devices that kern (ragg, svglite, ggiraph,

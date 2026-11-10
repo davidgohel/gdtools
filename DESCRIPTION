@@ -9,7 +9,9 @@ Authors@R: c(
            comment = c(ORCID = "0000-0002-4035-0289")),
     person("Yixuan", "Qiu", role = "ctb"),
     person("ArData", role = "cph"),
-    person("RStudio", role = "cph")
+    person("RStudio", role = "cph"),
+    person("The STIX Fonts Project Authors", role = "cph",
+           comment = "STIX Two Math font, see file COPYRIGHTS")
   )
 Description: Compute text metrics (width, ascent, descent) from font
     files with 'FreeType', independently of the active graphic device.
@@ -19,6 +21,7 @@ Description: Compute text metrics (width, ascent, descent) from font
     correctly embedded in 'Shiny' applications, 'R Markdown' documents,
     and 'htmlwidgets' outputs such as 'ggiraph'.
 License: GPL-3 | file LICENSE
+Copyright: See file COPYRIGHTS
 URL: https://davidgohel.github.io/gdtools/
 BugReports: https://github.com/davidgohel/gdtools/issues
 Depends: 

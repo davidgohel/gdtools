@@ -35,6 +35,8 @@ Other functions for font management:
 \code{\link[=register_gfont]{register_gfont()}},
 \code{\link[=register_liberationmono]{register_liberationmono()}},
 \code{\link[=register_liberationsans]{register_liberationsans()}},
-\code{\link[=register_liberationserif]{register_liberationserif()}}
+\code{\link[=register_liberationserif]{register_liberationserif()}},
+\code{\link[=register_stixmath]{register_stixmath()}},
+\code{\link[=stixmath_file]{stixmath_file()}}
 }
 \concept{functions for font management}
