@@ -13,6 +13,12 @@ tables), as drawn by devices that kern (ragg, svglite, ggiraph,
 shaping and without new dependency. Ligatures and contextual kerning are not
 applied: see the section "Kerning" of `?strings_sizes`. The default,
 `kerning = FALSE`, keeps the previous values.
+- New function `font_line_metrics()`: the part of a line of text above its
+baseline, the part below and the distance between the baselines of two lines
+in single spacing, read from the 'OS/2' and 'hhea' tables of the font file,
+with the rule of 'Microsoft Word'. They depend on the font only, unlike the
+ascent and descent of `strings_sizes()`, which are those of the ink of a
+string.
 
 # gdtools 0.5.3
 

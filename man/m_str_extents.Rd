@@ -36,6 +36,7 @@ and the descent).
 }
 \seealso{
 Other functions for font metrics:
+\code{\link[=font_line_metrics]{font_line_metrics()}},
 \code{\link[=str_metrics]{str_metrics()}},
 \code{\link[=strings_sizes]{strings_sizes()}}
 }

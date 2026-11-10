@@ -25,6 +25,18 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// font_line_metrics_
+List font_line_metrics_(CharacterVector path, IntegerVector index);
+RcppExport SEXP _gdtools_font_line_metrics_(SEXP pathSEXP, SEXP indexSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< CharacterVector >::type path(pathSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type index(indexSEXP);
+    rcpp_result_gen = Rcpp::wrap(font_line_metrics_(path, index));
+    return rcpp_result_gen;
+END_RCPP
+}
 // version_freetype
 Rcpp::List version_freetype();
 RcppExport SEXP _gdtools_version_freetype() {
@@ -38,6 +50,7 @@ END_RCPP
 
 static const R_CallMethodDef CallEntries[] = {
     {"_gdtools_glyph_strings_", (DL_FUNC) &_gdtools_glyph_strings_, 5},
+    {"_gdtools_font_line_metrics_", (DL_FUNC) &_gdtools_font_line_metrics_, 2},
     {"_gdtools_version_freetype", (DL_FUNC) &_gdtools_version_freetype, 0},
     {NULL, NULL, 0}
 };

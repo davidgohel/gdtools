@@ -76,3 +76,23 @@ test_that("m_str_extents works ", {
   expect_equal(dim(mstre), c(3, 2))
   expect_true(all(is.numeric(mstre)))
 })
+
+test_that("font_line_metrics() follows the rule of Word", {
+  skip_if_not_installed("fontquiver")
+  register_liberationsans()
+  m <- font_line_metrics("Liberation Sans", fontsize = 72)
+  # Liberation Sans: usWinAscent 1854, usWinDescent 434, hhea ascender 1854,
+  # descender -434, lineGap 67 (2048 units per em): the external leading is
+  # 67 units
+  expect_equal(m$ascent, (1854 + 67) / 2048)
+  expect_equal(m$descent, 434 / 2048)
+  expect_equal(m$line_height, 2355 / 2048)
+})
+
+test_that("font_line_metrics() is vectorized and scales with the size", {
+  m <- font_line_metrics(c("sans", "serif", "sans"), fontsize = c(10, 10, 20))
+  expect_equal(nrow(m), 3)
+  expect_equal(m$line_height[3], 2 * m$line_height[1])
+  expect_equal(m$line_height, m$ascent + m$descent)
+  expect_true(all(m$ascent > 0 & m$descent > 0))
+})

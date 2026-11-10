@@ -26,6 +26,7 @@ reference:
       of any graphic device. strings_sizes() is the recommended entry point.
     contents:
     - strings_sizes
+    - font_line_metrics
 
   - title: Font set
     desc: >

@@ -42,6 +42,7 @@ str_metrics("Hello World!")
 }
 \seealso{
 Other functions for font metrics:
+\code{\link[=font_line_metrics]{font_line_metrics()}},
 \code{\link[=m_str_extents]{m_str_extents()}},
 \code{\link[=strings_sizes]{strings_sizes()}}
 }

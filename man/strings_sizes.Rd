@@ -93,6 +93,7 @@ strings_sizes("Hello World!", bold = TRUE, italic = FALSE,
 }
 \seealso{
 Other functions for font metrics:
+\code{\link[=font_line_metrics]{font_line_metrics()}},
 \code{\link[=m_str_extents]{m_str_extents()}},
 \code{\link[=str_metrics]{str_metrics()}}
 }

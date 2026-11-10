@@ -5,6 +5,10 @@ glyph_strings_ <- function(x, font, path, index, kerning) {
     .Call('_gdtools_glyph_strings_', PACKAGE = 'gdtools', x, font, path, index, kerning)
 }
 
+font_line_metrics_ <- function(path, index) {
+    .Call('_gdtools_font_line_metrics_', PACKAGE = 'gdtools', path, index)
+}
+
 #' @title Version of the FreeType library
 #'
 #' @description Return the runtime version of the FreeType library
