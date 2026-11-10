@@ -81,6 +81,8 @@ Other functions for font management:
 [`register_liberationmono()`](https://davidgohel.github.io/gdtools/dev/reference/register_liberationmono.md),
 [`register_liberationsans()`](https://davidgohel.github.io/gdtools/dev/reference/register_liberationsans.md),
 [`register_liberationserif()`](https://davidgohel.github.io/gdtools/dev/reference/register_liberationserif.md),
+[`register_stixmath()`](https://davidgohel.github.io/gdtools/dev/reference/register_stixmath.md),
+[`stixmath_file()`](https://davidgohel.github.io/gdtools/dev/reference/stixmath_file.md),
 [`sys_fonts_reset()`](https://davidgohel.github.io/gdtools/dev/reference/sys_fonts_reset.md)
 
 ## Examples

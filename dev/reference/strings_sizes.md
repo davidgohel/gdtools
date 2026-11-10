@@ -9,7 +9,8 @@ or
 is found), then the metrics stored in the font file are read with
 FreeType, without scaling or hinting:
 
-- the width is the sum of the glyph advances (no kerning);
+- the width is the sum of the glyph advances; with `kerning = TRUE`, the
+  kerning between consecutive glyphs is added (see below);
 
 - the ascent and the descent are those of the box enclosing the ink of
   the glyphs, so they depend on the text (`"xxx"` has no descent).
@@ -36,7 +37,8 @@ strings_sizes(
   fontname = "sans",
   fontsize = 10,
   bold = FALSE,
-  italic = FALSE
+  italic = FALSE,
+  kerning = FALSE
 )
 ```
 
@@ -66,6 +68,37 @@ strings_sizes(
 
   A logical vector indicating whether the text should be italic. Default
   is FALSE. This argument is vectorized.
+
+- kerning:
+
+  If `TRUE`, the width includes the kerning stored in the font file, as
+  devices that kern when drawing (ragg, svglite, ggiraph,
+  [`cairo_pdf()`](https://rdrr.io/r/grDevices/cairo.html),
+  [`pdf()`](https://rdrr.io/r/grDevices/pdf.html)). Default is `FALSE`,
+  the width is then the sum of the glyph advances. A single logical
+  value.
+
+## Kerning
+
+Kerning adjusts the space between some pairs of glyphs (for example "AV"
+or "To"). With `kerning = TRUE`, the adjustments are read from the
+tables of the font file and added to the width, without text shaping:
+
+- a single table is used: 'kerx' when the font has one, otherwise 'GPOS'
+  when it has a 'kern' feature, otherwise the 'kern' table;
+
+- in 'GPOS', the lookups of the 'kern' feature for the script of the
+  text are used; the script (Latin, Greek or Cyrillic) is guessed from
+  the first letter of the string, other strings use the default script;
+
+- adjustments of single glyphs and of pairs of glyphs are applied;
+  contextual kerning is not;
+
+- ligatures and other glyph substitutions are not applied, so the width
+  of a string such as `"office"` may differ from the drawn text with
+  fonts that substitute glyphs by default;
+
+- right-to-left and complex scripts are not shaped.
 
 ## See also
 
@@ -104,6 +137,10 @@ strings_sizes(letters)
 #> 24 0.08219401 0.07595486 0.000000000
 #> 25 0.08219401 0.07595486 0.028889974
 #> 26 0.07290310 0.07595486 0.000000000
+strings_sizes("AVATAR", fontsize = 12)$width
+#> [1] 0.6736654
+strings_sizes("AVATAR", fontsize = 12, kerning = TRUE)$width
+#> [1] 0.6264648
 strings_sizes("Hello World!", bold = TRUE, italic = FALSE,
   fontname = "sans", fontsize = 12)
 #>      width    ascent     descent

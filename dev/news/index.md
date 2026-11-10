@@ -1,6 +1,30 @@
 # Changelog
 
+## gdtools 0.6.0
+
+### new features
+
+- The font ‘STIX Two Math’ (version 2.13 b171, SIL Open Font License) is
+  shipped with the package, for the layout of equations: new functions
+  [`register_stixmath()`](https://davidgohel.github.io/gdtools/dev/reference/register_stixmath.md),
+  which registers it with ‘systemfonts’, and
+  [`stixmath_file()`](https://davidgohel.github.io/gdtools/dev/reference/stixmath_file.md),
+  which returns the path of the file.
+- [`strings_sizes()`](https://davidgohel.github.io/gdtools/dev/reference/strings_sizes.md)
+  has a new argument `kerning`. With `kerning = TRUE`, the width
+  includes the kerning stored in the font file (‘kerx’, ‘GPOS’ or ‘kern’
+  tables), as drawn by devices that kern (ragg, svglite, ggiraph,
+  [`cairo_pdf()`](https://rdrr.io/r/grDevices/cairo.html),
+  [`pdf()`](https://rdrr.io/r/grDevices/pdf.html)). The tables are read
+  with FreeType, without text shaping and without new dependency.
+  Ligatures and contextual kerning are not applied: see the section
+  “Kerning” of
+  [`?strings_sizes`](https://davidgohel.github.io/gdtools/dev/reference/strings_sizes.md).
+  The default, `kerning = FALSE`, keeps the previous values.
+
 ## gdtools 0.5.3
+
+CRAN release: 2026-11-05
 
 ### internals
 

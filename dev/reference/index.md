@@ -62,6 +62,16 @@ Lower-level helpers to register and embed the bundled Liberation fonts
 - [`liberationmonoHtmlDependency()`](https://davidgohel.github.io/gdtools/dev/reference/liberationmonoHtmlDependency.md)
   : 'Liberation Mono' Font HTML dependency
 
+## Math font
+
+The bundled ‘STIX Two Math’ font, an OpenType math font used to lay out
+equations: its file path, and its registration with systemfonts.
+
+- [`stixmath_file()`](https://davidgohel.github.io/gdtools/dev/reference/stixmath_file.md)
+  : Path of the font file 'STIX Two Math'
+- [`register_stixmath()`](https://davidgohel.github.io/gdtools/dev/reference/register_stixmath.md)
+  : Register font 'STIX Two Math'
+
 ## Font discovery
 
 Query available fonts on the system. font_family_exists() checks whether
