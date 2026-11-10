@@ -1,3 +1,15 @@
+# gdtools 0.6.0
+
+## new features
+
+- `strings_sizes()` has a new argument `kerning`. With `kerning = TRUE`, the
+width includes the kerning stored in the font file ('kerx', 'GPOS' or 'kern'
+tables), as drawn by devices that kern (ragg, svglite, ggiraph,
+`cairo_pdf()`, `pdf()`). The tables are read with FreeType, without text
+shaping and without new dependency. Ligatures and contextual kerning are not
+applied: see the section "Kerning" of `?strings_sizes`. The default,
+`kerning = FALSE`, keeps the previous values.
+
 # gdtools 0.5.3
 
 ## internals

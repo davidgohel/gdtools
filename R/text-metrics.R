@@ -99,7 +99,9 @@ m_str_extents <- function(
 #' metrics stored in the font file are read with FreeType,
 #' without scaling or hinting:
 #'
-#' - the width is the sum of the glyph advances (no kerning);
+#' - the width is the sum of the glyph advances; with
+#'   `kerning = TRUE`, the kerning between consecutive glyphs is
+#'   added (see below);
 #' - the ascent and the descent are those of the box enclosing
 #'   the ink of the glyphs, so they depend on the text
 #'   (`"xxx"` has no descent).
@@ -128,8 +130,30 @@ m_str_extents <- function(
 #'   Default is FALSE. This argument is vectorized.
 #' @param italic A logical vector indicating whether the text should be italic.
 #'   Default is FALSE. This argument is vectorized.
+#' @param kerning If `TRUE`, the width includes the kerning stored in the
+#'   font file, as devices that kern when drawing (ragg, svglite, ggiraph,
+#'   `cairo_pdf()`, `pdf()`). Default is `FALSE`, the width is then the sum
+#'   of the glyph advances. A single logical value.
+#' @section Kerning:
+#' Kerning adjusts the space between some pairs of glyphs (for example
+#' "AV" or "To"). With `kerning = TRUE`, the adjustments are read from the
+#' tables of the font file and added to the width, without text shaping:
+#'
+#' - a single table is used: 'kerx' when the font has one, otherwise
+#'   'GPOS' when it has a 'kern' feature, otherwise the 'kern' table;
+#' - in 'GPOS', the lookups of the 'kern' feature for the script of the
+#'   text are used; the script (Latin, Greek or Cyrillic) is guessed from
+#'   the first letter of the string, other strings use the default script;
+#' - adjustments of single glyphs and of pairs of glyphs are applied;
+#'   contextual kerning is not;
+#' - ligatures and other glyph substitutions are not applied, so the width
+#'   of a string such as `"office"` may differ from the drawn text with
+#'   fonts that substitute glyphs by default;
+#' - right-to-left and complex scripts are not shaped.
 #' @examples
 #' strings_sizes(letters)
+#' strings_sizes("AVATAR", fontsize = 12)$width
+#' strings_sizes("AVATAR", fontsize = 12, kerning = TRUE)$width
 #' strings_sizes("Hello World!", bold = TRUE, italic = FALSE,
 #'   fontname = "sans", fontsize = 12)
 #' @family functions for font metrics
@@ -139,14 +163,18 @@ strings_sizes <- function(
   fontname = "sans",
   fontsize = 10,
   bold = FALSE,
-  italic = FALSE
+  italic = FALSE,
+  kerning = FALSE
 ) {
   stopifnot(
     is.character(x),
     is.character(fontname),
     is.numeric(fontsize),
     is.logical(bold),
-    is.logical(italic)
+    is.logical(italic),
+    is.logical(kerning),
+    length(kerning) == 1,
+    !is.na(kerning)
   )
 
   max_length <- length(x)
@@ -161,7 +189,8 @@ strings_sizes <- function(
     fontsize,
     bold,
     italic,
-    rep("", max_length)
+    rep("", max_length),
+    kerning = kerning
   )
   # lighter than data.frame(), same object
   structure(

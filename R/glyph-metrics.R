@@ -2,8 +2,9 @@
 #
 # Strings are measured in C++ (`glyph_strings_()`) with FreeType: each
 # distinct glyph is read once per font, unscaled and unhinted, in font units.
-# The width is the sum of the glyph advances of the 'hmtx' table (no
-# kerning), the ascent and the descent are those of the union of the ink boxes of the glyph outlines. Values are
+# The width is the sum of the glyph advances of the 'hmtx' table, plus the
+# kerning read from the font tables when `kerning` is TRUE (src/kerning.h),
+# the ascent and the descent are those of the union of the ink boxes of the glyph outlines. Values are
 # exact: they only depend on the font file.
 #
 # Fonts are resolved by systemfonts; files are opened by the FreeType gdtools
@@ -13,7 +14,15 @@
 # ascent, descent): building a data.frame costs more than measuring a few
 # strings.
 
-glyph_metrics_ <- function(x, fontname, fontsize, bold, italic, fontfile) {
+glyph_metrics_ <- function(
+  x,
+  fontname,
+  fontsize,
+  bold,
+  italic,
+  fontfile,
+  kerning = FALSE
+) {
   has_file <- !is.na(fontfile) & nzchar(fontfile)
   key <- ifelse(
     has_file,
@@ -33,7 +42,8 @@ glyph_metrics_ <- function(x, fontname, fontsize, bold, italic, fontfile) {
     x,
     font_id,
     fonts$path,
-    fonts$index
+    fonts$index,
+    kerning
   )
 
   if (any(m$failed)) {
@@ -58,7 +68,8 @@ glyph_metrics_ <- function(x, fontname, fontsize, bold, italic, fontfile) {
       x[redo],
       match(font_id[redo], failed),
       sans$path,
-      sans$index
+      sans$index,
+      kerning
     )
     m$width[redo] <- m2$width
     m$ascent[redo] <- m2$ascent

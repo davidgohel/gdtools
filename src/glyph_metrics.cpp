@@ -1,10 +1,13 @@
 #include <Rcpp.h>
+#include "kerning.h"
 #include <ft2build.h>
 #include FT_FREETYPE_H
 #include FT_ADVANCES_H
 #include <algorithm>
+#include <memory>
 #include <cstdint>
 #include <numeric>
+#include <string>
 #include <unordered_map>
 #include <vector>
 
@@ -14,6 +17,7 @@ namespace {
 
 // Metrics of one glyph, in font units.
 struct GlyphMetric {
+  uint32_t gid;
   double advance;
   double top;    // yMax of the ink box
   double bottom; // -yMin of the ink box
@@ -54,10 +58,11 @@ bool decode_utf8(const char* s, std::vector<uint32_t>& out) {
 }
 
 // Read the metrics stored in the font file, unscaled and unhinted: the
-// advance from the 'hmtx' table (as HarfBuzz), the ink box from the outline.
+// advance from the 'hmtx' table, the ink box from the outline.
 GlyphMetric read_glyph(FT_Face face, uint32_t code) {
-  GlyphMetric m = {0, 0, 0, false};
+  GlyphMetric m = {0, 0, 0, 0, false};
   FT_UInt gid = FT_Get_Char_Index(face, code); // 0 is .notdef
+  m.gid = gid;
 
   FT_Fixed advance = 0;
   if (FT_Get_Advance(face, gid, FT_LOAD_NO_SCALE, &advance) == 0) {
@@ -74,12 +79,34 @@ GlyphMetric read_glyph(FT_Face face, uint32_t code) {
   return m;
 }
 
+// Kerning tables, kept for the session: reading them costs more than
+// measuring a short string. Keyed by file path and face index; the cache is
+// emptied when it holds too many fonts.
+std::unordered_map<std::string, std::shared_ptr<FontKerning> > kerning_cache;
+
+std::shared_ptr<FontKerning> kerning_of(FT_Face face, const char* path,
+                                        int index) {
+  std::string key = std::string(path) + '\n' + std::to_string(index);
+  std::unordered_map<std::string, std::shared_ptr<FontKerning> >::iterator
+    it = kerning_cache.find(key);
+  if (it != kerning_cache.end()) {
+    return it->second;
+  }
+  if (kerning_cache.size() >= 64) {
+    kerning_cache.clear();
+  }
+  std::shared_ptr<FontKerning> k(new FontKerning(face));
+  kerning_cache[key] = k;
+  return k;
+}
+
 } // namespace
 
 // Measure strings from the metrics stored in font files, read with FreeType
 // (no hinting, no scaling). `font` gives, for each string, a
-// 1-based row in `path`/`index`. Width is the sum of glyph advances (no
-// kerning); ascent and descent are those of the union of the glyph ink
+// 1-based row in `path`/`index`. Width is the sum of glyph advances, plus
+// the kerning between consecutive glyphs when `kerning` is TRUE (see
+// kerning.h); ascent and descent are those of the union of the glyph ink
 // boxes. Values are in em (divide by units per em done here): multiply by
 // the font size to get points. `failed` is TRUE when the font file could not
 // be opened. NA strings give NA; invalid UTF-8 is measured as an empty
@@ -88,7 +115,8 @@ GlyphMetric read_glyph(FT_Face face, uint32_t code) {
 List glyph_strings_(CharacterVector x,
                          IntegerVector font,
                          CharacterVector path,
-                         IntegerVector index) {
+                         IntegerVector index,
+                         bool kerning) {
   int n = x.size();
   NumericVector width(n);
   NumericVector ascent(n);
@@ -114,6 +142,8 @@ List glyph_strings_(CharacterVector x,
   std::vector<char> bmp_known(bmp_size, 0);
   std::unordered_map<uint32_t, GlyphMetric> cache;
   std::vector<uint32_t> codes;
+  std::vector<uint32_t> glyphs;
+  std::shared_ptr<FontKerning> kern;
 
   int current_font = -1;
   FT_Face face = NULL;
@@ -133,11 +163,17 @@ List glyph_strings_(CharacterVector x,
       }
       cache.clear();
       std::fill(bmp_known.begin(), bmp_known.end(), 0);
+      kern.reset();
       if (FT_New_Face(library, CHAR(path[current_font - 1]),
                       index[current_font - 1], &face) != 0) {
         face = NULL;
       } else {
         units_per_em = face->units_per_EM > 0 ? face->units_per_EM : 1;
+        if (kerning) {
+          kern = kerning_of(face, CHAR(path[current_font - 1]),
+                            index[current_font - 1]);
+          if (kern->empty()) kern.reset();
+        }
       }
     }
     if (face == NULL) {
@@ -150,6 +186,7 @@ List glyph_strings_(CharacterVector x,
 
     double w = 0, a = 0, d = 0;
     bool inked = false;
+    glyphs.clear();
     for (uint32_t code : codes) {
       const GlyphMetric* mp;
       if (code < bmp_size) {
@@ -168,6 +205,7 @@ List glyph_strings_(CharacterVector x,
       }
       const GlyphMetric& m = *mp;
       w += m.advance;
+      if (kern) glyphs.push_back(m.gid);
       // glyphs without ink (spaces) do not contribute to the ink box
       if (m.inked) {
         if (!inked) {
@@ -179,6 +217,9 @@ List glyph_strings_(CharacterVector x,
           d = std::max(d, m.bottom);
         }
       }
+    }
+    if (kern) {
+      w += kern->adjust(glyphs, guess_script(codes));
     }
     width[i] = w / units_per_em;
     ascent[i] = a / units_per_em;

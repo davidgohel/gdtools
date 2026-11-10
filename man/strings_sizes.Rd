@@ -9,7 +9,8 @@ strings_sizes(
   fontname = "sans",
   fontsize = 10,
   bold = FALSE,
-  italic = FALSE
+  italic = FALSE,
+  kerning = FALSE
 )
 }
 \arguments{
@@ -27,6 +28,11 @@ Default is FALSE. This argument is vectorized.}
 
 \item{italic}{A logical vector indicating whether the text should be italic.
 Default is FALSE. This argument is vectorized.}
+
+\item{kerning}{If \code{TRUE}, the width includes the kerning stored in the
+font file, as devices that kern when drawing (ragg, svglite, ggiraph,
+\code{cairo_pdf()}, \code{pdf()}). Default is \code{FALSE}, the width is then the sum
+of the glyph advances. A single logical value.}
 }
 \description{
 Determines widths, ascent and descent in inches.
@@ -36,7 +42,9 @@ registered via \code{\link[systemfonts:register_font]{systemfonts::register_font
 metrics stored in the font file are read with FreeType,
 without scaling or hinting:
 \itemize{
-\item the width is the sum of the glyph advances (no kerning);
+\item the width is the sum of the glyph advances; with
+\code{kerning = TRUE}, the kerning between consecutive glyphs is
+added (see below);
 \item the ascent and the descent are those of the box enclosing
 the ink of the glyphs, so they depend on the text
 (\code{"xxx"} has no descent).
@@ -56,8 +64,30 @@ and the default sans-serif font is used. \code{NA} strings give
 \code{NA} metrics; invalid UTF-8 strings are measured as empty
 strings.
 }
+\section{Kerning}{
+
+Kerning adjusts the space between some pairs of glyphs (for example
+"AV" or "To"). With \code{kerning = TRUE}, the adjustments are read from the
+tables of the font file and added to the width, without text shaping:
+\itemize{
+\item a single table is used: 'kerx' when the font has one, otherwise
+'GPOS' when it has a 'kern' feature, otherwise the 'kern' table;
+\item in 'GPOS', the lookups of the 'kern' feature for the script of the
+text are used; the script (Latin, Greek or Cyrillic) is guessed from
+the first letter of the string, other strings use the default script;
+\item adjustments of single glyphs and of pairs of glyphs are applied;
+contextual kerning is not;
+\item ligatures and other glyph substitutions are not applied, so the width
+of a string such as \code{"office"} may differ from the drawn text with
+fonts that substitute glyphs by default;
+\item right-to-left and complex scripts are not shaped.
+}
+}
+
 \examples{
 strings_sizes(letters)
+strings_sizes("AVATAR", fontsize = 12)$width
+strings_sizes("AVATAR", fontsize = 12, kerning = TRUE)$width
 strings_sizes("Hello World!", bold = TRUE, italic = FALSE,
   fontname = "sans", fontsize = 12)
 }
