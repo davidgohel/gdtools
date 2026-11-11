@@ -14,13 +14,21 @@
   has a new argument `kerning`. With `kerning = TRUE`, the width
   includes the kerning stored in the font file (‘kerx’, ‘GPOS’ or ‘kern’
   tables), as drawn by devices that kern (ragg, svglite, ggiraph,
-  [`cairo_pdf()`](https://rdrr.io/r/grDevices/cairo.html),
-  [`pdf()`](https://rdrr.io/r/grDevices/pdf.html)). The tables are read
-  with FreeType, without text shaping and without new dependency.
-  Ligatures and contextual kerning are not applied: see the section
-  “Kerning” of
+  [`cairo_pdf()`](https://rdrr.io/r/grDevices/cairo.html)). The tables
+  are read with FreeType, without text shaping and without new
+  dependency. Ligatures and contextual kerning are not applied: see the
+  section “Kerning” of
   [`?strings_sizes`](https://davidgohel.github.io/gdtools/dev/reference/strings_sizes.md).
   The default, `kerning = FALSE`, keeps the previous values.
+- New function
+  [`font_line_metrics()`](https://davidgohel.github.io/gdtools/dev/reference/font_line_metrics.md):
+  the part of a line of text above its baseline, the part below and the
+  distance between the baselines of two lines in single spacing, read
+  from the ‘OS/2’ and ‘hhea’ tables of the font file, with the rule of
+  ‘Microsoft Word’. They depend on the font only, unlike the ascent and
+  descent of
+  [`strings_sizes()`](https://davidgohel.github.io/gdtools/dev/reference/strings_sizes.md),
+  which are those of the ink of a string.
 
 ## gdtools 0.5.3
 

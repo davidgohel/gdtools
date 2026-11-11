@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">gdtools</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.6.0.002</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.6.0.003</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,7 +38,8 @@
 <h3 id="new-features-0-6-0">new features<a class="anchor" aria-label="anchor" href="#new-features-0-6-0"></a></h3>
 <ul><li>The font ‘STIX Two Math’ (version 2.13 b171, SIL Open Font License) is shipped with the package, for the layout of equations: new functions <code><a href="../reference/register_stixmath.html">register_stixmath()</a></code>, which registers it with ‘systemfonts’, and <code><a href="../reference/stixmath_file.html">stixmath_file()</a></code>, which returns the path of the file.</li>
 <li>
-<code><a href="../reference/strings_sizes.html">strings_sizes()</a></code> has a new argument <code>kerning</code>. With <code>kerning = TRUE</code>, the width includes the kerning stored in the font file (‘kerx’, ‘GPOS’ or ‘kern’ tables), as drawn by devices that kern (ragg, svglite, ggiraph, <code><a href="https://rdrr.io/r/grDevices/cairo.html" class="external-link">cairo_pdf()</a></code>, <code><a href="https://rdrr.io/r/grDevices/pdf.html" class="external-link">pdf()</a></code>). The tables are read with FreeType, without text shaping and without new dependency. Ligatures and contextual kerning are not applied: see the section “Kerning” of <code><a href="../reference/strings_sizes.html">?strings_sizes</a></code>. The default, <code>kerning = FALSE</code>, keeps the previous values.</li>
+<code><a href="../reference/strings_sizes.html">strings_sizes()</a></code> has a new argument <code>kerning</code>. With <code>kerning = TRUE</code>, the width includes the kerning stored in the font file (‘kerx’, ‘GPOS’ or ‘kern’ tables), as drawn by devices that kern (ragg, svglite, ggiraph, <code><a href="https://rdrr.io/r/grDevices/cairo.html" class="external-link">cairo_pdf()</a></code>). The tables are read with FreeType, without text shaping and without new dependency. Ligatures and contextual kerning are not applied: see the section “Kerning” of <code><a href="../reference/strings_sizes.html">?strings_sizes</a></code>. The default, <code>kerning = FALSE</code>, keeps the previous values.</li>
+<li>New function <code><a href="../reference/font_line_metrics.html">font_line_metrics()</a></code>: the part of a line of text above its baseline, the part below and the distance between the baselines of two lines in single spacing, read from the ‘OS/2’ and ‘hhea’ tables of the font file, with the rule of ‘Microsoft Word’. They depend on the font only, unlike the ascent and descent of <code><a href="../reference/strings_sizes.html">strings_sizes()</a></code>, which are those of the ink of a string.</li>
 </ul></div>
 </div>
     <div class="section level2">

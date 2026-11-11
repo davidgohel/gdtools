@@ -114,11 +114,10 @@ strings_sizes("AVATAR", fontname = "Liberation Sans", fontsize = 12, kerning = T
 ```
 
 Use it when the text is drawn by a device that kerns (‘ragg’, ‘svglite’,
-‘ggiraph’, [`cairo_pdf()`](https://rdrr.io/r/grDevices/cairo.html),
-[`pdf()`](https://rdrr.io/r/grDevices/pdf.html)), for example to place
-words or align text in ‘grid’ graphics. The default, `kerning = FALSE`,
-is the sum of the glyph advances. Ligatures and contextual kerning are
-not applied: see the section “Kerning” of
+‘ggiraph’, [`cairo_pdf()`](https://rdrr.io/r/grDevices/cairo.html)), for
+example to place words or align text in ‘grid’ graphics. The default,
+`kerning = FALSE`, is the sum of the glyph advances. Ligatures and
+contextual kerning are not applied: see the section “Kerning” of
 [`?strings_sizes`](https://davidgohel.github.io/gdtools/dev/reference/strings_sizes.md).
 
 ## Font management

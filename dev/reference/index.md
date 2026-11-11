@@ -8,6 +8,8 @@ entry point.
 
 - [`strings_sizes()`](https://davidgohel.github.io/gdtools/dev/reference/strings_sizes.md)
   : Compute strings sizes
+- [`font_line_metrics()`](https://davidgohel.github.io/gdtools/dev/reference/font_line_metrics.md)
+  : Line metrics of fonts
 
 ## Font set
 

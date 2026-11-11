@@ -73,10 +73,9 @@ strings_sizes(
 
   If `TRUE`, the width includes the kerning stored in the font file, as
   devices that kern when drawing (ragg, svglite, ggiraph,
-  [`cairo_pdf()`](https://rdrr.io/r/grDevices/cairo.html),
-  [`pdf()`](https://rdrr.io/r/grDevices/pdf.html)). Default is `FALSE`,
-  the width is then the sum of the glyph advances. A single logical
-  value.
+  [`cairo_pdf()`](https://rdrr.io/r/grDevices/cairo.html)). Default is
+  `FALSE`, the width is then the sum of the glyph advances. A single
+  logical value.
 
 ## Kerning
 
@@ -103,6 +102,7 @@ tables of the font file and added to the width, without text shaping:
 ## See also
 
 Other functions for font metrics:
+[`font_line_metrics()`](https://davidgohel.github.io/gdtools/dev/reference/font_line_metrics.md),
 [`m_str_extents()`](https://davidgohel.github.io/gdtools/dev/reference/m_str_extents.md),
 [`str_metrics()`](https://davidgohel.github.io/gdtools/dev/reference/str_metrics.md)
 

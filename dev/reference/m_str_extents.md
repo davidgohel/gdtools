@@ -48,5 +48,6 @@ instead, which returns the width, the ascent and the descent in inches
 ## See also
 
 Other functions for font metrics:
+[`font_line_metrics()`](https://davidgohel.github.io/gdtools/dev/reference/font_line_metrics.md),
 [`str_metrics()`](https://davidgohel.github.io/gdtools/dev/reference/str_metrics.md),
 [`strings_sizes()`](https://davidgohel.github.io/gdtools/dev/reference/strings_sizes.md)
