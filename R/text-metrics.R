@@ -132,7 +132,7 @@ m_str_extents <- function(
 #'   Default is FALSE. This argument is vectorized.
 #' @param kerning If `TRUE`, the width includes the kerning stored in the
 #'   font file, as devices that kern when drawing (ragg, svglite, ggiraph,
-#'   `cairo_pdf()`, `pdf()`). Default is `FALSE`, the width is then the sum
+#'   `cairo_pdf()`). Default is `FALSE`, the width is then the sum
 #'   of the glyph advances. A single logical value.
 #' @section Kerning:
 #' Kerning adjusts the space between some pairs of glyphs (for example

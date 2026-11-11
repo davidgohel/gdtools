@@ -31,7 +31,7 @@ Default is FALSE. This argument is vectorized.}
 
 \item{kerning}{If \code{TRUE}, the width includes the kerning stored in the
 font file, as devices that kern when drawing (ragg, svglite, ggiraph,
-\code{cairo_pdf()}, \code{pdf()}). Default is \code{FALSE}, the width is then the sum
+\code{cairo_pdf()}). Default is \code{FALSE}, the width is then the sum
 of the glyph advances. A single logical value.}
 }
 \description{

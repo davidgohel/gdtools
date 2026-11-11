@@ -114,7 +114,7 @@ strings_sizes("AVATAR", fontname = "Liberation Sans", fontsize = 12, kerning = T
 ```
 
 Use it when the text is drawn by a device that kerns (‘ragg’, ‘svglite’,
-‘ggiraph’, `cairo_pdf()`, `pdf()`), for example to place words or align
+‘ggiraph’, `cairo_pdf()`), for example to place words or align
 text in ‘grid’ graphics. The default, `kerning = FALSE`, is the sum of
 the glyph advances. Ligatures and contextual kerning are not applied:
 see the section “Kerning” of `?strings_sizes`.

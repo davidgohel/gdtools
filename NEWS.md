@@ -9,7 +9,7 @@ shipped with the package, for the layout of equations: new functions
 - `strings_sizes()` has a new argument `kerning`. With `kerning = TRUE`, the
 width includes the kerning stored in the font file ('kerx', 'GPOS' or 'kern'
 tables), as drawn by devices that kern (ragg, svglite, ggiraph,
-`cairo_pdf()`, `pdf()`). The tables are read with FreeType, without text
+`cairo_pdf()`). The tables are read with FreeType, without text
 shaping and without new dependency. Ligatures and contextual kerning are not
 applied: see the section "Kerning" of `?strings_sizes`. The default,
 `kerning = FALSE`, keeps the previous values.

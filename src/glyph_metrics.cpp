@@ -123,6 +123,17 @@ List glyph_strings_(CharacterVector x,
   NumericVector descent(n);
   LogicalVector failed(n);
 
+  // strings are translated before FreeType is opened: the translation raises
+  // an R error for some strings (encoding "bytes"), which would leave the
+  // FreeType objects open. The memory of the translated strings is freed by R
+  // at the end of the call.
+  std::vector<const char*> utf8(n, NULL);
+  for (int i = 0; i < n; ++i) {
+    if (x[i] != NA_STRING) {
+      utf8[i] = Rf_translateCharUTF8(x[i]);
+    }
+  }
+
   FT_Library library;
   if (FT_Init_FreeType(&library)) {
     Rcpp::stop("FreeType error: unable to initialize FreeType library object");
@@ -180,7 +191,7 @@ List glyph_strings_(CharacterVector x,
       failed[i] = true;
       continue;
     }
-    if (!decode_utf8(Rf_translateCharUTF8(x[i]), codes)) {
+    if (!decode_utf8(utf8[i], codes)) {
       continue;
     }
 
