@@ -35,6 +35,8 @@ Other functions for font management:
 [`register_liberationmono()`](https://davidgohel.github.io/gdtools/reference/register_liberationmono.md),
 [`register_liberationsans()`](https://davidgohel.github.io/gdtools/reference/register_liberationsans.md),
 [`register_liberationserif()`](https://davidgohel.github.io/gdtools/reference/register_liberationserif.md),
+[`register_stixmath()`](https://davidgohel.github.io/gdtools/reference/register_stixmath.md),
+[`stixmath_file()`](https://davidgohel.github.io/gdtools/reference/stixmath_file.md),
 [`sys_fonts_reset()`](https://davidgohel.github.io/gdtools/reference/sys_fonts_reset.md)
 
 ## Examples
@@ -45,12 +47,12 @@ fonts_cache_dir()
 
 options(GDTOOLS_CACHE_DIR = tempdir())
 fonts_cache_dir()
-#> [1] "/tmp/RtmpG2yqjK"
+#> [1] "/tmp/Rtmp3E3rH2"
 options(GDTOOLS_CACHE_DIR = NULL)
 
 Sys.setenv(GDTOOLS_CACHE_DIR = tempdir())
 fonts_cache_dir()
-#> [1] "/tmp/RtmpG2yqjK"
+#> [1] "/tmp/Rtmp3E3rH2"
 Sys.setenv(GDTOOLS_CACHE_DIR = "")
 
 

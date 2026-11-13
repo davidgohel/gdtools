@@ -54,6 +54,7 @@ instead.
 ## See also
 
 Other functions for font metrics:
+[`font_line_metrics()`](https://davidgohel.github.io/gdtools/reference/font_line_metrics.md),
 [`m_str_extents()`](https://davidgohel.github.io/gdtools/reference/m_str_extents.md),
 [`strings_sizes()`](https://davidgohel.github.io/gdtools/reference/strings_sizes.md)
 

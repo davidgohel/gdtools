@@ -6,7 +6,7 @@ R:
 | Problem | gdtools solution |
 |----|----|
 | Measure text without a device: layout calculations (column widths, text wrapping) need reliable metrics independent of the rendering device | [`strings_sizes()`](https://davidgohel.github.io/gdtools/reference/strings_sizes.md), from the font files |
-| Register non-system fonts: Google Fonts or Liberation fonts (bundled) must be made visible to ‘systemfonts’ | [`font_set_liberation()`](https://davidgohel.github.io/gdtools/reference/font_set_liberation.md), [`font_set_auto()`](https://davidgohel.github.io/gdtools/reference/font_set_auto.md), [`font_set()`](https://davidgohel.github.io/gdtools/reference/font_set.md) |
+| Register non-system fonts: Google Fonts, Liberation fonts or the math font STIX Two Math (bundled) must be made visible to ‘systemfonts’ | [`font_set_liberation()`](https://davidgohel.github.io/gdtools/reference/font_set_liberation.md), [`font_set_auto()`](https://davidgohel.github.io/gdtools/reference/font_set_auto.md), [`font_set()`](https://davidgohel.github.io/gdtools/reference/font_set.md), [`register_stixmath()`](https://davidgohel.github.io/gdtools/reference/register_stixmath.md) |
 | Embed fonts in HTML: Shiny, R Markdown and girafe need `htmlDependency` objects so the browser loads the right fonts | `font_set()$dependencies`, [`gfontHtmlDependency()`](https://davidgohel.github.io/gdtools/reference/gfontHtmlDependency.md), `liberation*HtmlDependency()` |
 | Check font availability: detect missing fonts before rendering, to avoid silent fallbacks | [`font_family_exists()`](https://davidgohel.github.io/gdtools/reference/font_family_exists.md), [`sys_fonts()`](https://davidgohel.github.io/gdtools/reference/sys_fonts.md) |
 
@@ -29,7 +29,8 @@ two steps:
     is found.
 2.  Metric computation: FreeType reads the metrics stored in the font
     file, without scaling or hinting: the glyph advances give the width,
-    the ink boxes of the glyphs give the ascent and the descent.
+    plus, on request, the kerning read from the tables of the font; the
+    ink boxes of the glyphs give the ascent and the descent.
 
 The metrics are independent of any graphic device and only depend on the
 font file: the same file gives the same values on every platform.
@@ -96,6 +97,28 @@ strings_sizes(
 #> 3 0.3334147 0.1195475 0.002929688
 #> 4 0.7870280 0.1206868 0.003092448
 ```
+
+### Kerning
+
+Kerning adjusts the space between some pairs of letters, such as “AV” or
+“To”. With `kerning = TRUE`, the width includes the kerning stored in
+the font file:
+
+``` r
+
+invisible(register_liberationsans())
+strings_sizes("AVATAR", fontname = "Liberation Sans", fontsize = 12)$width
+#> [1] 0.6668294
+strings_sizes("AVATAR", fontname = "Liberation Sans", fontsize = 12, kerning = TRUE)$width
+#> [1] 0.6173503
+```
+
+Use it when the text is drawn by a device that kerns (‘ragg’, ‘svglite’,
+‘ggiraph’, [`cairo_pdf()`](https://rdrr.io/r/grDevices/cairo.html)), for
+example to place words or align text in ‘grid’ graphics. The default,
+`kerning = FALSE`, is the sum of the glyph advances. Ligatures and
+contextual kerning are not applied: see the section “Kerning” of
+[`?strings_sizes`](https://davidgohel.github.io/gdtools/reference/strings_sizes.md).
 
 ## Font management
 
@@ -200,6 +223,26 @@ The individual functions
 and
 [`register_liberationmono()`](https://davidgohel.github.io/gdtools/reference/register_liberationmono.md)
 remain available when only a specific variant is needed.
+
+#### Math font
+
+The package also bundles ‘STIX Two Math’ (version 2.13, SIL Open Font
+License), an OpenType math font: its ‘MATH’ table gives the parameters
+used to lay out equations, and size variants of operators and
+delimiters. The ‘equatags’ package uses it to measure and draw
+equations.
+
+[`stixmath_file()`](https://davidgohel.github.io/gdtools/reference/stixmath_file.md)
+returns the path of the font file, for functions reading font files
+directly;
+[`register_stixmath()`](https://davidgohel.github.io/gdtools/reference/register_stixmath.md)
+registers it with ‘systemfonts’, so that it can be used by name:
+
+``` r
+
+stixmath_file()
+register_stixmath()
+```
 
 ## Install from sources on macOS
 

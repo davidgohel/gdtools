@@ -1,6 +1,38 @@
 # Changelog
 
+## gdtools 0.6.0
+
+### new features
+
+- The font ‘STIX Two Math’ (version 2.13 b171, SIL Open Font License) is
+  shipped with the package, for the layout of equations: new functions
+  [`register_stixmath()`](https://davidgohel.github.io/gdtools/reference/register_stixmath.md),
+  which registers it with ‘systemfonts’, and
+  [`stixmath_file()`](https://davidgohel.github.io/gdtools/reference/stixmath_file.md),
+  which returns the path of the file.
+- [`strings_sizes()`](https://davidgohel.github.io/gdtools/reference/strings_sizes.md)
+  has a new argument `kerning`. With `kerning = TRUE`, the width
+  includes the kerning stored in the font file (‘kerx’, ‘GPOS’ or ‘kern’
+  tables), as drawn by devices that kern (ragg, svglite, ggiraph,
+  [`cairo_pdf()`](https://rdrr.io/r/grDevices/cairo.html)). The tables
+  are read with FreeType, without text shaping and without new
+  dependency. Ligatures and contextual kerning are not applied: see the
+  section “Kerning” of
+  [`?strings_sizes`](https://davidgohel.github.io/gdtools/reference/strings_sizes.md).
+  The default, `kerning = FALSE`, keeps the previous values.
+- New function
+  [`font_line_metrics()`](https://davidgohel.github.io/gdtools/reference/font_line_metrics.md):
+  the part of a line of text above its baseline, the part below and the
+  distance between the baselines of two lines in single spacing, read
+  from the ‘OS/2’ and ‘hhea’ tables of the font file, with the rule of
+  ‘Microsoft Word’. They depend on the font only, unlike the ascent and
+  descent of
+  [`strings_sizes()`](https://davidgohel.github.io/gdtools/reference/strings_sizes.md),
+  which are those of the ink of a string.
+
 ## gdtools 0.5.3
+
+CRAN release: 2026-11-05
 
 ### internals
 

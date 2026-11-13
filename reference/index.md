@@ -8,6 +8,8 @@ entry point.
 
 - [`strings_sizes()`](https://davidgohel.github.io/gdtools/reference/strings_sizes.md)
   : Compute strings sizes
+- [`font_line_metrics()`](https://davidgohel.github.io/gdtools/reference/font_line_metrics.md)
+  : Line metrics of fonts
 
 ## Font set
 
@@ -61,6 +63,16 @@ Lower-level helpers to register and embed the bundled Liberation fonts
   : 'Liberation Serif' Font HTML dependency
 - [`liberationmonoHtmlDependency()`](https://davidgohel.github.io/gdtools/reference/liberationmonoHtmlDependency.md)
   : 'Liberation Mono' Font HTML dependency
+
+## Math font
+
+The bundled ‘STIX Two Math’ font, an OpenType math font used to lay out
+equations: its file path, and its registration with systemfonts.
+
+- [`stixmath_file()`](https://davidgohel.github.io/gdtools/reference/stixmath_file.md)
+  : Path of the font file 'STIX Two Math'
+- [`register_stixmath()`](https://davidgohel.github.io/gdtools/reference/register_stixmath.md)
+  : Register font 'STIX Two Math'
 
 ## Font discovery
 

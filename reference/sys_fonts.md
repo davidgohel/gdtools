@@ -27,7 +27,7 @@ A data.frame of font information.
 
 ``` r
 sys_fonts()
-#> # A tibble: 178 × 6
+#> # A tibble: 182 × 6
 #>    path                                         index family style weight italic
 #>    <chr>                                        <int> <chr>  <chr> <ord>  <lgl> 
 #>  1 /usr/share/fonts/type1/urw-base35/URWGothic…     0 URW G… Book… normal FALSE 
@@ -40,5 +40,5 @@ sys_fonts()
 #>  8 /usr/share/fonts/type1/urw-base35/NimbusRom…     0 Nimbu… Regu… normal FALSE 
 #>  9 /usr/share/fonts/truetype/lato/Lato-MediumI…     0 Lato   Medi… medium TRUE  
 #> 10 /usr/share/fonts/type1/urw-base35/NimbusRom…     0 Nimbu… Ital… normal TRUE  
-#> # ℹ 168 more rows
+#> # ℹ 172 more rows
 ```

@@ -17,5 +17,5 @@ An object of class `"numeric_version"`.
 
 ``` r
 version_freetype()
-#> [1] ‘2.13.2’
+#> [1] ‘2.14.2’
 ```
