@@ -35,8 +35,10 @@ or a plain character string naming a system font already available.
 
 The returned object provides fields ready to use with
 \code{\link[ggplot2:theme]{ggplot2::theme()}} (\verb{$sans}, \verb{$serif}, \verb{$mono}),
-\code{girafe(fonts = ...)} or \code{dsvg(fonts = ...)} (\verb{$dsvg_fonts}),
-and \code{girafe(dependencies = ...)} (\verb{$dependencies}).
+\code{dsvg(fonts = ...)} (\verb{$dsvg_fonts}) and HTML documents
+(\verb{$dependencies}). With 'ggiraph', pass the whole object to
+\code{girafe(font_set = ...)}: the graphic uses these fonts and the
+page loads them.
 }
 \examples{
 fonts <- font_set(sans = font_liberation("sans"))

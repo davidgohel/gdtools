@@ -30,8 +30,8 @@ Default is FALSE. This argument is vectorized.}
 Default is FALSE. This argument is vectorized.}
 
 \item{kerning}{If \code{TRUE}, the width includes the kerning stored in the
-font file, as devices that kern when drawing (ragg, svglite, ggiraph,
-\code{cairo_pdf()}). Default is \code{FALSE}, the width is then the sum
+font file, as devices that kern when drawing (ragg, svglite,
+ggiraph). Default is \code{FALSE}, the width is then the sum
 of the glyph advances. A single logical value.}
 }
 \description{
@@ -52,12 +52,11 @@ the ink of the glyphs, so they depend on the text
 
 The results only depend on the font file: the same file gives
 the same values on every platform. They are accurate for
-devices whose rendering finds the same font -- this is
-guaranteed for 'systemfonts'-based devices (ragg, svglite,
-ggiraph) and true for \code{cairo_pdf()} when
-the font is also installed at the system level. For devices
-with their own font engine (\code{pdf()}, \code{png()}, ...) the
-metrics may not match the rendering.
+devices that find the font with 'systemfonts' and draw text
+with fractional advances (ragg, svglite, ggiraph). Other devices
+may not match: \code{pdf()} and \code{png()} have their own font engine,
+and Cairo devices such as \code{cairo_pdf()} round the advance of
+each glyph, so that the gap grows with the length of the text.
 
 When the font file found cannot be read, a warning is issued
 and the default sans-serif font is used. \code{NA} strings give

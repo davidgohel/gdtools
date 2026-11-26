@@ -202,8 +202,10 @@ process_font_role <- function(value) {
 #'
 #' The returned object provides fields ready to use with
 #' [ggplot2::theme()] (`$sans`, `$serif`, `$mono`),
-#' `girafe(fonts = ...)` or `dsvg(fonts = ...)` (`$dsvg_fonts`),
-#' and `girafe(dependencies = ...)` (`$dependencies`).
+#' `dsvg(fonts = ...)` (`$dsvg_fonts`) and HTML documents
+#' (`$dependencies`). With 'ggiraph', pass the whole object to
+#' `girafe(font_set = ...)`: the graphic uses these fonts and the
+#' page loads them.
 #' @param sans font for sans-serif text.
 #' @param serif font for serif text.
 #' @param mono font for monospace text.

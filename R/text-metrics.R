@@ -108,12 +108,11 @@ m_str_extents <- function(
 #'
 #' The results only depend on the font file: the same file gives
 #' the same values on every platform. They are accurate for
-#' devices whose rendering finds the same font -- this is
-#' guaranteed for 'systemfonts'-based devices (ragg, svglite,
-#' ggiraph) and true for `cairo_pdf()` when
-#' the font is also installed at the system level. For devices
-#' with their own font engine (`pdf()`, `png()`, ...) the
-#' metrics may not match the rendering.
+#' devices that find the font with 'systemfonts' and draw text
+#' with fractional advances (ragg, svglite, ggiraph). Other devices
+#' may not match: `pdf()` and `png()` have their own font engine,
+#' and Cairo devices such as `cairo_pdf()` round the advance of
+#' each glyph, so that the gap grows with the length of the text.
 #'
 #' When the font file found cannot be read, a warning is issued
 #' and the default sans-serif font is used. `NA` strings give
@@ -131,8 +130,8 @@ m_str_extents <- function(
 #' @param italic A logical vector indicating whether the text should be italic.
 #'   Default is FALSE. This argument is vectorized.
 #' @param kerning If `TRUE`, the width includes the kerning stored in the
-#'   font file, as devices that kern when drawing (ragg, svglite, ggiraph,
-#'   `cairo_pdf()`). Default is `FALSE`, the width is then the sum
+#'   font file, as devices that kern when drawing (ragg, svglite,
+#'   ggiraph). Default is `FALSE`, the width is then the sum
 #'   of the glyph advances. A single logical value.
 #' @section Kerning:
 #' Kerning adjusts the space between some pairs of glyphs (for example
