@@ -1,6 +1,26 @@
 # Changelog
 
+## gdtools 0.6.1
+
+### changes
+
+- Documentation of
+  [`strings_sizes()`](https://davidgohel.github.io/gdtools/dev/reference/strings_sizes.md)
+  and README: [`cairo_pdf()`](https://rdrr.io/r/grDevices/cairo.html) is
+  no longer listed among the devices whose rendering matches the
+  metrics. Cairo devices round the advance of each glyph, so that the
+  drawn text drifts from the measured width as it gets longer, even when
+  the font is installed. Metrics are accurate for ‘systemfonts’-based
+  devices (ragg, svglite, ggiraph).
+- Documentation of
+  [`font_set()`](https://davidgohel.github.io/gdtools/dev/reference/font_set.md):
+  with ‘ggiraph’, the whole object is passed to
+  `girafe(font_set = ...)`; `girafe(fonts = ...)` is no longer
+  mentioned.
+
 ## gdtools 0.6.0
+
+CRAN release: 2026-11-13
 
 ### new features
 

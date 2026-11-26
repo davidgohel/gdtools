@@ -16,14 +16,15 @@ FreeType, without scaling or hinting:
   the glyphs, so they depend on the text (`"xxx"` has no descent).
 
 The results only depend on the font file: the same file gives the same
-values on every platform. They are accurate for devices whose rendering
-finds the same font – this is guaranteed for 'systemfonts'-based devices
-(ragg, svglite, ggiraph) and true for
-[`cairo_pdf()`](https://rdrr.io/r/grDevices/cairo.html) when the font is
-also installed at the system level. For devices with their own font
-engine ([`pdf()`](https://rdrr.io/r/grDevices/pdf.html),
-[`png()`](https://rdrr.io/r/grDevices/png.html), ...) the metrics may
-not match the rendering.
+values on every platform. They are accurate for devices that find the
+font with 'systemfonts' and draw text with fractional advances (ragg,
+svglite, ggiraph). Other devices may not match:
+[`pdf()`](https://rdrr.io/r/grDevices/pdf.html) and
+[`png()`](https://rdrr.io/r/grDevices/png.html) have their own font
+engine, and Cairo devices such as
+[`cairo_pdf()`](https://rdrr.io/r/grDevices/cairo.html) round the
+advance of each glyph, so that the gap grows with the length of the
+text.
 
 When the font file found cannot be read, a warning is issued and the
 default sans-serif font is used. `NA` strings give `NA` metrics; invalid
@@ -72,8 +73,7 @@ strings_sizes(
 - kerning:
 
   If `TRUE`, the width includes the kerning stored in the font file, as
-  devices that kern when drawing (ragg, svglite, ggiraph,
-  [`cairo_pdf()`](https://rdrr.io/r/grDevices/cairo.html)). Default is
+  devices that kern when drawing (ragg, svglite, ggiraph). Default is
   `FALSE`, the width is then the sum of the glyph advances. A single
   logical value.
 

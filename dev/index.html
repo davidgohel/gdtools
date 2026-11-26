@@ -7,7 +7,7 @@
 <title>Font Metrics and Font Management Utilities for R Graphics • gdtools</title>
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
-<script src="deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="deps/Open_Sans-0.4.10/font.css" rel="stylesheet">
+<script src="deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="deps/Open_Sans-0.5.0/font.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Font Metrics and Font Management Utilities for R Graphics">
@@ -23,7 +23,7 @@
 
     <a class="navbar-brand me-2" href="index.html">gdtools</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.6.0.003</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.6.1.001</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -113,7 +113,7 @@
 <div class="section level2">
 <h2 id="font-metrics">Font metrics<a class="anchor" aria-label="anchor" href="#font-metrics"></a>
 </h2>
-<p>The main function for text measurement is <code><a href="reference/strings_sizes.html">strings_sizes()</a></code>. It returns width, ascent and descent in inches. The measurements are accurate for devices that use ‘systemfonts’ for font resolution (ragg, svglite, ggiraph) and for <code><a href="https://rdrr.io/r/grDevices/cairo.html" class="external-link">cairo_pdf()</a></code> when the font is also installed at the system level; for devices with their own font engine (<code><a href="https://rdrr.io/r/grDevices/pdf.html" class="external-link">pdf()</a></code>, <code><a href="https://rdrr.io/r/grDevices/png.html" class="external-link">png()</a></code>, …) the metrics may not match the rendering.</p>
+<p>The main function for text measurement is <code><a href="reference/strings_sizes.html">strings_sizes()</a></code>. It returns width, ascent and descent in inches. The measurements are accurate for devices that use ‘systemfonts’ for font resolution (ragg, svglite, ggiraph). For other devices the metrics may not match the rendering: <code><a href="https://rdrr.io/r/grDevices/pdf.html" class="external-link">pdf()</a></code> and <code><a href="https://rdrr.io/r/grDevices/png.html" class="external-link">png()</a></code> have their own font engine, and Cairo devices such as <code><a href="https://rdrr.io/r/grDevices/cairo.html" class="external-link">cairo_pdf()</a></code> round the advance of each glyph.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://davidgohel.github.io/gdtools/">gdtools</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="reference/strings_sizes.html">strings_sizes</a></span><span class="op">(</span></span>
@@ -148,7 +148,7 @@
 <span><span class="co">#&gt; [1] 0.6668294</span></span>
 <span><span class="fu"><a href="reference/strings_sizes.html">strings_sizes</a></span><span class="op">(</span><span class="st">"AVATAR"</span>, fontname <span class="op">=</span> <span class="st">"Liberation Sans"</span>, fontsize <span class="op">=</span> <span class="fl">12</span>, kerning <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">$</span><span class="va">width</span></span>
 <span><span class="co">#&gt; [1] 0.6173503</span></span></code></pre></div>
-<p>Use it when the text is drawn by a device that kerns (‘ragg’, ‘svglite’, ‘ggiraph’, <code><a href="https://rdrr.io/r/grDevices/cairo.html" class="external-link">cairo_pdf()</a></code>), for example to place words or align text in ‘grid’ graphics. The default, <code>kerning = FALSE</code>, is the sum of the glyph advances. Ligatures and contextual kerning are not applied: see the section “Kerning” of <code><a href="reference/strings_sizes.html">?strings_sizes</a></code>.</p>
+<p>Use it when the text is drawn by a device that kerns (‘ragg’, ‘svglite’, ‘ggiraph’), for example to place words or align text in ‘grid’ graphics. The default, <code>kerning = FALSE</code>, is the sum of the glyph advances. Ligatures and contextual kerning are not applied: see the section “Kerning” of <code><a href="reference/strings_sizes.html">?strings_sizes</a></code>.</p>
 </div>
 </div>
 <div class="section level2">
@@ -174,7 +174,7 @@
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">fonts</span><span class="op">$</span><span class="va">sans</span>          <span class="co"># "Open Sans"</span></span>
-<span><span class="va">fonts</span><span class="op">$</span><span class="va">dsvg_fonts</span>    <span class="co"># named list for dsvg() / girafe()</span></span>
+<span><span class="va">fonts</span><span class="op">$</span><span class="va">dsvg_fonts</span>    <span class="co"># named list for dsvg()</span></span>
 <span><span class="va">fonts</span><span class="op">$</span><span class="va">dependencies</span>  <span class="co"># list of htmlDependency objects</span></span></code></pre></div>
 <p>For an offline-only setup, <code><a href="reference/font_set_liberation.html">font_set_liberation()</a></code> uses Liberation fonts for all four roles:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">

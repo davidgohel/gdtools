@@ -9,9 +9,10 @@ specification, or a plain character string naming a system font already
 available.
 
 The returned object provides fields ready to use with `ggplot2::theme()`
-(`$sans`, `$serif`, `$mono`), `girafe(fonts = ...)` or
-`dsvg(fonts = ...)` (`$dsvg_fonts`), and `girafe(dependencies = ...)`
-(`$dependencies`).
+(`$sans`, `$serif`, `$mono`), `dsvg(fonts = ...)` (`$dsvg_fonts`) and
+HTML documents (`$dependencies`). With 'ggiraph', pass the whole object
+to `girafe(font_set = ...)`: the graphic uses these fonts and the page
+loads them.
 
 ## Usage
 
@@ -94,7 +95,7 @@ fonts$dependencies
 #> [[1]]
 #> List of 10
 #>  $ name      : chr "liberation-sans"
-#>  $ version   : chr "0.6.0.3"
+#>  $ version   : chr "0.6.1.1"
 #>  $ src       :List of 1
 #>   ..$ file: chr "/home/runner/.local/share/R/gdtools/liberation-sans"
 #>  $ meta      : NULL

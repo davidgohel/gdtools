@@ -60,12 +60,12 @@ The main function for text measurement is
 [`strings_sizes()`](https://davidgohel.github.io/gdtools/dev/reference/strings_sizes.md).
 It returns width, ascent and descent in inches. The measurements are
 accurate for devices that use ‘systemfonts’ for font resolution (ragg,
-svglite, ggiraph) and for
-[`cairo_pdf()`](https://rdrr.io/r/grDevices/cairo.html) when the font is
-also installed at the system level; for devices with their own font
-engine ([`pdf()`](https://rdrr.io/r/grDevices/pdf.html),
-[`png()`](https://rdrr.io/r/grDevices/png.html), …) the metrics may not
-match the rendering.
+svglite, ggiraph). For other devices the metrics may not match the
+rendering: [`pdf()`](https://rdrr.io/r/grDevices/pdf.html) and
+[`png()`](https://rdrr.io/r/grDevices/png.html) have their own font
+engine, and Cairo devices such as
+[`cairo_pdf()`](https://rdrr.io/r/grDevices/cairo.html) round the
+advance of each glyph.
 
 ``` r
 
@@ -114,10 +114,10 @@ strings_sizes("AVATAR", fontname = "Liberation Sans", fontsize = 12, kerning = T
 ```
 
 Use it when the text is drawn by a device that kerns (‘ragg’, ‘svglite’,
-‘ggiraph’, [`cairo_pdf()`](https://rdrr.io/r/grDevices/cairo.html)), for
-example to place words or align text in ‘grid’ graphics. The default,
-`kerning = FALSE`, is the sum of the glyph advances. Ligatures and
-contextual kerning are not applied: see the section “Kerning” of
+‘ggiraph’), for example to place words or align text in ‘grid’ graphics.
+The default, `kerning = FALSE`, is the sum of the glyph advances.
+Ligatures and contextual kerning are not applied: see the section
+“Kerning” of
 [`?strings_sizes`](https://davidgohel.github.io/gdtools/dev/reference/strings_sizes.md).
 
 ## Font management
@@ -156,7 +156,7 @@ fonts <- font_set(
 )
 
 fonts$sans          # "Open Sans"
-fonts$dsvg_fonts    # named list for dsvg() / girafe()
+fonts$dsvg_fonts    # named list for dsvg()
 fonts$dependencies  # list of htmlDependency objects
 ```
 
